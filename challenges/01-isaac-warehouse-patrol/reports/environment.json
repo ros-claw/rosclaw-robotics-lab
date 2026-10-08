@@ -1,0 +1,101 @@
+{
+  "captured_at": "2026-10-08T07:40:46.479074+00:00",
+  "architecture": {
+    "exit_code": 0,
+    "stdout": "aarch64",
+    "stderr": ""
+  },
+  "os": {
+    "exit_code": 0,
+    "stdout": "PRETTY_NAME=\"Ubuntu 24.04.4 LTS\"\nNAME=\"Ubuntu\"\nVERSION_ID=\"24.04\"\nVERSION=\"24.04.4 LTS (Noble Numbat)\"\nVERSION_CODENAME=noble\nID=ubuntu\nID_LIKE=debian\nHOME_URL=\"https://www.ubuntu.com/\"\nSUPPORT_URL=\"https://help.ubuntu.com/\"\nBUG_REPORT_URL=\"https://bugs.launchpad.net/ubuntu/\"\nPRIVACY_POLICY_URL=\"https://www.ubuntu.com/legal/terms-and-policies/privacy-policy\"\nUBUNTU_CODENAME=noble\nLOGO=ubuntu-logo",
+    "stderr": ""
+  },
+  "gpu": {
+    "exit_code": 0,
+    "stdout": "Thu Oct  8 07:40:46 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.0     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA GB10                    On  |   0000000F:01:00.0 Off |                  N/A |\n| N/A   57C    P8              5W /  N/A  | Not Supported          |      1%      Default |\n|                                         |                        |                  N/A |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|    0   N/A  N/A            2884      G   /usr/lib/xorg/Xorg                       43MiB |\n|    0   N/A  N/A            3564      G   /usr/bin/gnome-shell                     16MiB |\n|    0   N/A  N/A         2488961      G   ...ed 100804 /evidence/world.sdf        442MiB |\n+-----------------------------------------------------------------------------------------+",
+    "stderr": ""
+  },
+  "disk": {
+    "exit_code": 0,
+    "stdout": "Filesystem      Size  Used Avail Use% Mounted on\n/dev/nvme0n1p2  3.7T  2.1T  1.5T  59% /",
+    "stderr": ""
+  },
+  "memory": {
+    "exit_code": 0,
+    "stdout": "total        used        free      shared  buff/cache   available\nMem:           121Gi       9.4Gi       9.8Gi        48Mi       103Gi       112Gi\nSwap:           15Gi       1.7Gi        14Gi",
+    "stderr": ""
+  },
+  "ros_setup_exists": true,
+  "host_nav2": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "Package not found"
+  },
+  "rosclaw_version": {
+    "exit_code": 0,
+    "stdout": "rosclaw 1.3.0",
+    "stderr": ""
+  },
+  "rosclaw_entrypoint": "#!/bin/sh\nexec env PYTHONPATH=/home/nvidia/workspace/rosclaw_native_runtime_G12_explicit_resume_verified_20261008/src:/home/nvidia/workspace/rosclaw_native_runtime_G12_explicit_resume_verified_20261008 ROSCLAW_AGENT_ENTRY=/home/nvidia/workspace/rosclaw_native_runtime_G12_explicit_resume_verified_20261008/packages/rosclaw-agent/dist/src/main.js /home/nvidia/workspace/rosclaw/rosclaw_agent/rosclaw/.venv/bin/python -B -m rosclaw.entrypoint \"$@\"\n",
+  "sudo_noninteractive": {
+    "exit_code": 1,
+    "stdout": "",
+    "stderr": "sudo: a password is required"
+  },
+  "display": null,
+  "wayland_display": null,
+  "login_sessions": {
+    "exit_code": 0,
+    "stdout": "SESSION  UID USER   SEAT  TTY    STATE   IDLE SINCE\n      4 1000 nvidia -     pts/0  closing yes  1 day 11h ago\n    471 1000 nvidia -     pts/3  closing yes  22h ago\n    473 1000 nvidia -     pts/10 active  no   -\n    834 1000 nvidia -     pts/8  active  no   -\n    835 1000 nvidia -     pts/12 active  no   -\n     c1  126 gdm    seat0 tty1   active  yes  4 days ago\n\n6 sessions listed.",
+    "stderr": ""
+  },
+  "docker_image": {
+    "exit_code": 0,
+    "stdout": "sha256:a561c740c1e9f6a57228ef72240f276b8460054c190d8d482f36fe0518769434 arm64",
+    "stderr": ""
+  },
+  "workspace_commit": {
+    "exit_code": 0,
+    "stdout": "a9e8471ee901bc2332c1e4aca94ac580713ca3ab",
+    "stderr": ""
+  },
+  "archive": {
+    "path": "/home/nvidia/sim/isaac-sim-standalone-6.1.0-linux-aarch64.zip",
+    "md5": "02824f6b3c20d941ab81bf33d027d40b",
+    "verified": true
+  },
+  "acceptance": {
+    "compatibility": "PASSED",
+    "physics": "NOT_RUN",
+    "official_navigation": "NOT_RUN",
+    "agent_mission": "NOT_RUN",
+    "warmup": "PASSED_RENDER_EVENT_RECEIVED",
+    "first_startup": "STREAMING_STARTUP_IN_PROGRESS"
+  },
+  "rosclaw_upstream": {
+    "commit": "21838614bb14c39599b8acef731b2b64dad3b92a",
+    "path": "/home/nvidia/sim/rosclaw-upstream",
+    "python_install": "PASSED",
+    "native_build": "PASSED"
+  },
+  "implementation_updates": {
+    "date": "2026-10-08",
+    "installation": "compatibility PASSED; warmup exit 0",
+    "official_baseline_error_m": [
+      0.107047,
+      0.297493,
+      0.542709
+    ],
+    "calibrated_baseline_error_m": [
+      0.14558,
+      0.173844,
+      0.078955
+    ],
+    "calibrated_accuracy_status": "PASS",
+    "agent_mission_status": "NOT_RUN",
+    "collision_status": "UNKNOWN",
+    "runtime_image": "sha256:81b41b619cc44a3c4915cd7bf42a7faf5219ddf7d84e2506e890a2457adaaaf5",
+    "rosclaw_upstream_commit": "21838614bb14c39599b8acef731b2b64dad3b92a",
+    "one_button_startup": "verified 20261008T085132Z"
+  }
+}

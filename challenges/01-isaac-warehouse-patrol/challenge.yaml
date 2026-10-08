@@ -1,0 +1,9 @@
+id: 01-isaac-warehouse-patrol
+status: simulation_baseline_verified_agent_pending
+simulator: Isaac Sim
+version: 6.1.0
+ros: jazzy
+robot: Nova Carter ROS
+execution_mode: SIMULATION
+ros_domain_id: 61
+agent_patrol_accepted: false

@@ -1,0 +1,2 @@
+2026-10-08: Operator explicitly replied “同意，继续安装与仿真测试” to the NVIDIA EULA acknowledgment question.
+URL: https://docs.omniverse.nvidia.com/eula

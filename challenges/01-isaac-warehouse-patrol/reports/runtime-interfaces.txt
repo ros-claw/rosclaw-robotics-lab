@@ -1,0 +1,43 @@
+/backup [nav2_msgs/action/BackUp]
+/compute_and_track_route [nav2_msgs/action/ComputeAndTrackRoute]
+/compute_path_through_poses [nav2_msgs/action/ComputePathThroughPoses]
+/compute_path_to_pose [nav2_msgs/action/ComputePathToPose]
+/compute_route [nav2_msgs/action/ComputeRoute]
+/dock_robot [nav2_msgs/action/DockRobot]
+/drive_on_heading [nav2_msgs/action/DriveOnHeading]
+/follow_gps_waypoints [nav2_msgs/action/FollowGPSWaypoints]
+/follow_path [nav2_msgs/action/FollowPath]
+/follow_waypoints [nav2_msgs/action/FollowWaypoints]
+/navigate_through_poses [nav2_msgs/action/NavigateThroughPoses]
+/navigate_to_pose [nav2_msgs/action/NavigateToPose]
+/smooth_path [nav2_msgs/action/SmoothPath]
+/spin [nav2_msgs/action/Spin]
+/undock_robot [nav2_msgs/action/UndockRobot]
+/wait [nav2_msgs/action/Wait]
+/amcl
+/behavior_server
+/bt_navigator
+/bt_navigator_navigate_through_poses_rclcpp_node
+/bt_navigator_navigate_to_pose_rclcpp_node
+/collision_monitor
+/controller_server
+/docking_server
+/global_costmap/global_costmap
+/launch_ros_1
+/lifecycle_manager_localization
+/lifecycle_manager_navigation
+/local_costmap/local_costmap
+/map_server
+/nav2_container
+/planner_server
+/pointcloud_to_laserscan
+/route_server
+/smoother_server
+/transform_listener_impl_ad583b1a1ac0
+/transform_listener_impl_e30a88002090
+/transform_listener_impl_e30ad80064f0
+/velocity_smoother
+/waypoint_follower
+[WARN] [1791448215.501905764] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1791448215.501929044] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+active [3]

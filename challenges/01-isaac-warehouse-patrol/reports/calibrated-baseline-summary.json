@@ -1,0 +1,65 @@
+{
+  "scope": "official navigation baseline only",
+  "accuracy_status": "PASS",
+  "tolerance_m": 0.4,
+  "goals": [
+    {
+      "goal_xy": [
+        -4,
+        -1
+      ],
+      "physical_xy": [
+        -4.133047103881836,
+        -1.0590927600860596
+      ],
+      "error_m": 0.14557982740040817,
+      "sample_offset_s": 0.01786208152770996,
+      "nav2_success": true,
+      "status": "PASS"
+    },
+    {
+      "goal_xy": [
+        -4,
+        1
+      ],
+      "physical_xy": [
+        -4.027283668518066,
+        0.828309953212738
+      ],
+      "error_m": 0.17384438654617504,
+      "sample_offset_s": 0.09274077415466309,
+      "nav2_success": true,
+      "status": "PASS"
+    },
+    {
+      "goal_xy": [
+        -6,
+        1
+      ],
+      "physical_xy": [
+        -5.951144218444824,
+        0.9379759430885315
+      ],
+      "error_m": 0.07895486702619503,
+      "sample_offset_s": 0.07224416732788086,
+      "nav2_success": true,
+      "status": "PASS"
+    }
+  ],
+  "collision_status": "UNKNOWN; raw contacts require floor validation",
+  "agent_patrol_status": "NOT_RUN",
+  "sources": [
+    {
+      "path": "reports/official-calibration/physics-trajectory.jsonl",
+      "sha256": "c8a9df1761e65ffd10a673c52f5a815670641a723a3ab6a6ee205a3facd48336"
+    },
+    {
+      "path": "reports/official-calibration/three-goals.log",
+      "sha256": "a6fd5a19f5cb7c5a73bc7f06d8470a4c7176c616cb70afc2188dbc6ede449e46"
+    },
+    {
+      "path": "reports/official-calibration/nav2.log",
+      "sha256": "88128e130de8385c25edb08a748c494ce95fb4f49ae8b857d5ffdcbeec3d7043"
+    }
+  ]
+}

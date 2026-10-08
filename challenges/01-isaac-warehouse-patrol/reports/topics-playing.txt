@@ -1,0 +1,18 @@
+[WARN] [1791446606.614911612] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.
+[WARN] [1791446606.615008189] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.
+/back_stereo_camera/imu
+/chassis/imu
+/chassis/odom
+/clock
+/cmd_vel
+/front_3d_lidar/lidar_points
+/front_stereo_camera/imu
+/front_stereo_camera/left/camera_info
+/front_stereo_camera/left/image_raw
+/front_stereo_camera/right/camera_info
+/front_stereo_camera/right/image_raw
+/left_stereo_camera/imu
+/parameter_events
+/right_stereo_camera/imu
+/rosout
+/tf

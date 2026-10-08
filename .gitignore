@@ -1,0 +1,14 @@
+*.zip
+*.usd
+*.usdc
+*.usda
+*.mp4
+*.mkv
+__pycache__/
+.runtime/
+**/reports/**/*.log
+**/reports/**/*.jsonl
+**/reports/official-*
+**/reports/*-frames/
+**/reports/**/*.tmp
+**/reports/runs/

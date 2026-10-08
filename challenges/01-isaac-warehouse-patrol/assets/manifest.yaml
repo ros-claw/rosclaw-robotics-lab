@@ -1,0 +1,9 @@
+isaac_version: 6.1.0
+region_profile: us
+profile_source: exts/isaacsim.storage.native/config/extension.toml
+scene: Isaac/Samples/ROS2/Scenario/carter_warehouse_navigation.usd
+robot: Isaac/Samples/ROS2/Robots/Nova_Carter_ROS.usd
+original_assets_modified: false
+assets_distributed: false
+china_network_validation: pending
+full_texture_validation: pending

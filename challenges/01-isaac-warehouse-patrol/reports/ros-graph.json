@@ -1,0 +1,4129 @@
+{
+  "ros_version": "ros2",
+  "distro": "jazzy",
+  "endpoint": "ws://127.0.0.1:19091",
+  "topics": [
+    {
+      "name": "/amcl/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/amcl_pose",
+      "msg_type": "geometry_msgs/msg/PoseWithCovarianceStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/back_2d_lidar/scan",
+      "msg_type": "sensor_msgs/msg/LaserScan",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": true,
+      "is_command": false,
+      "risk_hint": "low"
+    },
+    {
+      "name": "/back_stereo_camera/imu",
+      "msg_type": "sensor_msgs/msg/Imu",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/behavior_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/behavior_tree_log",
+      "msg_type": "nav2_msgs/msg/BehaviorTreeLog",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/bond",
+      "msg_type": "bond/msg/Status",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/bt_navigator/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/chassis/imu",
+      "msg_type": "sensor_msgs/msg/Imu",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/chassis/odom",
+      "msg_type": "nav_msgs/msg/Odometry",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": true,
+      "is_command": false,
+      "risk_hint": "low"
+    },
+    {
+      "name": "/client_count",
+      "msg_type": "std_msgs/msg/Int32",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/clock",
+      "msg_type": "rosgraph_msgs/msg/Clock",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/cmd_vel",
+      "msg_type": "geometry_msgs/msg/Twist",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": true,
+      "risk_hint": "high"
+    },
+    {
+      "name": "/cmd_vel_nav",
+      "msg_type": "geometry_msgs/msg/Twist",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": true,
+      "risk_hint": "high"
+    },
+    {
+      "name": "/cmd_vel_smoothed",
+      "msg_type": "geometry_msgs/msg/Twist",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": true,
+      "risk_hint": "high"
+    },
+    {
+      "name": "/collision_monitor/collision_points_marker",
+      "msg_type": "visualization_msgs/msg/MarkerArray",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/collision_monitor/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/collision_monitor_state",
+      "msg_type": "nav2_msgs/msg/CollisionMonitorState",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/connected_clients",
+      "msg_type": "rosbridge_msgs/msg/ConnectedClients",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/controller_selector",
+      "msg_type": "std_msgs/msg/String",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/controller_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/cost_cloud",
+      "msg_type": "sensor_msgs/msg/PointCloud2",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/detected_dock_pose",
+      "msg_type": "geometry_msgs/msg/PoseStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/diagnostics",
+      "msg_type": "diagnostic_msgs/msg/DiagnosticArray",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/dock_pose",
+      "msg_type": "geometry_msgs/msg/PoseStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/docking_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/docking_trajectory",
+      "msg_type": "nav_msgs/msg/Path",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/evaluation",
+      "msg_type": "dwb_msgs/msg/LocalPlanEvaluation",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/filtered_dock_pose",
+      "msg_type": "geometry_msgs/msg/PoseStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/front_2d_lidar/scan",
+      "msg_type": "sensor_msgs/msg/LaserScan",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": true,
+      "is_command": false,
+      "risk_hint": "low"
+    },
+    {
+      "name": "/front_3d_lidar/lidar_points",
+      "msg_type": "sensor_msgs/msg/PointCloud2",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/front_stereo_camera/imu",
+      "msg_type": "sensor_msgs/msg/Imu",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/costmap",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/costmap_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/costmap_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/costmap_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/footprint",
+      "msg_type": "geometry_msgs/msg/Polygon",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/global_costmap/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/obstacle_layer",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/obstacle_layer_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/obstacle_layer_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/obstacle_layer_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/published_footprint",
+      "msg_type": "geometry_msgs/msg/PolygonStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/static_layer",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/static_layer_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/static_layer_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/global_costmap/static_layer_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/goal_pose",
+      "msg_type": "geometry_msgs/msg/PoseStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/initialpose",
+      "msg_type": "geometry_msgs/msg/PoseWithCovarianceStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/left_stereo_camera/imu",
+      "msg_type": "sensor_msgs/msg/Imu",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/back_2d_lidar_layer",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/back_2d_lidar_layer_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/back_2d_lidar_layer_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/back_2d_lidar_layer_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/clearing_endpoints",
+      "msg_type": "sensor_msgs/msg/PointCloud2",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/costmap",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/costmap_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/costmap_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/costmap_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/footprint",
+      "msg_type": "geometry_msgs/msg/Polygon",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_2d_lidar_layer",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_2d_lidar_layer_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_2d_lidar_layer_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_2d_lidar_layer_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_3d_lidar_layer",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_3d_lidar_layer_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_3d_lidar_layer_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/front_3d_lidar_layer_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/local_costmap/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/published_footprint",
+      "msg_type": "geometry_msgs/msg/PolygonStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/static_map_layer",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/static_map_layer_raw",
+      "msg_type": "nav2_msgs/msg/Costmap",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/static_map_layer_raw_updates",
+      "msg_type": "nav2_msgs/msg/CostmapUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/static_map_layer_updates",
+      "msg_type": "map_msgs/msg/OccupancyGridUpdate",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_costmap/voxel_grid",
+      "msg_type": "nav2_msgs/msg/VoxelGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/local_plan",
+      "msg_type": "nav_msgs/msg/Path",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/map",
+      "msg_type": "nav_msgs/msg/OccupancyGrid",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/map_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/marker",
+      "msg_type": "visualization_msgs/msg/MarkerArray",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/odom",
+      "msg_type": "nav_msgs/msg/Odometry",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": true,
+      "is_command": false,
+      "risk_hint": "low"
+    },
+    {
+      "name": "/parameter_events",
+      "msg_type": "rcl_interfaces/msg/ParameterEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/particle_cloud",
+      "msg_type": "nav2_msgs/msg/ParticleCloud",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/plan",
+      "msg_type": "nav_msgs/msg/Path",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/plan_smoothed",
+      "msg_type": "nav_msgs/msg/Path",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/planner_selector",
+      "msg_type": "std_msgs/msg/String",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/planner_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/received_global_plan",
+      "msg_type": "nav_msgs/msg/Path",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/right_stereo_camera/imu",
+      "msg_type": "sensor_msgs/msg/Imu",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/rosout",
+      "msg_type": "rcl_interfaces/msg/Log",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/route_graph",
+      "msg_type": "visualization_msgs/msg/MarkerArray",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/route_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/scan",
+      "msg_type": "sensor_msgs/msg/LaserScan",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": true,
+      "is_command": false,
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/speed_limit",
+      "msg_type": "nav2_msgs/msg/SpeedLimit",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/staging_pose",
+      "msg_type": "geometry_msgs/msg/PoseStamped",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/tf",
+      "msg_type": "tf2_msgs/msg/TFMessage",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": true,
+      "is_command": false,
+      "risk_hint": "low"
+    },
+    {
+      "name": "/tf_static",
+      "msg_type": "tf2_msgs/msg/TFMessage",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/transformed_global_plan",
+      "msg_type": "nav_msgs/msg/Path",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/velocity_smoother/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    },
+    {
+      "name": "/waypoint_follower/transition_event",
+      "msg_type": "lifecycle_msgs/msg/TransitionEvent",
+      "publishers": [],
+      "subscribers": [],
+      "hz_estimate": null,
+      "is_sensor": false,
+      "is_command": false,
+      "risk_hint": null
+    }
+  ],
+  "services": [
+    {
+      "name": "/amcl/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/amcl/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/amcl/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/amcl/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/behavior_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/behavior_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/behavior_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/behavior_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/bt_navigator"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/bt_navigator_navigate_through_poses_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/bt_navigator_navigate_to_pose_rclcpp_node"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/collision_monitor/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/collision_monitor/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/collision_monitor/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/collision_monitor/toggle",
+      "srv_type": "nav2_msgs/srv/Toggle",
+      "providers": [
+        "/collision_monitor"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/controller_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/controller_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/controller_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/docking_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/docking_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/docking_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/reload_database",
+      "srv_type": "nav2_msgs/srv/ReloadDockDatabase",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/docking_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/docking_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/fromLL",
+      "srv_type": "robot_localization/srv/FromLL",
+      "providers": [],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/clear_around_global_costmap",
+      "srv_type": "nav2_msgs/srv/ClearCostmapAroundRobot",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/clear_around_pose_global_costmap",
+      "srv_type": "nav2_msgs/srv/ClearCostmapAroundPose",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/clear_entirely_global_costmap",
+      "srv_type": "nav2_msgs/srv/ClearEntireCostmap",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/clear_except_global_costmap",
+      "srv_type": "nav2_msgs/srv/ClearCostmapExceptRegion",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/get_cost_global_costmap",
+      "srv_type": "nav2_msgs/srv/GetCost",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/get_costmap",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/get_obstacle_layer",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/get_static_layer",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/global_costmap/global_costmap/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/global_costmap/global_costmap/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/global_costmap/global_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/is_path_valid",
+      "srv_type": "nav2_msgs/srv/IsPathValid",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/launch_ros_1/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/launch_ros_1"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/is_active",
+      "srv_type": "std_srvs/srv/Trigger",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/manage_nodes",
+      "srv_type": "nav2_msgs/srv/ManageLifecycleNodes",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_localization/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/lifecycle_manager_localization"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/is_active",
+      "srv_type": "std_srvs/srv/Trigger",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/manage_nodes",
+      "srv_type": "nav2_msgs/srv/ManageLifecycleNodes",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/lifecycle_manager_navigation/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/lifecycle_manager_navigation"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/clear_around_local_costmap",
+      "srv_type": "nav2_msgs/srv/ClearCostmapAroundRobot",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/clear_around_pose_local_costmap",
+      "srv_type": "nav2_msgs/srv/ClearCostmapAroundPose",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/clear_entirely_local_costmap",
+      "srv_type": "nav2_msgs/srv/ClearEntireCostmap",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/clear_except_local_costmap",
+      "srv_type": "nav2_msgs/srv/ClearCostmapExceptRegion",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/get_back_2d_lidar_layer",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/get_cost_local_costmap",
+      "srv_type": "nav2_msgs/srv/GetCost",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/get_costmap",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/get_front_2d_lidar_layer",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/get_front_3d_lidar_layer",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/get_static_map_layer",
+      "srv_type": "nav2_msgs/srv/GetCostmap",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/local_costmap/local_costmap/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/local_costmap/local_costmap/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/local_costmap/local_costmap"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/map_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/map_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/load_map",
+      "srv_type": "nav2_msgs/srv/LoadMap",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/map",
+      "srv_type": "nav_msgs/srv/GetMap",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/map_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/map_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/nav2_container/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/nav2_container"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/planner_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/planner_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/planner_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/planner_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/pointcloud_to_laserscan/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/pointcloud_to_laserscan"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/reinitialize_global_localization",
+      "srv_type": "std_srvs/srv/Empty",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/request_nomotion_update",
+      "srv_type": "std_srvs/srv/Empty",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/action_feedback_details",
+      "srv_type": "rosapi_msgs/srv/ActionFeedbackDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/action_goal_details",
+      "srv_type": "rosapi_msgs/srv/ActionGoalDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/action_result_details",
+      "srv_type": "rosapi_msgs/srv/ActionResultDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/action_servers",
+      "srv_type": "rosapi_msgs/srv/GetActionServers",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/action_type",
+      "srv_type": "rosapi_msgs/srv/ActionType",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/delete_param",
+      "srv_type": "rosapi_msgs/srv/DeleteParam",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_param",
+      "srv_type": "rosapi_msgs/srv/GetParam",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_param_names",
+      "srv_type": "rosapi_msgs/srv/GetParamNames",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_ros_version",
+      "srv_type": "rosapi_msgs/srv/GetROSVersion",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_time",
+      "srv_type": "rosapi_msgs/srv/GetTime",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/has_param",
+      "srv_type": "rosapi_msgs/srv/HasParam",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/interfaces",
+      "srv_type": "rosapi_msgs/srv/Interfaces",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/message_details",
+      "srv_type": "rosapi_msgs/srv/MessageDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/node_details",
+      "srv_type": "rosapi_msgs/srv/NodeDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/nodes",
+      "srv_type": "rosapi_msgs/srv/Nodes",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/publishers",
+      "srv_type": "rosapi_msgs/srv/Publishers",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/service_node",
+      "srv_type": "rosapi_msgs/srv/ServiceNode",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/service_providers",
+      "srv_type": "rosapi_msgs/srv/ServiceProviders",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/service_request_details",
+      "srv_type": "rosapi_msgs/srv/ServiceRequestDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/service_response_details",
+      "srv_type": "rosapi_msgs/srv/ServiceResponseDetails",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/service_type",
+      "srv_type": "rosapi_msgs/srv/ServiceType",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/services",
+      "srv_type": "rosapi_msgs/srv/Services",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/services_for_type",
+      "srv_type": "rosapi_msgs/srv/ServicesForType",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/set_param",
+      "srv_type": "rosapi_msgs/srv/SetParam",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/subscribers",
+      "srv_type": "rosapi_msgs/srv/Subscribers",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/topic_type",
+      "srv_type": "rosapi_msgs/srv/TopicType",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/topics",
+      "srv_type": "rosapi_msgs/srv/Topics",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/topics_and_raw_types",
+      "srv_type": "rosapi_msgs/srv/TopicsAndRawTypes",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosapi/topics_for_type",
+      "srv_type": "rosapi_msgs/srv/TopicsForType",
+      "providers": [
+        "/rosapi"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/rosbridge_websocket/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/rosbridge_websocket"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/DynamicEdgesScorer/adjust_edges",
+      "srv_type": "nav2_msgs/srv/DynamicEdges",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/ReroutingService/reroute",
+      "srv_type": "std_srvs/srv/Trigger",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/route_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/route_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/route_server/set_route_graph",
+      "srv_type": "nav2_msgs/srv/SetRouteGraph",
+      "providers": [
+        "/route_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/set_initial_pose",
+      "srv_type": "nav2_msgs/srv/SetInitialPose",
+      "providers": [
+        "/amcl"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/smoother_server/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/smoother_server/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/smoother_server/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/smoother_server"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/transform_listener_impl_bfe339169210/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/transform_listener_impl_bfe339169210"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/transform_listener_impl_e5c28c002090/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/transform_listener_impl_e5c28c002090"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/transform_listener_impl_e5c2c0003c40/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/transform_listener_impl_e5c2c0003c40"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/velocity_smoother/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/velocity_smoother/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/velocity_smoother/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/velocity_smoother"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/change_state",
+      "srv_type": "lifecycle_msgs/srv/ChangeState",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/describe_parameters",
+      "srv_type": "rcl_interfaces/srv/DescribeParameters",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/get_available_states",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableStates",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/get_available_transitions",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/waypoint_follower/get_parameter_types",
+      "srv_type": "rcl_interfaces/srv/GetParameterTypes",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/get_parameters",
+      "srv_type": "rcl_interfaces/srv/GetParameters",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/get_state",
+      "srv_type": "lifecycle_msgs/srv/GetState",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/get_transition_graph",
+      "srv_type": "lifecycle_msgs/srv/GetAvailableTransitions",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/waypoint_follower/get_type_description",
+      "srv_type": "type_description_interfaces/srv/GetTypeDescription",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/list_parameters",
+      "srv_type": "rcl_interfaces/srv/ListParameters",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/set_parameters",
+      "srv_type": "rcl_interfaces/srv/SetParameters",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    },
+    {
+      "name": "/waypoint_follower/set_parameters_atomically",
+      "srv_type": "rcl_interfaces/srv/SetParametersAtomically",
+      "providers": [
+        "/waypoint_follower"
+      ],
+      "request_schema": {},
+      "response_schema": {},
+      "risk_hint": "low"
+    }
+  ],
+  "actions": [
+    {
+      "name": "/backup",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/compute_and_track_route",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/compute_path_through_poses",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/compute_path_to_pose",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/compute_route",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/dock_robot",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/drive_on_heading",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/follow_gps_waypoints",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/follow_path",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/follow_waypoints",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/navigate_through_poses",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/navigate_to_pose",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/smooth_path",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/spin",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/undock_robot",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    },
+    {
+      "name": "/wait",
+      "action_type": "",
+      "goal_schema": {},
+      "feedback_schema": {},
+      "result_schema": {},
+      "risk_hint": "medium"
+    }
+  ],
+  "nodes": [
+    {
+      "name": "/launch_ros_1"
+    },
+    {
+      "name": "/rosbridge_websocket"
+    },
+    {
+      "name": "/rosapi"
+    },
+    {
+      "name": "/nav2_container"
+    },
+    {
+      "name": "/amcl"
+    },
+    {
+      "name": "/lifecycle_manager_localization"
+    },
+    {
+      "name": "/controller_server"
+    },
+    {
+      "name": "/local_costmap/local_costmap"
+    },
+    {
+      "name": "/smoother_server"
+    },
+    {
+      "name": "/map_server"
+    },
+    {
+      "name": "/planner_server"
+    },
+    {
+      "name": "/global_costmap/global_costmap"
+    },
+    {
+      "name": "/route_server"
+    },
+    {
+      "name": "/behavior_server"
+    },
+    {
+      "name": "/bt_navigator"
+    },
+    {
+      "name": "/waypoint_follower"
+    },
+    {
+      "name": "/velocity_smoother"
+    },
+    {
+      "name": "/collision_monitor"
+    },
+    {
+      "name": "/docking_server"
+    },
+    {
+      "name": "/lifecycle_manager_navigation"
+    },
+    {
+      "name": "/transform_listener_impl_e5c2c0003c40"
+    },
+    {
+      "name": "/transform_listener_impl_e5c28c002090"
+    },
+    {
+      "name": "/bt_navigator_navigate_to_pose_rclcpp_node"
+    },
+    {
+      "name": "/bt_navigator_navigate_through_poses_rclcpp_node"
+    },
+    {
+      "name": "/pointcloud_to_laserscan"
+    },
+    {
+      "name": "/transform_listener_impl_bfe339169210"
+    }
+  ],
+  "params": [],
+  "captured_at": "2026-10-08T08:38:09.454955+00:00"
+}
