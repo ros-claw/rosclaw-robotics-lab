@@ -1,0 +1,14 @@
+Real ROSClaw Native Agent warehouse patrol on DGX Spark / Isaac Sim 6.1 / ROS 2 Jazzy.
+
+Four complete independent resets passed, including changed task order and a full four-site unmapped-box mission using the public ARM64 Dockerfile. Maximum physical arrival error across 16 visits: 0.15019 m, zero non-floor contacts. The obstacle gate observed actual LiDAR, local master-costmap cells and conservative footprint clearance before existing Memory success. TaskKernel closure is independently checked.
+
+Assets:
+- 80-second actual-frame promotional video, explicitly labeled wall-time compression.
+- Full recorded Native task interval at 2 fps, with actual terminal replay and PhysX. This is a frame-based reconstruction, not continuous screen capture; installation/startup are in the written tutorials.
+- Four whitelist evidence archives: frozen executable source, Body/config, canonical receipts, SDK usage, TaskKernel and independent physical data. Raw model thinking, authentication and operator keys are excluded.
+- Separate timeout/disconnect adapter fault evidence, including the retained first incomplete DDS acknowledgement test.
+- SHA-256/size manifest for the assets.
+
+Offline replay: python3 challenges/01-isaac-warehouse-patrol/evaluator/replay_archive.py native-acceptance-4-evidence.zip
+
+Integration source revisions and failures are retained. These four successes are not a statistical success-rate estimate. An independent engineer's clean-machine reproduction is still pending; external streaming clients, China assets, dynamic pedestrians and real-hardware deployment are unverified. NVIDIA USD/installers/caches are not redistributed.

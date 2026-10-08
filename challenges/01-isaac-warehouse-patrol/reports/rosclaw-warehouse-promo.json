@@ -9,5 +9,6 @@
   "wall_time_compression": 5.035386925935745,
   "fps": 12,
   "source": "actual Isaac viewport PNGs, exact PTY events, independent PhysX",
-  "audio": false
+  "audio": false,
+  "visible_private_thinking": false
 }

@@ -1,0 +1,30 @@
+{
+  "rosclaw-warehouse-promo.mp4": {
+    "sha256": "77e227e7b3c1f56d81f119f1b8e41d2420a7b0764e34fea9936d2efc646bdadd",
+    "bytes": 4158307
+  },
+  "rosclaw-warehouse-workflow.mp4": {
+    "sha256": "76291cb295192b94b8dda0ab539d70eae01c0a155f156593602353a0dacc4490",
+    "bytes": 10181567
+  },
+  "adapter-fault-evidence.zip": {
+    "sha256": "72fbabf9d8cd44842b60e07d83f1282ca55475c7856b3504ac9324c04624fbea",
+    "bytes": 62677
+  },
+  "native-acceptance-1-evidence.zip": {
+    "sha256": "ea8802a9a172a0f57fe9b98efcbd16b77e055346cdcc70bb67b9cd3380bb73a9",
+    "bytes": 1812443
+  },
+  "native-acceptance-2-evidence.zip": {
+    "sha256": "93eceda9046bf726ab18a477c51ef1c28fc41988eebc816f5f2761196ee818a7",
+    "bytes": 1984258
+  },
+  "native-acceptance-3-evidence.zip": {
+    "sha256": "80a5964f1d04fd4bd8de3fa7b084c38984b6747875e1bd11e925d52a4989d92c",
+    "bytes": 1829746
+  },
+  "native-acceptance-4-evidence.zip": {
+    "sha256": "cd450712a80f99b02fa24dd5c8e09d903a91f18bc7c8d072c74cb1d9bf5d1c47",
+    "bytes": 3492368
+  }
+}
