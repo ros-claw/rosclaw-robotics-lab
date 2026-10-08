@@ -12,6 +12,10 @@ Isaac Sim 6.1 官方仓库中的 Nova Carter。**四次完整重置任务通过�
 · [完整 Native 任务视频](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-workflow.mp4)
 · [公开证据包](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.1.0)
 
+新增 [1080p 三视角预览](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-cameras-v0.1.1/warehouse-camera-views.mp4)：
+机器人前向、第三人称跟随和近距离顶视。它来自单点 Nav2 相机测试，
+独立于上述 Native 巡检视频；设置方法见 [相机指南](challenges/01-isaac-warehouse-patrol/docs/camera-views.md)。
+
 Agent 发现 ROS 能力，逐站提出导航，监控结果、返回 Home，最后写入现有
 Practice/Memory。物理执行权只在 rosclawd，不使用假模型、Agent 内部 Runtime
 或一键整圈巡检工具。每站要求 Nav2 成功、实际误差 ≤0.4 米、稳定停留 ≥2 仿真秒、

@@ -49,7 +49,8 @@ then waits for ACTIVE Nav2 and NavigateToPose. It prints an absolute evidence
 folder. Copy that exact path into `PHYSICS_DIR` below. There are no automatic
 goals. Streaming can be replaced with `headless` or `gui`; viewport capture is
 verified locally, external WebRTC client connectivity has not been validated.
-Display-only camera choices are `official`, `top`, `overview`, `follow`.
+Display-only camera choices are `official`, `top`, `overview`, `follow`, `top-close`, `robot`.
+See [camera views](camera-views.md) for framing and native render resolution.
 ROS domain 61 and loopback rosbridge port 19091 isolate this project. Choose a
 free domain if another project already uses 61.
 

@@ -1,0 +1,14 @@
+{
+  "warehouse-camera-views.mp4": {
+    "bytes": 13629873,
+    "sha256": "f5692dc3610b906d82a3832fb2b2b3cefbc72b27a6d665b46c858349ed9c16bc"
+  },
+  "warehouse-camera-views.json": {
+    "bytes": 1323,
+    "sha256": "271d085bc65106813e53d8f938a807fd2310ce62c19efdecafdb73a4cddc4e2e"
+  },
+  "camera-validation-evidence.zip": {
+    "bytes": 9841090,
+    "sha256": "5ebefcba6dae67f353ee63a5724d9a85536b986db29274dccfb8e41aa29e5466"
+  }
+}

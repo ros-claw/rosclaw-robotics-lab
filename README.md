@@ -14,6 +14,11 @@ These are SIM results; real-hardware execution is not verified.
 · [Evidence archives](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.1.0)
 · [中文](README.zh.md)
 
+New: [native 1080p camera preview](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-cameras-v0.1.1/warehouse-camera-views.mp4)
+with robot-forward, third-person and close top views. These are separate single-goal
+Nav2 camera probes, independent of the Native patrol footage above.
+See [camera setup](challenges/01-isaac-warehouse-patrol/docs/camera-views.md).
+
 The Agent observes ROS, proposes one registered site at a time, monitors results,
 returns Home and saves a verified experience in existing Practice/Memory. Only
 rosclawd owns physical execution. No fake model, Agent-side Runtime or one-shot

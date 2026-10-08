@@ -1,0 +1,41 @@
+{
+  "scope": "Camera validation only; three independent single-goal Nav2 probes",
+  "duration_seconds": 45,
+  "fps": 8,
+  "native_resolution": [
+    1920,
+    1080
+  ],
+  "sources": [
+    {
+      "view": "robot",
+      "run_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T215155Z",
+      "wall_interval": [
+        1791496364.2731848,
+        1791496416.5116765
+      ],
+      "wall_time_compression": 3.4825661182403564
+    },
+    {
+      "view": "follow",
+      "run_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T215706Z",
+      "wall_interval": [
+        1791496667.7254326,
+        1791496705.9181116
+      ],
+      "wall_time_compression": 2.546178595225016
+    },
+    {
+      "view": "top-close",
+      "run_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T215523Z",
+      "wall_interval": [
+        1791496575.3399615,
+        1791496615.0812092
+      ],
+      "wall_time_compression": 2.649416510264079
+    }
+  ],
+  "audio": false,
+  "source": "actual timestamped Isaac viewport PNG captures; no synthetic views or interpolation",
+  "renderer_source_sha256": "527ddbd0ffcbb0b86675445bc202e4c627f45e1e35c6d03b868133ec8f29745f"
+}

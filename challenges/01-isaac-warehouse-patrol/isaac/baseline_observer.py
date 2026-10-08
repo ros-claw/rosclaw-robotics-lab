@@ -160,6 +160,14 @@ async def capture_frames():
     global update_display_camera, current_display_view
     from omni.kit.viewport.utility import capture_viewport_to_file, get_active_viewport
 
+    viewport = get_active_viewport()
+    resolution = tuple(int(value) for value in os.environ.get("ROSCLAW_CAMERA_RESOLUTION", "1920x1080").lower().split("x"))
+    if len(resolution) != 2 or not all(240 <= value <= 3840 for value in resolution):
+        raise ValueError("ROSCLAW_CAMERA_RESOLUTION must be WIDTHxHEIGHT, each between 240 and 3840")
+    # Explicit underlying render resolution, not a resized screenshot or UI size.
+    viewport.fill_frame = False
+    viewport.resolution = resolution
+    await viewport.wait_for_rendered_frames(3)
     directory = OUTPUT / "baseline-frames"
     directory.mkdir(exist_ok=True)
     deadline = time.monotonic() + float(
@@ -191,6 +199,7 @@ async def capture_frames():
                         "frame": path.name,
                         "camera_path": str(viewport.camera_path),
                         "display_view": current_display_view,
+                        "render_resolution": list(viewport.resolution),
                         "wall_time": time.time(),
                         "sim_time": TIMELINE.get_current_time(),
                     }

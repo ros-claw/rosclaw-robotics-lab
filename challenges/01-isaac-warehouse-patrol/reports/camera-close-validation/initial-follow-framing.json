@@ -1,0 +1,37 @@
+{
+  "view": "follow",
+  "run_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T215337Z",
+  "scope": "independent single-goal Nav2 camera probe; not Native acceptance",
+  "nav_result": {
+    "event": "goal_result",
+    "wall_time": 1791496509.6709025,
+    "status": 4,
+    "error_code": 0,
+    "error_msg": ""
+  },
+  "physics_fresh_at_completion": true,
+  "physical_distance_m": 9.964938303310342,
+  "collision_count": 0,
+  "frame_count": 71,
+  "render_resolution": [
+    1920,
+    1080
+  ],
+  "screenshot_frame": {
+    "frame": "frame-000045.png",
+    "camera_path": "/World/ROSClawDisplayCamera",
+    "display_view": "follow",
+    "render_resolution": [
+      1920,
+      1080
+    ],
+    "wall_time": 1791496491.2920907,
+    "sim_time": 18.083333333333588
+  },
+  "status": "PASS",
+  "framing": {
+    "trailing_distance_m": 2.5,
+    "camera_height_m": 2.5,
+    "target_height_m": 0.6
+  }
+}

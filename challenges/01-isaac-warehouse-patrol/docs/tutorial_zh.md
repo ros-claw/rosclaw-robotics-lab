@@ -42,7 +42,8 @@ ROSCLAW_CAMERA_VIEW=top ROSCLAW_CAPTURE_SECONDS=1400 ./scripts/demo.sh streaming
 随后等待 Nav2 ACTIVE 和 NavigateToPose 就绪。输出中会打印绝对证据目录，
 将它原样填到下一步的 `PHYSICS_DIR`。启动程序不会自动发导航目标。
 可将 streaming 改为 headless 或 gui；本机真实渲染截图已验证，外部 WebRTC
-客户端连通性尚未验证。显示相机可选 official、top、overview、follow。
+客户端连通性尚未验证。显示相机可选 official、top、overview、follow、top-close、robot。
+取景与原生渲染分辨率的说明见 [相机指南](camera-views.md)。
 项目使用 ROS 域 61 和本机 rosbridge 19091 端口；若域已被占用，请整体改用空闲域。
 
 在另一终端持续运行：
