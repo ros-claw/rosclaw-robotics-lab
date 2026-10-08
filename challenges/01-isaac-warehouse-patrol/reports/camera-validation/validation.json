@@ -1,0 +1,17 @@
+{
+  "top": "FULL_NATIVE_FOUR_SITE_AND_OBSTACLE_RUN",
+  "overview": "ACTUAL_VIEWPORT_SNAPSHOT",
+  "follow": "ACTUAL_VIEWPORT_SNAPSHOT; independent Nav2 single-site probe SUCCEEDED; not Native acceptance",
+  "follow_nav2_result": {
+    "event": "goal_result",
+    "wall_time": 1791464207.9748335,
+    "status": 4,
+    "error_code": 0,
+    "error_msg": ""
+  },
+  "notes": [
+    "Runtime projection switching was removed after a renderer stall.",
+    "Camera path is rebound only when it differs, avoiding repeated viewport resets.",
+    "Final acceptance videos use the fixed top camera."
+  ]
+}

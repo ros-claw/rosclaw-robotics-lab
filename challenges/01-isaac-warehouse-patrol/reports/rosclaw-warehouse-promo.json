@@ -1,0 +1,13 @@
+{
+  "run_id": "unmapped-box-final",
+  "mode": "promo",
+  "duration_seconds": 80,
+  "wall_interval": [
+    1791463074.199507,
+    1791463477.030461
+  ],
+  "wall_time_compression": 5.035386925935745,
+  "fps": 12,
+  "source": "actual Isaac viewport PNGs, exact PTY events, independent PhysX",
+  "audio": false
+}

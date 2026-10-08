@@ -1,0 +1,10 @@
+{
+  "scope": "sensor validation, not mission acceptance",
+  "floor_negative_control": "PASS; verified horizontal planes produce floor events only",
+  "obstacle_positive_control": "PASS",
+  "observed_non_floor_pairs": [
+    "/World/Nova_Carter_ROS/chassis_link/visual|/World/ROSClawContactTestCube"
+  ],
+  "raw_evidence_directory": "reports/contact-positive-control",
+  "physics_wall_time": 1791454717.0728009
+}

@@ -1,0 +1,311 @@
+{
+  "schema_version": "rosclaw.isaac_native_run.v1",
+  "run_id": "unmapped-box-top",
+  "status": "PASS",
+  "failures": [],
+  "task": "本轮额外测试：仓库通道前方放置了未标到静态地图的箱体。请先检查状态，再前往仓库通道，依靠实际激光数据和 Nav2 绕行，确认安全到达并稳定停留后返回 Home，保存本轮报告与记忆。每站核对实际位姿和激光数据。",
+  "task_kernel": {
+    "task_id": "task_9681e6e5a6544a21b1d7a727",
+    "state": "SUCCEEDED",
+    "root_goal": "本轮额外测试：仓库通道前方放置了未标到静态地图的箱体。请先检查状态，再前往仓库通道，依靠实际激光数据和 Nav2 绕行，确认安全到达并稳定停留后返回 Home，保存本轮报告与记忆。每站核对实际位姿和激光数据。",
+    "updated_at": "2026-10-08T12:31:14.948014+00:00"
+  },
+  "body_id": "nova_carter_isaac",
+  "body_snapshot_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+  "evidence_domain": "SIMULATION",
+  "hardware_verified": false,
+  "model_turns": 17,
+  "models": [
+    "openai-codex/gpt-6.1-sol"
+  ],
+  "tool_call_count": 25,
+  "tool_calls": [
+    {
+      "name": "read",
+      "arguments": {
+        "path": "/home/nvidia/sim/rosclaw-upstream/packages/rosclaw-agent/dist/skills/rosclaw-embodied/SKILL.md"
+      }
+    },
+    {
+      "name": "rosclaw_status",
+      "arguments": {}
+    },
+    {
+      "name": "ros__observe_system",
+      "arguments": {}
+    },
+    {
+      "name": "rosclaw_capabilities",
+      "arguments": {}
+    },
+    {
+      "name": "propose_navigation__navigate_to_pose",
+      "arguments": {
+        "site_id": "aisle"
+      }
+    },
+    {
+      "name": "rosclaw_verify",
+      "arguments": {
+        "receipt_id": "act_f50edc232fa8449c93f003d5",
+        "success_criteria": "检查本次通道访问的 Nav2 SUCCEEDED、独立实际位姿误差<=0.4m、稳定停留>=2仿真秒、新鲜实际激光数据、零非地面碰撞；并检查激光对未标地图箱体及Nav2绕行的证据。"
+      }
+    },
+    {
+      "name": "rosclaw_task_inspect",
+      "arguments": {}
+    },
+    {
+      "name": "ros__observe_system",
+      "arguments": {}
+    },
+    {
+      "name": "rosclaw_artifact_list",
+      "arguments": {}
+    },
+    {
+      "name": "ls",
+      "arguments": {
+        "path": "/home/nvidia/sim/rosclaw-isaac-runs/unmapped-box-top"
+      }
+    },
+    {
+      "name": "ls",
+      "arguments": {
+        "path": "actions"
+      }
+    },
+    {
+      "name": "read",
+      "arguments": {
+        "path": "actions/247d333e5329b0c4cc74f03d.json"
+      }
+    },
+    {
+      "name": "propose_navigation__navigate_to_pose",
+      "arguments": {
+        "site_id": "home"
+      }
+    },
+    {
+      "name": "propose_patrol__verify_and_remember",
+      "arguments": {
+        "action_ids": [
+          "act_f50edc232fa8449c93f003d5",
+          "act_3273a638e7e641c7802d1cb8"
+        ]
+      }
+    },
+    {
+      "name": "rosclaw_artifact_list",
+      "arguments": {}
+    },
+    {
+      "name": "ls",
+      "arguments": {
+        "path": "actions"
+      }
+    },
+    {
+      "name": "ls",
+      "arguments": {
+        "path": "practice"
+      }
+    },
+    {
+      "name": "read",
+      "arguments": {
+        "path": "actions/patrol.verification.json"
+      }
+    },
+    {
+      "name": "bash",
+      "arguments": {
+        "command": "python3 - <<'PY'\nimport json\nfrom pathlib import Path\nfor p in Path('actions').glob('*.json'):\n if p.name.startswith('patrol'): continue\n d=json.loads(p.read_text());print(p, list(d))\n for k,v in d.items():\n  if k!='trajectory': print(k, (str(v)[:1800] if not isinstance(v,list) else f'list[{len(v)}] first={str(v[:1])[:700]}'))\n print('last pose',d['trajectory'][-1]['physics_transforms_xyzw'])\nPY"
+      }
+    },
+    {
+      "name": "bash",
+      "arguments": {
+        "command": "python3 - <<'PY'\nimport json,collections\nfrom pathlib import Path\nfor p in Path('actions').glob('*.json'):\n if p.name.startswith('patrol'): continue\n d=json.loads(p.read_text()); print('\\nSITE',d['site_id']); c=collections.Counter(e.get('event') for e in d['events']); print(c)\n for kind in c:\n  es=[e for e in d['events'] if e.get('event')==kind]; print(kind,'first',str(es[0])[:2400], '\\nlast',str(es[-1])[:1000])\nPY"
+      }
+    },
+    {
+      "name": "ls",
+      "arguments": {
+        "path": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T122634Z"
+      }
+    },
+    {
+      "name": "read",
+      "arguments": {
+        "path": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T122634Z/scene-audit.json"
+      }
+    },
+    {
+      "name": "read",
+      "arguments": {
+        "path": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T122634Z/path-witness.jsonl",
+        "limit": 5
+      }
+    },
+    {
+      "name": "rosclaw_memory_query",
+      "arguments": {
+        "query": "unmapped-box-top",
+        "scope": "mission"
+      }
+    },
+    {
+      "name": "read",
+      "arguments": {
+        "path": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T122634Z/path-witness.jsonl",
+        "offset": 100,
+        "limit": 5
+      }
+    }
+  ],
+  "agent_final_text": [],
+  "visits": [
+    {
+      "site_id": "aisle",
+      "action_id": "act_f50edc232fa8449c93f003d5",
+      "receipt_id": null,
+      "nav2_status": 4,
+      "position_xy": [
+        -2.009256601333618,
+        7.901824474334717
+      ],
+      "recoveries": 0,
+      "started_wall_time": 1791462502.0756626,
+      "finished_wall_time": 1791462565.5499737,
+      "verification_status": "PASS",
+      "success": true,
+      "position_error_m": 0.09861094517295847,
+      "yaw_error_rad": 0.2247340249349761,
+      "stable_dwell_sim_seconds": 2.066666666666549,
+      "collision_count": 0,
+      "sensor": {
+        "wall_time": 1791462565.4649816,
+        "stamp": 44.3,
+        "frame_id": "front_3d_lidar",
+        "range_count": 362,
+        "finite_hits": 362,
+        "valid": true
+      },
+      "failures": [],
+      "missing_evidence": [],
+      "physics_sample_count": 277
+    },
+    {
+      "site_id": "home",
+      "action_id": "act_3273a638e7e641c7802d1cb8",
+      "receipt_id": null,
+      "nav2_status": 4,
+      "position_xy": [
+        -5.8647613525390625,
+        -0.9375093579292297
+      ],
+      "recoveries": 0,
+      "started_wall_time": 1791462591.290325,
+      "finished_wall_time": 1791462667.5841498,
+      "verification_status": "PASS",
+      "success": true,
+      "position_error_m": 0.14897842834947903,
+      "yaw_error_rad": 0.20656262581060528,
+      "stable_dwell_sim_seconds": 2.0499999999998835,
+      "collision_count": 0,
+      "sensor": {
+        "wall_time": 1791462667.2597957,
+        "stamp": 76.9,
+        "frame_id": "front_3d_lidar",
+        "range_count": 362,
+        "finite_hits": 362,
+        "valid": true
+      },
+      "failures": [],
+      "missing_evidence": [],
+      "physics_sample_count": 330
+    }
+  ],
+  "memory_id": "unmapped-box-top",
+  "memory_outcome": "success",
+  "practice_files": [
+    "practice/indexes/practice_catalog.sqlite",
+    "practice/sessions/5d0981a7-7561-4173-b165-eb1fd56f6d7e/episodes/unmapped-box-top/artifact_manifest.yaml",
+    "practice/sessions/5d0981a7-7561-4173-b165-eb1fd56f6d7e/episodes/unmapped-box-top/artifacts/summary/summary_unmapped-box-top.yaml",
+    "practice/sessions/isaac-warehouse-patrol/episode.json",
+    "practice/sessions/isaac-warehouse-patrol/manifest.yaml",
+    "practice/sessions/isaac-warehouse-patrol/raw/events.jsonl"
+  ],
+  "ground_truth_source": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T122634Z",
+  "observer_ids": [
+    "73693a433aca4f82b17176e4312ea7b1"
+  ],
+  "trajectory_sample_count": 607,
+  "actual_distance_m": 20.703137370343715,
+  "physical_action_wall_seconds": 139.7681360244751,
+  "sim_seconds": 53.999999999996945,
+  "input_to_first_motion_wall_seconds": 21.96174383163452,
+  "observed_sim_to_wall_ratio": 0.3264397151605654,
+  "startup_wall_seconds": 53.69733214378357,
+  "source_freeze": {
+    "git_sha": "f4dd3dc162d7d75f444e6459d0e41d862087dfff",
+    "working_tree_dirty": true,
+    "source_hashes": {
+      "isaac/camera_setup.py": "98f50294e07d6e1ef709a3d93e267e4f6759b4565f6c3846e5146330bd6c4216",
+      "isaac/asset_resolver.py": "8c42f58edcca4dfdac0c9c4144fbad73be4003168fb433f2008a1b46ad43000c",
+      "isaac/stage_inventory.py": "4b56191dc3eb066344fbe71b16de37ab492e56646694c9b27bd8a5e2d1b95516",
+      "isaac/baseline_observer.py": "f53668388b79dca05b2a1b2aee6897d5a2d3c630649efb80131e68e187085bd7",
+      "ros2/native_probe.py": "8c80f652b991278bd90dbaef839f9b85dcbebc91646a2f7fa0b425142b25b1f2",
+      "ros2/obstacle_witness.py": "e338ca7f4640d4569b1229d718800f8e3a3f7aec8135ac1c60d453776b159a0b",
+      "ros2/wait_navigation.py": "5d7a5c5e33e4959b8f5574cddd30caf2369a2593a4537b1c65214ce26ec68991",
+      "ros2/nav_probe.py": "2046ac61dd9df448bfc377075fec6fcdd09849faf65ebfb02a604a6ca635fe77",
+      "ros2/audit_runtime.py": "aa9b834ee86671147e814af1b1a90dd48458bbf473caebac21e5d010de7c39fa",
+      "ros2/cancel_navigation.py": "0255ffe714db7808f9b9523f62b7339bb834f344a97d7b77e69e3d41007f66c6",
+      "rosclaw/fault_probe.py": "74dbbc7fd164a378722785ee25c02b73b38c455a912e60e66bfc6bcb33acb038",
+      "rosclaw/prepare.py": "9dcd2fc3b5f179a35b186b7762e9f8bbe676b42b997df02fe3341e949d06142f",
+      "rosclaw/native.py": "df8f7bb9eb8f13cf08afd7411ad837e3865f94d49d87d145768df2385b82543e",
+      "rosclaw/native_tools.py": "b2b255b2e232c3f2de98712eef4d470f32a9ec0cc0ae3caee7ef8001ea8cceed",
+      "rosclaw/remember.py": "02fa052524efbef3af93e667912cd67340a2cf2b94878db2686613c77c4ae5f0",
+      "rosclaw/daemon.py": "f29d169bebcfae9282b429f877a55924d2a656cf87527a014443d2431dcb7a41",
+      "rosclaw/pty_session.py": "02f0aa15bf11613740a7cc8d36ffa9e00be098dcd5cf576dc6b38f32689e748c",
+      "rosclaw/freeze.py": "87095e326aa407a44a4b4247901a15d6f0345ede34bd087b2079cf8d6c0e9e6d",
+      "rosclaw/point_executor.py": "e61c2e182005f18b085b601a59c41f330756d8c5e8e6c71dee46a2a2cdeea762",
+      "evaluator/patrol.py": "70bac522781c92ea7a03afade165a0682e19aff8039371009e54e0c7ed352fae",
+      "evaluator/summarize_runs.py": "6e864da08c65c029737189610ac7322df522ec5981b5cb06f79c80de2bf736ad",
+      "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+      "evaluator/run_report.py": "23e472aafbbc7008487df285c2e544d0b6cb18632f440c914f816902c24a6bc8",
+      "evaluator/replay_archive.py": "5551e71a05fba7fd97719c9bc3313cdd38dabdb020e7c27a07dfddea8825e7c2",
+      "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+      "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+      "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+      "config/patrol_navigation_params.yaml": "a789dfd12b25d793ca052a4aeeec6f6d1706d784ead5d6c46632bca6fdf7b40e",
+      "config/runtime.env": "7a702348e6ff6b8c1106bef1fabed1d70085d9ca2973d853cd6015bfe4265c5c",
+      "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+      "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+      "scripts/setup.sh": "94f65a36a8a2d16cf3c20921b18a431cedda7272302a2b4b3a0227ed9ac1d9d0",
+      "scripts/start-rosclaw.sh": "b85b8897d0c8959afdca50b365fe9af42cc3ad0858c648a338de79d1be730002",
+      "scripts/demo.sh": "637207cc23d0587ac5024bf69bfaa75961009fe90d75ea79fc42003cb1c50dda",
+      "scripts/start-agent-observers.sh": "93af504d5037e437cda1e1a3c694f66ca9b8930bc2337d9ae2fc68b634294eae",
+      "scripts/doctor.sh": "313887b6a8b601cca86da6fac09c890f9c60f175a0126f7cb8cfe6c48c7754d3",
+      "scripts/start-nav2.sh": "29308eb4588f9169a6d797f18df9c52c2d69ebbd6325187872ecc1b16cf91071",
+      "scripts/ros-container.sh": "bf2926db0ed4c1959432fbc30f1d1916eeb0d0134d4b3c3939428693e0eaedae",
+      "scripts/smoke-official.sh": "a3453ec1b7e1c0e03e4186ad7aac29e7fcba8fae1b62b85cb338605810957f9d",
+      "scripts/common.sh": "7a9d7ebc58fa318c295ecf97161ea65286e071393f89edf10bd299ccd111b351",
+      "scripts/run-native-acceptance.sh": "c954156c58864eeb7e8e4194e0a5555bef5dab083cfb8b687211945b88c318cf",
+      "scripts/stop.sh": "eb0df630fb5cf62f6a1f11b828867b0fcf02e4af365759bdd8f105b86d9fcf90",
+      "scripts/start-sim.sh": "53aa5fd5451c16622b2f97c06ed31e64335e40d1d054708d08483e14e7b6be8a"
+    },
+    "execution_config_sha256": "ece99ddc179fe5e58d4bce1172a9a6401bd4862883174c69fa3ae2b30f6275c5",
+    "rosclaw_upstream": {
+      "git_sha": "21838614bb14c39599b8acef731b2b64dad3b92a",
+      "working_tree_dirty": false
+    },
+    "docker_image": "sha256:43cca6319ba787aed099db6cceb4ca22de4a24ab0d24b0f9a8b1ef14399ec232"
+  },
+  "notes": [
+    "Distance includes sampled visits and intervening position deltas.",
+    "Raw model thinking and credentials are not exported."
+  ]
+}

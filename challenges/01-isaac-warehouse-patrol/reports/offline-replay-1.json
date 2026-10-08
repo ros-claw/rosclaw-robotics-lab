@@ -1,0 +1,32 @@
+{
+  "run_id": "isaac-a1",
+  "status": "PASS",
+  "failures": [],
+  "visits": [
+    {
+      "site_id": "entry",
+      "position_error_m": 0.0771106991324073,
+      "stable_dwell_sim_seconds": 2.2166666666665407,
+      "collision_count": 0
+    },
+    {
+      "site_id": "shelf",
+      "position_error_m": 0.14930473514005005,
+      "stable_dwell_sim_seconds": 2.0499999999998835,
+      "collision_count": 0
+    },
+    {
+      "site_id": "aisle",
+      "position_error_m": 0.12194178876539398,
+      "stable_dwell_sim_seconds": 2.0999999999998806,
+      "collision_count": 0
+    },
+    {
+      "site_id": "home",
+      "position_error_m": 0.14566352777807473,
+      "stable_dwell_sim_seconds": 2.0166666666682715,
+      "collision_count": 0
+    }
+  ],
+  "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+}

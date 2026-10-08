@@ -1,0 +1,11 @@
+<launch>
+  <node pkg="rosbridge_server" exec="rosbridge_websocket" name="rosbridge_websocket">
+    <param name="address" value="127.0.0.1"/>
+    <param name="port" value="19091" type="int"/>
+    <param name="use_sim_time" value="true" type="bool"/>
+    <param name="send_action_goals_in_new_thread" value="true" type="bool"/>
+  </node>
+  <node pkg="rosapi" exec="rosapi_node" name="rosapi">
+    <param name="use_sim_time" value="true" type="bool"/>
+  </node>
+</launch>

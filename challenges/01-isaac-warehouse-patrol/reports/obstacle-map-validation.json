@@ -1,0 +1,13 @@
+{
+  "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+  "box_region_pixel_bounds": [
+    159,
+    326,
+    180,
+    347
+  ],
+  "all_box_cells_free": true,
+  "minimum_pixel_value": 255,
+  "cell_count": 441,
+  "frame_id": "map"
+}

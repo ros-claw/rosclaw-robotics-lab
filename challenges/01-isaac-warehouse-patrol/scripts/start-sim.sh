@@ -7,6 +7,7 @@ startup_script="$ISAAC_ROS_WS/src/isaacsim_bringup/scripts/open_isaacsim_stage.p
 test -f "$startup_script"
 # Use packaged ROS libraries; keep simulation and Nav2 in the same isolated DDS domain.
 unset ROS_DISTRO AMENT_PREFIX_PATH COLCON_PREFIX_PATH
+export ROSCLAW_LAB_CHALLENGE_DIR="$CHALLENGE_DIR"
 export ROSCLAW_LAB_REPORT_DIR="${ROSCLAW_LAB_REPORT_DIR:-$CHALLENGE_DIR/reports}"
 case "${1:-headless}" in
   headless) launcher="$ISAACSIM_PATH/isaac-sim.sh"; args=(--no-window) ;;

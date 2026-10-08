@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "nav2_result_status": 5,
+  "cancel_acknowledged": true,
+  "post_cancel_speed_max_mps": 0.0007062281612341014,
+  "stop_threshold_mps": 0.02,
+  "sample_count": 28,
+  "physics_source": "reports/runs/20261008T101917Z/physics-trajectory.jsonl",
+  "note": "Nav2 error_code=0 also occurs on canceled result; status must be checked"
+}

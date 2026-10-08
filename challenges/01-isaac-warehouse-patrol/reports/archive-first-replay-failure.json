@@ -1,0 +1,35 @@
+{
+  "run_id": "a4b",
+  "status": "FAIL",
+  "failures": [
+    "archive file hash mismatch: independent/physics-trajectory.jsonl"
+  ],
+  "visits": [
+    {
+      "site_id": "aisle",
+      "position_error_m": 0.08860680667468117,
+      "stable_dwell_sim_seconds": 2.0999999999998806,
+      "collision_count": 0
+    },
+    {
+      "site_id": "entry",
+      "position_error_m": 0.09585073136727787,
+      "stable_dwell_sim_seconds": 2.0499999999998835,
+      "collision_count": 0
+    },
+    {
+      "site_id": "shelf",
+      "position_error_m": 0.15018572814329928,
+      "stable_dwell_sim_seconds": 2.083333333333215,
+      "collision_count": 0
+    },
+    {
+      "site_id": "home",
+      "position_error_m": 0.11634547813541117,
+      "stable_dwell_sim_seconds": 2.000000000001421,
+      "collision_count": 0
+    }
+  ],
+  "obstacle_verification": null,
+  "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+}

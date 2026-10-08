@@ -2,7 +2,9 @@
 
 import json
 import os
+import sys
 import time
+import uuid
 from pathlib import Path
 
 import carb
@@ -12,8 +14,9 @@ import omni.timeline
 import omni.usd
 from omni.physx import get_physx_simulation_interface
 from isaacsim.core.simulation_manager import SimulationManager
-from pxr import PhysicsSchemaTools, PhysxSchema, UsdGeom, UsdPhysics
+from pxr import Gf, PhysicsSchemaTools, PhysxSchema, UsdGeom, UsdPhysics
 
+OBSERVER_ID = uuid.uuid4().hex
 OUTPUT = Path(os.environ["ROSCLAW_LAB_REPORT_DIR"])
 OUTPUT.mkdir(parents=True, exist_ok=True)
 PHYSICS_ENGINE = SimulationManager.get_active_physics_engine()
@@ -28,6 +31,29 @@ TIMELINE.set_end_time(36000.0)
 STAGE = omni.usd.get_context().get_stage()
 _previous_target = STAGE.GetEditTarget()
 STAGE.SetEditTarget(STAGE.GetSessionLayer())
+if os.environ.get("ROSCLAW_CONTACT_TEST") == "1":
+    cube = UsdGeom.Cube.Define(STAGE, "/World/ROSClawContactTestCube")
+    cube.CreateSizeAttr(0.2)
+    cube.AddTranslateOp().Set(Gf.Vec3d(-5.75, -1, 1.0))
+    UsdPhysics.CollisionAPI.Apply(cube.GetPrim())
+    UsdPhysics.RigidBodyAPI.Apply(cube.GetPrim())
+    UsdPhysics.MassAPI.Apply(cube.GetPrim()).CreateMassAttr(1.0)
+
+TEST_OBSTACLE = None
+if os.environ.get("ROSCLAW_OBSTACLE_TEST") == "1":
+    box = UsdGeom.Cube.Define(STAGE, "/World/ROSClawUnmappedBox")
+    box.CreateSizeAttr(1.0)
+    box.AddTranslateOp().Set(Gf.Vec3d(-3.5, 4, 0.5))
+    box.CreateDisplayColorAttr([Gf.Vec3f(0.55, 0.28, 0.08)])
+    UsdPhysics.CollisionAPI.Apply(box.GetPrim())
+    TEST_OBSTACLE = {
+        "path": str(box.GetPath()),
+        "center_xyz": [-3.5, 4, 0.5],
+        "size_m": 1.0,
+        "physical_collision": True,
+        "source": "session layer; absent from official occupancy map",
+    }
+
 DISABLED_ROS_VARIANTS = []
 for camera_name in ("front_hawk", "left_hawk", "back_hawk", "right_hawk"):
     path = "/World/Nova_Carter_ROS/chassis_link/sensors/" + camera_name
@@ -55,7 +81,25 @@ for _prim in STAGE.Traverse():
         api.CreateThresholdAttr().Set(0.0)
         CONTACT_BODIES.append(str(_prim.GetPath()))
 STAGE.SetEditTarget(_previous_target)
+sys.path.insert(0, str(Path(os.environ["ROSCLAW_LAB_CHALLENGE_DIR"]) / "isaac"))
+from stage_inventory import inspect_scene
+from camera_setup import setup_camera
+
+current_display_view = os.environ.get("ROSCLAW_CAMERA_VIEW", "official")
+update_display_camera = setup_camera(
+    STAGE, os.environ.get("ROSCLAW_CAMERA_VIEW", "official")
+)
+
+INVENTORY = inspect_scene(STAGE)
+(OUTPUT / "stage-inventory.json").write_text(json.dumps(INVENTORY, indent=2) + "\n")
+FLOOR_PATHS = {
+    path
+    for path, info in INVENTORY["floors"].items()
+    if info["verified_horizontal_floor"]
+}
 CONTACT_PAIRS = {}
+NON_FLOOR_PAIRS = set()
+FLOOR_EVENTS = 0
 CONTACT_ERRORS = []
 CONTACT_CALLBACKS = 0
 
@@ -67,13 +111,21 @@ def write_atomic(name, data):
 
 
 def on_contact(headers, contacts):
-    global CONTACT_CALLBACKS
+    global CONTACT_CALLBACKS, FLOOR_EVENTS
     CONTACT_CALLBACKS += 1
     try:
         for header in headers:
             a = str(PhysicsSchemaTools.intToSdfPath(header.actor0))
             b = str(PhysicsSchemaTools.intToSdfPath(header.actor1))
             key = "|".join(sorted((a, b)))
+            collider_a = str(PhysicsSchemaTools.intToSdfPath(header.collider0))
+            collider_b = str(PhysicsSchemaTools.intToSdfPath(header.collider1))
+            floor_contact = collider_a in FLOOR_PATHS or collider_b in FLOOR_PATHS
+            if header.num_contact_data:
+                if floor_contact:
+                    FLOOR_EVENTS += 1
+                else:
+                    NON_FLOOR_PAIRS.add("|".join(sorted((collider_a, collider_b))))
             event_type = str(header.type)
             first = key not in CONTACT_PAIRS
             CONTACT_PAIRS[key] = CONTACT_PAIRS.get(key, 0) + 1
@@ -87,6 +139,7 @@ def on_contact(headers, contacts):
                     "collider0": str(PhysicsSchemaTools.intToSdfPath(header.collider0)),
                     "collider1": str(PhysicsSchemaTools.intToSdfPath(header.collider1)),
                     "num_contacts": header.num_contact_data,
+                    "classification": "FLOOR" if floor_contact else "NON_FLOOR",
                 }
                 if header.num_contact_data:
                     point = contacts[header.contact_data_offset]
@@ -104,6 +157,7 @@ CONTACT_SUB = get_physx_simulation_interface().subscribe_contact_report_events(
 
 
 async def capture_frames():
+    global update_display_camera, current_display_view
     from omni.kit.viewport.utility import capture_viewport_to_file, get_active_viewport
 
     directory = OUTPUT / "baseline-frames"
@@ -117,7 +171,13 @@ async def capture_frames():
             await omni.kit.app.get_app().next_update_async()
             continue
         path = directory / f"frame-{index:06d}.png"
-        capture = capture_viewport_to_file(get_active_viewport(), str(path))
+        viewport = get_active_viewport()
+        if current_display_view != "official":
+            # The official stage launcher may restore its saved viewport camera
+            # after our startup hook. Rebind display-only camera before capture.
+            if str(viewport.camera_path) != "/World/ROSClawDisplayCamera":
+                viewport.camera_path = "/World/ROSClawDisplayCamera"
+        capture = capture_viewport_to_file(viewport, str(path))
         await capture.wait_for_result(completion_frames=0)
         write_deadline = time.monotonic() + 30
         while not path.is_file() and time.monotonic() < write_deadline:
@@ -129,6 +189,8 @@ async def capture_frames():
                 json.dumps(
                     {
                         "frame": path.name,
+                        "camera_path": str(viewport.camera_path),
+                        "display_view": current_display_view,
                         "wall_time": time.time(),
                         "sim_time": TIMELINE.get_current_time(),
                     }
@@ -196,7 +258,10 @@ async def observe():
         "meters_per_unit": UsdGeom.GetStageMetersPerUnit(STAGE),
         "physics_transforms_xyzw": transforms,
         "independent_physics_status": "OBSERVED",
-        "collision_acceptance": "UNKNOWN; raw contacts need validated floor classification",
+        "collision_acceptance": "Per-sample validated floor classification; see collision_observer_complete and collision_count",
+        "verified_floor_paths": sorted(FLOOR_PATHS),
+        "display_camera_view": os.environ.get("ROSCLAW_CAMERA_VIEW", "official"),
+        "unmapped_test_obstacle": TEST_OBSTACLE,
     }
     write_atomic("scene-audit.json", audit)
     carb.log_warn("ROSCLAW_LAB_BASELINE independent physics observed")
@@ -206,6 +271,7 @@ async def observe():
     while True:
         sample = {
             "sequence": index,
+            "observer_id": OBSERVER_ID,
             "wall_time": time.time(),
             "monotonic_time": time.monotonic(),
             "sim_time": TIMELINE.get_current_time(),
@@ -215,7 +281,16 @@ async def observe():
             "contact_callbacks": CONTACT_CALLBACKS,
             "contact_pairs": dict(CONTACT_PAIRS),
             "contact_errors": CONTACT_ERRORS[-10:],
+            "floor_contact_events": FLOOR_EVENTS,
+            "non_floor_contact_pairs": sorted(NON_FLOOR_PAIRS),
+            "collision_count": len(NON_FLOOR_PAIRS),
+            "collision_observer_complete": bool(FLOOR_PATHS)
+            and FLOOR_EVENTS > 0
+            and not CONTACT_ERRORS,
+            "linear_velocity_xyz": rb.get_velocities().tolist()[0][:3],
+            "angular_velocity_xyz": rb.get_velocities().tolist()[0][3:],
         }
+        update_display_camera(sample["physics_transforms_xyzw"][0])
         with (OUTPUT / "physics-trajectory.jsonl").open("a") as stream:
             stream.write(json.dumps(sample, allow_nan=False) + "\n")
         write_atomic("physics-latest.json", sample)

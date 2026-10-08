@@ -6,7 +6,9 @@ export ROSCLAW_CONTAINER_NAME=rosclaw-warehouse-nav2
 nav_args=()
 if [[ "${1:-official}" == "calibration" ]]; then
   nav_args=(params_file:=/lab/config/calibration_navigation_params.yaml)
+elif [[ "${1:-official}" == "patrol" ]]; then
+  nav_args=(params_file:=/lab/config/patrol_navigation_params.yaml)
 elif [[ "${1:-official}" != "official" ]]; then
-  echo "Usage: start-nav2.sh [official|calibration]" >&2; exit 2
+  echo "Usage: start-nav2.sh [official|calibration|patrol]" >&2; exit 2
 fi
 exec "$CHALLENGE_DIR/scripts/ros-container.sh" ros2 launch /lab/config/headless_nav.launch.xml "${nav_args[@]}"

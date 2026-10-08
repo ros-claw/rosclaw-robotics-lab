@@ -1,0 +1,23 @@
+{
+  "fault": "disconnect",
+  "scope": "real adapter single-goal negative test, not Native mission",
+  "wall_seconds": 14.587986707687378,
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "peak_linear_speed_mps": 0.8006913681575791,
+  "peak_angular_speed_rps": 0.042718008160591125,
+  "feedback_count": 298,
+  "error": "LiDAR stream is stale or invalid during action",
+  "nav2": {},
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791462064.4083378,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"return_code\": 0, \"goal_ids\": [[230, 11, 216, 109, 238, 249, 74, 81, 158, 12, 207, 235, 177, 131, 48, 140]]}\n",
+      "stderr": "[WARN] [1791462063.409065937] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791462063.409128273] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "status": "PASS",
+  "cancel_confirmed": true
+}

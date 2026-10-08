@@ -1,0 +1,22 @@
+{
+  "fault": "timeout",
+  "scope": "real adapter single-goal negative test, not Native mission",
+  "wall_seconds": 5.77949857711792,
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "peak_linear_speed_mps": 0.11828375677742456,
+  "peak_angular_speed_rps": 0.6683406829833984,
+  "feedback_count": 406,
+  "error": "single-site deadline reached",
+  "nav2": {
+    "status": 5,
+    "error_code": 0,
+    "result": {
+      "error_code": 0,
+      "error_msg": ""
+    },
+    "wall_time": 1791461941.521887
+  },
+  "DDS_fallback_events": [],
+  "status": "PASS"
+}

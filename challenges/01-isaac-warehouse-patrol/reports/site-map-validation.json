@@ -1,0 +1,46 @@
+{
+  "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+  "inflation_radius_m": 0.95,
+  "component_count": 1,
+  "sites": [
+    {
+      "site": "entry",
+      "row": 96,
+      "col": 389,
+      "free": true,
+      "clearance_m": 1.812456896039186,
+      "inflated_component": 1
+    },
+    {
+      "site": "shelf",
+      "row": 356,
+      "col": 99,
+      "free": true,
+      "clearance_m": 1.8,
+      "inflated_component": 1
+    },
+    {
+      "site": "aisle",
+      "row": 256,
+      "col": 199,
+      "free": true,
+      "clearance_m": 6.345470825714984,
+      "inflated_component": 1
+    },
+    {
+      "site": "home",
+      "row": 436,
+      "col": 119,
+      "free": true,
+      "clearance_m": 1.2369316876852983,
+      "inflated_component": 1
+    }
+  ],
+  "status": "PASS_STATIC_MAP_ONLY",
+  "physical_reachability": "VERIFIED_NAV2_AND_PHYSX",
+  "physical_reports": [
+    "site-physical-validation.json",
+    "native-acceptance-1.json",
+    "native-acceptance-2.json"
+  ]
+}

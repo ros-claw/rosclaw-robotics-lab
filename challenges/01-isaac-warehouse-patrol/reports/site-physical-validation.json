@@ -1,0 +1,59 @@
+{
+  "scope": "single-site Nav2 tests; not Agent acceptance",
+  "status": "PASS",
+  "sites": [
+    {
+      "site": "entry",
+      "status": "PASS",
+      "physical_xy": [
+        7.506554126739502,
+        15.9061918258667
+      ],
+      "physical_error_m": 0.09403685507045169,
+      "nav2_status": 4,
+      "nav2_recoveries": 0,
+      "physics_wall_time": 1791454960.760305,
+      "collision_count": 0
+    },
+    {
+      "site": "shelf",
+      "status": "PASS",
+      "physical_xy": [
+        -6.829112529754639,
+        3.0427539348602295
+      ],
+      "physical_error_m": 0.17615455268851837,
+      "nav2_status": 4,
+      "nav2_recoveries": 1,
+      "physics_wall_time": 1791455065.9649453,
+      "collision_count": 0
+    },
+    {
+      "site": "aisle",
+      "status": "PASS",
+      "physical_xy": [
+        -1.9638177156448364,
+        7.924460411071777
+      ],
+      "physical_error_m": 0.08375790826305761,
+      "nav2_status": 4,
+      "nav2_recoveries": 0,
+      "physics_wall_time": 1791455271.9336214,
+      "collision_count": 0
+    },
+    {
+      "site": "home",
+      "status": "PASS",
+      "physical_xy": [
+        -5.852470874786377,
+        -0.9036447405815125
+      ],
+      "physical_error_m": 0.17620777168984603,
+      "nav2_status": 4,
+      "nav2_recoveries": 0,
+      "physics_wall_time": 1791455394.5739615,
+      "collision_count": 0
+    }
+  ],
+  "physics_source": "reports/runs/20261008T101917Z/physics-trajectory.jsonl"
+}

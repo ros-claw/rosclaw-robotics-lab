@@ -1,0 +1,217 @@
+{
+  "schema_version": "rosclaw.ros_diagnosis.v1",
+  "snapshot_id": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+  "snapshot_hash": "rossnap_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+  "profile": "all",
+  "status": "BLOCKED",
+  "unknown_checks": [
+    "tf_timing"
+  ],
+  "issues": [
+    {
+      "issue_code": "ROS_ENV_001",
+      "severity": "warning",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": "read timeout: /bt_navigator_navigate_through_poses_rclcpp_node/list_parameters",
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Inspect the failed probe read."
+      ],
+      "recommended_repairs": [
+        "Inspect the failed probe read."
+      ],
+      "runtime_mutation_required": false
+    },
+    {
+      "issue_code": "ROS_ENV_001",
+      "severity": "warning",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": "read timeout: /bt_navigator_navigate_to_pose_rclcpp_node/list_parameters",
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Inspect the failed probe read."
+      ],
+      "recommended_repairs": [
+        "Inspect the failed probe read."
+      ],
+      "runtime_mutation_required": false
+    },
+    {
+      "issue_code": "ROS_TOPIC_002",
+      "severity": "blocking",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": {
+            "source": "native:monotonic_receive",
+            "captured_at": "2026-10-08T10:50:02.119766Z",
+            "freshness_policy": "stream",
+            "max_age_ms": 1000.0,
+            "topic": "/global_costmap/obstacle_layer",
+            "rate_hz": 0.3749316568968128,
+            "jitter_ms": 468.46962871692557,
+            "last_message_age_ms": 1663.7515850015916,
+            "publisher_count": 1,
+            "subscriber_count": 1
+          },
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Inspect sensor freshness and upstream health."
+      ],
+      "recommended_repairs": [
+        "Inspect sensor freshness and upstream health."
+      ],
+      "runtime_mutation_required": false
+    },
+    {
+      "issue_code": "ROS_TOPIC_002",
+      "severity": "blocking",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": {
+            "source": "native:monotonic_receive",
+            "captured_at": "2026-10-08T10:50:02.119766Z",
+            "freshness_policy": "stream",
+            "max_age_ms": 1000.0,
+            "topic": "/global_costmap/static_layer",
+            "rate_hz": 0.33319117387691544,
+            "jitter_ms": 0.0,
+            "last_message_age_ms": 6665.018882020377,
+            "publisher_count": 1,
+            "subscriber_count": 1
+          },
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Inspect sensor freshness and upstream health."
+      ],
+      "recommended_repairs": [
+        "Inspect sensor freshness and upstream health."
+      ],
+      "runtime_mutation_required": false
+    },
+    {
+      "issue_code": "ROS_TOPIC_004",
+      "severity": "blocking",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": {
+            "source": "native:monotonic_receive",
+            "captured_at": "2026-10-08T10:50:02.119766Z",
+            "freshness_policy": "stream",
+            "max_age_ms": 1000.0,
+            "topic": "/odom",
+            "rate_hz": null,
+            "jitter_ms": null,
+            "last_message_age_ms": null,
+            "publisher_count": 0,
+            "subscriber_count": 2
+          },
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Inspect missing publisher."
+      ],
+      "recommended_repairs": [
+        "Inspect missing publisher."
+      ],
+      "runtime_mutation_required": false
+    },
+    {
+      "issue_code": "ROS_TOPIC_004",
+      "severity": "blocking",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": {
+            "source": "native:monotonic_receive",
+            "captured_at": "2026-10-08T10:50:02.119766Z",
+            "freshness_policy": "latched",
+            "max_age_ms": 1000.0,
+            "topic": "/tf_static",
+            "rate_hz": null,
+            "jitter_ms": null,
+            "last_message_age_ms": null,
+            "publisher_count": 0,
+            "subscriber_count": 11
+          },
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Inspect missing publisher."
+      ],
+      "recommended_repairs": [
+        "Inspect missing publisher."
+      ],
+      "runtime_mutation_required": false
+    },
+    {
+      "issue_code": "ROS_TIME_001",
+      "severity": "blocking",
+      "evidence": [
+        {
+          "source": "rossys_e191ba70993e24cac2108decb1fd3c7d53e82fcc047e465e8e58c10e54272268",
+          "observation": {
+            "/behavior_server": true,
+            "/bt_navigator": true,
+            "/collision_monitor": true,
+            "/pointcloud_to_laserscan": true,
+            "/rosbridge_websocket": true,
+            "/controller_server": true,
+            "/rosapi": true,
+            "/docking_server": true,
+            "/global_costmap/global_costmap": true,
+            "/lifecycle_manager_localization": true,
+            "/lifecycle_manager_navigation": true,
+            "/local_costmap/local_costmap": true,
+            "/map_server": true,
+            "/planner_server": true,
+            "/route_server": true,
+            "/launch_ros_1": false,
+            "/amcl": true,
+            "/smoother_server": true,
+            "/velocity_smoother": true,
+            "/waypoint_follower": true
+          },
+          "timestamp": "2026-10-08T10:50:02.119766+00:00"
+        }
+      ],
+      "confidence": 1.0,
+      "hypotheses": [],
+      "next_checks": [
+        "Align use_sim_time in reviewed launch configuration."
+      ],
+      "recommended_repairs": [
+        "Align use_sim_time in reviewed launch configuration."
+      ],
+      "runtime_mutation_required": false
+    }
+  ]
+}

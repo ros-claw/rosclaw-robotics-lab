@@ -1,0 +1,7 @@
+{
+  "status": "IMAGE_BUILD_PASS",
+  "image_id": "sha256:771bc776ab0df68f236187a5ea2396bdc4513888d0ae413377d3dca45c04bd24",
+  "architecture": "arm64",
+  "runtime_navigation": "PASS_NATIVE_ALL_FOUR_SITES",
+  "native_report": "native-acceptance-2.json"
+}

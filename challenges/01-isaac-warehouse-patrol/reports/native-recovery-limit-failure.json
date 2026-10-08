@@ -1,0 +1,138 @@
+{
+  "run_id": "a2c",
+  "status": "FAIL",
+  "failure": "verified patrol artifact missing",
+  "task": "\u8bf7\u5148\u68c0\u67e5\u673a\u5668\u4eba\u72b6\u6001\uff0c\u7136\u540e\u4f9d\u6b21\u5de1\u68c0\u4ed3\u5e93\u5165\u53e3\u3001\u8d27\u67b6\u533a\u548c\u4ed3\u5e93\u901a\u9053\uff0c\u9047\u5230\u969c\u788d\u7269\u81ea\u4e3b\u907f\u8ba9\uff0c\u5b8c\u6210\u540e\u8fd4\u56de Home\uff0c\u5e76\u4fdd\u5b58\u5de1\u68c0\u62a5\u544a\u548c\u8bb0\u5fc6\u3002\u6bcf\u4e2a\u4f4d\u7f6e\u505c\u7559\u68c0\u67e5\u5b9e\u9645\u4f4d\u59ff\u4e0e\u6fc0\u5149\u6570\u636e\u3002",
+  "body_snapshot_hash": "e32abf8d2972e2c60d81bffdc9f207d9dc162c770f64818d5c373de23c1b0562",
+  "ground_truth_source": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261008T112709Z",
+  "partial_visits": [
+    {
+      "action_id": "act_e16b819e58a84f4e87080555",
+      "site_id": "entry",
+      "status": "PASS",
+      "error": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791459082.518579
+      },
+      "verification": {
+        "verification_status": "PASS",
+        "success": true,
+        "position_error_m": 0.0859050618074724,
+        "yaw_error_rad": 0.23520471637025353,
+        "stable_dwell_sim_seconds": 2.0333333333332178,
+        "collision_count": 0,
+        "sensor": {
+          "wall_time": 1791459087.9472387,
+          "stamp": 76.4,
+          "frame_id": "front_3d_lidar",
+          "range_count": 362,
+          "finite_hits": 362,
+          "valid": true
+        },
+        "failures": [],
+        "missing_evidence": [],
+        "physics_sample_count": 431
+      },
+      "artifact_sha256": "c155310c185945c2b3d7bbb33ecf06f885b1868ff0e814b309b5441857c47759",
+      "sample_count": 431
+    },
+    {
+      "action_id": "act_f3832cfcb9cd4c3f8bf96e43",
+      "site_id": "home",
+      "status": "FAIL",
+      "error": "stop or bounded recovery limit reached",
+      "nav2": {
+        "recovery_limit_exceeded": true,
+        "status": 5,
+        "error_code": 105,
+        "result": {
+          "error_code": 105,
+          "error_msg": ""
+        },
+        "wall_time": 1791459328.6221128
+      },
+      "verification": null,
+      "artifact_sha256": "f61fa6d0189e3384aba7d46d4cb2cc19673980141b5fac27dafd4473d6033b8f",
+      "sample_count": 260
+    },
+    {
+      "action_id": "act_5a7a93eeb8cf460ebcc22a3e",
+      "site_id": "aisle",
+      "status": "PASS",
+      "error": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791459252.5263646
+      },
+      "verification": {
+        "verification_status": "PASS",
+        "success": true,
+        "position_error_m": 0.10368686599242034,
+        "yaw_error_rad": 0.23456772819426686,
+        "stable_dwell_sim_seconds": 2.0833333333349913,
+        "collision_count": 0,
+        "sensor": {
+          "wall_time": 1791459258.1279085,
+          "stamp": 138.5,
+          "frame_id": "front_3d_lidar",
+          "range_count": 362,
+          "finite_hits": 362,
+          "valid": true
+        },
+        "failures": [],
+        "missing_evidence": [],
+        "physics_sample_count": 227
+      },
+      "artifact_sha256": "cf3524a06177c9f9a25d6d1dadc2edaae268f55f5803574bd12abb6476cef7b0",
+      "sample_count": 227
+    },
+    {
+      "action_id": "act_2a414b1181c34fcc9e430e7d",
+      "site_id": "shelf",
+      "status": "PASS",
+      "error": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791459191.620959
+      },
+      "verification": {
+        "verification_status": "PASS",
+        "success": true,
+        "position_error_m": 0.10622745707624447,
+        "yaw_error_rad": 0.23783718099226217,
+        "stable_dwell_sim_seconds": 2.133333333333212,
+        "collision_count": 0,
+        "sensor": {
+          "wall_time": 1791459197.5841765,
+          "stamp": 116.1,
+          "frame_id": "front_3d_lidar",
+          "range_count": 362,
+          "finite_hits": 362,
+          "valid": true
+        },
+        "failures": [],
+        "missing_evidence": [],
+        "physics_sample_count": 422
+      },
+      "artifact_sha256": "9ce79b63b3ac0f805ae12452d99f3ed64c295143faad1f32af17d90236f8aa86",
+      "sample_count": 422
+    }
+  ],
+  "memory_success_claimed": false
+}

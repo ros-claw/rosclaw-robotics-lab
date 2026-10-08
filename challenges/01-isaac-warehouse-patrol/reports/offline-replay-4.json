@@ -1,0 +1,69 @@
+{
+  "run_id": "unmapped-box-final",
+  "status": "PASS",
+  "failures": [],
+  "visits": [
+    {
+      "site_id": "aisle",
+      "position_error_m": 0.0951886575590682,
+      "stable_dwell_sim_seconds": 2.083333333333215,
+      "collision_count": 0
+    },
+    {
+      "site_id": "entry",
+      "position_error_m": 0.09409915658487578,
+      "stable_dwell_sim_seconds": 2.133333333333212,
+      "collision_count": 0
+    },
+    {
+      "site_id": "shelf",
+      "position_error_m": 0.13188199584869006,
+      "stable_dwell_sim_seconds": 2.0333333333349515,
+      "collision_count": 0
+    },
+    {
+      "site_id": "home",
+      "position_error_m": 0.09017855544799686,
+      "stable_dwell_sim_seconds": 2.0166666666682715,
+      "collision_count": 0
+    }
+  ],
+  "obstacle_verification": {
+    "status": "PASS",
+    "failures": [],
+    "maximum_actual_lidar_box_hits": 6368,
+    "maximum_actual_local_occupied_cells": 367,
+    "conservative_minimum_footprint_clearance_m": 0.35887958181462887,
+    "wall_interval": [
+      1791463091.494545,
+      1791463428.563026
+    ],
+    "witness_subset_sha256": "ce2d01790d9f4c41b5cb49063b7db73b0da1136738cb7ba1a35b0046158700b5",
+    "witness_subset_row_count": 966,
+    "physical_obstacle": {
+      "path": "/World/ROSClawUnmappedBox",
+      "center_xyz": [
+        -3.5,
+        4,
+        0.5
+      ],
+      "size_m": 1.0,
+      "physical_collision": true,
+      "source": "session layer; absent from official occupancy map"
+    },
+    "static_map_validation": {
+      "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+      "box_region_pixel_bounds": [
+        159,
+        326,
+        180,
+        347
+      ],
+      "all_box_cells_free": true,
+      "minimum_pixel_value": 255,
+      "cell_count": 441,
+      "frame_id": "map"
+    }
+  },
+  "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+}

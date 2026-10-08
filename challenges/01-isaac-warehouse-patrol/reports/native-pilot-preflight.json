@@ -1,0 +1,19 @@
+{
+  "status": "BLOCKED_BY_PREFLIGHT",
+  "scope": "actual Native model pilot, no motion submitted",
+  "model": [
+    "openai-codex",
+    "gpt-6.1-sol"
+  ],
+  "tool_calls": [
+    "read",
+    "ros__observe_system",
+    "rosclaw_capabilities",
+    "rosclaw_fail_safe"
+  ],
+  "actions": [],
+  "notes": [
+    "Native Agent invoked fail-safe after its readiness observation. No patrol PASS claimed.",
+    "Raw session logs retained in ignored private .runtime directory."
+  ]
+}

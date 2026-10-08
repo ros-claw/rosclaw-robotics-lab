@@ -1,0 +1,8 @@
+{
+  "run_id": "isaac-a2b",
+  "status": "FAIL_ADMISSION",
+  "motion_submitted": false,
+  "error_code": "CONTEXT_HASH_MISMATCH",
+  "canonical_receipts": [],
+  "retained_directory": ".runtime/isaac-a2b"
+}

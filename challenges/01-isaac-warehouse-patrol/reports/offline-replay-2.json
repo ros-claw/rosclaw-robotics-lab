@@ -1,0 +1,32 @@
+{
+  "run_id": "a3",
+  "status": "PASS",
+  "failures": [],
+  "visits": [
+    {
+      "site_id": "entry",
+      "position_error_m": 0.07644483924652623,
+      "stable_dwell_sim_seconds": 2.016666666666552,
+      "collision_count": 0
+    },
+    {
+      "site_id": "shelf",
+      "position_error_m": 0.1344053661976771,
+      "stable_dwell_sim_seconds": 2.066666666666549,
+      "collision_count": 0
+    },
+    {
+      "site_id": "aisle",
+      "position_error_m": 0.11091594649490501,
+      "stable_dwell_sim_seconds": 2.083333333333215,
+      "collision_count": 0
+    },
+    {
+      "site_id": "home",
+      "position_error_m": 0.09284647923841197,
+      "stable_dwell_sim_seconds": 2.0333333333349515,
+      "collision_count": 0
+    }
+  ],
+  "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+}

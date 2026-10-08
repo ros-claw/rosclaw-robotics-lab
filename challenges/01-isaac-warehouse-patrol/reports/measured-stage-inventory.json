@@ -1,0 +1,4014 @@
+{
+  "up_axis": "Z",
+  "meters_per_unit": 1.0,
+  "floors": {
+    "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane",
+      "type": "Plane",
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collision_enabled": true,
+      "verified_horizontal_floor": true
+    },
+    "/World/warehouse_with_forklifts/GroundPlane/collisionPlane": {
+      "path": "/World/warehouse_with_forklifts/GroundPlane/collisionPlane",
+      "type": "Plane",
+      "normal": [
+        0.0,
+        0.0,
+        1.0
+      ],
+      "position": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "collision_enabled": true,
+      "verified_horizontal_floor": true
+    }
+  },
+  "scene_objects": [
+    {
+      "path": "/World/warehouse_with_forklifts",
+      "type": "Xform",
+      "min": [
+        -11.99999912142755,
+        -17.999999902844422,
+        -0.0019066845944519795
+      ],
+      "max": [
+        12.000000342130647,
+        20.818081582505194,
+        9.300010941024185
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m10",
+      "type": "Xform",
+      "min": [
+        -9.867925778846486,
+        3.600000403440892,
+        6.267154400933804
+      ],
+      "max": [
+        -9.792074675787811,
+        8.38298518110597,
+        6.332843486379601
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m10/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        -9.867925778846487,
+        3.6000004034408914,
+        6.267154400933805
+      ],
+      "max": [
+        -9.792074675787813,
+        8.382985181105969,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m11",
+      "type": "Xform",
+      "min": [
+        -9.867925778846486,
+        9.60000026933044,
+        6.267154400933804
+      ],
+      "max": [
+        -9.792074675787811,
+        14.38298504699552,
+        6.332843486379601
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m11/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        -9.867925778846487,
+        9.60000026933044,
+        6.267154400933805
+      ],
+      "max": [
+        -9.792074675787813,
+        14.382985046995518,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m12",
+      "type": "Xform",
+      "min": [
+        -9.867925735931147,
+        15.600000135219993,
+        6.267154400933804
+      ],
+      "max": [
+        -9.792074675787813,
+        18.788657627644845,
+        6.332843486379601
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m12/SM_BracketBeam",
+      "type": "Mesh",
+      "min": [
+        -9.867925735931149,
+        15.60000013521999,
+        6.267154400933805
+      ],
+      "max": [
+        -9.792074675787815,
+        18.78865762764484,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m13",
+      "type": "Xform",
+      "min": [
+        8.874013797717376,
+        -8.399999328337556,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        -3.6170081133690166,
+        6.332843486379602
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m13/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        8.874013797717376,
+        -8.399999328337556,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        -3.6170081133690166,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m14",
+      "type": "Xform",
+      "min": [
+        8.874013797717376,
+        -2.3999994624480068,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        2.3829917525205326,
+        6.332843486379602
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m14/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        8.874013797717376,
+        -2.3999994624480068,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        2.3829917525205326,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m15",
+      "type": "Xform",
+      "min": [
+        8.874013797717378,
+        3.6000004034415425,
+        6.267154400933805
+      ],
+      "max": [
+        8.94986490981821,
+        8.382991618410081,
+        6.332843486379602
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m15/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        8.874013797717376,
+        3.6000004034415425,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        8.382991618410081,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m16",
+      "type": "Xform",
+      "min": [
+        8.874013797717376,
+        9.600000269331092,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        14.38299148429963,
+        6.332843486379602
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m16/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        8.874013797717376,
+        9.600000269331092,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        14.38299148429963,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m7",
+      "type": "Xform",
+      "min": [
+        8.874013797717375,
+        15.600000179239858,
+        6.267154400933803
+      ],
+      "max": [
+        8.949864909818206,
+        20.818081582505194,
+        6.3328434863796
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m7/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        8.874013797717376,
+        15.600000179239862,
+        6.267154400933805
+      ],
+      "max": [
+        8.949864909818208,
+        20.818081582505197,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m8",
+      "type": "Xform",
+      "min": [
+        -9.867925778846487,
+        -8.39999932833821,
+        6.267154400933804
+      ],
+      "max": [
+        -9.792074675787813,
+        -3.6170145506731295,
+        6.332843486379601
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m8/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        -9.867925778846487,
+        -8.399999328338208,
+        6.267154400933805
+      ],
+      "max": [
+        -9.792074675787813,
+        -3.6170145506731286,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m9",
+      "type": "Xform",
+      "min": [
+        -9.867925778846487,
+        -2.3999994624486582,
+        6.267154400933804
+      ],
+      "max": [
+        -9.792074675787813,
+        2.382985315216421,
+        6.332843486379601
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketBeam_6m9/SM_BracketBeam_3m",
+      "type": "Mesh",
+      "min": [
+        -9.867925778846487,
+        -2.399999462448658,
+        6.267154400933805
+      ],
+      "max": [
+        -9.792074675787813,
+        2.3829853152164207,
+        6.332843486379602
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot10",
+      "type": "Xform",
+      "min": [
+        8.79451206333046,
+        -3.630049114708595,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745063,
+        -3.20000016604453,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot10/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512063330462,
+        -3.6300491147085956,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745064,
+        -3.2000001660445303,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot12",
+      "type": "Xform",
+      "min": [
+        -9.947427510755293,
+        -3.6300490890756665,
+        6.184241814667538
+      ],
+      "max": [
+        -9.712571973339173,
+        -3.2000001660445156,
+        6.415757922774
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot12/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427510755295,
+        -3.630049089075667,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712571973339175,
+        -3.200000166044516,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot13",
+      "type": "Xform",
+      "min": [
+        8.794512215918173,
+        3.200000228590245,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        3.6300490521628603,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot13/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512215918173,
+        3.200000228590245,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        3.6300490521628603,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot14",
+      "type": "Xform",
+      "min": [
+        8.79451206333046,
+        2.369950751180953,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745063,
+        2.7999996998450185,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot14/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512063330462,
+        2.3699507511809537,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745064,
+        2.799999699845019,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot15",
+      "type": "Xform",
+      "min": [
+        -9.947427351168363,
+        3.2000002285902096,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        3.6300490008970097,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot15/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427351168363,
+        3.2000002285902096,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        3.6300490008970097,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot16",
+      "type": "Xform",
+      "min": [
+        -9.947427510755295,
+        2.369950776813882,
+        6.184241814667538
+      ],
+      "max": [
+        -9.712571973339175,
+        2.7999996998450327,
+        6.415757922774
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot16/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427510755295,
+        2.3699507768138823,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712571973339175,
+        2.799999699845033,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot17",
+      "type": "Xform",
+      "min": [
+        8.794512215918173,
+        9.200000094479794,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        9.63004891805241,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot17/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512215918173,
+        9.200000094479794,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        9.63004891805241,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot18",
+      "type": "Xform",
+      "min": [
+        8.79451206333046,
+        8.369950617070499,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745063,
+        8.799999565734565,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot18/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512063330462,
+        8.369950617070502,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745064,
+        8.799999565734568,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot19",
+      "type": "Xform",
+      "min": [
+        -9.947427351168363,
+        9.200000094479757,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        9.630048866786558,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot19/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427351168363,
+        9.200000094479758,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        9.63004886678656,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot20",
+      "type": "Xform",
+      "min": [
+        -9.947427510755295,
+        8.36995064270343,
+        6.184241814667538
+      ],
+      "max": [
+        -9.712571973339175,
+        8.79999956573458,
+        6.415757922774
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot20/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427510755295,
+        8.369950642703431,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712571973339175,
+        8.799999565734582,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot21",
+      "type": "Xform",
+      "min": [
+        8.794512215918173,
+        15.199999960369343,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        15.630048783941959,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot21/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512215918173,
+        15.199999960369343,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        15.630048783941959,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot22",
+      "type": "Xform",
+      "min": [
+        8.79451206333046,
+        14.36995048296005,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745063,
+        14.799999431624116,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot22/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512063330462,
+        14.369950482960052,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367614745064,
+        14.799999431624117,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot23",
+      "type": "Xform",
+      "min": [
+        -9.947427351168363,
+        15.199999960369306,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        15.630048732676107,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot23/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427351168363,
+        15.199999960369308,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        15.630048732676109,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot24",
+      "type": "Xform",
+      "min": [
+        -9.947427510755293,
+        14.36995050859298,
+        6.184241814667538
+      ],
+      "max": [
+        -9.712571973339173,
+        14.799999431624132,
+        6.415757922774
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot24/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427510755295,
+        14.36995050859298,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712571973339175,
+        14.799999431624132,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot26_1493",
+      "type": "Xform",
+      "min": [
+        -9.94742756801997,
+        17.56995048397671,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572202397205,
+        17.999999313189292,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot26_1493/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.94742756801997,
+        17.569950483976715,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572202397205,
+        17.999999313189296,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot27",
+      "type": "Xform",
+      "min": [
+        8.794512006065784,
+        17.56995045834379,
+        6.184241814667539
+      ],
+      "max": [
+        9.02936738568702,
+        17.999999313189278,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot27/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512006065784,
+        17.56995045834379,
+        6.184241814667539
+      ],
+      "max": [
+        9.02936738568702,
+        17.999999313189278,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot3",
+      "type": "Xform",
+      "min": [
+        -9.947427365166822,
+        -8.843949702206489,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572042810047,
+        -8.413900878633873,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot3/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427365166822,
+        -8.843949702206489,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572042810047,
+        -8.413900878633873,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot41",
+      "type": "Xform",
+      "min": [
+        -9.947427351168365,
+        -2.7999996372993396,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808526,
+        -2.3699508649925396,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot41/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427351168363,
+        -2.7999996372993396,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712572056808524,
+        -2.3699508649925396,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot8",
+      "type": "Xform",
+      "min": [
+        -9.947427510755295,
+        -9.630048954965215,
+        6.184241814667538
+      ],
+      "max": [
+        -9.712571973339175,
+        -9.200000031934064,
+        6.415757922774
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot8/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        -9.947427510755295,
+        -9.630048954965217,
+        6.184241814667539
+      ],
+      "max": [
+        -9.712571973339175,
+        -9.200000031934065,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot9",
+      "type": "Xform",
+      "min": [
+        8.794512215918173,
+        -2.799999637299304,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        -2.369950813726689,
+        6.4157579227740005
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_BracketSlot9/SM_BracketSlot",
+      "type": "Mesh",
+      "min": [
+        8.794512215918173,
+        -2.799999637299304,
+        6.184241814667539
+      ],
+      "max": [
+        9.029367538274949,
+        -2.369950813726689,
+        6.4157579227740005
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_159",
+      "type": "Xform",
+      "min": [
+        -9.819994265987585,
+        0.2365544544293519,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.82000043456292,
+        0.36344279511330724,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_159/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987583,
+        0.23655445442935186,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562917,
+        0.3634427951133072,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_160",
+      "type": "Xform",
+      "min": [
+        -9.819994265987585,
+        0.2365544544293519,
+        2.999998712241677
+      ],
+      "max": [
+        -8.82000043456292,
+        0.36344279511330724,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_160/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987583,
+        0.23655445442935186,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562917,
+        0.3634427951133072,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_161",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        4.236554365022385,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562916,
+        4.3634427057063405,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_161/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        4.236554365022385,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562916,
+        4.3634427057063405,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_162",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        4.236554365022385,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562916,
+        4.3634427057063405,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_162/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        4.236554365022385,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562916,
+        4.3634427057063405,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_163",
+      "type": "Xform",
+      "min": [
+        -9.819994265987585,
+        8.236554275615422,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.82000043456292,
+        8.363442616299375,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_163/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987583,
+        8.23655427561542,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562917,
+        8.363442616299373,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_164",
+      "type": "Xform",
+      "min": [
+        -9.819994265987585,
+        8.236554275615422,
+        2.999998712241677
+      ],
+      "max": [
+        -8.82000043456292,
+        8.363442616299375,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_164/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987583,
+        8.23655427561542,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562917,
+        8.363442616299373,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_165",
+      "type": "Xform",
+      "min": [
+        -9.819994265987578,
+        12.236554186208455,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562912,
+        12.363442526892408,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_165/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.81999426598758,
+        12.236554186208453,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562914,
+        12.363442526892406,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_166",
+      "type": "Xform",
+      "min": [
+        -9.819994265987578,
+        12.236554186208455,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562912,
+        12.363442526892408,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_166/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.81999426598758,
+        12.236554186208453,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562914,
+        12.363442526892406,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_167",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        -3.763445456163682,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562916,
+        -3.6365571154797265,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_167/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        -3.7634454561636814,
+        -1.2199999492176566e-06
+      ],
+      "max": [
+        -8.820000434562916,
+        -3.636557115479726,
+        3.0000008491752466
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_168",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        -3.763445456163682,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562916,
+        -3.6365571154797265,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackFrame_168/SM_RackFrame_03",
+      "type": "Xform",
+      "min": [
+        -9.819994265987582,
+        -3.7634454561636814,
+        2.999998712241677
+      ],
+      "max": [
+        -8.820000434562916,
+        -3.636557115479726,
+        6.0000007814168725
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_156",
+      "type": "Xform",
+      "min": [
+        -9.858389325339777,
+        -3.7000054637399042,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.781611287991987,
+        0.29999577411036077,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_156/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.858389325339779,
+        -3.7000054637399047,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.78161128799199,
+        0.2999957741103603,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_157",
+      "type": "Xform",
+      "min": [
+        -9.858389325339777,
+        -3.7000054637399042,
+        2.455106375177806
+      ],
+      "max": [
+        -8.781611287991987,
+        0.29999577411036077,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_157/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.858389325339779,
+        -3.7000054637399047,
+        2.455106375177806
+      ],
+      "max": [
+        -8.78161128799199,
+        0.2999957741103603,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_158",
+      "type": "Xform",
+      "min": [
+        -9.858389325339777,
+        -3.7000054637399042,
+        3.9534590028198267
+      ],
+      "max": [
+        -8.781611287991987,
+        0.29999577411036077,
+        4.3237580477351365
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_158/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.858389325339779,
+        -3.7000054637399047,
+        3.9534590028198267
+      ],
+      "max": [
+        -8.78161128799199,
+        0.2999957741103603,
+        4.3237580477351365
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_159",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        0.29999444685312754,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.781611287991991,
+        4.299995684703393,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_159/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        0.29999444685312754,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.781611287991991,
+        4.299995684703393,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_160",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        0.29999444685312754,
+        2.455106375177806
+      ],
+      "max": [
+        -8.781611287991991,
+        4.299995684703393,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_160/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        0.29999444685312754,
+        2.455106375177806
+      ],
+      "max": [
+        -8.781611287991991,
+        4.299995684703393,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_161",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        0.29999444685312754,
+        3.7551063461205416
+      ],
+      "max": [
+        -8.781611287991991,
+        4.299995684703393,
+        4.1254053910358515
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_161/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        0.29999444685312754,
+        3.7551063461205416
+      ],
+      "max": [
+        -8.781611287991991,
+        4.299995684703393,
+        4.1254053910358515
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_162",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.299994357446159,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296421,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_162/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.29999435744616,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296423,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_163",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.299994357446159,
+        2.455106375177806
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296421,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_163/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.29999435744616,
+        2.455106375177806
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296423,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_164",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.299994357446159,
+        3.7551063461205416
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296421,
+        4.1254053910358515
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_164/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.29999435744616,
+        3.7551063461205416
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296423,
+        4.1254053910358515
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_165",
+      "type": "Xform",
+      "min": [
+        -9.858389325339777,
+        8.299994268039198,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.781611287991987,
+        12.299995505889461,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_165/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.858389325339779,
+        8.299994268039196,
+        0.9551064087054186
+      ],
+      "max": [
+        -8.78161128799199,
+        12.29999550588946,
+        1.3254054536207285
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_166",
+      "type": "Xform",
+      "min": [
+        -9.858389325339777,
+        8.299994268039198,
+        2.455106375177806
+      ],
+      "max": [
+        -8.781611287991987,
+        12.299995505889461,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_166/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.858389325339779,
+        8.299994268039196,
+        2.455106375177806
+      ],
+      "max": [
+        -8.78161128799199,
+        12.29999550588946,
+        2.825405420093116
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_167",
+      "type": "Xform",
+      "min": [
+        -9.858389325339777,
+        8.299994268039198,
+        3.7551063461205416
+      ],
+      "max": [
+        -8.781611287991987,
+        12.299995505889461,
+        4.1254053910358515
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_167/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.858389325339779,
+        8.299994268039196,
+        3.7551063461205416
+      ],
+      "max": [
+        -8.78161128799199,
+        12.29999550588946,
+        4.1254053910358515
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_170",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.299994357446159,
+        5.617067364072781
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296421,
+        5.987366408988091
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_170/SM_RackShelf_01",
+      "type": "Xform",
+      "min": [
+        -9.85838932533978,
+        4.29999435744616,
+        5.617067364072781
+      ],
+      "max": [
+        -8.781611287991991,
+        8.299995595296423,
+        5.987366408988091
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_Rackshield_43",
+      "type": "Xform",
+      "min": [
+        -9.907280427735246,
+        -3.798207689846146,
+        -4.2438506131503573e-07
+      ],
+      "max": [
+        -8.732724064022063,
+        -3.4498209386173984,
+        0.4999998362362419
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_Rackshield_43/SM_Rackshield_02",
+      "type": "Mesh",
+      "min": [
+        -9.907280427735248,
+        -3.798207689846147,
+        -4.2438506131503573e-07
+      ],
+      "max": [
+        -8.732724064022065,
+        -3.4498209386173992,
+        0.4999998362362419
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_Rackshield_50",
+      "type": "Xform",
+      "min": [
+        -9.907275534348368,
+        12.149820813407011,
+        -4.2438506131503573e-07
+      ],
+      "max": [
+        -8.732719147016512,
+        12.498207428999624,
+        0.4999998362362419
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_Rackshield_50/SM_Rackshield_02",
+      "type": "Mesh",
+      "min": [
+        -9.907275534348368,
+        12.14982081340701,
+        -4.2438506131503573e-07
+      ],
+      "max": [
+        -8.732719147016512,
+        12.498207428999622,
+        0.4999998362362419
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M13",
+      "type": "Xform",
+      "min": [
+        -2.9499991448969465,
+        17.99999879286717,
+        2.9999999329447746
+      ],
+      "max": [
+        3.049999753013437,
+        18.000001546863185,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M13/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -2.9499991448969465,
+        17.999998792867174,
+        2.9999999329447746
+      ],
+      "max": [
+        3.049999753013437,
+        18.00000154686319,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M14",
+      "type": "Xform",
+      "min": [
+        -2.9499991448969465,
+        17.99999879286717,
+        5.999999865889549
+      ],
+      "max": [
+        3.049999753013437,
+        18.000001546863185,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M14/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -2.9499991448969465,
+        17.999998792867174,
+        5.999999865889549
+      ],
+      "max": [
+        3.049999753013437,
+        18.00000154686319,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M16",
+      "type": "Xform",
+      "min": [
+        -8.949999010786495,
+        17.999998792867174,
+        5.999999865889549
+      ],
+      "max": [
+        -2.9500001128761135,
+        18.00000154686319,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M16/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -8.949999010786495,
+        17.999998792867174,
+        5.999999865889549
+      ],
+      "max": [
+        -2.9500001128761126,
+        18.00000154686319,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M18_460",
+      "type": "Xform",
+      "min": [
+        -10.330001537828498,
+        -2.9999993225932475,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999144777693,
+        2.99999993294488,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M18_460/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001537828498,
+        -2.9999993225932475,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999144777693,
+        2.99999993294488,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M19",
+      "type": "Xform",
+      "min": [
+        -10.330001537828498,
+        3.000000543296302,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999144777693,
+        8.999999798834429,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M19/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001537828498,
+        3.000000543296302,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999144777693,
+        8.999999798834429,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M20",
+      "type": "Xform",
+      "min": [
+        -10.330001537828498,
+        9.000000409185851,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999144777693,
+        14.99999966472398,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M20/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001537828498,
+        9.000000409185851,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999144777693,
+        14.99999966472398,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M21_1371",
+      "type": "Xform",
+      "min": [
+        -10.330001537828498,
+        -8.999999188482796,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999144777693,
+        -2.99999993294467,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M21_1371/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001537828498,
+        -8.999999188482796,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999144777693,
+        -2.99999993294467,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M26",
+      "type": "Xform",
+      "min": [
+        -10.330001537828498,
+        -2.9999993225932475,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999144777693,
+        2.99999993294488,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M26/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001537828498,
+        -2.9999993225932475,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999144777693,
+        2.99999993294488,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M27",
+      "type": "Xform",
+      "min": [
+        -10.330001318827092,
+        3.0000005432963235,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999363779143,
+        8.999999798834324,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M27/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001318827092,
+        3.0000005432963235,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999363779143,
+        8.999999798834324,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M28",
+      "type": "Xform",
+      "min": [
+        -10.330001537828498,
+        9.000000409185851,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999144777693,
+        14.99999966472398,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M28/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001537828498,
+        9.000000409185851,
+        5.999999865889549
+      ],
+      "max": [
+        -10.329999144777693,
+        14.99999966472398,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M36",
+      "type": "Xform",
+      "min": [
+        2.9999999329447746,
+        -12.200001277029335,
+        5.999999865889549
+      ],
+      "max": [
+        8.999999188482775,
+        -12.199999321981386,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M36/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        2.9999999329447746,
+        -12.200001277029335,
+        5.999999865889549
+      ],
+      "max": [
+        8.999999188482775,
+        -12.199999321981386,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M37",
+      "type": "Xform",
+      "min": [
+        2.9999999329447746,
+        -12.200001277029335,
+        2.9999999329447746
+      ],
+      "max": [
+        8.999999188482775,
+        -12.199999321981386,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M37/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        2.9999999329447746,
+        -12.200001277029335,
+        2.9999999329447746
+      ],
+      "max": [
+        8.999999188482775,
+        -12.199999321981386,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M38",
+      "type": "Xform",
+      "min": [
+        -2.9999999329447746,
+        -12.200001277029335,
+        5.999999865889549
+      ],
+      "max": [
+        2.9999993225932258,
+        -12.199999321981386,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M38/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -2.9999999329447746,
+        -12.200001277029335,
+        5.999999865889549
+      ],
+      "max": [
+        2.9999993225932258,
+        -12.199999321981386,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M39",
+      "type": "Xform",
+      "min": [
+        -2.9999999329447746,
+        -12.200001277029335,
+        2.9999999329447746
+      ],
+      "max": [
+        2.9999993225932258,
+        -12.199999321981386,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M39/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -2.9999999329447746,
+        -12.200001277029335,
+        2.9999999329447746
+      ],
+      "max": [
+        2.9999993225932258,
+        -12.199999321981386,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M40",
+      "type": "Xform",
+      "min": [
+        -8.999999798834324,
+        -12.200001277029335,
+        5.999999865889549
+      ],
+      "max": [
+        -3.0000005432963235,
+        -12.199999321981386,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M40/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -8.999999798834324,
+        -12.200001277029335,
+        5.999999865889549
+      ],
+      "max": [
+        -3.0000005432963235,
+        -12.199999321981386,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M41",
+      "type": "Xform",
+      "min": [
+        -8.999999798834324,
+        -12.200001277029335,
+        2.9999999329447746
+      ],
+      "max": [
+        -3.0000005432963235,
+        -12.199999321981386,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M41/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -8.999999798834324,
+        -12.200001277029335,
+        2.9999999329447746
+      ],
+      "max": [
+        -3.0000005432963235,
+        -12.199999321981386,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M43",
+      "type": "Xform",
+      "min": [
+        -2.9999991437794407,
+        17.799997726853984,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        2.999999754130943,
+        18.000000936511604,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M43/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -2.9999991437794407,
+        17.799997726853984,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        2.999999754130943,
+        18.000000936511604,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M44",
+      "type": "Xform",
+      "min": [
+        -8.99999900966899,
+        17.799997726853984,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -3.0000001117586064,
+        18.000000936511604,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M44/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -8.99999900966899,
+        17.799997726853984,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -3.0000001117586064,
+        18.000000936511604,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M8",
+      "type": "Xform",
+      "min": [
+        -10.330001518747112,
+        -8.999999188482795,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999163859082,
+        -2.9999999329446783,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M8/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -10.330001518747112,
+        -8.999999188482795,
+        2.9999999329447746
+      ],
+      "max": [
+        -10.329999163859082,
+        -2.9999999329446783,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M10",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        -2.999999322592524,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        3.0000001460260357,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M10/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        -2.999999322592524,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        3.0000001460260357,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M11",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        3.000000543297025,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        9.000000011915585,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M11/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        3.000000543297025,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        9.000000011915585,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M15",
+      "type": "Xform",
+      "min": [
+        9.211937507417137,
+        -8.99999985209783,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944018,
+        -3.000000543296178,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M15/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        9.211937507417137,
+        -8.999999852097831,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944018,
+        -3.0000005432961787,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M16",
+      "type": "Xform",
+      "min": [
+        9.211937507417133,
+        -2.9999999862082847,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944014,
+        2.999999322593369,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M16/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        9.211937507417135,
+        -2.9999999862082847,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944016,
+        2.999999322593369,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M17",
+      "type": "Xform",
+      "min": [
+        9.211937507417137,
+        2.9999998796812646,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944018,
+        8.999999188482919,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M17/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        9.211937507417137,
+        2.9999998796812646,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944018,
+        8.999999188482919,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M18",
+      "type": "Xform",
+      "min": [
+        9.211937507417137,
+        8.999999745570813,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944018,
+        14.999999054372468,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M18/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        9.211937507417137,
+        8.999999745570813,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        9.411941527944018,
+        14.999999054372468,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M4",
+      "type": "Xform",
+      "min": [
+        2.9999999329447746,
+        -12.200000666677713,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        8.999999188482775,
+        -11.999998244047198,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M4/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        2.9999999329447746,
+        -12.200000666677713,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        8.999999188482775,
+        -11.999998244047198,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M5",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        -8.999999188482073,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        -2.9999997198635135,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M5/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        -8.999999188482073,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        -2.9999997198635135,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M6",
+      "type": "Xform",
+      "min": [
+        -2.9999999329447746,
+        -12.200000666677713,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        2.9999993225932258,
+        -11.999998244047198,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M6/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -2.9999999329447746,
+        -12.200000666677713,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        2.9999993225932258,
+        -11.999998244047198,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M7",
+      "type": "Xform",
+      "min": [
+        -8.999999798834324,
+        -12.200000666677713,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -3.0000005432963235,
+        -11.999998244047198,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M7/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -8.999999798834324,
+        -12.200000666677713,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -3.0000005432963235,
+        -11.999998244047198,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner10",
+      "type": "Xform",
+      "min": [
+        6.419391733346409,
+        -12.200129920787363,
+        7.70319621614021e-08
+      ],
+      "max": [
+        9.419530113864287,
+        -9.19999216493501,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner10/SM_WallA_InnerCorner",
+      "type": "Xform",
+      "min": [
+        6.419391733346409,
+        -12.200129920787365,
+        7.70319621614021e-08
+      ],
+      "max": [
+        9.419530113864287,
+        -9.199992164935011,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner11",
+      "type": "Xform",
+      "min": [
+        6.4119318278125075,
+        14.999992340488083,
+        7.70319621614021e-08
+      ],
+      "max": [
+        9.412069184163714,
+        18.000130321513925,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner11/SM_WallA_InnerCorner",
+      "type": "Xform",
+      "min": [
+        6.4119318278125075,
+        14.999992340488083,
+        7.70319621614021e-08
+      ],
+      "max": [
+        9.412069184163714,
+        18.000130321513925,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner12",
+      "type": "Xform",
+      "min": [
+        -10.330133289705428,
+        14.99998883910272,
+        7.70319621614021e-08
+      ],
+      "max": [
+        -7.329992511806991,
+        18.000128992265886,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner12/SM_WallA_InnerCorner",
+      "type": "Xform",
+      "min": [
+        -10.330133289705428,
+        14.999988839102723,
+        7.70319621614021e-08
+      ],
+      "max": [
+        -7.329992511806991,
+        18.00012899226589,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner13",
+      "type": "Xform",
+      "min": [
+        -10.330128095556908,
+        -12.200130051678858,
+        3.0000005432963235
+      ],
+      "max": [
+        -7.329992206767372,
+        -9.19999247014539,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner13/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        -10.330128095556908,
+        -12.200130051678858,
+        3.0000005432963235
+      ],
+      "max": [
+        -7.329992206767372,
+        -9.19999247014539,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner14",
+      "type": "Xform",
+      "min": [
+        6.419391733346409,
+        -12.200128852709408,
+        3.0000005432963235
+      ],
+      "max": [
+        9.419530113864287,
+        -9.199992164935011,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner14/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        6.419391733346409,
+        -12.20012885270941,
+        3.0000005432963235
+      ],
+      "max": [
+        9.419530113864287,
+        -9.199992164935013,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner16",
+      "type": "Xform",
+      "min": [
+        -10.330133287203601,
+        14.999988841604553,
+        3.0000005432963235
+      ],
+      "max": [
+        -7.329992511808234,
+        18.000127924257793,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner16/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        -10.330133287203601,
+        14.99998884160455,
+        3.0000005432963235
+      ],
+      "max": [
+        -7.329992511808234,
+        18.00012792425779,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner18",
+      "type": "Xform",
+      "min": [
+        9.411936987454451,
+        -8.999999798834605,
+        2.9999999329447746
+      ],
+      "max": [
+        9.41194373619177,
+        -3.0000005432969545,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner18/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411936987454453,
+        -8.999999798834606,
+        2.9999999329447746
+      ],
+      "max": [
+        9.411943736191771,
+        -3.000000543296955,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner24",
+      "type": "Xform",
+      "min": [
+        9.411936987454451,
+        -2.9999999329450566,
+        2.9999999329447746
+      ],
+      "max": [
+        9.41194373619177,
+        2.9999993225925934,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner24/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411936987454453,
+        -2.999999932945057,
+        2.9999999329447746
+      ],
+      "max": [
+        9.411943736191771,
+        2.999999322592594,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner25",
+      "type": "Xform",
+      "min": [
+        9.411936987454451,
+        2.9999999329444926,
+        2.9999999329447746
+      ],
+      "max": [
+        9.41194373619177,
+        8.99999918848214,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner25/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411936987454453,
+        2.999999932944492,
+        2.9999999329447746
+      ],
+      "max": [
+        9.411943736191771,
+        8.999999188482143,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner26",
+      "type": "Xform",
+      "min": [
+        9.411936987454451,
+        8.999999798834041,
+        2.9999999329447746
+      ],
+      "max": [
+        9.41194373619177,
+        14.999999054371692,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner26/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411936987454453,
+        8.999999798834041,
+        2.9999999329447746
+      ],
+      "max": [
+        9.411943736191771,
+        14.999999054371692,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner27",
+      "type": "Xform",
+      "min": [
+        -10.330128095556908,
+        -12.200130051678858,
+        6.000000476241098
+      ],
+      "max": [
+        -7.329992206767372,
+        -9.19999247014539,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner27/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        -10.330128095556908,
+        -12.200130051678858,
+        6.000000476241098
+      ],
+      "max": [
+        -7.329992206767372,
+        -9.19999247014539,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner28",
+      "type": "Xform",
+      "min": [
+        6.4119318278125075,
+        14.999992340488225,
+        6.000000476241098
+      ],
+      "max": [
+        9.4120681160945,
+        18.000130321513925,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner28/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        6.4119318278125075,
+        14.999992340488225,
+        6.000000476241098
+      ],
+      "max": [
+        9.4120681160945,
+        18.000130321513925,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner29",
+      "type": "Xform",
+      "min": [
+        -10.330133287203601,
+        14.999988841604553,
+        6.000000476241098
+      ],
+      "max": [
+        -7.329992511808234,
+        18.000127924257793,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner29/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        -10.330133287203601,
+        14.99998884160455,
+        6.000000476241098
+      ],
+      "max": [
+        -7.329992511808234,
+        18.00012792425779,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner30",
+      "type": "Xform",
+      "min": [
+        9.411939288425588,
+        -6.119999860526331,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        -5.879999895667742,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner30/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411939288425588,
+        -6.119999860526331,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        -5.879999895667742,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner32",
+      "type": "Xform",
+      "min": [
+        9.411939288425586,
+        -0.11999999463678196,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221104,
+        0.11999997022180624,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner32/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411939288425588,
+        -0.11999999463678196,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        0.11999997022180624,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner33",
+      "type": "Xform",
+      "min": [
+        9.411939288425588,
+        5.879999871252767,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        6.119999836111355,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner33/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411939288425588,
+        5.8799998712527675,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        6.119999836111356,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner34",
+      "type": "Xform",
+      "min": [
+        9.411939288425588,
+        11.879999737142315,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        12.119999702000902,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner34/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        9.411939288425588,
+        11.879999737142317,
+        5.999999865889549
+      ],
+      "max": [
+        9.411941435221106,
+        12.119999702000904,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner35",
+      "type": "Xform",
+      "min": [
+        6.4193925322966425,
+        -12.200128053759151,
+        6.000000476241098
+      ],
+      "max": [
+        9.419530113830112,
+        -9.199992164969615,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner35/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        6.4193925322966425,
+        -12.200128053759151,
+        6.000000476241098
+      ],
+      "max": [
+        9.419530113830112,
+        -9.199992164969615,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner9_88",
+      "type": "Xform",
+      "min": [
+        -10.330129163634865,
+        -12.200130051678858,
+        7.70319621614021e-08
+      ],
+      "max": [
+        -7.329992206767372,
+        -9.19999247014539,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner9_88/SM_WallA_InnerCorner",
+      "type": "Xform",
+      "min": [
+        -10.330129163634865,
+        -12.200130051678858,
+        7.70319621614021e-08
+      ],
+      "max": [
+        -7.329992206767372,
+        -9.19999247014539,
+        3.10000542387354
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_63",
+      "type": "Xform",
+      "min": [
+        -5.0498028712216545,
+        17.889355149568257,
+        1.0160848063902912
+      ],
+      "max": [
+        -4.462192680580914,
+        18.0113480050567,
+        3.000011153647649
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_63/SM_WallWire_03",
+      "type": "Mesh",
+      "min": [
+        -5.0498028712216545,
+        17.889355149568257,
+        1.0160848063902912
+      ],
+      "max": [
+        -4.462192680580914,
+        18.0113480050567,
+        3.000011153647649
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_64",
+      "type": "Xform",
+      "min": [
+        -6.4667421950854465,
+        17.877399532784302,
+        1.0474761020753638
+      ],
+      "max": [
+        -5.8818556790771455,
+        17.999999576570914,
+        3.000010695883991
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_64/SM_WallWire_02",
+      "type": "Mesh",
+      "min": [
+        -6.4667421950854465,
+        17.877399532784302,
+        1.0474761020753638
+      ],
+      "max": [
+        -5.8818556790771455,
+        17.999999576570914,
+        3.000010695883991
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_65",
+      "type": "Xform",
+      "min": [
+        -10.307961545855662,
+        12.655202659028703,
+        1.0160729753358737
+      ],
+      "max": [
+        -10.223921041848035,
+        14.505707988760435,
+        2.9999999329447746
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_65/SM_WallWire_07",
+      "type": "Mesh",
+      "min": [
+        -10.307961545855662,
+        12.655202659028703,
+        1.0160729753358737
+      ],
+      "max": [
+        -10.223921041848035,
+        14.505707988760435,
+        2.9999999329447746
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_68",
+      "type": "Xform",
+      "min": [
+        -6.857916452125642,
+        17.971090222540443,
+        3.0000096277687565
+      ],
+      "max": [
+        -4.503143532617176,
+        17.99999979266887,
+        6.000009865889327
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_68/SM_WallWire_08",
+      "type": "Mesh",
+      "min": [
+        -6.857916452125642,
+        17.971090222540443,
+        3.0000096277687565
+      ],
+      "max": [
+        -4.503143532617176,
+        17.99999979266887,
+        6.000009865889327
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_69",
+      "type": "Xform",
+      "min": [
+        -9.157916400716637,
+        17.971090222540443,
+        6.000009560713531
+      ],
+      "max": [
+        -6.80314348120817,
+        17.99999979266887,
+        9.000009798834103
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_69/SM_WallWire_08",
+      "type": "Mesh",
+      "min": [
+        -9.157916400716637,
+        17.971090222540443,
+        6.000009560713531
+      ],
+      "max": [
+        -6.80314348120817,
+        17.99999979266887,
+        9.000009798834103
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_70",
+      "type": "Xform",
+      "min": [
+        -6.6641121348105194,
+        17.973778316801887,
+        3.0000108484718706
+      ],
+      "max": [
+        -6.201200134929794,
+        18.00268701555826,
+        6.000011696943973
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_70/SM_WallWire_06",
+      "type": "Mesh",
+      "min": [
+        -6.6641121348105194,
+        17.973778316801887,
+        3.0000108484718706
+      ],
+      "max": [
+        -6.201200134929794,
+        18.00268701555826,
+        6.000011696943973
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_71",
+      "type": "Xform",
+      "min": [
+        -8.657916408041823,
+        17.971088238304414,
+        6.300009448676665
+      ],
+      "max": [
+        -6.303141867541604,
+        17.999999689776107,
+        9.300010941024185
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_71/SM_WallWire_08",
+      "type": "Mesh",
+      "min": [
+        -8.65791640804182,
+        17.97108823830441,
+        6.300009448676662
+      ],
+      "max": [
+        -6.3031418675416,
+        17.999999689776104,
+        9.300010941024183
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_73",
+      "type": "Xform",
+      "min": [
+        -4.388734390350544,
+        17.881417366016116,
+        2.9991026563195264
+      ],
+      "max": [
+        -1.4008987460822917,
+        18.014283989719598,
+        6.038451027139501
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_73/SM_WallWire_10",
+      "type": "Mesh",
+      "min": [
+        -4.388734390350544,
+        17.881417366016116,
+        2.9991026563195264
+      ],
+      "max": [
+        -1.4008987460822917,
+        18.014283989719598,
+        6.038451027139501
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_74",
+      "type": "Xform",
+      "min": [
+        -1.4164611890427492,
+        17.881417752174627,
+        5.761557366336342
+      ],
+      "max": [
+        1.5713744375332945,
+        18.01428397802373,
+        8.800905737156288
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallWire_74/SM_WallWire_10",
+      "type": "Mesh",
+      "min": [
+        -1.4164611890427492,
+        17.881417752174627,
+        5.761557366336342
+      ],
+      "max": [
+        1.5713744375332945,
+        18.01428397802373,
+        8.800905737156288
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M12",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        9.000000409186576,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        14.999999877805134,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_6M12/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        -10.330003904696154,
+        9.000000409186576,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        -10.12999508962536,
+        14.999999877805134,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M15",
+      "type": "Xform",
+      "min": [
+        -8.949999010786495,
+        17.999998792867174,
+        2.9999999329447746
+      ],
+      "max": [
+        -2.9500001128761135,
+        18.00000154686319,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M15/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        -8.949999010786495,
+        17.999998792867174,
+        2.9999999329447746
+      ],
+      "max": [
+        -2.9500001128761126,
+        18.00000154686319,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner15",
+      "type": "Xform",
+      "min": [
+        6.412992227263919,
+        14.999992340505287,
+        3.0000105432960997
+      ],
+      "max": [
+        9.413128116053455,
+        18.000129922038756,
+        6.0000101710650995
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_InnerCorner15/SM_WallB_InnerCorner",
+      "type": "Mesh",
+      "min": [
+        6.412992227263919,
+        14.999992340505287,
+        3.0000105432960997
+      ],
+      "max": [
+        9.413128116053455,
+        18.000129922038756,
+        6.0000101710650995
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M43_01",
+      "type": "Xform",
+      "min": [
+        0.4127006011268759,
+        17.79999771493295,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        6.412699856665084,
+        18.00000093651169,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M43_01/SM_WallA_6M",
+      "type": "Xform",
+      "min": [
+        0.4127006011268759,
+        17.799997714932946,
+        -1.8369697984199349e-16
+      ],
+      "max": [
+        6.412699856665084,
+        18.000000936511686,
+        3.1000048135219913
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M13_01",
+      "type": "Xform",
+      "min": [
+        0.4627006000093701,
+        17.999998792867135,
+        2.9999999329447746
+      ],
+      "max": [
+        6.462699855547578,
+        18.000001546863306,
+        6.000000171065324
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M13_01/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        0.4627006000093701,
+        17.99999879286713,
+        2.9999999329447746
+      ],
+      "max": [
+        6.462699855547578,
+        18.000001546863302,
+        6.000000171065324
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M14_01",
+      "type": "Xform",
+      "min": [
+        0.4627006000093701,
+        17.999998792867135,
+        5.999999865889549
+      ],
+      "max": [
+        6.462699855547578,
+        18.000001546863306,
+        9.000000104010098
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_WallA_3M14_01/SM_WallB_6M",
+      "type": "Mesh",
+      "min": [
+        0.4627006000093701,
+        17.99999879286713,
+        5.999999865889549
+      ],
+      "max": [
+        6.462699855547578,
+        18.000001546863302,
+        9.000000104010098
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift",
+      "type": "Xform",
+      "min": [
+        1.8369962805472755,
+        -3.432248628827161,
+        -0.0019066845944519795
+      ],
+      "max": [
+        5.443872716927432,
+        -0.5509837344911273,
+        2.1530379767781938
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift/S_ForkliftBody",
+      "type": "Mesh",
+      "min": [
+        2.8388082616374257,
+        -2.8062470254683594,
+        -0.0019066845944519795
+      ],
+      "max": [
+        5.443872716927432,
+        -0.5509837344911273,
+        2.1530379767781938
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift/S_ForkliftFork",
+      "type": "Xform",
+      "min": [
+        1.854175719982354,
+        -3.4047558434105687,
+        0.05716519227999761
+      ],
+      "max": [
+        3.534248722642553,
+        -1.7610072123852196,
+        1.0488627390072622
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift/S_ForkliftFork/S_ForkliftFork",
+      "type": "Mesh",
+      "min": [
+        1.854175719982354,
+        -3.4047558434105687,
+        0.05716519227999761
+      ],
+      "max": [
+        3.5342487226425527,
+        -1.7610072123852198,
+        1.0488627390072622
+      ],
+      "collision_enabled": false
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift_01",
+      "type": "Xform",
+      "min": [
+        -9.591446323505089,
+        -3.4478360005764634,
+        -0.0019066845944519795
+      ],
+      "max": [
+        -6.096766225836027,
+        -2.23402915057093,
+        2.1530379767781938
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift_01/S_ForkliftBody",
+      "type": "Mesh",
+      "min": [
+        -8.410131271174187,
+        -3.447836000576463,
+        -0.0019066845944519795
+      ],
+      "max": [
+        -6.096766225836027,
+        -2.23402915057093,
+        2.1530379767781938
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift_01/S_ForkliftFork",
+      "type": "Xform",
+      "min": [
+        -9.591446323505089,
+        -3.4154171017649495,
+        0.05716519227999761
+      ],
+      "max": [
+        -8.328296022148855,
+        -2.266448125676388,
+        1.0488627390072622
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift_01/S_ForkliftFork/S_ForkliftFork",
+      "type": "Mesh",
+      "min": [
+        -9.591446323505089,
+        -3.4154171017649495,
+        0.05716519227999761
+      ],
+      "max": [
+        -8.328296022148855,
+        -2.266448125676388,
+        1.0488627390072622
+      ],
+      "collision_enabled": false
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_03",
+      "type": "Xform",
+      "min": [
+        -9.657376075070992,
+        -1.4360474862709793,
+        1.2999987502618773
+      ],
+      "max": [
+        -9.03335532180703,
+        -0.4500691147546263,
+        1.5890562262701549
+      ]
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_03/SM_RackPile_03",
+      "type": "Mesh",
+      "min": [
+        -9.657376075070992,
+        -1.4360474862709793,
+        1.2999987502618773
+      ],
+      "max": [
+        -9.03335532180703,
+        -0.4500691147546263,
+        1.5890562262701549
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_04",
+      "type": "Xform",
+      "min": [
+        -9.696336418794889,
+        1.8376507207612462,
+        1.5081496273075408
+      ],
+      "max": [
+        -8.759534109716963,
+        2.7913567541317548,
+        1.808149007891604
+      ]
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_04/SM_RackPile_04",
+      "type": "Mesh",
+      "min": [
+        -9.696336418794889,
+        1.8376507207612462,
+        1.5081496273075408
+      ],
+      "max": [
+        -8.759534109716963,
+        2.7913567541317548,
+        1.808149007891604
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_06",
+      "type": "Xform",
+      "min": [
+        -10.330565413886976,
+        0.40181244166010904,
+        4.102517321239822
+      ],
+      "max": [
+        -8.333985971783305,
+        3.7701202355933274,
+        5.1123936452554615
+      ]
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_06/SM_RackPile_06",
+      "type": "Xform",
+      "min": [
+        -10.330565413886976,
+        0.40181244166010904,
+        4.102517321239822
+      ],
+      "max": [
+        -8.333985971783305,
+        3.7701202355933274,
+        5.1123936452554615
+      ]
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_05",
+      "type": "Xform",
+      "min": [
+        -9.694798559586097,
+        5.624085989106334,
+        3.0076429620930543
+      ],
+      "max": [
+        -9.070777806322134,
+        6.610064360622687,
+        3.2967004381013316
+      ]
+    },
+    {
+      "path": "/World/warehouse_extras/Extras/Misc/SM_RackPile_05/SM_RackPile_03",
+      "type": "Mesh",
+      "min": [
+        -9.694798559586097,
+        5.624085989106334,
+        3.0076429620930543
+      ],
+      "max": [
+        -9.070777806322134,
+        6.610064360622687,
+        3.2967004381013316
+      ],
+      "collision_enabled": true
+    }
+  ],
+  "robot_colliders": [
+    {
+      "path": "/World/Nova_Carter_ROS/chassis_link/visual",
+      "type": "Xform",
+      "min": [
+        -6.119703359901905,
+        -1.2384713143110275,
+        0.07599999755620956
+      ],
+      "max": [
+        -5.412648797035217,
+        -0.7615292072296144,
+        0.47988197207450867
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/caster_frame_base/visual",
+      "type": "Xform",
+      "min": [
+        -5.577800135748885,
+        -1.1640466413539627,
+        0.1596221067936462
+      ],
+      "max": [
+        -5.47829748259711,
+        -0.8360458619464483,
+        0.2393921056603554
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/caster_swivel_left/Colliders/Cube",
+      "type": "Mesh",
+      "min": [
+        -5.533351193866973,
+        -1.1722999991059304,
+        0.06028569805456962
+      ],
+      "max": [
+        -5.478351194164996,
+        -1.0923000008940698,
+        0.1752857001407322
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/caster_wheel_left/Colliders/Cylinder",
+      "type": "Cylinder",
+      "min": [
+        -55.48805090257868,
+        -51.13224995835381,
+        -49.923692892796005
+      ],
+      "max": [
+        44.511949097421336,
+        48.86775004164622,
+        50.07630710720402
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/caster_swivel_right/Colliders/Cube",
+      "type": "Mesh",
+      "min": [
+        -5.533351193866973,
+        -0.9076999991059304,
+        0.06028569805456962
+      ],
+      "max": [
+        -5.478351194164996,
+        -0.8277000008940697,
+        0.1752857001407322
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/caster_wheel_right/Colliders/Cylinder",
+      "type": "Cylinder",
+      "min": [
+        -55.4880509025787,
+        -50.86775003293041,
+        -49.92369289279602
+      ],
+      "max": [
+        44.51194909742136,
+        49.13224996706965,
+        50.07630710720404
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/wheel_left/Colliders/Cylinder",
+      "type": "Cylinder",
+      "min": [
+        -6.1249999955622485,
+        -1.236599993185699,
+        0.014999996870756142
+      ],
+      "max": [
+        -5.8749999955622485,
+        -1.1765999945268035,
+        0.26499999687075615
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/wheel_left/Colliders/Cylinder_01",
+      "type": "Cylinder",
+      "min": [
+        -6.099999989601784,
+        -1.2465999929621816,
+        0.04000000283122062
+      ],
+      "max": [
+        -5.900000001522713,
+        -1.166599994750321,
+        0.23999999091029167
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/wheel_left/Colliders/Cylinder_02",
+      "type": "Cylinder",
+      "min": [
+        -6.139999996158295,
+        -1.2165999936327339,
+        -3.72529030068236e-09
+      ],
+      "max": [
+        -5.859999994966202,
+        -1.1965999940797687,
+        0.2799999974668026
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/wheel_right/Colliders/Cylinder",
+      "type": "Cylinder",
+      "min": [
+        -6.12499999560765,
+        -0.8234000054731965,
+        0.014999996870756142
+      ],
+      "max": [
+        -5.87499999560765,
+        -0.763400006814301,
+        0.26499999687075615
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/wheel_right/Colliders/Cylinder_01",
+      "type": "Cylinder",
+      "min": [
+        -6.099999989647186,
+        -0.833400005249679,
+        0.04000000283122062
+      ],
+      "max": [
+        -5.900000001568115,
+        -0.7534000070378184,
+        0.23999999091029167
+      ],
+      "collision_enabled": true
+    },
+    {
+      "path": "/World/Nova_Carter_ROS/wheel_right/Colliders/Cylinder_02",
+      "type": "Cylinder",
+      "min": [
+        -6.139999996203697,
+        -0.8034000059202313,
+        -3.72529030068236e-09
+      ],
+      "max": [
+        -5.859999995011604,
+        -0.7834000063672661,
+        0.2799999974668026
+      ],
+      "collision_enabled": true
+    }
+  ],
+  "robot_joints": [
+    {
+      "name": "joint_caster_base",
+      "path": "/World/Nova_Carter_ROS/joint_caster_base",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/chassis_link"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/caster_frame_base"
+      ],
+      "attributes": {
+        "drive:angular:physics:damping": "10.0",
+        "drive:angular:physics:stiffness": "100.0",
+        "physics:axis": "Z",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(-0.47195, 0, 0.22289)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.5, -0.5, -0.5, 0.5)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physics:lowerLimit": "-2.0",
+        "physics:upperLimit": "2.0",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    },
+    {
+      "name": "joint_wheel_left",
+      "path": "/World/Nova_Carter_ROS/joint_wheel_left",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/chassis_link"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/wheel_left"
+      ],
+      "attributes": {
+        "drive:angular:physics:damping": "1000000.0",
+        "drive:angular:physics:maxForce": "inf",
+        "drive:angular:physics:targetVelocity": "0.0",
+        "physics:axis": "Z",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(-2.515349e-17, 0.2066, 0.14)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.70710677, -0.70710677, 0, 0)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physxJoint:maxJointVelocity": "1200.0",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    },
+    {
+      "name": "joint_wheel_right",
+      "path": "/World/Nova_Carter_ROS/joint_wheel_right",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/chassis_link"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/wheel_right"
+      ],
+      "attributes": {
+        "drive:angular:physics:damping": "1000000.0",
+        "drive:angular:physics:maxForce": "inf",
+        "physics:axis": "Z",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(5.907847e-9, -0.2066, 0.14)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.70710677, -0.70710677, 0, 0)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physxJoint:maxJointVelocity": "1200.0",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    },
+    {
+      "name": "joint_swing_left",
+      "path": "/World/Nova_Carter_ROS/joint_swing_left",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/caster_frame_base"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/caster_swivel_left"
+      ],
+      "attributes": {
+        "drive:angular:physics:damping": "9.999999747378752e-06",
+        "physics:axis": "X",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(0.132296, 0.031188007, 0.0000019913196)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.70710677, 1.21016175e-8, 1.21016175e-8, -0.70710677)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physxJoint:maxJointVelocity": "720.0",
+        "physxLimit:angular:damping": "0.0",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    },
+    {
+      "name": "joint_swing_right",
+      "path": "/World/Nova_Carter_ROS/joint_swing_right",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/caster_frame_base"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/caster_swivel_right"
+      ],
+      "attributes": {
+        "drive:angular:physics:damping": "9.999999747378752e-06",
+        "physics:axis": "X",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(-0.1323, 0.031187888, 1.13773346e-7)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.70710677, 1.21016175e-8, 1.21016175e-8, -0.70710677)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "physxJoint:maxJointVelocity": "720.0",
+        "physxLimit:angular:damping": "0.0",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    },
+    {
+      "name": "joint_caster_left",
+      "path": "/World/Nova_Carter_ROS/joint_caster_left",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/caster_swivel_left"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/caster_wheel_left"
+      ],
+      "attributes": {
+        "physics:axis": "Z",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(-0.115397885, -0.000050041646, 0.039999098)",
+        "physics:localPos1": "(0, 0.0000049960554, 0)",
+        "physics:localRot0": "(0.5, -0.5, 0.5, 0.5)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    },
+    {
+      "name": "joint_caster_right",
+      "path": "/World/Nova_Carter_ROS/joint_caster_right",
+      "type": "PhysicsRevoluteJoint",
+      "body0": [
+        "/World/Nova_Carter_ROS/caster_swivel_right"
+      ],
+      "body1": [
+        "/World/Nova_Carter_ROS/caster_wheel_right"
+      ],
+      "attributes": {
+        "physics:axis": "Z",
+        "physics:jointEnabled": "True",
+        "physics:localPos0": "(-0.11539289, 0.00005003293, 0.03999913)",
+        "physics:localPos1": "(0, 0, 0)",
+        "physics:localRot0": "(0.5, -0.5, 0.5, 0.5)",
+        "physics:localRot1": "(1, 0, 0, 0)",
+        "state:angular:physics:position": "0.0",
+        "state:angular:physics:velocity": "0.0"
+      }
+    }
+  ]
+}

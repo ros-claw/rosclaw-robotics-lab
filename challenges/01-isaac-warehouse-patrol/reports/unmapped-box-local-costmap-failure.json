@@ -1,0 +1,25 @@
+{
+  "status": "FAIL",
+  "failures": [
+    "actual local master costmap did not mark unmapped box"
+  ],
+  "maximum_actual_lidar_box_hits": 6329,
+  "maximum_actual_local_occupied_cells": 0,
+  "conservative_minimum_footprint_clearance_m": 0.3210270971112381,
+  "wall_interval": [
+    1791462502.0756626,
+    1791462667.5841498
+  ],
+  "witness_sha256": "a0bfd982a6b3837569f2801257b75086f42bacee7a6637ff760034b8683c65ee",
+  "physical_obstacle": {
+    "path": "/World/ROSClawUnmappedBox",
+    "center_xyz": [
+      -3.5,
+      4,
+      0.5
+    ],
+    "size_m": 1.0,
+    "physical_collision": true,
+    "source": "session layer; absent from official occupancy map"
+  }
+}

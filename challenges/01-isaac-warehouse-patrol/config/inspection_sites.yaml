@@ -1,0 +1,70 @@
+schema_version: rosclaw.patrol_sites.v1
+frame_id: map
+status: PHYSICALLY_REACHABLE
+map_sha256: dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e
+navigation_tolerance_m: 0.4
+dwell_sim_seconds: 2.0
+stable_speed_mps: 0.02
+sites:
+  entry:
+    label: 仓库入口
+    x: 7.5
+    y: 16
+    yaw: 1.5707963267948966
+    map_pixel:
+      row: 96
+      col: 389
+    clearance_m: 1.812456896
+    physical_reachability: VERIFIED_NAV2_AND_PHYSX
+    semantic_evidence:
+      kind: north wall opening approach
+      wall_y: 18.0
+      opening_x:
+      - 6.4127
+      - 9.2119
+      source_inventory: reports/runs/20261008T101322Z/stage-inventory.json
+  shelf:
+    label: 货架检查位置
+    x: -7
+    y: 3
+    yaw: 3.141592653589793
+    map_pixel:
+      row: 356
+      col: 99
+    clearance_m: 1.8
+    physical_reachability: VERIFIED_NAV2_AND_PHYSX
+    semantic_evidence:
+      usd_prim: /World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_159
+      bounds_xy:
+      - - -9.858389
+        - 0.299994
+      - - -8.781611
+        - 4.299996
+  aisle:
+    label: 仓库通道
+    x: -2
+    y: 8
+    yaw: 1.5707963267948966
+    map_pixel:
+      row: 256
+      col: 199
+    clearance_m: 6.345470826
+    physical_reachability: VERIFIED_NAV2_AND_PHYSX
+    semantic_evidence:
+      kind: central free aisle; 6.345m static-map obstacle clearance
+  home:
+    label: 初始停靠位置
+    x: -6
+    y: -1
+    yaw: 3.141592653589793
+    map_pixel:
+      row: 436
+      col: 119
+    clearance_m: 1.236931688
+    physical_reachability: VERIFIED_NAV2_AND_PHYSX
+    semantic_evidence:
+      official_initial_pose:
+      - -6
+      - -1
+      - 3.141592653589793
+      initial_physics_verified: true

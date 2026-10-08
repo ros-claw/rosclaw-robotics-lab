@@ -1,1 +1,15 @@
-The calibration_navigation_params.yaml file is derived from NVIDIA IsaacSim-ros_workspaces, tag IsaacSim-6.1.0. NVIDIA source remains subject to its upstream license; NVIDIA assets and Isaac Sim are not distributed here and remain subject to NVIDIA terms. Project-authored code is MIT licensed.
+calibration_navigation_params.yaml and patrol_navigation_params.yaml are derived
+from NVIDIA IsaacSim-ros_workspaces, tag IsaacSim-6.1.0, commit
+ a9e8471ee901bc2332c1e4aca94ac580713ca3ab.
+NVIDIA source remains subject to its upstream license. NVIDIA USD assets,
+Isaac Sim installers and caches are not distributed here and remain subject
+to NVIDIA terms.
+
+native_probe.py, native.py and pty_session.py adapt ROSClaw's read-only probe
+and Native SIM acceptance/PTY patterns from upstream commit
+21838614bb14c39599b8acef731b2b64dad3b92a.
+Copyright (c) 2026 ROSClaw Team. These adaptations are MIT licensed, as stated
+in the root LICENSE. The ROSClaw upstream checkout itself is not modified.
+
+Project-authored code is MIT licensed. Screenshots and video show actual
+licensed local simulation runs; they do not redistribute scene source assets.

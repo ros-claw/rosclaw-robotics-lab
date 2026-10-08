@@ -1,0 +1,15 @@
+{
+  "run_id": "unmapped-box-final",
+  "mode": "workflow",
+  "duration_seconds": 402.8309540748596,
+  "wall_interval": [
+    1791463074.199507,
+    1791463477.030461
+  ],
+  "wall_time_compression": 1.0,
+  "fps": 2,
+  "source": "actual Isaac viewport PNGs, exact PTY events, independent PhysX",
+  "audio": false,
+  "visible_private_thinking": false,
+  "renderer_source_sha256": "365df47a7b675bf990062f3357abdd14993564a521fe0d89aa441dcb079fd06d"
+}

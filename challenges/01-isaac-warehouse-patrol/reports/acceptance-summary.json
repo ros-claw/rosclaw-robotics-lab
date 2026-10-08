@@ -1,0 +1,352 @@
+{
+  "schema_version": "rosclaw.isaac_acceptance_summary.v1",
+  "successful_full_resets": 4,
+  "order_variation_passed": true,
+  "all_four_sites_each_reset": true,
+  "all_zero_non_floor_contacts": true,
+  "maximum_position_error_m": 0.15018572814329928,
+  "model_provider_ids": [
+    "openai-codex/gpt-6.1-sol"
+  ],
+  "runs": [
+    {
+      "report": "native-acceptance-1.json",
+      "run_id": "isaac-a1",
+      "status": "PASS",
+      "order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "model_turns": 14,
+      "distance_m": 58.38677479936712,
+      "physical_action_wall_seconds": 307.95521879196167,
+      "input_to_first_motion_wall_seconds": 21.308260440826416,
+      "observed_sim_to_wall_ratio": 0.36822780584438214,
+      "body_hash": "e32abf8d2972e2c60d81bffdc9f207d9dc162c770f64818d5c373de23c1b0562",
+      "source_manifest": {
+        "git_sha": "f4dd3dc162d7d75f444e6459d0e41d862087dfff",
+        "working_tree_dirty": true,
+        "source_hashes": {
+          "isaac/camera_setup.py": "bfb257c3bd667dee61d61c8cc841e0539dd6c6be57e54f4ef0a3f035e5c46a21",
+          "isaac/asset_resolver.py": "8c42f58edcca4dfdac0c9c4144fbad73be4003168fb433f2008a1b46ad43000c",
+          "isaac/stage_inventory.py": "4b56191dc3eb066344fbe71b16de37ab492e56646694c9b27bd8a5e2d1b95516",
+          "isaac/baseline_observer.py": "c94c12b91475f089e54e981a1596cc88dc73a808be7c08a662bd84ea080a8af5",
+          "ros2/native_probe.py": "d8e7aaefe3a6d143d030351c0995102864febb4e5ad148232dc746fc378a6a24",
+          "ros2/wait_navigation.py": "5d7a5c5e33e4959b8f5574cddd30caf2369a2593a4537b1c65214ce26ec68991",
+          "ros2/nav_probe.py": "2046ac61dd9df448bfc377075fec6fcdd09849faf65ebfb02a604a6ca635fe77",
+          "ros2/audit_runtime.py": "aa9b834ee86671147e814af1b1a90dd48458bbf473caebac21e5d010de7c39fa",
+          "rosclaw/prepare.py": "bd5abe5d36e9bc7f984d699c727a961b729d2edd0582de63c7af8b98911e63bc",
+          "rosclaw/native.py": "df8f7bb9eb8f13cf08afd7411ad837e3865f94d49d87d145768df2385b82543e",
+          "rosclaw/native_tools.py": "b2b255b2e232c3f2de98712eef4d470f32a9ec0cc0ae3caee7ef8001ea8cceed",
+          "rosclaw/remember.py": "02fa052524efbef3af93e667912cd67340a2cf2b94878db2686613c77c4ae5f0",
+          "rosclaw/daemon.py": "f29d169bebcfae9282b429f877a55924d2a656cf87527a014443d2431dcb7a41",
+          "rosclaw/pty_session.py": "e8302d662711f3277bd55e5e043c12ecf6630af2ef875cf46951661e2b15f4fb",
+          "rosclaw/freeze.py": "ea22a8c80a4851a5aeebcc27ac9b195a4e0a7c0da588fc09cb26c2bc21d6bc18",
+          "rosclaw/point_executor.py": "c3d0c18576331c518fc07c637bc5272aa4ab679262ea1c2f412b482e26e3327f",
+          "evaluator/patrol.py": "8b60d2d5c1d8640b10593048a4f2fe4122a3386ce072844494bcd36c1181d452",
+          "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+          "evaluator/run_report.py": "19b57e5c9ca0d017495655a9f97ccd3f995a86f873cb85a1c6740943966cdca3",
+          "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+          "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+          "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+          "config/patrol_navigation_params.yaml": "a789dfd12b25d793ca052a4aeeec6f6d1706d784ead5d6c46632bca6fdf7b40e",
+          "config/runtime.env": "48f8849c5704a26136533ea124277ae68170c7018779882a27e429826964b3f8",
+          "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+          "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+          "scripts/setup.sh": "0028c6f499c988b40d7add50c00e34d9192050d5c9446801b6661a4d3f3abd46",
+          "scripts/start-rosclaw.sh": "28b36b70b34b592bdc71d972dfcdc74edb92fa73e67891fc618845a62738ac46",
+          "scripts/demo.sh": "4f62a4910c8ac7e2758aea1efa3ff7e60c9cf5d32ccb4fd4043fb95c23fa6fc3",
+          "scripts/start-agent-observers.sh": "93af504d5037e437cda1e1a3c694f66ca9b8930bc2337d9ae2fc68b634294eae",
+          "scripts/doctor.sh": "313887b6a8b601cca86da6fac09c890f9c60f175a0126f7cb8cfe6c48c7754d3",
+          "scripts/start-nav2.sh": "29308eb4588f9169a6d797f18df9c52c2d69ebbd6325187872ecc1b16cf91071",
+          "scripts/ros-container.sh": "bf2926db0ed4c1959432fbc30f1d1916eeb0d0134d4b3c3939428693e0eaedae",
+          "scripts/smoke-official.sh": "a3453ec1b7e1c0e03e4186ad7aac29e7fcba8fae1b62b85cb338605810957f9d",
+          "scripts/common.sh": "7a9d7ebc58fa318c295ecf97161ea65286e071393f89edf10bd299ccd111b351",
+          "scripts/stop.sh": "eb0df630fb5cf62f6a1f11b828867b0fcf02e4af365759bdd8f105b86d9fcf90",
+          "scripts/start-sim.sh": "53aa5fd5451c16622b2f97c06ed31e64335e40d1d054708d08483e14e7b6be8a"
+        },
+        "execution_config_sha256": "9e5a5b5b1774338c970b8cbc82e06b3b297f8a1117ee362403a9992662d5911d"
+      }
+    },
+    {
+      "report": "native-acceptance-2.json",
+      "run_id": "a3",
+      "status": "PASS",
+      "order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "model_turns": 16,
+      "distance_m": 58.29409837980213,
+      "physical_action_wall_seconds": 363.97908902168274,
+      "input_to_first_motion_wall_seconds": 23.23367142677307,
+      "observed_sim_to_wall_ratio": 0.3126426201998978,
+      "body_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+      "source_manifest": {
+        "git_sha": "f4dd3dc162d7d75f444e6459d0e41d862087dfff",
+        "working_tree_dirty": true,
+        "source_hashes": {
+          "isaac/camera_setup.py": "0ce5b5144b9c5de3108e42647994b3272ba5ab9835be081139fbf2102f23c378",
+          "isaac/asset_resolver.py": "8c42f58edcca4dfdac0c9c4144fbad73be4003168fb433f2008a1b46ad43000c",
+          "isaac/stage_inventory.py": "4b56191dc3eb066344fbe71b16de37ab492e56646694c9b27bd8a5e2d1b95516",
+          "isaac/baseline_observer.py": "0c80a5507fd1dd5e41f341ded0a5cb96eed552a73ddad2488a9e1b69a3e9b1ee",
+          "ros2/native_probe.py": "8c80f652b991278bd90dbaef839f9b85dcbebc91646a2f7fa0b425142b25b1f2",
+          "ros2/obstacle_witness.py": "e338ca7f4640d4569b1229d718800f8e3a3f7aec8135ac1c60d453776b159a0b",
+          "ros2/wait_navigation.py": "5d7a5c5e33e4959b8f5574cddd30caf2369a2593a4537b1c65214ce26ec68991",
+          "ros2/nav_probe.py": "2046ac61dd9df448bfc377075fec6fcdd09849faf65ebfb02a604a6ca635fe77",
+          "ros2/audit_runtime.py": "aa9b834ee86671147e814af1b1a90dd48458bbf473caebac21e5d010de7c39fa",
+          "rosclaw/prepare.py": "9dcd2fc3b5f179a35b186b7762e9f8bbe676b42b997df02fe3341e949d06142f",
+          "rosclaw/native.py": "df8f7bb9eb8f13cf08afd7411ad837e3865f94d49d87d145768df2385b82543e",
+          "rosclaw/native_tools.py": "b2b255b2e232c3f2de98712eef4d470f32a9ec0cc0ae3caee7ef8001ea8cceed",
+          "rosclaw/remember.py": "02fa052524efbef3af93e667912cd67340a2cf2b94878db2686613c77c4ae5f0",
+          "rosclaw/daemon.py": "f29d169bebcfae9282b429f877a55924d2a656cf87527a014443d2431dcb7a41",
+          "rosclaw/pty_session.py": "02f0aa15bf11613740a7cc8d36ffa9e00be098dcd5cf576dc6b38f32689e748c",
+          "rosclaw/freeze.py": "87095e326aa407a44a4b4247901a15d6f0345ede34bd087b2079cf8d6c0e9e6d",
+          "rosclaw/point_executor.py": "640600d78b0800d88b36036717eb8c6aa30ad5f1e048ef7e168b1c95cfbbb7a0",
+          "evaluator/patrol.py": "8b60d2d5c1d8640b10593048a4f2fe4122a3386ce072844494bcd36c1181d452",
+          "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+          "evaluator/run_report.py": "977bcb732a682c61c92a1f27c4c0b04f90181c0a814bc470e7ea7461d9a4072e",
+          "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+          "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+          "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+          "config/patrol_navigation_params.yaml": "a789dfd12b25d793ca052a4aeeec6f6d1706d784ead5d6c46632bca6fdf7b40e",
+          "config/runtime.env": "ba940df3d2bab41987e747fb589277d6659ede9faa166ae268377832f9bd1b5c",
+          "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+          "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+          "scripts/setup.sh": "94f65a36a8a2d16cf3c20921b18a431cedda7272302a2b4b3a0227ed9ac1d9d0",
+          "scripts/start-rosclaw.sh": "b85b8897d0c8959afdca50b365fe9af42cc3ad0858c648a338de79d1be730002",
+          "scripts/demo.sh": "4f62a4910c8ac7e2758aea1efa3ff7e60c9cf5d32ccb4fd4043fb95c23fa6fc3",
+          "scripts/start-agent-observers.sh": "93af504d5037e437cda1e1a3c694f66ca9b8930bc2337d9ae2fc68b634294eae",
+          "scripts/doctor.sh": "313887b6a8b601cca86da6fac09c890f9c60f175a0126f7cb8cfe6c48c7754d3",
+          "scripts/start-nav2.sh": "29308eb4588f9169a6d797f18df9c52c2d69ebbd6325187872ecc1b16cf91071",
+          "scripts/ros-container.sh": "bf2926db0ed4c1959432fbc30f1d1916eeb0d0134d4b3c3939428693e0eaedae",
+          "scripts/smoke-official.sh": "a3453ec1b7e1c0e03e4186ad7aac29e7fcba8fae1b62b85cb338605810957f9d",
+          "scripts/common.sh": "7a9d7ebc58fa318c295ecf97161ea65286e071393f89edf10bd299ccd111b351",
+          "scripts/run-native-acceptance.sh": "c954156c58864eeb7e8e4194e0a5555bef5dab083cfb8b687211945b88c318cf",
+          "scripts/stop.sh": "eb0df630fb5cf62f6a1f11b828867b0fcf02e4af365759bdd8f105b86d9fcf90",
+          "scripts/start-sim.sh": "53aa5fd5451c16622b2f97c06ed31e64335e40d1d054708d08483e14e7b6be8a"
+        },
+        "execution_config_sha256": "ec89a7e3a4b30fcceb7084dd138eb71f8325b51f1db5e8db5d61ba19459e3716",
+        "rosclaw_upstream": {
+          "git_sha": "21838614bb14c39599b8acef731b2b64dad3b92a",
+          "working_tree_dirty": false
+        },
+        "docker_image": "sha256:771bc776ab0df68f236187a5ea2396bdc4513888d0ae413377d3dca45c04bd24"
+      }
+    },
+    {
+      "report": "native-acceptance-3.json",
+      "run_id": "a4b",
+      "status": "PASS",
+      "order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "model_turns": 17,
+      "distance_m": 46.1892517120914,
+      "physical_action_wall_seconds": 294.35193371772766,
+      "input_to_first_motion_wall_seconds": 20.685425519943237,
+      "observed_sim_to_wall_ratio": 0.3185407961428223,
+      "body_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+      "source_manifest": {
+        "git_sha": "f4dd3dc162d7d75f444e6459d0e41d862087dfff",
+        "working_tree_dirty": true,
+        "source_hashes": {
+          "isaac/camera_setup.py": "98f50294e07d6e1ef709a3d93e267e4f6759b4565f6c3846e5146330bd6c4216",
+          "isaac/asset_resolver.py": "8c42f58edcca4dfdac0c9c4144fbad73be4003168fb433f2008a1b46ad43000c",
+          "isaac/stage_inventory.py": "4b56191dc3eb066344fbe71b16de37ab492e56646694c9b27bd8a5e2d1b95516",
+          "isaac/baseline_observer.py": "74430c01f63b5f345b648f5e584b0937fbb8cc798682f183246189f9e1f89161",
+          "ros2/native_probe.py": "8c80f652b991278bd90dbaef839f9b85dcbebc91646a2f7fa0b425142b25b1f2",
+          "ros2/obstacle_witness.py": "e338ca7f4640d4569b1229d718800f8e3a3f7aec8135ac1c60d453776b159a0b",
+          "ros2/wait_navigation.py": "5d7a5c5e33e4959b8f5574cddd30caf2369a2593a4537b1c65214ce26ec68991",
+          "ros2/nav_probe.py": "2046ac61dd9df448bfc377075fec6fcdd09849faf65ebfb02a604a6ca635fe77",
+          "ros2/audit_runtime.py": "aa9b834ee86671147e814af1b1a90dd48458bbf473caebac21e5d010de7c39fa",
+          "ros2/cancel_navigation.py": "2e526059bb81a1a987973e5b82844f2db446cc5f6173ee5cec4896532a2b1374",
+          "rosclaw/fault_probe.py": "73784608c1246adcfc4a95f2a1247c145d3a744ec8a1e082abdd96d995e66eed",
+          "rosclaw/prepare.py": "9dcd2fc3b5f179a35b186b7762e9f8bbe676b42b997df02fe3341e949d06142f",
+          "rosclaw/native.py": "df8f7bb9eb8f13cf08afd7411ad837e3865f94d49d87d145768df2385b82543e",
+          "rosclaw/native_tools.py": "b2b255b2e232c3f2de98712eef4d470f32a9ec0cc0ae3caee7ef8001ea8cceed",
+          "rosclaw/remember.py": "02fa052524efbef3af93e667912cd67340a2cf2b94878db2686613c77c4ae5f0",
+          "rosclaw/daemon.py": "f29d169bebcfae9282b429f877a55924d2a656cf87527a014443d2431dcb7a41",
+          "rosclaw/pty_session.py": "02f0aa15bf11613740a7cc8d36ffa9e00be098dcd5cf576dc6b38f32689e748c",
+          "rosclaw/freeze.py": "87095e326aa407a44a4b4247901a15d6f0345ede34bd087b2079cf8d6c0e9e6d",
+          "rosclaw/point_executor.py": "e61c2e182005f18b085b601a59c41f330756d8c5e8e6c71dee46a2a2cdeea762",
+          "evaluator/patrol.py": "70bac522781c92ea7a03afade165a0682e19aff8039371009e54e0c7ed352fae",
+          "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+          "evaluator/run_report.py": "977bcb732a682c61c92a1f27c4c0b04f90181c0a814bc470e7ea7461d9a4072e",
+          "evaluator/replay_archive.py": "5551e71a05fba7fd97719c9bc3313cdd38dabdb020e7c27a07dfddea8825e7c2",
+          "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+          "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+          "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+          "config/patrol_navigation_params.yaml": "a789dfd12b25d793ca052a4aeeec6f6d1706d784ead5d6c46632bca6fdf7b40e",
+          "config/runtime.env": "7a702348e6ff6b8c1106bef1fabed1d70085d9ca2973d853cd6015bfe4265c5c",
+          "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+          "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+          "scripts/setup.sh": "94f65a36a8a2d16cf3c20921b18a431cedda7272302a2b4b3a0227ed9ac1d9d0",
+          "scripts/start-rosclaw.sh": "b85b8897d0c8959afdca50b365fe9af42cc3ad0858c648a338de79d1be730002",
+          "scripts/demo.sh": "4f62a4910c8ac7e2758aea1efa3ff7e60c9cf5d32ccb4fd4043fb95c23fa6fc3",
+          "scripts/start-agent-observers.sh": "93af504d5037e437cda1e1a3c694f66ca9b8930bc2337d9ae2fc68b634294eae",
+          "scripts/doctor.sh": "313887b6a8b601cca86da6fac09c890f9c60f175a0126f7cb8cfe6c48c7754d3",
+          "scripts/start-nav2.sh": "29308eb4588f9169a6d797f18df9c52c2d69ebbd6325187872ecc1b16cf91071",
+          "scripts/ros-container.sh": "bf2926db0ed4c1959432fbc30f1d1916eeb0d0134d4b3c3939428693e0eaedae",
+          "scripts/smoke-official.sh": "a3453ec1b7e1c0e03e4186ad7aac29e7fcba8fae1b62b85cb338605810957f9d",
+          "scripts/common.sh": "7a9d7ebc58fa318c295ecf97161ea65286e071393f89edf10bd299ccd111b351",
+          "scripts/run-native-acceptance.sh": "c954156c58864eeb7e8e4194e0a5555bef5dab083cfb8b687211945b88c318cf",
+          "scripts/stop.sh": "eb0df630fb5cf62f6a1f11b828867b0fcf02e4af365759bdd8f105b86d9fcf90",
+          "scripts/start-sim.sh": "53aa5fd5451c16622b2f97c06ed31e64335e40d1d054708d08483e14e7b6be8a"
+        },
+        "execution_config_sha256": "183891e4a2aeed31103bc9b1bc6fa6212cb0b71bac5f72b79c29ce8e0e9529e7",
+        "rosclaw_upstream": {
+          "git_sha": "21838614bb14c39599b8acef731b2b64dad3b92a",
+          "working_tree_dirty": false
+        },
+        "docker_image": "sha256:771bc776ab0df68f236187a5ea2396bdc4513888d0ae413377d3dca45c04bd24"
+      }
+    },
+    {
+      "report": "native-acceptance-4.json",
+      "run_id": "unmapped-box-final",
+      "status": "PASS",
+      "order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "model_turns": 16,
+      "distance_m": 46.63194311307013,
+      "physical_action_wall_seconds": 300.87095189094543,
+      "input_to_first_motion_wall_seconds": 17.819464921951294,
+      "observed_sim_to_wall_ratio": 0.317919695741626,
+      "body_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+      "source_manifest": {
+        "git_sha": "f4dd3dc162d7d75f444e6459d0e41d862087dfff",
+        "working_tree_dirty": true,
+        "source_hashes": {
+          "isaac/camera_setup.py": "98f50294e07d6e1ef709a3d93e267e4f6759b4565f6c3846e5146330bd6c4216",
+          "isaac/asset_resolver.py": "8c42f58edcca4dfdac0c9c4144fbad73be4003168fb433f2008a1b46ad43000c",
+          "isaac/stage_inventory.py": "4b56191dc3eb066344fbe71b16de37ab492e56646694c9b27bd8a5e2d1b95516",
+          "isaac/baseline_observer.py": "f53668388b79dca05b2a1b2aee6897d5a2d3c630649efb80131e68e187085bd7",
+          "ros2/native_probe.py": "8c80f652b991278bd90dbaef839f9b85dcbebc91646a2f7fa0b425142b25b1f2",
+          "ros2/obstacle_witness.py": "e338ca7f4640d4569b1229d718800f8e3a3f7aec8135ac1c60d453776b159a0b",
+          "ros2/wait_navigation.py": "5d7a5c5e33e4959b8f5574cddd30caf2369a2593a4537b1c65214ce26ec68991",
+          "ros2/nav_probe.py": "2046ac61dd9df448bfc377075fec6fcdd09849faf65ebfb02a604a6ca635fe77",
+          "ros2/audit_runtime.py": "aa9b834ee86671147e814af1b1a90dd48458bbf473caebac21e5d010de7c39fa",
+          "ros2/cancel_navigation.py": "0255ffe714db7808f9b9523f62b7339bb834f344a97d7b77e69e3d41007f66c6",
+          "rosclaw/fault_probe.py": "74dbbc7fd164a378722785ee25c02b73b38c455a912e60e66bfc6bcb33acb038",
+          "rosclaw/prepare.py": "58787bd59100e2ddcae88cfefcf641ba9fd431cbe6f434e163a9b2ee730807f6",
+          "rosclaw/native.py": "df8f7bb9eb8f13cf08afd7411ad837e3865f94d49d87d145768df2385b82543e",
+          "rosclaw/native_tools.py": "b2b255b2e232c3f2de98712eef4d470f32a9ec0cc0ae3caee7ef8001ea8cceed",
+          "rosclaw/remember.py": "66bd670d03f3907608a648ef124ea64981f1e32be7fca40268f7467997ca615e",
+          "rosclaw/daemon.py": "f29d169bebcfae9282b429f877a55924d2a656cf87527a014443d2431dcb7a41",
+          "rosclaw/pty_session.py": "02f0aa15bf11613740a7cc8d36ffa9e00be098dcd5cf576dc6b38f32689e748c",
+          "rosclaw/freeze.py": "87095e326aa407a44a4b4247901a15d6f0345ede34bd087b2079cf8d6c0e9e6d",
+          "rosclaw/point_executor.py": "e61c2e182005f18b085b601a59c41f330756d8c5e8e6c71dee46a2a2cdeea762",
+          "evaluator/patrol.py": "70bac522781c92ea7a03afade165a0682e19aff8039371009e54e0c7ed352fae",
+          "evaluator/obstacle.py": "19b602fab75bba8b27e052e17b1a1a82c0d230f531a85177ded3f722a71b9df2",
+          "evaluator/summarize_runs.py": "6e864da08c65c029737189610ac7322df522ec5981b5cb06f79c80de2bf736ad",
+          "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+          "evaluator/run_report.py": "fb82743b1ed05ed89b2121a85097cb98d8df95d7bbca3f98525b8c23e0078015",
+          "evaluator/replay_archive.py": "5551e71a05fba7fd97719c9bc3313cdd38dabdb020e7c27a07dfddea8825e7c2",
+          "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+          "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+          "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+          "config/patrol_navigation_params.yaml": "5a189b7f5ea537758fa5a1f91d5a731257dbfbd4e394a5b3ee55535c5e609745",
+          "config/runtime.env": "7a702348e6ff6b8c1106bef1fabed1d70085d9ca2973d853cd6015bfe4265c5c",
+          "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+          "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+          "scripts/setup.sh": "94f65a36a8a2d16cf3c20921b18a431cedda7272302a2b4b3a0227ed9ac1d9d0",
+          "scripts/start-rosclaw.sh": "b85b8897d0c8959afdca50b365fe9af42cc3ad0858c648a338de79d1be730002",
+          "scripts/demo.sh": "637207cc23d0587ac5024bf69bfaa75961009fe90d75ea79fc42003cb1c50dda",
+          "scripts/start-agent-observers.sh": "93af504d5037e437cda1e1a3c694f66ca9b8930bc2337d9ae2fc68b634294eae",
+          "scripts/doctor.sh": "313887b6a8b601cca86da6fac09c890f9c60f175a0126f7cb8cfe6c48c7754d3",
+          "scripts/start-nav2.sh": "29308eb4588f9169a6d797f18df9c52c2d69ebbd6325187872ecc1b16cf91071",
+          "scripts/ros-container.sh": "bf2926db0ed4c1959432fbc30f1d1916eeb0d0134d4b3c3939428693e0eaedae",
+          "scripts/smoke-official.sh": "a3453ec1b7e1c0e03e4186ad7aac29e7fcba8fae1b62b85cb338605810957f9d",
+          "scripts/common.sh": "7a9d7ebc58fa318c295ecf97161ea65286e071393f89edf10bd299ccd111b351",
+          "scripts/run-native-acceptance.sh": "6e2f65e83036703ef91f7200921d4bb4155ddb9493906b3e95831fe2cc2bed25",
+          "scripts/stop.sh": "eb0df630fb5cf62f6a1f11b828867b0fcf02e4af365759bdd8f105b86d9fcf90",
+          "scripts/start-sim.sh": "53aa5fd5451c16622b2f97c06ed31e64335e40d1d054708d08483e14e7b6be8a"
+        },
+        "execution_config_sha256": "9cae97c84c5d0490a967cf069f94cbe715f559ea13b9574dc2f92e04f0e7a904",
+        "rosclaw_upstream": {
+          "git_sha": "21838614bb14c39599b8acef731b2b64dad3b92a",
+          "working_tree_dirty": false
+        },
+        "docker_image": "sha256:43cca6319ba787aed099db6cceb4ca22de4a24ab0d24b0f9a8b1ef14399ec232"
+      }
+    }
+  ],
+  "retained_failed_reports": [
+    {
+      "report": "adapter-disconnect-first-failure.json",
+      "status": "FAIL",
+      "failure": "DDS cancellation occurred but uint8 serialization prevented an inspectable cancellation acknowledgement"
+    },
+    {
+      "report": "archive-first-replay-failure.json",
+      "status": "FAIL",
+      "failure": [
+        "archive file hash mismatch: independent/physics-trajectory.jsonl"
+      ]
+    },
+    {
+      "report": "native-camera-switch-failure.json",
+      "status": "FAIL",
+      "failure": "verified patrol artifact missing"
+    },
+    {
+      "report": "native-follow-preflight-failure.json",
+      "status": "FAIL_PREFLIGHT",
+      "failure": null
+    },
+    {
+      "report": "native-integration-trial.json",
+      "status": "FAIL",
+      "failure": [
+        "TaskKernel completed before the full mission Memory receipt"
+      ]
+    },
+    {
+      "report": "native-recovery-limit-failure.json",
+      "status": "FAIL",
+      "failure": "verified patrol artifact missing"
+    },
+    {
+      "report": "navigation-diagnostics.json",
+      "status": "BLOCKED",
+      "failure": null
+    },
+    {
+      "report": "patrol-preflight-diagnosis.json",
+      "status": "BLOCKED",
+      "failure": null
+    },
+    {
+      "report": "unmapped-box-first-failure.json",
+      "status": "FAIL",
+      "failure": "verified patrol artifact missing"
+    },
+    {
+      "report": "unmapped-box-local-costmap-failure.json",
+      "status": "FAIL",
+      "failure": [
+        "actual local master costmap did not mark unmapped box"
+      ]
+    }
+  ],
+  "statistical_success_rate": null,
+  "independent_clean_machine_reproduction": "PENDING_EXTERNAL_ENGINEER",
+  "hardware_verified": false,
+  "notes": [
+    "Passing resets used documented source revisions during integration.",
+    "Failures are retained; three successful resets do not establish a statistical success rate.",
+    "Model turn counts come from actual SDK sessions; core metering rows were absent for this provider."
+  ]
+}

@@ -12,3 +12,6 @@ __pycache__/
 **/reports/*-frames/
 **/reports/**/*.tmp
 **/reports/runs/
+**/reports/contact-positive-control/
+**/reports/**/*-frames/
+outputs/

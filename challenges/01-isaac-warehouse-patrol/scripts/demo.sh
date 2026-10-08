@@ -8,6 +8,11 @@ if [[ -f "$CHALLENGE_DIR/.runtime/sim-process.json" ]]; then
 fi
 run_dir="$CHALLENGE_DIR/reports/runs/$(date -u +%Y%m%dT%H%M%SZ)"
 mkdir -p "$run_dir"
+python3 - "$run_dir/run-start.json" <<'PY_TIME'
+import json, sys, time
+from pathlib import Path
+Path(sys.argv[1]).write_text(json.dumps({"wall_time": time.time(), "scope": "environment startup"}))
+PY_TIME
 trap '"$CHALLENGE_DIR/scripts/stop.sh"' ERR
 ROSCLAW_LAB_REPORT_DIR="$run_dir" "$CHALLENGE_DIR/scripts/start-sim.sh" "${1:-streaming}" > "$run_dir/scene.log" 2>&1 &
 sim_pid=$!
@@ -30,6 +35,11 @@ while time.monotonic() < deadline:
 else:
     raise SystemExit('Independent Physics did not become ready in 1200s')
 PY
-"$CHALLENGE_DIR/scripts/start-nav2.sh" calibration > "$run_dir/nav2.log" 2>&1 &
+"$CHALLENGE_DIR/scripts/start-nav2.sh" "${2:-patrol}" > "$run_dir/nav2.log" 2>&1 &
 "$CHALLENGE_DIR/scripts/ros-container.sh" python3 /lab/ros2/wait_navigation.py
+python3 - "$run_dir/run-ready.json" <<'PY_TIME'
+import json, sys, time
+from pathlib import Path
+Path(sys.argv[1]).write_text(json.dumps({"wall_time": time.time(), "scope": "fresh Physics and Nav2 ACTIVE"}))
+PY_TIME
 printf 'Simulation environment ready. No automatic goals are running.\nEvidence: %s\n' "$run_dir"

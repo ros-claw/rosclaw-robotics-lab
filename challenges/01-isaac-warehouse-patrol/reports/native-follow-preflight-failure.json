@@ -1,0 +1,17 @@
+{
+  "run_id": "isaac-a2",
+  "status": "FAIL_PREFLIGHT",
+  "motion_submitted": false,
+  "reason": "Native refused two sensor/localization wall-age snapshots above the probe 1s threshold",
+  "tool_calls": [
+    "read",
+    "rosclaw_status",
+    "ros__observe_system",
+    "rosclaw_capabilities",
+    "ros__observe_system",
+    "write",
+    "rosclaw_deliver",
+    "rosclaw_fail_safe"
+  ],
+  "canonical_receipts": []
+}
