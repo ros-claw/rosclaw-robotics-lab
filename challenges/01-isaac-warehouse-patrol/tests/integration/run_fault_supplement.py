@@ -401,13 +401,13 @@ for fault in args.fault:
                         and summary["fault_injected"]
                         else "FAIL"
                     )
-        summary["physics_directory"] = str(physics)
-        summary["wrapper_source_sha256"] = hashlib.sha256(
-            Path(__file__).read_bytes()
-        ).hexdigest()
-        summary["source_commit"] = subprocess.check_output(
-            ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
-        ).strip()
+            summary["physics_directory"] = str(physics)
+            summary["wrapper_source_sha256"] = hashlib.sha256(
+                Path(__file__).read_bytes()
+            ).hexdigest()
+            summary["source_commit"] = subprocess.check_output(
+                ["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True
+            ).strip()
             (run / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
             print(
                 json.dumps(
