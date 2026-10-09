@@ -1,0 +1,14 @@
+{
+  "attempt": "02-standard",
+  "condition": "standard",
+  "repetition": 2,
+  "started_wall_time": 1791528882.67773,
+  "status": "FAIL",
+  "manual_interventions": [],
+  "source_commit": "555789166044d46383299c990e375507f1d6e658",
+  "physics_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T065442Z",
+  "task": "\u8bf7\u5148\u68c0\u67e5\u673a\u5668\u4eba\u72b6\u6001\uff0c\u518d\u4f9d\u6b21\u5de1\u68c0\u5165\u53e3\u3001\u8d27\u67b6\u533a\u3001\u4ed3\u5e93\u901a\u9053\u3001Home\u3002\u6bcf\u7ad9\u9a8c\u8bc1\u5230\u8fbe\u5e76\u505c\u7559\uff0c\u5b8c\u6210\u540e\u4fdd\u5b58\u5de1\u68c0\u62a5\u544a\u548c\u8bb0\u5fc6\u3002",
+  "native_exit_code": 1,
+  "evaluator_exit_code": 0,
+  "finished_wall_time": 1791529210.4565904
+}

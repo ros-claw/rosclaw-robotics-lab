@@ -1,0 +1,17 @@
+{
+  "status": "STOPPED_FOR_REPAIR",
+  "source_commit": "555789166044d46383299c990e375507f1d6e658",
+  "attempts": 6,
+  "passes": 4,
+  "failed": [
+    "02-standard"
+  ],
+  "interrupted": [
+    "02-unmapped-box"
+  ],
+  "reason": "Confirmed non-atomic action JSON publication caused supervisor JSONDecodeError in 02-standard; current 02-reordered allowed to finish, then next startup interrupted. Final 15-attempt batch must use repaired source.",
+  "manual_interventions": [
+    "SIGINT supervisor after current mission; no task input in interrupted next startup"
+  ],
+  "failure_acceptance_report_sha256": "efdef3b150904d7447ad62002fc1174905a5cf370a55c0ba0f7f953e9ffa8911"
+}

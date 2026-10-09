@@ -1,0 +1,9 @@
+{
+  "attempt": "01-standard",
+  "condition": "standard",
+  "repetition": 1,
+  "started_wall_time": 1791527800.2344558,
+  "status": "RUNNING",
+  "manual_interventions": [],
+  "source_commit": "555789166044d46383299c990e375507f1d6e658"
+}
