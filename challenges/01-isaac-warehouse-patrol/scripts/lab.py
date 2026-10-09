@@ -22,6 +22,11 @@ def git_sha(path):
 
 
 def regression(destination):
+    # Linux pathname Unix sockets allow at most 107 encoded bytes. Check
+    # the longest Native operator socket before starting a GPU environment.
+    socket_path = destination / "01-unmapped-box/native/home/run/operator.sock"
+    if len(os.fsencode(socket_path)) > 107:
+        raise ValueError("Native Unix socket path exceeds 107 bytes; choose a shorter result directory")
     destination.mkdir(parents=True, exist_ok=False)
     upstream = Path(os.environ.get("ROSCLAW_SOURCE", Path.home() / "sim/rosclaw-upstream"))
     python = upstream / ".venv/bin/python"
@@ -85,6 +90,9 @@ def regression(destination):
                     record["evaluator_exit_code"] = evaluation.returncode
                     if task_result.returncode != 0 and record["status"] == "PASS":
                         record["status"] = "FAIL"
+            except KeyboardInterrupt:
+                record.update(status="INTERRUPTED", error="Operator interrupted supervisor", manual_interventions=["supervisor SIGINT; owned environment cleanup required"] )
+                raise
             except Exception as exc:
                 record.update(status="INCOMPLETE", error=repr(exc))
             finally:
