@@ -1,0 +1,43 @@
+{
+  "status": "FAIL",
+  "scope": "real Native mission, not a release demonstration",
+  "reason": "FollowPath acknowledgement timeout under multiview rendering load",
+  "physics_directory": "reports/runs/20261008T224900Z",
+  "corrective_changes": [
+    "BT action acknowledgement deadline: 20 ms to 1000 ms",
+    "Cancel both NavigateToPose and FollowPath after navigator abort",
+    "Ignore already-removed owned containers during cleanup"
+  ],
+  "actions": [
+    {
+      "site_id": "shelf",
+      "status": "FAIL",
+      "error": "Nav2 terminal result was not SUCCEEDED",
+      "physical_stop_verified": false,
+      "nav2": {
+        "status": 6,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791499976.4827442
+      }
+    },
+    {
+      "site_id": "entry",
+      "status": null,
+      "error": null,
+      "physical_stop_verified": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791499922.7185333
+      }
+    }
+  ]
+}

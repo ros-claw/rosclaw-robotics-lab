@@ -319,7 +319,7 @@ def main():
                     message = json.loads(rows[-1]).get("message", {}) if rows else {}
                     if (
                         message.get("role") == "assistant"
-                        and message.get("stopReason") == "stop"
+                        and message.get("stopReason") in ("stop", "error")
                     ):
                         raise RuntimeError(
                             "model finished without a verified Memory artifact and TaskKernel success"

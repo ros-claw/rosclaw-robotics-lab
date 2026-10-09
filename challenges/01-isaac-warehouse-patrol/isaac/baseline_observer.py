@@ -1,6 +1,7 @@
 """Session-layer instrumentation; physical observations never rely on ROS odometry."""
 
 import json
+import asyncio
 import os
 import sys
 import time
@@ -89,6 +90,8 @@ current_display_view = os.environ.get("ROSCLAW_CAMERA_VIEW", "official")
 update_display_camera = setup_camera(
     STAGE, os.environ.get("ROSCLAW_CAMERA_VIEW", "official")
 )
+EXTRA_CAMERA_UPDATES = []
+DISPLAY_WINDOWS = []
 
 INVENTORY = inspect_scene(STAGE)
 (OUTPUT / "stage-inventory.json").write_text(json.dumps(INVENTORY, indent=2) + "\n")
@@ -168,6 +171,24 @@ async def capture_frames():
     viewport.fill_frame = False
     viewport.resolution = resolution
     await viewport.wait_for_rendered_frames(3)
+    viewports = {current_display_view: viewport}
+    if os.environ.get("ROSCLAW_MULTIVIEW") == "1":
+        from omni.kit.viewport.utility import create_viewport_window
+
+        if current_display_view != "follow":
+            raise ValueError("Multiview requires the follow primary camera")
+        for view_name in ("robot", "top-close"):
+            camera_path = "/World/ROSClawDisplay_" + view_name.replace("-", "_")
+            EXTRA_CAMERA_UPDATES.append(setup_camera(STAGE, view_name, path=camera_path, activate=False))
+            window = create_viewport_window("ROSClaw " + view_name, width=960, height=540, camera_path=camera_path)
+            if window is None:
+                raise RuntimeError("Cannot create auxiliary viewport: " + view_name)
+            DISPLAY_WINDOWS.append(window)
+            auxiliary = window.viewport_api
+            auxiliary.fill_frame = False
+            auxiliary.resolution = (960, 540)
+            viewports[view_name] = auxiliary
+        await asyncio.gather(*(v.wait_for_rendered_frames(3) for v in viewports.values()))
     directory = OUTPUT / "baseline-frames"
     directory.mkdir(exist_ok=True)
     deadline = time.monotonic() + float(
@@ -179,18 +200,25 @@ async def capture_frames():
             await omni.kit.app.get_app().next_update_async()
             continue
         path = directory / f"frame-{index:06d}.png"
-        viewport = get_active_viewport()
+        # Retain the primary API: auxiliary windows must never change which
+        # viewport is captured or rebind their own camera to the primary camera.
         if current_display_view != "official":
             # The official stage launcher may restore its saved viewport camera
             # after our startup hook. Rebind display-only camera before capture.
             if str(viewport.camera_path) != "/World/ROSClawDisplayCamera":
                 viewport.camera_path = "/World/ROSClawDisplayCamera"
-        capture = capture_viewport_to_file(viewport, str(path))
-        await capture.wait_for_result(completion_frames=0)
+        capture_wall_start, capture_sim_start = time.time(), TIMELINE.get_current_time()
+        paths = {name: path if name == current_display_view else directory / name / path.name for name in viewports}
+        for target in paths.values():
+            target.parent.mkdir(exist_ok=True)
+        captures = {name: capture_viewport_to_file(v, str(paths[name])) for name, v in viewports.items()}
+        # Schedule all cameras before yielding, then record the actual SWH frame
+        # IDs. No timeline pause, projection switch or physics step is used.
+        await asyncio.gather(*(c.wait_for_result(completion_frames=0) for c in captures.values()))
         write_deadline = time.monotonic() + 30
-        while not path.is_file() and time.monotonic() < write_deadline:
+        while not all(p.is_file() for p in paths.values()) and time.monotonic() < write_deadline:
             await omni.kit.app.get_app().next_update_async()
-        if not path.is_file():
+        if not all(p.is_file() for p in paths.values()):
             raise RuntimeError("viewport PNG was not written within 30 seconds")
         with (directory / "timestamps.jsonl").open("a") as stream:
             stream.write(
@@ -202,6 +230,9 @@ async def capture_frames():
                         "render_resolution": list(viewport.resolution),
                         "wall_time": time.time(),
                         "sim_time": TIMELINE.get_current_time(),
+                        "capture_wall_start": capture_wall_start,
+                        "capture_sim_start": capture_sim_start,
+                        "views": {name: {"frame": str(paths[name].relative_to(directory)), "camera_path": str(v.camera_path), "resolution": list(v.resolution), "swh_frame": captures[name].frame_info.get("swh_frame_number"), "render_frame": captures[name].frame_number} for name, v in viewports.items()},
                     }
                 )
                 + "\n"
@@ -300,6 +331,8 @@ async def observe():
             "angular_velocity_xyz": rb.get_velocities().tolist()[0][3:],
         }
         update_display_camera(sample["physics_transforms_xyzw"][0])
+        for update_camera in EXTRA_CAMERA_UPDATES:
+            update_camera(sample["physics_transforms_xyzw"][0])
         with (OUTPUT / "physics-trajectory.jsonl").open("a") as stream:
             stream.write(json.dumps(sample, allow_nan=False) + "\n")
         write_atomic("physics-latest.json", sample)

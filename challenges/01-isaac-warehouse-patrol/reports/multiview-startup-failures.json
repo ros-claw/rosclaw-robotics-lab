@@ -1,0 +1,24 @@
+{
+  "status": "INCOMPLETE",
+  "scope": "startup and credential failures; no successful mission claimed",
+  "cases": [
+    {
+      "physics": "20261008T225753Z",
+      "reason": "Nav2 lifecycle failed to reach ACTIVE; readiness rejected startup",
+      "task_submitted": false,
+      "motion": false
+    },
+    {
+      "physics": "20261008T230044Z",
+      "reason": "Native daemon connected before rosbridge was ready",
+      "task_submitted_to_model": false,
+      "motion": false
+    },
+    {
+      "physics": "20261008T230220Z",
+      "reason": "configured access-only Codex login expired; SDK OAuth refresh failed because refresh field was empty",
+      "motion": false,
+      "fix": "isolated same-account current local access token; global credential stores unchanged"
+    }
+  ]
+}

@@ -7,7 +7,9 @@ from pathlib import Path
 root = Path(sys.argv[1])
 containers = subprocess.check_output(["docker", "ps", "--filter", "label=rosclaw.lab.root=" + str(root), "-q"], text=True).split()
 for container in containers:
-    subprocess.run(["docker", "stop", "--timeout", "10", container], check=True)
+    result = subprocess.run(["docker", "stop", "--timeout", "10", container], capture_output=True, text=True)
+    if result.returncode and "No such container" not in result.stderr:
+        raise RuntimeError(result.stderr.strip())
 metadata = root / ".runtime/sim-process.json"
 if metadata.exists():
     saved = json.loads(metadata.read_text())
