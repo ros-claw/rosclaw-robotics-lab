@@ -13,3 +13,5 @@ Start with a separate NVIDIA GPU ARM64 host supporting Isaac Sim 6.1. Record har
 7. Export only whitelisted evidence, check hashes and fill in [REPORT_TEMPLATE.md](REPORT_TEMPLATE.md). Retain failed attempts. Only actual independent execution can change the report status to PASS.
 
 `lab.py results DIRECTORY` reads the regression ledger; `lab.py stop` stops the owned environment. The optional `lab.py regression SHORT_DIRECTORY` performs fifteen fresh resets and retains every attempt. Offline replay establishes evidence consistency only, not a new simulation run. No authentication, private runtime homes, NVIDIA assets or voice models belong in the handoff.
+
+From a release checkout, `python3 deliverables/v02/verify_evidence.py warehouse-v02-evidence.zip` checks the exact fifteen-attempt ledger, frozen configuration and runtime files, Body declarations, distinct reset identities, receipts and physical evidence replay. It is an offline consistency check, not signature attestation or third-party execution. Five deterministic metadata-binding tests cover changed configuration/checkout, wrong Body declarations and unlisted files; they do not simulate a robot.

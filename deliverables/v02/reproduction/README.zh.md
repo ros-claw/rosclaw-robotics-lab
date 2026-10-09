@@ -27,3 +27,5 @@ python3 scripts/lab.py stop
 `PHYSICS_DIR` 取启动打印的实际绝对路径；`TASK` 使用教程的标准任务。`ROSCLAW_SOURCE` 按 runtime.env 的实际配置导出。统一入口不隐式发目标；`task` 通过真实 Native/rosclawd 流程执行。15 轮工程回归可用 `lab.py regression "$HOME/sim/r15"`，`lab.py results "$HOME/sim/r15"` 查看当前或最终摘要；当前平台路径长度须通过预检。
 
 离线重放只说明发布证据自洽，不说明在此机器上重新运行了仿真。交接包不含认证、私有运行目录、NVIDIA 资产或 Piper 声音模型。
+
+在正式 Release checkout 运行 `python3 deliverables/v02/verify_evidence.py warehouse-v02-evidence.zip`，可核对完整十五次账本、冻结配置与运行文件、Body 声明、独立观察者身份、收据及物理证据重放。它不提供签名认证或第三方运行证明。另有五项元数据绑定回归覆盖配置/checkout 变化、错误 Body 声明和未列入清单文件，不计为机器人实验。
