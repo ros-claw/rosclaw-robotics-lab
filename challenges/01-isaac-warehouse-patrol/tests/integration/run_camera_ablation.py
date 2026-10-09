@@ -181,10 +181,16 @@ for repetition in [1, 2]:
                     ),
                 )
                 timestamps = physics / "baseline-frames/timestamps.jsonl"
-                captures = (
-                    [json.loads(line) for line in timestamps.read_text().splitlines()]
-                    if timestamps.exists()
-                    else []
+                raw = timestamps.read_bytes() if timestamps.exists() else b""
+                # The observer remains active. Count only committed JSONL
+                # records, retaining an explicit note for an in-progress tail.
+                captures = [
+                    json.loads(line)
+                    for line in raw.splitlines(keepends=True)
+                    if line.endswith(b"\n")
+                ]
+                summary["incomplete_capture_tail_ignored"] = bool(
+                    raw and not raw.endswith(b"\n")
                 )
                 captures = [
                     c for c in captures if start <= c.get("wall_time", 0) <= end
