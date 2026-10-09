@@ -41,6 +41,6 @@ The runtime experiment cannot establish development-time benefit. Existing wareh
 - Deterministic semantic regressions: 25 pass, covering stale/paused states, unknown occupancy, footprint geometry, Body binding, source hashes, fresh sensor/TF/PhysX inspection, compact catalogs, relocated artifacts and recording coverage.
 - Development attempts: c02a01 FAIL retained; c02a02 navigation PASS; c02b01/b02 known-region LiDAR PASS; c02b03 final combined PR-head LiDAR integration PASS. These use different source revisions and are not a frozen reliability batch.
 - c02b01 video INCOMPLETE retained; c02b02 complete synchronized recording PASS, with a 90-second video.
-- Actual successful upstream runtime is candidate SHA `8340a693`, distinct from eventual merged main.
+- Initial successful trials use candidate SHA `8340a693`; final combined-patch integration uses PR head `b7bbe8c3`. Actual run/build stamps remain distinct from the eventual merge commit.
 - Held-out generalization, paired Agent comparison, development-time study and independent engineer/second-machine reproduction: NOT RUN.
 - Full records, limits and video: [Challenge README](README.md), [implementation report](../../deliverables/v03/IMPLEMENTATION_REPORT.zh.md).
