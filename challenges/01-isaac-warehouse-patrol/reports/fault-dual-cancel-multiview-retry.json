@@ -1,0 +1,23 @@
+{
+  "fault": "disconnect",
+  "scope": "real adapter single-goal negative test, not Native mission",
+  "wall_seconds": 14.511545419692993,
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "peak_linear_speed_mps": 0.652025806066537,
+  "peak_angular_speed_rps": 0.7040436267852783,
+  "feedback_count": 272,
+  "error": "LiDAR stream is stale or invalid during action",
+  "nav2": {},
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791501546.3685665,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"servers\": [{\"action\": \"/navigate_to_pose\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[173, 49, 158, 80, 206, 236, 78, 233, 143, 5, 43, 209, 148, 211, 75, 226]]}, {\"action\": \"/follow_path\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[66, 197, 175, 59, 75, 224, 101, 169, 34, 230, 254, 234, 145, 127, 50, 83]]}], \"goal_ids\": [[173, 49, 158, 80, 206, 236, 78, 233, 143, 5, 43, 209, 148, 211, 75, 226], [66, 197, 175, 59, 75, 224, 101, 169, 34, 230, 254, 234, 145, 127, 50, 83]], \"return_code\": 0}\n",
+      "stderr": "[WARN] [1791501544.004134335] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791501544.004149583] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "status": "PASS",
+  "cancel_confirmed": true
+}

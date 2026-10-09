@@ -18,7 +18,7 @@ def main():
     files=[(a.directory/name,name) for name in allowed if (a.directory/name).is_file()]
     files += [(path,str(path.relative_to(a.directory))) for path in (a.directory/'actions').glob('*.json')]
     files += [(path,str(path.relative_to(a.directory))) for path in (a.directory/'frozen-source').rglob('*') if path.is_file()]
-    for name in ['physics-trajectory.jsonl','physics-contacts.jsonl','scene-audit.json','stage-inventory.json','path-witness.jsonl']:
+    for name in ['physics-trajectory.jsonl','physics-contacts.jsonl','scene-audit.json','stage-inventory.json','path-witness.jsonl','baseline-frames/timestamps.jsonl']:
         if (physics/name).is_file():
             files.append((physics/name,'independent/'+name))
     snapshots=[]

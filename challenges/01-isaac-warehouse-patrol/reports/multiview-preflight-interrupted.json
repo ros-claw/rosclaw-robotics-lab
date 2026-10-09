@@ -1,0 +1,9 @@
+{
+  "status": "INCOMPLETE",
+  "scope": "camera preflight only; no Native task was submitted",
+  "physics_directory": "reports/runs/20261008T224136Z",
+  "notes": [
+    "167 observed capture groups had equal renderer frame IDs across three cameras",
+    "Recording process exited 143 before consuming the task-start signal; this is not a Native acceptance run"
+  ]
+}

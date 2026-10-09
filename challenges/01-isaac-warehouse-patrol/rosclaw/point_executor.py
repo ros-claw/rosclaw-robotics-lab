@@ -283,7 +283,7 @@ class PointExecutor:
                 self.client.cancel_goal(goal_id)
             except Exception as cancel_error:
                 cancel_errors.append(str(cancel_error))
-            if not done.wait(5):
+            if not done.wait(5) or nav.get("status") == 6:
                 try:
                     fallback = subprocess.run(
                         [str(Path(self.config["challenge"]) / "scripts/ros-container.sh"),

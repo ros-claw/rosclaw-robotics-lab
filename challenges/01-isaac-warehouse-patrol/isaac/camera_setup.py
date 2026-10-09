@@ -5,7 +5,7 @@ import os
 from pxr import Gf, UsdGeom
 
 
-def setup_camera(stage, view):
+def setup_camera(stage, view, path="/World/ROSClawDisplayCamera", activate=True):
     from omni.kit.viewport.utility import get_active_viewport
 
     poses = {
@@ -21,7 +21,7 @@ def setup_camera(stage, view):
         raise ValueError(f"Unknown display camera view: {view}")
     previous = stage.GetEditTarget()
     stage.SetEditTarget(stage.GetSessionLayer())
-    camera = UsdGeom.Camera.Define(stage, "/World/ROSClawDisplayCamera")
+    camera = UsdGeom.Camera.Define(stage, path)
     camera.CreateFocalLengthAttr(12.0 if view in ("overview", "robot") else 18.0)
     camera.CreateProjectionAttr("perspective")
     camera.CreateHorizontalApertureAttr(20.955)
@@ -42,7 +42,8 @@ def setup_camera(stage, view):
         .GetInverse()
     )
     stage.SetEditTarget(previous)
-    get_active_viewport().camera_path = str(camera.GetPath())
+    if activate:
+        get_active_viewport().camera_path = str(camera.GetPath())
 
     def update(transform):
         if view not in ("follow", "top-close", "robot"):

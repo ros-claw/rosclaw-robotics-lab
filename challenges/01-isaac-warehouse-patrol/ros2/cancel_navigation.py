@@ -16,19 +16,28 @@ def main():
     a = p.parse_args()
     rclpy.init()
     node = rclpy.create_node('rosclaw_emergency_nav_cancel')
-    client = node.create_client(CancelGoal, '/navigate_to_pose/_action/cancel_goal')
     deadline = time.monotonic() + a.timeout
-    result = {'acknowledged': False, 'transport': 'DDS', 'motion_command': False}
+    result = {'acknowledged': False, 'transport': 'DDS', 'motion_command': False,
+              'servers': [], 'goal_ids': []}
     try:
-        if client.wait_for_service(timeout_sec=max(0,deadline-time.monotonic())):
-            # Zero UUID and stamp are the ROS action protocol's cancel-all request.
-            # Domain isolation is required: this server belongs solely to this lab.
-            future = client.call_async(CancelGoal.Request())
-            rclpy.spin_until_future_complete(node,future,timeout_sec=max(0,deadline-time.monotonic()))
-            if future.done() and future.result() is not None:
-                response = future.result()
-                result.update(acknowledged=response.return_code==0, return_code=response.return_code,
-                              goal_ids=[[int(v) for v in g.goal_id.uuid] for g in response.goals_canceling])
+        # Cancel the controller too: an aborted navigator can leave FollowPath active.
+        clients = [(action, node.create_client(CancelGoal, action + '/_action/cancel_goal'))
+                   for action in ('/navigate_to_pose', '/follow_path')]
+        for action, client in clients:
+            receipt = {'action': action, 'acknowledged': False}
+            if client.wait_for_service(timeout_sec=max(0, deadline-time.monotonic())):
+                future = client.call_async(CancelGoal.Request())
+                rclpy.spin_until_future_complete(node, future,
+                    timeout_sec=max(0, deadline-time.monotonic()))
+                if future.done() and future.result() is not None:
+                    response = future.result()
+                    ids = [[int(v) for v in g.goal_id.uuid] for g in response.goals_canceling]
+                    receipt.update(acknowledged=response.return_code == 0,
+                                   return_code=response.return_code, goal_ids=ids)
+                    result['goal_ids'].extend(ids)
+                    result['acknowledged'] |= receipt['acknowledged']
+            result['servers'].append(receipt)
+        result['return_code'] = 0 if result['acknowledged'] else -1
     finally:
         node.destroy_node()
         rclpy.shutdown()

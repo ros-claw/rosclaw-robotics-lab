@@ -1,6 +1,8 @@
 """Compile measured USD Body and isolated Native SIM declarations."""
 
 import argparse
+import base64
+import time
 import hashlib
 import json
 import os
@@ -238,6 +240,27 @@ def prepare(root, challenge, physics, task, order, credentials, require_obstacle
                 os.chmod(dest / name, 0o600)
     if credentials:
         settings = json.loads((dest / "settings.json").read_text())
+        # An isolated fixture may inherit an expired access-only ROSClaw login.
+        # Reuse a current local Codex access token only for the same account.
+        # Never copy refresh tokens or modify either global authentication file.
+        auth_path = dest / "auth.json"
+        auth = json.loads(auth_path.read_text())
+        login = auth.get("openai-codex", {})
+        if settings.get("defaultProvider") == "openai-codex" and login.get("expires", 0) <= time.time() * 1000:
+            codex_path = Path.home() / ".codex/auth.json"
+            if not codex_path.is_file():
+                raise RuntimeError("Configured Codex login expired; no current local login")
+            tokens = json.loads(codex_path.read_text()).get("tokens", {})
+            if tokens.get("account_id") != login.get("accountId"):
+                raise RuntimeError("Current Codex login differs from configured ROSClaw account")
+            token = tokens["access_token"]
+            part = token.split(".")[1]
+            expiry = json.loads(base64.urlsafe_b64decode(part + "=" * (-len(part) % 4)))["exp"]
+            if expiry - time.time() < 1800:
+                raise RuntimeError("Current local Codex access token lacks a 30-minute run window")
+            login.update(access=token, expires=expiry * 1000, refresh="")
+            auth_path.write_text(json.dumps(auth, indent=2) + "\n")
+            os.chmod(auth_path, 0o600)
         settings["hideThinkingBlock"] = True
         (dest / "settings.json").write_text(json.dumps(settings, indent=2) + "\n")
         store = json.loads((dest / "models-store.json").read_text())
