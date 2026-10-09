@@ -1,0 +1,136 @@
+{
+  "status": "PASS",
+  "source_commit": "5a44ba9ef68b1c49922b71e887761eb75f1e74a7",
+  "rosclaw_commit": "8340a693801f28c2c0703a049e6306e5bd82b147",
+  "visits": [
+    {
+      "site_id": "entry",
+      "action_id": "act_bafd71f468124825a673476e",
+      "receipt_id": null,
+      "nav2_status": 4,
+      "position_xy": [
+        7.49629020690918,
+        15.916722297668457
+      ],
+      "recoveries": 0,
+      "started_wall_time": 1791578778.6615105,
+      "finished_wall_time": 1791578835.7017224,
+      "verification_status": "PASS",
+      "success": true,
+      "position_error_m": 0.08336029192845822,
+      "yaw_error_rad": 0.23770280178484593,
+      "stable_dwell_sim_seconds": 2.0499999999998835,
+      "collision_count": 0,
+      "sensor": {
+        "wall_time": 1791578835.418147,
+        "stamp": 62.3,
+        "frame_id": "front_3d_lidar",
+        "range_count": 362,
+        "finite_hits": 362,
+        "valid": true
+      },
+      "failures": [],
+      "missing_evidence": [],
+      "physics_sample_count": 263
+    },
+    {
+      "site_id": "shelf",
+      "action_id": "act_2185323c482a4542bc576c64",
+      "receipt_id": null,
+      "nav2_status": 4,
+      "position_xy": [
+        -6.887664318084717,
+        3.063917875289917
+      ],
+      "recoveries": 0,
+      "started_wall_time": 1791578843.3898113,
+      "finished_wall_time": 1791578896.4490557,
+      "verification_status": "PASS",
+      "success": true,
+      "position_error_m": 0.12924705108028217,
+      "yaw_error_rad": 0.23096925058186837,
+      "stable_dwell_sim_seconds": 2.016666666666552,
+      "collision_count": 0,
+      "sensor": {
+        "wall_time": 1791578896.3266256,
+        "stamp": 101.7,
+        "frame_id": "front_3d_lidar",
+        "range_count": 362,
+        "finite_hits": 362,
+        "valid": true
+      },
+      "failures": [],
+      "missing_evidence": [],
+      "physics_sample_count": 244
+    },
+    {
+      "site_id": "aisle",
+      "action_id": "act_0c4a4e9c55da4eaf8817cf72",
+      "receipt_id": null,
+      "nav2_status": 4,
+      "position_xy": [
+        -1.9977171421051025,
+        7.885132312774658
+      ],
+      "recoveries": 0,
+      "started_wall_time": 1791578904.2640998,
+      "finished_wall_time": 1791578931.2859852,
+      "verification_status": "PASS",
+      "success": true,
+      "position_error_m": 0.11489036952097964,
+      "yaw_error_rad": 0.24208660245241242,
+      "stable_dwell_sim_seconds": 2.0999999999998806,
+      "collision_count": 0,
+      "sensor": {
+        "wall_time": 1791578931.0321846,
+        "stamp": 126.0,
+        "frame_id": "front_3d_lidar",
+        "range_count": 362,
+        "finite_hits": 362,
+        "valid": true
+      },
+      "failures": [],
+      "missing_evidence": [],
+      "physics_sample_count": 127
+    },
+    {
+      "site_id": "home",
+      "action_id": "act_ecb62263618845f68cac1a43",
+      "receipt_id": null,
+      "nav2_status": 4,
+      "position_xy": [
+        -5.875698089599609,
+        -0.9406593441963196
+      ],
+      "recoveries": 0,
+      "started_wall_time": 1791578939.6214879,
+      "finished_wall_time": 1791578976.6942368,
+      "verification_status": "PASS",
+      "success": true,
+      "position_error_m": 0.13773989385939575,
+      "yaw_error_rad": 0.22648652037925146,
+      "stable_dwell_sim_seconds": 2.0333333333349515,
+      "collision_count": 0,
+      "sensor": {
+        "wall_time": 1791578976.5478663,
+        "stamp": 155.9,
+        "frame_id": "front_3d_lidar",
+        "range_count": 362,
+        "finite_hits": 362,
+        "valid": true
+      },
+      "failures": [],
+      "missing_evidence": [],
+      "physics_sample_count": 171
+    }
+  ],
+  "memory_outcome": "success",
+  "task_kernel": {
+    "task_id": "task_5c3fe9234bc64a5cac47ee2e",
+    "state": "SUCCEEDED",
+    "root_goal": "\u8bf7\u5148\u68c0\u67e5\u673a\u5668\u4eba\u72b6\u6001\uff0c\u518d\u4f9d\u6b21\u5de1\u68c0\u5165\u53e3\u3001\u8d27\u67b6\u533a\u3001\u4ed3\u5e93\u901a\u9053\u3001Home\u3002\u6bcf\u7ad9\u9a8c\u8bc1\u5230\u8fbe\u5e76\u505c\u7559\uff0c\u5b8c\u6210\u540e\u4fdd\u5b58\u5de1\u68c0\u62a5\u544a\u548c\u8bb0\u5fc6\u3002",
+    "updated_at": "2026-10-09T20:49:45.523481+00:00"
+  },
+  "scope": "One standard compatibility smoke; separate from the v0.2 frozen denominator; candidate upstream, not final merged-main acceptance",
+  "manual_interventions": []
+}
