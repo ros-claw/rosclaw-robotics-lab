@@ -146,3 +146,13 @@ ROSCLAW_REQUIRE_OBSTACLE_EVIDENCE=1 ./scripts/run-native-acceptance.sh \
 证明绑定实际官方地图文件哈希；到点本身不足以通过。首次不充分的结果与修复后的
 完整结果都保留。使用 `visualization/package_evidence.py` 仅打包白名单证据，离线
 重放也会核验这个额外门槛。
+
+<!-- V02-ACCEPTANCE -->
+
+## v0.2 冻结验收与独立复现
+
+实际运行源码 `09739cb34c8a1d37ad95cfa4f146ad1e47798ec3`：**16 次本机尝试中（含启动失败） 14 次通过**，三类各至少五次独立 Native 测试；全部成功与失败保留。最大到点误差 0.151827 米。上游运行仍为 `21838614bb14c39599b8acef731b2b64dad3b92a`。历史五轮及第五轮视频另列，不合并统计。
+
+统一入口为 `python3 scripts/lab.py doctor`、`start headless patrol`、`task ...`、`results DIRECTORY` 和 `stop`，任务参数见前面的完整命令。`regression SHORT_DIRECTORY` 进行十五次独立重置；结果目录放在 Git 外并保持短路径。启动不会自动发目标。
+
+[Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0) · [完整指标](../../../deliverables/v02/regression-metrics.json) · [故障补测](../../../deliverables/v02/FAULT_TESTS.md) · [性能口径](../../../deliverables/v02/PERFORMANCE_PROTOCOL.md) · [独立复现交接](../../../deliverables/v02/reproduction/README.zh.md)。用户暂未安排工程师与另一台机器，第三方实测待安排；离线证据重放不能代替独立仿真复现。

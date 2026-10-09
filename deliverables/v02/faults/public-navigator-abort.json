@@ -1,0 +1,170 @@
+{
+  "fault": "navigator-abort",
+  "scope": "actual SIM adapter negative test, not Native mission",
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "error": "Nav2 terminal result was not SUCCEEDED",
+  "nav2": {
+    "status": 6,
+    "error_code": 0,
+    "result": {
+      "error_code": 0,
+      "error_msg": ""
+    },
+    "wall_time": 1791539897.8724673
+  },
+  "wall_seconds": 4.5058817863464355,
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791539900.7555869,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"servers\": [{\"action\": \"/navigate_to_pose\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": []}, {\"action\": \"/follow_path\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[59, 238, 219, 15, 167, 91, 70, 245, 185, 205, 58, 23, 124, 99, 185, 213]]}], \"goal_ids\": [[59, 238, 219, 15, 167, 91, 70, 245, 185, 205, 58, 23, 124, 99, 185, 213]], \"return_code\": 0}\n",
+      "stderr": "[WARN] [1791539898.575415970] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791539898.575480835] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "injection_events": [],
+  "cancel_confirmed": true,
+  "incomplete_status_tail_ignored": false,
+  "actual_navigator_abort_with_active_controller": true,
+  "overlap_samples": [
+    {
+      "wall_time": 1791539897.8665013,
+      "event": "actual_action_status",
+      "server": "/navigate_to_pose",
+      "goals": [
+        {
+          "uuid": [
+            51,
+            125,
+            133,
+            64,
+            52,
+            196,
+            64,
+            251,
+            134,
+            101,
+            246,
+            124,
+            87,
+            192,
+            39,
+            162
+          ],
+          "status": 6
+        }
+      ],
+      "all_servers": {
+        "/navigate_to_pose": {
+          "wall_time": 1791539897.8659823,
+          "goals": [
+            {
+              "uuid": [
+                51,
+                125,
+                133,
+                64,
+                52,
+                196,
+                64,
+                251,
+                134,
+                101,
+                246,
+                124,
+                87,
+                192,
+                39,
+                162
+              ],
+              "status": 6
+            }
+          ]
+        },
+        "/follow_path": {
+          "wall_time": 1791539896.9670067,
+          "goals": [
+            {
+              "uuid": [
+                59,
+                238,
+                219,
+                15,
+                167,
+                91,
+                70,
+                245,
+                185,
+                205,
+                58,
+                23,
+                124,
+                99,
+                185,
+                213
+              ],
+              "status": 2
+            }
+          ]
+        }
+      },
+      "physics": {
+        "sequence": 111,
+        "observer_id": "bc86ac6bb3044fdc82d69bdb11f35c9b",
+        "wall_time": 1791539897.8379843,
+        "monotonic_time": 17025.004968905,
+        "sim_time": 15.43333333333368,
+        "timeline_playing": true,
+        "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+        "physics_transforms_xyzw": [
+          [
+            -6.018489360809326,
+            -0.9998180866241455,
+            2.339482307434082e-06,
+            0.0007739959401078522,
+            -4.7483266826020554e-05,
+            0.9981152415275574,
+            0.06136394292116165
+          ]
+        ],
+        "contact_callbacks": 928,
+        "contact_pairs": {
+          "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 928,
+          "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 928,
+          "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1856,
+          "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1856,
+          "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 928,
+          "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 928,
+          "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1856,
+          "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1856
+        },
+        "contact_errors": [],
+        "floor_contact_events": 11136,
+        "non_floor_contact_pairs": [],
+        "collision_count": 0,
+        "collision_observer_complete": true,
+        "linear_velocity_xyz": [
+          -0.02244419790804386,
+          -0.10430901497602463,
+          0.0006531867547892034
+        ],
+        "angular_velocity_xyz": [
+          -0.0007831148104742169,
+          -0.003210986265912652,
+          -0.6058777570724487
+        ]
+      }
+    }
+  ],
+  "fault_source_sha256": {
+    "delayed_follow_path.py": "eaf9926152e2743e0518191291de78fc9f53aa6a8d51553d2bb444650561ada6",
+    "abort_with_active_controller.xml": "4591e945fe62fcd65b4cc86d880b1e70705346bc5e3e3faee7486c11741ff919"
+  },
+  "nav2_aborted": true,
+  "fault_injected": true,
+  "status": "PASS",
+  "physics_directory": "/home/nvidia/sim/rosclaw-lab-v02-docs/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T095723Z",
+  "wrapper_source_sha256": "10f4f558bc781c9b1cd8cb4f1f8765b73a15beb729fcab6ef35f675646777584",
+  "source_commit": "a25c4c84fb6c4f69e33133cadfc57d2174500e74"
+}

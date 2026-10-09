@@ -1,0 +1,354 @@
+{
+  "python": "3.12.3 (main, Mar 23 2026, 19:04:32) [GCC 13.3.0]",
+  "platform": "Linux-6.17.0-1021-nvidia-aarch64-with-glibc2.39",
+  "architecture": "aarch64",
+  "node": "v24.19.0",
+  "gpu_driver": "NVIDIA GB10, 580.159.03",
+  "python_packages": [
+    {
+      "name": "absl-py",
+      "version": "2.5.0"
+    },
+    {
+      "name": "agent-client-protocol",
+      "version": "0.12.1"
+    },
+    {
+      "name": "aiohappyeyeballs",
+      "version": "2.7.1"
+    },
+    {
+      "name": "aiohttp",
+      "version": "3.14.4"
+    },
+    {
+      "name": "aiosignal",
+      "version": "1.4.0"
+    },
+    {
+      "name": "annotated-doc",
+      "version": "0.0.5"
+    },
+    {
+      "name": "annotated-types",
+      "version": "0.8.0"
+    },
+    {
+      "name": "anyio",
+      "version": "4.15.1"
+    },
+    {
+      "name": "ast_serialize",
+      "version": "0.12.1"
+    },
+    {
+      "name": "attrs",
+      "version": "26.1.0"
+    },
+    {
+      "name": "certifi",
+      "version": "2026.7.22"
+    },
+    {
+      "name": "cffi",
+      "version": "2.1.1"
+    },
+    {
+      "name": "charset-normalizer",
+      "version": "3.5.2"
+    },
+    {
+      "name": "click",
+      "version": "8.5.0"
+    },
+    {
+      "name": "colorama",
+      "version": "0.4.6"
+    },
+    {
+      "name": "cryptography",
+      "version": "50.0.2"
+    },
+    {
+      "name": "etils",
+      "version": "1.14.0"
+    },
+    {
+      "name": "fastapi",
+      "version": "0.142.4"
+    },
+    {
+      "name": "filelock",
+      "version": "4.0.12"
+    },
+    {
+      "name": "frozenlist",
+      "version": "1.8.0"
+    },
+    {
+      "name": "fsspec",
+      "version": "2026.9.0"
+    },
+    {
+      "name": "glfw",
+      "version": "2.10.2"
+    },
+    {
+      "name": "h11",
+      "version": "0.16.0"
+    },
+    {
+      "name": "httpcore",
+      "version": "1.0.9"
+    },
+    {
+      "name": "httpcore2",
+      "version": "2.13.1"
+    },
+    {
+      "name": "httpx",
+      "version": "0.28.1"
+    },
+    {
+      "name": "httpx-sse",
+      "version": "0.4.3"
+    },
+    {
+      "name": "httpx2",
+      "version": "2.13.1"
+    },
+    {
+      "name": "idna",
+      "version": "3.20"
+    },
+    {
+      "name": "ImageIO",
+      "version": "2.38.0"
+    },
+    {
+      "name": "imageio-ffmpeg",
+      "version": "0.6.0"
+    },
+    {
+      "name": "iniconfig",
+      "version": "2.3.1"
+    },
+    {
+      "name": "jieba",
+      "version": "0.42.1"
+    },
+    {
+      "name": "jiter",
+      "version": "0.17.0"
+    },
+    {
+      "name": "jsonschema",
+      "version": "4.26.0"
+    },
+    {
+      "name": "jsonschema-specifications",
+      "version": "2025.9.1"
+    },
+    {
+      "name": "librt",
+      "version": "0.16.0"
+    },
+    {
+      "name": "lz4",
+      "version": "4.4.5"
+    },
+    {
+      "name": "mcap",
+      "version": "1.5.0"
+    },
+    {
+      "name": "mcp",
+      "version": "1.30.0"
+    },
+    {
+      "name": "mujoco",
+      "version": "3.13.0"
+    },
+    {
+      "name": "mujoco-menagerie",
+      "version": "2026.9.4"
+    },
+    {
+      "name": "multidict",
+      "version": "6.9.1"
+    },
+    {
+      "name": "mypy",
+      "version": "2.4.0"
+    },
+    {
+      "name": "mypy_extensions",
+      "version": "1.1.0"
+    },
+    {
+      "name": "numpy",
+      "version": "2.4.6"
+    },
+    {
+      "name": "openai",
+      "version": "3.26.0"
+    },
+    {
+      "name": "opentelemetry-api",
+      "version": "1.45.1"
+    },
+    {
+      "name": "packaging",
+      "version": "26.3"
+    },
+    {
+      "name": "pathspec",
+      "version": "1.1.1"
+    },
+    {
+      "name": "pillow",
+      "version": "12.3.0"
+    },
+    {
+      "name": "pluggy",
+      "version": "1.6.0"
+    },
+    {
+      "name": "propcache",
+      "version": "0.5.4"
+    },
+    {
+      "name": "pycparser",
+      "version": "3.0"
+    },
+    {
+      "name": "pydantic",
+      "version": "2.13.5"
+    },
+    {
+      "name": "pydantic-settings",
+      "version": "2.15.0"
+    },
+    {
+      "name": "pydantic_core",
+      "version": "2.46.5"
+    },
+    {
+      "name": "Pygments",
+      "version": "2.21.0"
+    },
+    {
+      "name": "PyJWT",
+      "version": "2.15.1"
+    },
+    {
+      "name": "PyMySQL",
+      "version": "1.2.3"
+    },
+    {
+      "name": "PyOpenGL",
+      "version": "3.1.10"
+    },
+    {
+      "name": "pytest",
+      "version": "9.1.1"
+    },
+    {
+      "name": "pytest-asyncio",
+      "version": "1.4.0"
+    },
+    {
+      "name": "python-dotenv",
+      "version": "1.2.4"
+    },
+    {
+      "name": "python-multipart",
+      "version": "0.0.32"
+    },
+    {
+      "name": "PyYAML",
+      "version": "6.0.3"
+    },
+    {
+      "name": "referencing",
+      "version": "0.37.0"
+    },
+    {
+      "name": "requests",
+      "version": "2.34.2"
+    },
+    {
+      "name": "rosclaw",
+      "version": "1.3.0"
+    },
+    {
+      "name": "rpds-py",
+      "version": "2026.9.1"
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1"
+    },
+    {
+      "name": "semver",
+      "version": "3.1.0"
+    },
+    {
+      "name": "sniffio",
+      "version": "1.3.1"
+    },
+    {
+      "name": "sse-starlette",
+      "version": "3.5.0"
+    },
+    {
+      "name": "starlette",
+      "version": "1.7.0"
+    },
+    {
+      "name": "tabulate",
+      "version": "0.10.0"
+    },
+    {
+      "name": "truststore",
+      "version": "0.10.4"
+    },
+    {
+      "name": "typing-inspection",
+      "version": "0.4.4"
+    },
+    {
+      "name": "typing_extensions",
+      "version": "4.16.0"
+    },
+    {
+      "name": "urllib3",
+      "version": "2.8.0"
+    },
+    {
+      "name": "uvicorn",
+      "version": "0.54.0"
+    },
+    {
+      "name": "websocket-client",
+      "version": "1.9.2"
+    },
+    {
+      "name": "websockets",
+      "version": "17.2"
+    },
+    {
+      "name": "yarl",
+      "version": "1.25.1"
+    },
+    {
+      "name": "zipp",
+      "version": "4.1.1"
+    },
+    {
+      "name": "zstandard",
+      "version": "0.25.0"
+    }
+  ],
+  "scope": "Actual shared Python environment inventory; test tooling was installed before the frozen fifteen-run batch, no model authentication included"
+}

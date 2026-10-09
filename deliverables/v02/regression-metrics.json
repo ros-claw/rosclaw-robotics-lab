@@ -1,0 +1,1093 @@
+{
+  "schema_version": "warehouse-v02-regression-metrics-v1",
+  "freeze": {
+    "lab_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+    "rosclaw_commit": "21838614bb14c39599b8acef731b2b64dad3b92a",
+    "docker_image_id": "sha256:43cca6319ba787aed099db6cceb4ca22de4a24ab0d24b0f9a8b1ef14399ec232",
+    "configuration_and_evaluator_sha256": {
+      "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+      "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+      "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+      "config/patrol_navigation_params.yaml": "2999509e1fa9d8afae9bca35fc0df3cf4eaf151ea479efb0d032d56895756993",
+      "config/runtime.env": "7a702348e6ff6b8c1106bef1fabed1d70085d9ca2973d853cd6015bfe4265c5c",
+      "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+      "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+      "evaluator/patrol.py": "70bac522781c92ea7a03afade165a0682e19aff8039371009e54e0c7ed352fae",
+      "evaluator/obstacle.py": "19b602fab75bba8b27e052e17b1a1a82c0d230f531a85177ded3f722a71b9df2",
+      "evaluator/summarize_runs.py": "3135473c48c708c163ce3f4915a194b27fb07dc252c0c45ab87cce524bfa14f1",
+      "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+      "evaluator/run_report.py": "fb82743b1ed05ed89b2121a85097cb98d8df95d7bbca3f98525b8c23e0078015",
+      "evaluator/replay_archive.py": "ebbee4f26ec7a77eb0229650a3be2253f530cc9733ded1c4290fddc989f1fa0b"
+    },
+    "plan": "Exactly 15 attempts; 5 independent resets per condition; all attempts retained; no success selection",
+    "capture_profile": "follow 1280x720, capture disabled, one viewport; separate from historical three-view video"
+  },
+  "summary": {
+    "status": "REGRESSION_COMPLETE_WITH_FAILURES",
+    "attempts": 16,
+    "passes": 14,
+    "failures_and_incomplete": [
+      "04-standard",
+      "04-unmapped-box"
+    ],
+    "accepted_per_condition": {
+      "standard": 5,
+      "reordered": 5,
+      "unmapped-box": 4
+    },
+    "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+    "original_plan_status": "FAIL",
+    "external_reproduction": "NOT_RUN",
+    "five_accepted_per_condition_goal_met": false,
+    "publication_review_required": true
+  },
+  "attempts": [
+    {
+      "attempt": "01-standard",
+      "condition": "standard",
+      "repetition": 1,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 392.89464378356934,
+      "acceptance_sha256": "a30b7855de8a0b95aba70792d5fee2193a863e8fe2e86a8ec5af95651a894a46",
+      "acceptance_failures": [],
+      "site_order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.1444265074524657,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 32.51816916465759,
+      "intergoal_gaps_seconds": [
+        10.280338048934937,
+        10.43563199043274,
+        11.802199125289917
+      ],
+      "sdk_total_tokens_sum": 117054,
+      "sdk_cost_metadata_sum": 0.097316,
+      "startup_wall_seconds": 40.07826471328735,
+      "input_to_first_motion_wall_seconds": 19.53232455253601,
+      "physical_action_wall_seconds": 207.08289575576782,
+      "observed_sim_to_wall_ratio": 0.5525049807961376,
+      "actual_distance_m": 58.38455014384338,
+      "model_turns": 15,
+      "tool_call_count": 15,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "a26dac6a6f6d458d8582ef2f87a99d16"
+      ]
+    },
+    {
+      "attempt": "01-reordered",
+      "condition": "reordered",
+      "repetition": 1,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 343.8815474510193,
+      "acceptance_sha256": "696753a7dfef461c9465349df56759bf66ce1d3c5b89a04fcfe35f0b330e18e1",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.1269085852254134,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 27.80607581138611,
+      "intergoal_gaps_seconds": [
+        9.224190711975098,
+        8.89212965965271,
+        9.6897554397583
+      ],
+      "sdk_total_tokens_sum": 129449,
+      "sdk_cost_metadata_sum": 0.0956708,
+      "startup_wall_seconds": 41.44191241264343,
+      "input_to_first_motion_wall_seconds": 23.952927350997925,
+      "physical_action_wall_seconds": 167.80700969696045,
+      "observed_sim_to_wall_ratio": 0.5684514244915931,
+      "actual_distance_m": 46.1996703785576,
+      "model_turns": 17,
+      "tool_call_count": 16,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "83f524653b8846719085c25be2b3cedf"
+      ]
+    },
+    {
+      "attempt": "01-unmapped-box",
+      "condition": "unmapped-box",
+      "repetition": 1,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 387.65285658836365,
+      "acceptance_sha256": "1dcf48a836384131b99b352f38f8626579fc31749e2640c1de60f0ea14604e9a",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.11330506304114349,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 6051,
+        "maximum_actual_local_occupied_cells": 357,
+        "conservative_minimum_footprint_clearance_m": 0.3448772969848337,
+        "wall_interval": [
+          1791531567.2808273,
+          1791531771.4075015
+        ],
+        "witness_subset_sha256": "9ac69801db4c6a806a32fc94d30a8f89b2c6176313f4881a7e29ec0303571f8f",
+        "witness_subset_row_count": 1083,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "intergoal_gap_wall_seconds": 30.96230697631836,
+      "intergoal_gaps_seconds": [
+        12.92088270187378,
+        10.114831686019897,
+        7.926592588424683
+      ],
+      "sdk_total_tokens_sum": 191968,
+      "sdk_cost_metadata_sum": 0.10508479999999999,
+      "startup_wall_seconds": 40.74219465255737,
+      "input_to_first_motion_wall_seconds": 57.73513174057007,
+      "physical_action_wall_seconds": 173.1643671989441,
+      "observed_sim_to_wall_ratio": 0.5527881614210126,
+      "actual_distance_m": 46.60380759428835,
+      "model_turns": 18,
+      "tool_call_count": 21,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "7b599e7bcc344f63973ccd1ce89a0b19"
+      ]
+    },
+    {
+      "attempt": "02-standard",
+      "condition": "standard",
+      "repetition": 2,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 417.52966809272766,
+      "acceptance_sha256": "a60412d13d40bd7c9ca41df1c4266f8d8a116e8034e0e48bf102e8b24488fb01",
+      "acceptance_failures": [],
+      "site_order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.14861151210728807,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 33.759207248687744,
+      "intergoal_gaps_seconds": [
+        10.841737031936646,
+        12.814524412155151,
+        10.102945804595947
+      ],
+      "sdk_total_tokens_sum": 102577,
+      "sdk_cost_metadata_sum": 0.082954,
+      "startup_wall_seconds": 41.27308964729309,
+      "input_to_first_motion_wall_seconds": 20.4530291557312,
+      "physical_action_wall_seconds": 211.95981979370117,
+      "observed_sim_to_wall_ratio": 0.5416886106375841,
+      "actual_distance_m": 58.30315448610459,
+      "model_turns": 14,
+      "tool_call_count": 15,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "1cbbb7c2db764a4ebd4fa64b6f162162"
+      ]
+    },
+    {
+      "attempt": "02-reordered",
+      "condition": "reordered",
+      "repetition": 2,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 344.05726146698,
+      "acceptance_sha256": "71e7aa78f5738ed087b5505b3225986550cd083ac47bbbaa52c976861f4fc49d",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.10964091923209442,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 27.33787488937378,
+      "intergoal_gaps_seconds": [
+        8.465908288955688,
+        9.550258874893188,
+        9.321707725524902
+      ],
+      "sdk_total_tokens_sum": 102537,
+      "sdk_cost_metadata_sum": 0.0685172,
+      "startup_wall_seconds": 40.24956798553467,
+      "input_to_first_motion_wall_seconds": 18.432279586791992,
+      "physical_action_wall_seconds": 173.62772941589355,
+      "observed_sim_to_wall_ratio": 0.5663184420560052,
+      "actual_distance_m": 46.2401084216639,
+      "model_turns": 14,
+      "tool_call_count": 15,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "908479cf086440f6994adde2457bbb12"
+      ]
+    },
+    {
+      "attempt": "02-unmapped-box",
+      "condition": "unmapped-box",
+      "repetition": 2,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 358.0267765522003,
+      "acceptance_sha256": "481e51ece2383fd652070538b447e767ab72a1c8ffdf59ee59479d472f9a5027",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.11754086443751981,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 6237,
+        "maximum_actual_local_occupied_cells": 357,
+        "conservative_minimum_footprint_clearance_m": 0.31827072802419587,
+        "wall_interval": [
+          1791532682.1806633,
+          1791532891.0059628
+        ],
+        "witness_subset_sha256": "89d0df4c6a46c3589452cf2758a0e7f0f925f86d06ff0a9b0fab64c31c03093f",
+        "witness_subset_row_count": 1065,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "intergoal_gap_wall_seconds": 29.556260108947754,
+      "intergoal_gaps_seconds": [
+        11.57123351097107,
+        8.832981824874878,
+        9.152044773101807
+      ],
+      "sdk_total_tokens_sum": 132084,
+      "sdk_cost_metadata_sum": 0.0713632,
+      "startup_wall_seconds": 39.264567375183105,
+      "input_to_first_motion_wall_seconds": 24.93590807914734,
+      "physical_action_wall_seconds": 179.2690393924713,
+      "observed_sim_to_wall_ratio": 0.5742075543472562,
+      "actual_distance_m": 46.564652684033,
+      "model_turns": 17,
+      "tool_call_count": 16,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "ab20d7b53cc44414b5461e73f439706c"
+      ]
+    },
+    {
+      "attempt": "03-standard",
+      "condition": "standard",
+      "repetition": 3,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 396.3277943134308,
+      "acceptance_sha256": "ce4caab010090696d483801eae75d43400ea7058067c05fd3aeb3375fc11cdc9",
+      "acceptance_failures": [],
+      "site_order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.14303032001849414,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 31.99799418449402,
+      "intergoal_gaps_seconds": [
+        10.86456847190857,
+        10.451473712921143,
+        10.681951999664307
+      ],
+      "sdk_total_tokens_sum": 117137,
+      "sdk_cost_metadata_sum": 0.0641124,
+      "startup_wall_seconds": 47.456000328063965,
+      "input_to_first_motion_wall_seconds": 21.407402515411377,
+      "physical_action_wall_seconds": 210.76919603347778,
+      "observed_sim_to_wall_ratio": 0.5414228440176349,
+      "actual_distance_m": 58.23611169030566,
+      "model_turns": 16,
+      "tool_call_count": 16,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "9041549df19543869229b5ced8b5ad02"
+      ]
+    },
+    {
+      "attempt": "03-reordered",
+      "condition": "reordered",
+      "repetition": 3,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 370.61517810821533,
+      "acceptance_sha256": "0a0c1b030db264de630f029c9dd64190e650084bc6c9805286849a05bc14a436",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.11672020638088373,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 40.51544785499573,
+      "intergoal_gaps_seconds": [
+        15.172096014022827,
+        11.987196922302246,
+        13.356154918670654
+      ],
+      "sdk_total_tokens_sum": 120424,
+      "sdk_cost_metadata_sum": 0.0915776,
+      "startup_wall_seconds": 44.13584518432617,
+      "input_to_first_motion_wall_seconds": 25.55594778060913,
+      "physical_action_wall_seconds": 172.48751831054688,
+      "observed_sim_to_wall_ratio": 0.555295291250476,
+      "actual_distance_m": 46.20157994584522,
+      "model_turns": 16,
+      "tool_call_count": 15,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "20ebf6fdb97d4a3c8e0ba5e1dc137e59"
+      ]
+    },
+    {
+      "attempt": "03-unmapped-box",
+      "condition": "unmapped-box",
+      "repetition": 3,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 356.908812046051,
+      "acceptance_sha256": "4eb9680ecbcccbc107b7e3a084fbe89f647dcfda96302775b69af93037a52fe0",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.14146163720128138,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 5834,
+        "maximum_actual_local_occupied_cells": 347,
+        "conservative_minimum_footprint_clearance_m": 0.32642699766584315,
+        "wall_interval": [
+          1791533811.529587,
+          1791534012.733721
+        ],
+        "witness_subset_sha256": "3a7727de4eba33a51aac2d80c3d7f93d241cc71758c154224a54feb25143a49d",
+        "witness_subset_row_count": 1083,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "intergoal_gap_wall_seconds": 32.82803153991699,
+      "intergoal_gaps_seconds": [
+        11.299431085586548,
+        9.58240008354187,
+        11.946200370788574
+      ],
+      "sdk_total_tokens_sum": 130235,
+      "sdk_cost_metadata_sum": 0.0733596,
+      "startup_wall_seconds": 41.379725217819214,
+      "input_to_first_motion_wall_seconds": 27.01474118232727,
+      "physical_action_wall_seconds": 168.37610244750977,
+      "observed_sim_to_wall_ratio": 0.5707161772811807,
+      "actual_distance_m": 46.64343310290963,
+      "model_turns": 17,
+      "tool_call_count": 18,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "73cc1e26b30a44f3a1fff3a70538487a"
+      ]
+    },
+    {
+      "attempt": "04-standard",
+      "condition": "standard",
+      "repetition": 4,
+      "status": "INCOMPLETE",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": null,
+      "native_timeout": null,
+      "error": "CalledProcessError(1, ['/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/scripts/demo.sh', 'headless', 'patrol'])",
+      "native_task_started": false,
+      "attempt_wall_seconds": 1200.9218707084656,
+      "acceptance_sha256": null,
+      "acceptance_failures": null,
+      "site_order": [],
+      "visit_count": 0,
+      "maximum_position_error_m": null,
+      "nonfloor_collision_count": null,
+      "recovery_count": null,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": null,
+      "intergoal_gaps_seconds": [],
+      "sdk_total_tokens_sum": 0,
+      "sdk_cost_metadata_sum": 0,
+      "startup_wall_seconds": null,
+      "input_to_first_motion_wall_seconds": null,
+      "physical_action_wall_seconds": null,
+      "observed_sim_to_wall_ratio": null,
+      "actual_distance_m": null,
+      "model_turns": null,
+      "tool_call_count": null,
+      "memory_outcome": null,
+      "observer_ids": null
+    },
+    {
+      "attempt": "04-reordered",
+      "condition": "reordered",
+      "repetition": 4,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 350.83190393447876,
+      "acceptance_sha256": "f5e16b81155c04a6d6d6ae19382bdb4b7b6413c895d5a0e8779bbfb40356fa76",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.13932790163569872,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 29.551304578781128,
+      "intergoal_gaps_seconds": [
+        10.183500289916992,
+        9.629833936691284,
+        9.737970352172852
+      ],
+      "sdk_total_tokens_sum": 109416,
+      "sdk_cost_metadata_sum": 0.0784608,
+      "startup_wall_seconds": 40.364659547805786,
+      "input_to_first_motion_wall_seconds": 18.687652826309204,
+      "physical_action_wall_seconds": 177.76948070526123,
+      "observed_sim_to_wall_ratio": 0.5379001711904808,
+      "actual_distance_m": 46.25888049000038,
+      "model_turns": 15,
+      "tool_call_count": 16,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "21caaa9aebe14c6c8668209d70849fa8"
+      ]
+    },
+    {
+      "attempt": "04-unmapped-box",
+      "condition": "unmapped-box",
+      "repetition": 4,
+      "status": "FAIL",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": -2,
+      "native_timeout": true,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 1574.4420490264893,
+      "acceptance_sha256": "6f06202b10c43ea1b35cf4247ce2eb844ef2888ca60b5dbc2f0eea8b9c5410da",
+      "acceptance_failures": "verified patrol artifact missing",
+      "site_order": [],
+      "visit_count": 0,
+      "maximum_position_error_m": null,
+      "nonfloor_collision_count": null,
+      "recovery_count": null,
+      "partial_visit_count": 2,
+      "partial_visits": [
+        {
+          "action_id": "act_62dff11ee5784962a75121d3",
+          "site_id": "aisle",
+          "status": "PASS",
+          "error": null,
+          "nav2": {
+            "status": 4,
+            "error_code": 0,
+            "result": {
+              "error_code": 0,
+              "error_msg": ""
+            },
+            "wall_time": 1791535755.7794163
+          },
+          "verification": {
+            "verification_status": "PASS",
+            "success": true,
+            "position_error_m": 0.09346046623448218,
+            "yaw_error_rad": 0.22499239283807082,
+            "stable_dwell_sim_seconds": 2.016666666666552,
+            "collision_count": 0,
+            "sensor": {
+              "wall_time": 1791535759.196669,
+              "stamp": 45.3,
+              "frame_id": "front_3d_lidar",
+              "range_count": 362,
+              "finite_hits": 362,
+              "valid": true
+            },
+            "failures": [],
+            "missing_evidence": [],
+            "physics_sample_count": 170
+          },
+          "artifact_sha256": "c239270785bfae5c99208ac4a6fc523a05ea8d1f6b65b03e5da0ca43926a988e",
+          "sample_count": 170
+        },
+        {
+          "action_id": "act_6ffdab1afcc24df0a27ee70d",
+          "site_id": "entry",
+          "status": "PASS",
+          "error": null,
+          "nav2": {
+            "status": 4,
+            "error_code": 0,
+            "result": {
+              "error_code": 0,
+              "error_msg": ""
+            },
+            "wall_time": 1791535811.4329824
+          },
+          "verification": {
+            "verification_status": "PASS",
+            "success": true,
+            "position_error_m": 0.10791409519324364,
+            "yaw_error_rad": 0.22702391248119258,
+            "stable_dwell_sim_seconds": 2.066666666666549,
+            "collision_count": 0,
+            "sensor": {
+              "wall_time": 1791535815.2294784,
+              "stamp": 75.8,
+              "frame_id": "front_3d_lidar",
+              "range_count": 362,
+              "finite_hits": 362,
+              "valid": true
+            },
+            "failures": [],
+            "missing_evidence": [],
+            "physics_sample_count": 192
+          },
+          "artifact_sha256": "2d0f7262dce5c1e0da346300635d3d1460219f8db0e3cba7505c837454a2e939",
+          "sample_count": 192
+        }
+      ],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": null,
+      "intergoal_gaps_seconds": [],
+      "sdk_total_tokens_sum": 36311,
+      "sdk_cost_metadata_sum": 0.057559599999999995,
+      "startup_wall_seconds": null,
+      "input_to_first_motion_wall_seconds": null,
+      "physical_action_wall_seconds": null,
+      "observed_sim_to_wall_ratio": null,
+      "actual_distance_m": null,
+      "model_turns": null,
+      "tool_call_count": null,
+      "memory_outcome": null,
+      "observer_ids": null
+    },
+    {
+      "attempt": "05-standard",
+      "condition": "standard",
+      "repetition": 5,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 416.18919253349304,
+      "acceptance_sha256": "23dec31f0ce912507080ed2d092fc98121817894a8b389f0911528a5175890c6",
+      "acceptance_failures": [],
+      "site_order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.15182715309076297,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 27.97835087776184,
+      "intergoal_gaps_seconds": [
+        9.75734257698059,
+        8.710489749908447,
+        9.510518550872803
+      ],
+      "sdk_total_tokens_sum": 111657,
+      "sdk_cost_metadata_sum": 0.0710756,
+      "startup_wall_seconds": 42.40620279312134,
+      "input_to_first_motion_wall_seconds": 19.449540853500366,
+      "physical_action_wall_seconds": 240.52146077156067,
+      "observed_sim_to_wall_ratio": 0.47331467090331214,
+      "actual_distance_m": 58.28010209308606,
+      "model_turns": 15,
+      "tool_call_count": 16,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "f9800f6468c24473ba81b6e7d34ad6a3"
+      ]
+    },
+    {
+      "attempt": "05-reordered",
+      "condition": "reordered",
+      "repetition": 5,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 302.92360615730286,
+      "acceptance_sha256": "15e84f8d5467714ecef043b0bb5135a0f2a65df32f731418f8f67640e6b7a241",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.11161217327070962,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 29.643699884414673,
+      "intergoal_gaps_seconds": [
+        11.070114374160767,
+        9.288886308670044,
+        9.284699201583862
+      ],
+      "sdk_total_tokens_sum": 118237,
+      "sdk_cost_metadata_sum": 0.07193480000000001,
+      "startup_wall_seconds": 34.344563245773315,
+      "input_to_first_motion_wall_seconds": 18.388229370117188,
+      "physical_action_wall_seconds": 136.36197924613953,
+      "observed_sim_to_wall_ratio": 0.7092838407082709,
+      "actual_distance_m": 46.22688864100257,
+      "model_turns": 15,
+      "tool_call_count": 16,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "37d9b443fc214a8682bf652db94ab5ef"
+      ]
+    },
+    {
+      "attempt": "05-unmapped-box",
+      "condition": "unmapped-box",
+      "repetition": 5,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 315.95709466934204,
+      "acceptance_sha256": "334bec4cbffa3ea73dd38c881f7a3bd4e60a87c3d0fde65ce94b19df11e96993",
+      "acceptance_failures": [],
+      "site_order": [
+        "aisle",
+        "entry",
+        "shelf",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.14057035595805892,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 6074,
+        "maximum_actual_local_occupied_cells": 349,
+        "conservative_minimum_footprint_clearance_m": 0.3271690251683651,
+        "wall_interval": [
+          1791538004.691168,
+          1791538176.9563727
+        ],
+        "witness_subset_sha256": "9f84d40b11a7539cbf75868c2db4e9d6e6b4e588cc7006b084d923588aacccb1",
+        "witness_subset_row_count": 1126,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "intergoal_gap_wall_seconds": 34.785130977630615,
+      "intergoal_gaps_seconds": [
+        11.734173774719238,
+        12.008270263671875,
+        11.042686939239502
+      ],
+      "sdk_total_tokens_sum": 134417,
+      "sdk_cost_metadata_sum": 0.0735124,
+      "startup_wall_seconds": 35.56113910675049,
+      "input_to_first_motion_wall_seconds": 24.098901987075806,
+      "physical_action_wall_seconds": 137.48007369041443,
+      "observed_sim_to_wall_ratio": 0.7036752817571325,
+      "actual_distance_m": 46.61017401445345,
+      "model_turns": 17,
+      "tool_call_count": 17,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "800291f849044af7bae8b77a50bbf9f5"
+      ]
+    },
+    {
+      "attempt": "06-standard",
+      "condition": "standard",
+      "repetition": 6,
+      "status": "PASS",
+      "manual_interventions": [],
+      "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+      "native_exit_code": 0,
+      "native_timeout": null,
+      "error": null,
+      "native_task_started": true,
+      "attempt_wall_seconds": 389.02009773254395,
+      "acceptance_sha256": "f9b3f9b639dd25f4f7f48465f20d1ec4c7c478e66b3723343848a64c7dcdccc3",
+      "acceptance_failures": [],
+      "site_order": [
+        "entry",
+        "shelf",
+        "aisle",
+        "home"
+      ],
+      "visit_count": 4,
+      "maximum_position_error_m": 0.13519111984283189,
+      "nonfloor_collision_count": 0,
+      "recovery_count": 0,
+      "partial_visit_count": 0,
+      "partial_visits": [],
+      "obstacle_verification": null,
+      "intergoal_gap_wall_seconds": 31.098995685577393,
+      "intergoal_gaps_seconds": [
+        10.924095630645752,
+        9.721111059188843,
+        10.453788995742798
+      ],
+      "sdk_total_tokens_sum": 102135,
+      "sdk_cost_metadata_sum": 0.0813532,
+      "startup_wall_seconds": 38.883649826049805,
+      "input_to_first_motion_wall_seconds": 17.600228786468506,
+      "physical_action_wall_seconds": 215.99947357177734,
+      "observed_sim_to_wall_ratio": 0.5362365596098438,
+      "actual_distance_m": 58.37961158536524,
+      "model_turns": 14,
+      "tool_call_count": 15,
+      "memory_outcome": "success",
+      "observer_ids": [
+        "f7455b4c9530475d806265c64dc3de1e"
+      ]
+    }
+  ],
+  "conditions": {
+    "standard": {
+      "attempts": 6,
+      "native_attempts": 5,
+      "passes": 5
+    },
+    "reordered": {
+      "attempts": 5,
+      "native_attempts": 5,
+      "passes": 5
+    },
+    "unmapped-box": {
+      "attempts": 5,
+      "native_attempts": 5,
+      "passes": 4
+    }
+  },
+  "all_attempt_statistics": {
+    "attempt_wall_seconds": {
+      "n": 16,
+      "min": 302.92360615730286,
+      "median": 379.1340173482895,
+      "max": 1574.4420490264893,
+      "mean": 494.88627207279205
+    },
+    "startup_wall_seconds": {
+      "n": 14,
+      "min": 34.344563245773315,
+      "median": 40.55342710018158,
+      "max": 47.456000328063965,
+      "mean": 40.54152728830065
+    },
+    "input_to_first_motion_wall_seconds": {
+      "n": 14,
+      "min": 17.600228786468506,
+      "median": 20.93021583557129,
+      "max": 57.73513174057007,
+      "mean": 24.08887469768524
+    },
+    "physical_action_wall_seconds": {
+      "n": 14,
+      "min": 136.36197924613953,
+      "median": 175.6986050605774,
+      "max": 240.52146077156067,
+      "mean": 183.76258185931616
+    },
+    "intergoal_gap_wall_seconds": {
+      "n": 14,
+      "min": 27.33787488937378,
+      "median": 31.030651330947876,
+      "max": 40.51544785499573,
+      "mean": 31.45277498449598
+    },
+    "observed_sim_to_wall_ratio": {
+      "n": 14,
+      "min": 0.47331467090331214,
+      "median": 0.5540417263357443,
+      "max": 0.7092838407082709,
+      "mean": 0.5702717150334229
+    },
+    "actual_distance_m": {
+      "n": 14,
+      "min": 46.1996703785576,
+      "median": 46.606990804370895,
+      "max": 58.38455014384338,
+      "mean": 50.65233751938993
+    },
+    "maximum_position_error_m": {
+      "n": 14,
+      "min": 0.10964091923209442,
+      "median": 0.1372595107392653,
+      "max": 0.15182715309076297,
+      "mean": 0.13144102277818903
+    },
+    "model_turns": {
+      "n": 14,
+      "min": 14,
+      "median": 15.5,
+      "max": 18,
+      "mean": 15.714285714285714
+    },
+    "tool_call_count": {
+      "n": 14,
+      "min": 15,
+      "median": 16.0,
+      "max": 21,
+      "mean": 16.214285714285715
+    }
+  },
+  "statistics_scope": {
+    "full_acceptance_timing_reports": 14,
+    "all_attempt_wall_time_reports": 16,
+    "note": "Full-mission timing fields are conditional on available successful reports; failed/partial attempts remain in overall attempt-wall statistics and denominator."
+  },
+  "interpretation": [
+    "All attempts retained, no success selection. Missing fields on failures are absent observations, not zero duration.",
+    "Inter-goal gaps combine Agent, tool, approval and IPC waits; they are not isolated model inference time.",
+    "SDK cost metadata is reported as SDK estimates, not actual subscription/account charges.",
+    "The sixteen local engineering attempts (including a startup failure) do not establish production reliability or third-party reproduction."
+  ]
+}

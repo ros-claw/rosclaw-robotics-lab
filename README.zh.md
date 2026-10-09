@@ -1,53 +1,38 @@
 # ROSClaw Robotics Lab
 
-**一句自然语言，让机器人完成有物理证据的仓库巡检。**
+**一句自然语言，让机器人完成有独立物理证据的仓库巡检。**
 
-真实 ROSClaw Native Agent 已在 DGX Spark 上，通过 ROS 2 Jazzy/Nav2 控制
-Isaac Sim 6.1 官方仓库中的 Nova Carter。**四次完整重置任务通过独立验收**，
-包含改变自然语言顺序和未映射静态障碍物。证据来自仿真，未验证真实硬件执行。
+真实 ROSClaw Native Agent 在 DGX Spark 上，通过 ROS 2 Jazzy/Nav2 运行 Isaac Sim 6.1 官方仓库里的 Nova Carter。**v0.2 冻结源码回归：16 次尝试中（含启动失败） 14 次通过**，三类各至少五次独立 Native 测试；保留启动失败和模型请求中断，唯一一次标准追加测试已提前声明。成功整圈共 56 次到点记录，最大实际位置误差 0.151827 米。这是本机仿真工程验收，尚未证明生产可靠性或真实硬件能力。
 
-[![真实 Native Agent 演示](challenges/01-isaac-warehouse-patrol/reports/native-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-promo.mp4)
+[![Synchronized three-view Native mission](challenges/01-isaac-warehouse-patrol/reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
 
-[80 秒宣传片](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-promo.mp4)
-· [完整 Native 任务视频](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-workflow.mp4)
-· [公开证据包](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.1.0)
+[60s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-short-60s.mp4) · [180s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) · [Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0)
 
-新增 [1080p 三视角预览](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-cameras-v0.1.1/warehouse-camera-views.mp4)：
-机器人前向、第三人称跟随和近距离顶视。它来自单点 Nav2 相机测试，
-独立于上述 Native 巡检视频；设置方法见 [相机指南](challenges/01-isaac-warehouse-patrol/docs/camera-views.md)。
+[English](README.md) · [中文教程](challenges/01-isaac-warehouse-patrol/docs/tutorial_zh.md) · [交付清单](deliverables/v02/STATUS.md)
 
-Agent 发现 ROS 能力，逐站提出导航，监控结果、返回 Home，最后写入现有
-Practice/Memory。物理执行权只在 rosclawd，不使用假模型、Agent 内部 Runtime
-或一键整圈巡检工具。每站要求 Nav2 成功、实际误差 ≤0.4 米、稳定停留 ≥2 仿真秒、
-新鲜 LiDAR 和零非地面接触。TaskKernel 在最终记忆收据完成之后关闭。
+| 冻结版本条件 | 全部尝试 | 进入 Native | PASS |
+|---|---:|---:|---:|
+| standard | 6 | 5 | 5 |
+| reordered | 5 | 5 | 5 |
+| unmapped-box | 5 | 5 | 4 |
 
-前三次分别完成标准巡检两次、改序巡检一次。第四次使用公开 Docker 构建和未映射
-箱体，完成“通道→入口→货架→Home”，实际误差为 **0.095 / 0.094 / 0.132 / 0.090 米**。
-四轮 16 个到点的最大误差小于 0.151 米。箱体实验记录了 6,368 个真实点云命中、
-367 个局部主代价地图占据单元、超过 0.35 米的保守足迹净距，以及零非地面接触。
-真实运动后的超时取消和断连 DDS 取消也分别通过故障测试。
+Agent 观测 ROS 并逐站提议；Agentd/Operator/rosclawd 持有 Body 绑定的 SIM 执行权，Nav2 规划并控制运动。每站要求 Nav2 成功、独立物理误差 ≤0.4 米、稳定停留 ≥2 仿真秒、新鲜 LiDAR、完整接触观察与零非地面碰撞。完整有序收据及成功 Practice/Memory 验证之后，TaskKernel 才能结束。不使用 Agent 内 Runtime、原始轮速工具或一键整圈巡检工具。
+
+箱体任务另验原始地图空闲证明、真实 LiDAR 命中、局部主 Costmap 占据与保守足迹净距。实际隔离 SIM 故障补测覆盖超时、断线、暂停后恢复停止，以及真实 Navigator ABORT 时真实 FollowPath 仍活动的取消与停止。所有失败保留在[故障索引](deliverables/v02/FAULT_TESTS.md)。暂停时不能凭旧物理数据确认停止，须另验恢复后的连续推进窗口。
+
+实际运行 lab SHA：`09739cb34c8a1d37ad95cfa4f146ad1e47798ec3`；上游运行 SHA：`21838614bb14c39599b8acef731b2b64dad3b92a`。后续文档/测试提交与新上游改进 PR 分开记录，发行时核对运行文件哈希一致。见[完整指标](deliverables/v02/regression-metrics.json)、[性能口径](deliverables/v02/PERFORMANCE_PROTOCOL.md)、[Harness 审计](deliverables/v02/HARNESS_AUDIT.md)和[完整报告](deliverables/v02/IMPLEMENTATION_REPORT.zh.md)。
+
+10 月 8 日历史五轮成功属于不同集成快照。三版视频都来自历史第五轮同一次任务，包含机器人前向、第三人称和近顶视同步画面；并非本轮十六次尝试的录像。60 秒版标记片段跳切，保留原时间和加速说明。编码 FPS 和重复最近真实帧不等于实采 FPS。[旧 v0.1](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.1.0)与[冻结前失败](deliverables/v02/preliminary)独立保留。
 
 ```bash
 cd challenges/01-isaac-warehouse-patrol
 ./scripts/setup.sh
-./scripts/doctor.sh
-ROSCLAW_CAMERA_VIEW=top ROSCLAW_CAPTURE_SECONDS=1400 ./scripts/demo.sh streaming patrol
-# 另一终端持续运行：
-./scripts/start-agent-observers.sh
-# 按教程向真实 Native Agent 发送一句任务。
+python3 scripts/lab.py doctor
+python3 scripts/lab.py start headless patrol
+# 按教程启动观察者，再向真实 Native Agent 输入一句任务。
+python3 scripts/lab.py stop
 ```
 
-见 [中文复现教程](challenges/01-isaac-warehouse-patrol/docs/tutorial_zh.md)、
-[执行架构](challenges/01-isaac-warehouse-patrol/docs/architecture.md)、
-[失败记录](challenges/01-isaac-warehouse-patrol/docs/failures.md)、
-[验收汇总](challenges/01-isaac-warehouse-patrol/reports/acceptance-summary.json) 和
-[实施报告](FINAL_IMPLEMENTATION_REPORT.md)。
+统一入口另提供 `task`、`results` 和十五次重置的 `regression SHORT_DIRECTORY`。启动不自动发导航目标；官方资产在线加载，使用者自行接受 NVIDIA 许可。Docker 基础镜像固定 manifest digest，apt 结果可能变化，每轮记录实际 image ID 与包版本。安装器、USD、缓存、认证、操作员密钥、私有模型目录和完整视频不进入 Git。
 
-启动脚本不发目标，官方基线与 Agent 验收分开。视频组合真实带时间戳的仿真帧、
-可见终端记录及 PhysX，宣传片明确标注时间压缩，完整任务以 2 fps 保留全部墙钟时间。
-这是逐帧重建，不是连续屏幕录像。私有思考、模型认证和操作员密钥不会公开。
-
-成功轮次对应集成过程中的不同源码快照和 Body 哈希；失败轮次也保留，不能据此
-宣称统计成功率。公开 ARM64 Dockerfile 及其运行已在本机验证，独立工程师在干净
-机器上的复现仍待安排。外部 WebRTC 客户端、中国资产区域和动态行人尚未验证。
-仓库不分发 NVIDIA USD、安装包、大型缓存、私有模型目录或完整视频。
+[独立复现交接包](deliverables/v02/reproduction/README.zh.md)已准备，用户暂未安排工程师和另一台机器，因此第三方实测为 **NOT RUN / 待安排**。离线重放只验证证据自洽。[Challenge 02](challenges/02-semantic-inspection/README.md)目前从真实 USD/地图/位姿/Body 生成只读候选；新目标运动、传感器检查和 holdout 实验待完成。运行对照与应用开发效率对照分开设计，不预设 ROSClaw 优于 Codex。当前 SIM 使用 SQLite、关闭可选 firewall 集成，未验收全部安全模块或 seekdb 性能。

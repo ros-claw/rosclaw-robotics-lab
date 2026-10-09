@@ -1,0 +1,664 @@
+[
+  {
+    "attempt": "01-standard",
+    "archive_sha256": "e60cad54c3e5c948ef0776a6e28d88735c0db2c7fe1b41a41d6c3e1bf1864adf",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08367509701247697,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.10954807391303589,
+          "stable_dwell_sim_seconds": 2.2166666666665407,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.11561928579494572,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.1444265074524657,
+          "stable_dwell_sim_seconds": 2.2000000000017508,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "01-reordered",
+    "archive_sha256": "67a4f1d390296f474112397a01dbe683ecdbd46ed7deb40aac99b43f3978ee5e",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08132146835989741,
+          "stable_dwell_sim_seconds": 2.1833333333332092,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08966587957021241,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.1269085852254134,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.10406450417703561,
+          "stable_dwell_sim_seconds": 2.0833333333349913,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "01-unmapped-box",
+    "archive_sha256": "2827412d7f9466831f2d1e709784cd1b721f823825657067917b2e8dcc4fac83",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08972013563134965,
+          "stable_dwell_sim_seconds": 2.133333333333219,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.0988979363372035,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11330506304114349,
+          "stable_dwell_sim_seconds": 2.0333333333349515,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.08527252589703106,
+          "stable_dwell_sim_seconds": 2.150000000001711,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 6051,
+        "maximum_actual_local_occupied_cells": 357,
+        "conservative_minimum_footprint_clearance_m": 0.3448772969848337,
+        "wall_interval": [
+          1791531567.2808273,
+          1791531771.4075015
+        ],
+        "witness_subset_sha256": "9ac69801db4c6a806a32fc94d30a8f89b2c6176313f4881a7e29ec0303571f8f",
+        "witness_subset_row_count": 1083,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "02-standard",
+    "archive_sha256": "c60fec87ad8f9359c1c2b8a6864cf586db94e1521c5e59434a691a832772b609",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08734038986230222,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11919050990120687,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.11565625385330099,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.14861151210728807,
+          "stable_dwell_sim_seconds": 2.116666666668351,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "02-reordered",
+    "archive_sha256": "e613327d3d8a8947264143dd62dea3c103729fcd001fb669d36b1dca48b1ebcf",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08996717678845176,
+          "stable_dwell_sim_seconds": 2.133333333333212,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09951437070203206,
+          "stable_dwell_sim_seconds": 2.066666666666549,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.10964091923209442,
+          "stable_dwell_sim_seconds": 2.133333333333212,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.10677050999262958,
+          "stable_dwell_sim_seconds": 2.0500000000016314,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "02-unmapped-box",
+    "archive_sha256": "3522e2fb6bd6758c0935230e3f34d2ecdfa2c9203254ec476f78873812e14db1",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.10576587142840604,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.10533781217802858,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11754086443751981,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.09668497784457647,
+          "stable_dwell_sim_seconds": 2.0500000000016314,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 6237,
+        "maximum_actual_local_occupied_cells": 357,
+        "conservative_minimum_footprint_clearance_m": 0.31827072802419587,
+        "wall_interval": [
+          1791532682.1806633,
+          1791532891.0059628
+        ],
+        "witness_subset_sha256": "89d0df4c6a46c3589452cf2758a0e7f0f925f86d06ff0a9b0fab64c31c03093f",
+        "witness_subset_row_count": 1065,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "03-standard",
+    "archive_sha256": "d520fdc3510e8298ef931689a0586d8613a22729d6ace065644ea08e53cde6af",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08860430958830619,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.14303032001849414,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.12079263362257571,
+          "stable_dwell_sim_seconds": 2.0333333333332178,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.08821647595428744,
+          "stable_dwell_sim_seconds": 2.0333333333349515,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "03-reordered",
+    "archive_sha256": "95bdfdbe37c1b1a393cb4e0b391ae3db862630fe5473d383b9504a193b9deb54",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.0909114124436103,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08986804946643528,
+          "stable_dwell_sim_seconds": 2.266666666666538,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11672020638088373,
+          "stable_dwell_sim_seconds": 2.066666666666549,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.1063475435602936,
+          "stable_dwell_sim_seconds": 2.100000000001671,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "03-unmapped-box",
+    "archive_sha256": "1a2cb28feef700c50d50b579181c6c20c9699e6fc96d0361a28f691e5e86f2ab",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.1099814411640859,
+          "stable_dwell_sim_seconds": 2.2333333333332064,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09722587557554994,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.14146163720128138,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.09935432535018186,
+          "stable_dwell_sim_seconds": 2.100000000001671,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 5834,
+        "maximum_actual_local_occupied_cells": 347,
+        "conservative_minimum_footprint_clearance_m": 0.32642699766584315,
+        "wall_interval": [
+          1791533811.529587,
+          1791534012.733721
+        ],
+        "witness_subset_sha256": "3a7727de4eba33a51aac2d80c3d7f93d241cc71758c154224a54feb25143a49d",
+        "witness_subset_row_count": 1083,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "04-reordered",
+    "archive_sha256": "5901623892c19bfe97312aa3655570366a5997684d3361512655ecf74467b208",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08435517208894232,
+          "stable_dwell_sim_seconds": 2.133333333333212,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09025883328713641,
+          "stable_dwell_sim_seconds": 2.0333333333332178,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.13932790163569872,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.09745099881156434,
+          "stable_dwell_sim_seconds": 2.0166666666682715,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "05-standard",
+    "archive_sha256": "a68155936741b1bb4e686a09b50bf0609cb18fbb0933011c768036c11962a33b",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08637745124378554,
+          "stable_dwell_sim_seconds": 2.266666666666538,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.15182715309076297,
+          "stable_dwell_sim_seconds": 2.066666666666549,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.12156911367609226,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.12290563528304631,
+          "stable_dwell_sim_seconds": 2.0000000000015916,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "05-reordered",
+    "archive_sha256": "218bcfc8a3b0bc38661ba776944e037f53add7a6186e4fe10b943225cb3e7e09",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08113125798826681,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09213497741474962,
+          "stable_dwell_sim_seconds": 2.149999999999878,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11161217327070962,
+          "stable_dwell_sim_seconds": 2.1666666666665435,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.08984874145938518,
+          "stable_dwell_sim_seconds": 2.100000000001671,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "05-unmapped-box",
+    "archive_sha256": "f685c6c2e25df0f980046c4746619f138c2c605ae2b86211299388c614e0d12e",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.11019023480500809,
+          "stable_dwell_sim_seconds": 2.0333333333332178,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.1004910234963842,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.14057035595805892,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.11251633777809718,
+          "stable_dwell_sim_seconds": 2.166666666668391,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": {
+        "status": "PASS",
+        "failures": [],
+        "maximum_actual_lidar_box_hits": 6074,
+        "maximum_actual_local_occupied_cells": 349,
+        "conservative_minimum_footprint_clearance_m": 0.3271690251683651,
+        "wall_interval": [
+          1791538004.691168,
+          1791538176.9563727
+        ],
+        "witness_subset_sha256": "9f84d40b11a7539cbf75868c2db4e9d6e6b4e588cc7006b084d923588aacccb1",
+        "witness_subset_row_count": 1126,
+        "physical_obstacle": {
+          "path": "/World/ROSClawUnmappedBox",
+          "center_xyz": [
+            -3.5,
+            4,
+            0.5
+          ],
+          "size_m": 1.0,
+          "physical_collision": true,
+          "source": "session layer; absent from official occupancy map"
+        },
+        "static_map_validation": {
+          "map_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+          "box_region_pixel_bounds": [
+            159,
+            326,
+            180,
+            347
+          ],
+          "all_box_cells_free": true,
+          "minimum_pixel_value": 255,
+          "cell_count": 441,
+          "frame_id": "map"
+        }
+      },
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  },
+  {
+    "attempt": "06-standard",
+    "archive_sha256": "54873a552fcdf783f720c16bb95a9ea17f1406b9743004fe4246e4d19b10e8c1",
+    "replay": {
+      "run_id": "native",
+      "status": "PASS",
+      "failures": [],
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08062047421028509,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.1304466472724821,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.09473028067067392,
+          "stable_dwell_sim_seconds": 2.1833333333332092,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.13519111984283189,
+          "stable_dwell_sim_seconds": 2.0500000000016314,
+          "collision_count": 0
+        }
+      ],
+      "obstacle_verification": null,
+      "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+    }
+  }
+]

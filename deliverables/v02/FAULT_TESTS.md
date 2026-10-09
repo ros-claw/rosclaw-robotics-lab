@@ -24,6 +24,6 @@ The public `run_fault_supplement.py` accepts your own prior Native SIM `executio
   --isolated-simulation
 ```
 
-The published wrapper extracts the accepted local protocol and removes machine-specific input paths. Wrapper CLI/lint checks are separate from physical protocol evidence; a final standalone public-wrapper integration run will be recorded separately, rather than retroactively attributing earlier tests to this file.
+The public wrapper was subsequently run end to end in `f08-public`: all four negative-test protocols passed on independent resets. [The wrapper index](faults/public-wrapper-index.json) records the actual script SHA and source commit; its four `public-*.json` reports retain the physical evidence. The pause report still distinguishes initial unverified stopping from verified stopping after simulation resumes. These actual public-wrapper results supplement the earlier trials above.
 
 Total test wall time is not a measured stop latency. Dispatch, response acknowledgement, terminal CANCELED and physical stopping are distinct evidence. The lab DDS fallback cancels both servers only in its isolated SIM environment; upstream diagnostics do not infer goal ownership or automatically cancel all goals.

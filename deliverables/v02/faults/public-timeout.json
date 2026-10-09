@@ -1,0 +1,26 @@
+{
+  "fault": "timeout",
+  "scope": "real adapter single-goal negative test, not Native mission",
+  "wall_seconds": 4.895036220550537,
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "peak_linear_speed_mps": 0.4130898391882926,
+  "peak_angular_speed_rps": 0.7758078575134277,
+  "feedback_count": 385,
+  "error": "single-site deadline reached",
+  "nav2": {
+    "status": 5,
+    "error_code": 0,
+    "result": {
+      "error_code": 0,
+      "error_msg": ""
+    },
+    "wall_time": 1791539664.4023974
+  },
+  "DDS_fallback_events": [],
+  "status": "PASS",
+  "cancel_confirmed": true,
+  "physics_directory": "/home/nvidia/sim/rosclaw-lab-v02-docs/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T095331Z",
+  "wrapper_source_sha256": "10f4f558bc781c9b1cd8cb4f1f8765b73a15beb729fcab6ef35f675646777584",
+  "source_commit": "a25c4c84fb6c4f69e33133cadfc57d2174500e74"
+}

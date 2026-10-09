@@ -1,0 +1,31 @@
+{
+  "scope": "Actual CLI validation of the public isolated-SIM fault wrapper, separate from full Native tasks; all outcomes retained",
+  "outcomes": {
+    "navigator-abort": "PASS",
+    "disconnect": "PASS",
+    "timeout": "PASS",
+    "pause": "PASS"
+  },
+  "attempts": {
+    "disconnect": {
+      "report": "public-disconnect.json",
+      "sha256": "7b839f14184f8d5fff770a28c5a3c4e6ed80317acc3e620cf46b07c8daf97997",
+      "status": "PASS"
+    },
+    "navigator-abort": {
+      "report": "public-navigator-abort.json",
+      "sha256": "d8a9b75b8734208a30b2dc79c57956fccca9410b29eef4a13fb580cf70c15043",
+      "status": "PASS"
+    },
+    "pause": {
+      "report": "public-pause.json",
+      "sha256": "9fe7e0e55b5ee42301b520e479cd2dd2c31c9891b94a829e6e3c5e31631e0c4e",
+      "status": "PASS"
+    },
+    "timeout": {
+      "report": "public-timeout.json",
+      "sha256": "3210a1df2e223477945957d51ced0b83b40794f82360acee7c9ac8be8d9420cb",
+      "status": "PASS"
+    }
+  }
+}

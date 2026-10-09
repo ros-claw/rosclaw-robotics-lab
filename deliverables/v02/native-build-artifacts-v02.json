@@ -1,0 +1,14 @@
+{
+  "scope": "Read-only build artifact hashes of the pinned Native runtime after the sixteen attempts; no rebuild applied",
+  "build_stamp": {
+    "commit": "21838614bb14c39599b8acef731b2b64dad3b92a"
+  },
+  "sha256": {
+    "dist/src/main.js": "39b8b79d86799ce34686adc0ad9b8bca46a2d086dbf84aa9764407fb956af4d7",
+    "dist/src/extension/index.js": "9133a156fdef278b9a8e5c5ac42e4ae889773bbb521443663c080d513bede1eb",
+    "dist/src/native/model-errors.js": "870030f17e420e4116a9ec7dc67c34b6639dd8dcf0d23352f4572e7ffcf02fe7",
+    "dist/src/native/provider-watchdog.js": "4060721fdb1ccf6a9d2e3bd48c904593aa150a245eddd655e5e09d6c9a8fe7b7",
+    "package-lock.json": "deeaa3cc24a5e392c12b51d56b6e1d454495c755f5ef52360173f5524ed14dc9",
+    "package.json": "94426932f4ccb2f956021bf4c2463bce8bab6ae8db5f58662944ca72b92a285f"
+  }
+}

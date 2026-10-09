@@ -1,0 +1,26 @@
+{
+  "fault": "disconnect",
+  "scope": "real adapter single-goal negative test, not Native mission",
+  "wall_seconds": 13.050188541412354,
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "peak_linear_speed_mps": 0.7891768943690975,
+  "peak_angular_speed_rps": 1.0256805419921875,
+  "feedback_count": 280,
+  "error": "LiDAR stream is stale or invalid during action",
+  "nav2": {},
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791539743.671108,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"servers\": [{\"action\": \"/navigate_to_pose\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[95, 74, 108, 19, 112, 44, 71, 71, 190, 31, 222, 209, 186, 212, 188, 102]]}, {\"action\": \"/follow_path\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": []}], \"goal_ids\": [[95, 74, 108, 19, 112, 44, 71, 71, 190, 31, 222, 209, 186, 212, 188, 102]], \"return_code\": 0}\n",
+      "stderr": "[WARN] [1791539742.750206995] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791539742.750219267] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "status": "PASS",
+  "cancel_confirmed": true,
+  "physics_directory": "/home/nvidia/sim/rosclaw-lab-v02-docs/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T095446Z",
+  "wrapper_source_sha256": "10f4f558bc781c9b1cd8cb4f1f8765b73a15beb729fcab6ef35f675646777584",
+  "source_commit": "a25c4c84fb6c4f69e33133cadfc57d2174500e74"
+}

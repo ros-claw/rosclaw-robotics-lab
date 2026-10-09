@@ -1,0 +1,426 @@
+{
+  "scope": "10-second sampled process/cgroup CPU and host-wide GPU telemetry; components overlap",
+  "attempts": [
+    {
+      "attempt": "01-standard",
+      "samples": 39,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2098.64,
+          "observed_wall_seconds": 383.0681381225586,
+          "average_cores_in_observed_windows": 5.478503146426034
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 298.818157,
+          "observed_wall_seconds": 343.0104703903198,
+          "average_cores_in_observed_windows": 0.8711633690364252
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 51.89999999999999,
+          "observed_wall_seconds": 312.731333732605,
+          "average_cores_in_observed_windows": 0.16595714724376198
+        }
+      },
+      "gpu_percent_mean": 49.111111111111114,
+      "gpu_percent_min": 17.0,
+      "gpu_percent_max": 60.0,
+      "host_gpu_power_w_mean": 23.642777777777777
+    },
+    {
+      "attempt": "01-reordered",
+      "samples": 35,
+      "read_error_samples": 4,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1903.5900000000001,
+          "observed_wall_seconds": 342.5859215259552,
+          "average_cores_in_observed_windows": 5.556533063358178
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 262.0792040000001,
+          "observed_wall_seconds": 302.581444978714,
+          "average_cores_in_observed_windows": 0.8661443335312147
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 36.720000000000006,
+          "observed_wall_seconds": 262.23886799812317,
+          "average_cores_in_observed_windows": 0.14002500956594585
+        }
+      },
+      "gpu_percent_mean": 44.16129032258065,
+      "gpu_percent_min": 17.0,
+      "gpu_percent_max": 68.0,
+      "host_gpu_power_w_mean": 24.20516129032258
+    },
+    {
+      "attempt": "01-unmapped-box",
+      "samples": 38,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2035.9499999999998,
+          "observed_wall_seconds": 373.01611709594727,
+          "average_cores_in_observed_windows": 5.45807515195466
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 320.04481600000014,
+          "observed_wall_seconds": 343.0132751464844,
+          "average_cores_in_observed_windows": 0.9330391538441901
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 40.35,
+          "observed_wall_seconds": 312.7491750717163,
+          "average_cores_in_observed_windows": 0.12901712687410724
+        }
+      },
+      "gpu_percent_mean": 46.05714285714286,
+      "gpu_percent_min": 17.0,
+      "gpu_percent_max": 62.0,
+      "host_gpu_power_w_mean": 24.14257142857143
+    },
+    {
+      "attempt": "02-standard",
+      "samples": 41,
+      "read_error_samples": 4,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2185.5600000000004,
+          "observed_wall_seconds": 403.28493475914,
+          "average_cores_in_observed_windows": 5.419394109788196
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 316.767305,
+          "observed_wall_seconds": 363.1941547393799,
+          "average_cores_in_observed_windows": 0.8721707132850341
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 59.94000000000001,
+          "observed_wall_seconds": 332.9645230770111,
+          "average_cores_in_observed_windows": 0.18001917875838241
+        }
+      },
+      "gpu_percent_mean": 44.76315789473684,
+      "gpu_percent_min": 19.0,
+      "gpu_percent_max": 60.0,
+      "host_gpu_power_w_mean": 24.081315789473685
+    },
+    {
+      "attempt": "02-reordered",
+      "samples": 35,
+      "read_error_samples": 4,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1958.9199999999998,
+          "observed_wall_seconds": 342.56143498420715,
+          "average_cores_in_observed_windows": 5.718448721731652
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 267.6068619999999,
+          "observed_wall_seconds": 302.5557494163513,
+          "average_cores_in_observed_windows": 0.8844877762733977
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 38.45,
+          "observed_wall_seconds": 262.21176958084106,
+          "average_cores_in_observed_windows": 0.14663720115029275
+        }
+      },
+      "gpu_percent_mean": 46.74193548387097,
+      "gpu_percent_min": 16.0,
+      "gpu_percent_max": 68.0,
+      "host_gpu_power_w_mean": 24.461290322580645
+    },
+    {
+      "attempt": "02-unmapped-box",
+      "samples": 35,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2001.3500000000004,
+          "observed_wall_seconds": 342.68858528137207,
+          "average_cores_in_observed_windows": 5.840142000518481
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 298.6653339999999,
+          "observed_wall_seconds": 312.6837332248688,
+          "average_cores_in_observed_windows": 0.9551674815946136
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 41.779999999999994,
+          "observed_wall_seconds": 282.4204981327057,
+          "average_cores_in_observed_windows": 0.14793543767622747
+        }
+      },
+      "gpu_percent_mean": 48.625,
+      "gpu_percent_min": 23.0,
+      "gpu_percent_max": 62.0,
+      "host_gpu_power_w_mean": 24.7896875
+    },
+    {
+      "attempt": "03-standard",
+      "samples": 39,
+      "read_error_samples": 4,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2036.8600000000001,
+          "observed_wall_seconds": 383.001268863678,
+          "average_cores_in_observed_windows": 5.318154704926008
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 297.095018,
+          "observed_wall_seconds": 342.9966850280762,
+          "average_cores_in_observed_windows": 0.866174604502901
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 50.93000000000001,
+          "observed_wall_seconds": 312.7461678981781,
+          "average_cores_in_observed_windows": 0.162847718781902
+        }
+      },
+      "gpu_percent_mean": 46.08571428571429,
+      "gpu_percent_min": 19.0,
+      "gpu_percent_max": 65.0,
+      "host_gpu_power_w_mean": 23.802285714285713
+    },
+    {
+      "attempt": "03-reordered",
+      "samples": 37,
+      "read_error_samples": 4,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1947.79,
+          "observed_wall_seconds": 362.8247129917145,
+          "average_cores_in_observed_windows": 5.3684049907716185
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 277.88172099999997,
+          "observed_wall_seconds": 322.82130455970764,
+          "average_cores_in_observed_windows": 0.8607911469133047
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 40.52,
+          "observed_wall_seconds": 292.5617632865906,
+          "average_cores_in_observed_windows": 0.1385006692084605
+        }
+      },
+      "gpu_percent_mean": 42.81818181818182,
+      "gpu_percent_min": 21.0,
+      "gpu_percent_max": 61.0,
+      "host_gpu_power_w_mean": 24.205454545454547
+    },
+    {
+      "attempt": "03-unmapped-box",
+      "samples": 36,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1989.15,
+          "observed_wall_seconds": 352.7932939529419,
+          "average_cores_in_observed_windows": 5.638287445070675
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 286.7053889999999,
+          "observed_wall_seconds": 312.72288751602173,
+          "average_cores_in_observed_windows": 0.9168033439359667
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 39.290000000000006,
+          "observed_wall_seconds": 272.3398606777191,
+          "average_cores_in_observed_windows": 0.14426826797306366
+        }
+      },
+      "gpu_percent_mean": 42.81818181818182,
+      "gpu_percent_min": 17.0,
+      "gpu_percent_max": 59.0,
+      "host_gpu_power_w_mean": 24.383636363636363
+    },
+    {
+      "attempt": "04-standard",
+      "samples": 120,
+      "read_error_samples": 120,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2166.27,
+          "observed_wall_seconds": 1190.1077847480774,
+          "average_cores_in_observed_windows": 1.8202300898809405
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 0.0,
+          "observed_wall_seconds": 0.0,
+          "average_cores_in_observed_windows": null
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 0.0,
+          "observed_wall_seconds": 0.0,
+          "average_cores_in_observed_windows": null
+        }
+      },
+      "gpu_percent_mean": null,
+      "gpu_percent_min": null,
+      "gpu_percent_max": null,
+      "host_gpu_power_w_mean": null
+    },
+    {
+      "attempt": "04-reordered",
+      "samples": 35,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1777.2900000000002,
+          "observed_wall_seconds": 342.65412425994873,
+          "average_cores_in_observed_windows": 5.186833819200405
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 252.38027800000003,
+          "observed_wall_seconds": 302.5628893375397,
+          "average_cores_in_observed_windows": 0.8341415517037986
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 39.58,
+          "observed_wall_seconds": 272.24987506866455,
+          "average_cores_in_observed_windows": 0.14538115027607437
+        }
+      },
+      "gpu_percent_mean": 45.21875,
+      "gpu_percent_min": 17.0,
+      "gpu_percent_max": 60.0,
+      "host_gpu_power_w_mean": 22.9878125
+    },
+    {
+      "attempt": "04-unmapped-box",
+      "samples": 155,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 6164.4800000000005,
+          "observed_wall_seconds": 1556.8942546844482,
+          "average_cores_in_observed_windows": 3.9594725084584623
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 1162.2177819999993,
+          "observed_wall_seconds": 1526.8871941566467,
+          "average_cores_in_observed_windows": 0.7611680721717841
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 183.69999999999993,
+          "observed_wall_seconds": 1496.5202281475067,
+          "average_cores_in_observed_windows": 0.12275143131703348
+        }
+      },
+      "gpu_percent_mean": 36.75657894736842,
+      "gpu_percent_min": 12.0,
+      "gpu_percent_max": 60.0,
+      "host_gpu_power_w_mean": 22.64532894736842
+    },
+    {
+      "attempt": "05-standard",
+      "samples": 42,
+      "read_error_samples": 4,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1974.7500000000002,
+          "observed_wall_seconds": 413.72271633148193,
+          "average_cores_in_observed_windows": 4.773124418959378
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 312.26992299999984,
+          "observed_wall_seconds": 363.6275351047516,
+          "average_cores_in_observed_windows": 0.8587631376981477
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 59.13000000000001,
+          "observed_wall_seconds": 333.3354196548462,
+          "average_cores_in_observed_windows": 0.17738888972922967
+        }
+      },
+      "gpu_percent_mean": 42.21052631578947,
+      "gpu_percent_min": 12.0,
+      "gpu_percent_max": 61.0,
+      "host_gpu_power_w_mean": 24.26815789473684
+    },
+    {
+      "attempt": "05-reordered",
+      "samples": 30,
+      "read_error_samples": 2,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2203.91,
+          "observed_wall_seconds": 292.0328691005707,
+          "average_cores_in_observed_windows": 7.546787479052621
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 233.06099899999995,
+          "observed_wall_seconds": 272.0310595035553,
+          "average_cores_in_observed_windows": 0.8567440770378427
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 29.419999999999998,
+          "observed_wall_seconds": 231.75320553779602,
+          "average_cores_in_observed_windows": 0.12694538542295145
+        }
+      },
+      "gpu_percent_mean": 47.214285714285715,
+      "gpu_percent_min": 21.0,
+      "gpu_percent_max": 66.0,
+      "host_gpu_power_w_mean": 27.075
+    },
+    {
+      "attempt": "05-unmapped-box",
+      "samples": 31,
+      "read_error_samples": 2,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 2172.42,
+          "observed_wall_seconds": 302.25063586235046,
+          "average_cores_in_observed_windows": 7.187478675774741
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 263.50255200000004,
+          "observed_wall_seconds": 282.24859642982483,
+          "average_cores_in_observed_windows": 0.933583214701705
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 29.75,
+          "observed_wall_seconds": 241.9202320575714,
+          "average_cores_in_observed_windows": 0.12297441907595472
+        }
+      },
+      "gpu_percent_mean": 47.48275862068966,
+      "gpu_percent_min": 22.0,
+      "gpu_percent_max": 67.0,
+      "host_gpu_power_w_mean": 26.252068965517243
+    },
+    {
+      "attempt": "06-standard",
+      "samples": 39,
+      "read_error_samples": 3,
+      "components": {
+        "kit": {
+          "observed_cpu_seconds": 1923.9399999999998,
+          "observed_wall_seconds": 383.33235001564026,
+          "average_cores_in_observed_windows": 5.018986787630894
+        },
+        "ros_containers": {
+          "observed_cpu_seconds": 298.341487,
+          "observed_wall_seconds": 343.2477939128876,
+          "average_cores_in_observed_windows": 0.8691723364017182
+        },
+        "native_path_bound_process_subset": {
+          "observed_cpu_seconds": 52.45,
+          "observed_wall_seconds": 312.95993304252625,
+          "average_cores_in_observed_windows": 0.16759333851491107
+        }
+      },
+      "gpu_percent_mean": 38.22222222222222,
+      "gpu_percent_min": 13.0,
+      "gpu_percent_max": 60.0,
+      "host_gpu_power_w_mean": 24.060555555555556
+    }
+  ],
+  "limitations": [
+    "Native process counters cover only command lines bound to the private result path, not every Agent/daemon child or remote inference.",
+    "Counter deltas require matching process/container identities; startup/end edges and missing samples are excluded from observed windows.",
+    "Kit includes physics/render/sensors. ROS cgroup CPU is not network wall latency. GPU is host-wide."
+  ]
+}

@@ -2,74 +2,41 @@
 
 **One natural-language task → a physically verified warehouse patrol.**
 
-A real ROSClaw Native Agent controls Nova Carter in NVIDIA's official Isaac Sim
-6.1 warehouse through ROS 2 Jazzy/Nav2 on DGX Spark. **Four complete reset missions
-passed**, including changed natural-language order and an unmapped static obstacle.
-These are SIM results; real-hardware execution is not verified.
+A real ROSClaw Native Agent runs Nova Carter in NVIDIA's official Isaac Sim 6.1 warehouse through ROS 2 Jazzy/Nav2 on DGX Spark. **v0.2: 14/16 frozen-source attempts passed independent physical acceptance**; at least five independent Native trials per condition, with startup and provider failures retained. 56 visits in accepted complete missions; maximum actual position error 0.151827 m. These are local SIM engineering results; production reliability and hardware execution are not established.
 
-[![Actual Native Agent demo](challenges/01-isaac-warehouse-patrol/reports/native-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-promo.mp4)
+[![Synchronized three-view Native mission](challenges/01-isaac-warehouse-patrol/reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
 
-[Watch the 80-second demo](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-promo.mp4)
-· [Full Native workflow](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.1.0/rosclaw-warehouse-workflow.mp4)
-· [Evidence archives](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.1.0)
-· [中文](README.zh.md)
+[60s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-short-60s.mp4) · [180s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) · [Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0)
 
-New: [native 1080p camera preview](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-cameras-v0.1.1/warehouse-camera-views.mp4)
-with robot-forward, third-person and close top views. These are separate single-goal
-Nav2 camera probes, independent of the Native patrol footage above.
-See [camera setup](challenges/01-isaac-warehouse-patrol/docs/camera-views.md).
+[中文](README.zh.md) · [English tutorial](challenges/01-isaac-warehouse-patrol/docs/tutorial_en.md) · [Evidence and status](deliverables/v02/STATUS.md)
 
-The Agent observes ROS, proposes one registered site at a time, monitors results,
-returns Home and saves a verified experience in existing Practice/Memory. Only
-rosclawd owns physical execution. No fake model, Agent-side Runtime or one-shot
-patrol executor is used. Each visit requires Nav2 success, <=0.4 m physical error,
-stable dwell >=2 simulated seconds, fresh LiDAR and zero non-floor contacts.
-TaskKernel closes only after the final Memory receipt.
+| Frozen-source condition | All attempts | Native started | PASS |
+|---|---:|---:|---:|
+| standard | 6 | 5 | 5 |
+| reordered | 5 | 5 | 5 |
+| unmapped-box | 5 | 5 | 4 |
 
-| Reset | Agent-selected order | Independent result |
-|---|---|---|
-| Native 1 | Entry → Shelf → Aisle → Home | PASS |
-| Native 2 | Entry → Shelf → Aisle → Home | PASS |
-| Native 3 | Aisle → Entry → Shelf → Home | PASS |
-| Native 4, public Docker build + unmapped box | Aisle → Entry → Shelf → Home | PASS; actual errors 0.095 / 0.094 / 0.132 / 0.090 m |
+The Agent observes ROS and proposes one registered site at a time. Agentd/Operator/rosclawd owns the Body-bound SIM execution; Nav2 plans and controls motion. Each visit requires Nav2 success, ≤0.4 m independent physical error, ≥2 simulated seconds stable dwell, fresh LiDAR and complete zero non-floor contact evidence. Final ordered receipts and verified Practice/Memory must precede TaskKernel closure. There is no Agent-side Runtime, raw wheel tool or one-shot patrol executor.
 
-Maximum error across these 16 visits: **0.151 m** rounded upward. The obstacle
-case recorded 6,368 actual LiDAR box hits, 367 local master-costmap occupied cells,
->=0.35 m conservative footprint clearance and zero non-floor contacts. Actual
-movement followed by timeout cancellation and transport-loss DDS cancellation
-also passed separate negative tests.
+The unmapped-box condition additionally checks original static-map free cells, actual LiDAR hits, local master-costmap occupancy and conservative footprint clearance. Separate actual SIM negative tests cover timeout, disconnect, paused physics with post-resume stop verification, and real Navigator ABORT while a real FollowPath controller remains active. Failed attempts remain in the [fault index](deliverables/v02/FAULT_TESTS.md).
+
+Runtime source: `09739cb34c8a1d37ad95cfa4f146ad1e47798ec3`; upstream runtime: `21838614bb14c39599b8acef731b2b64dad3b92a`. Later documentation/test commits and newly merged upstream Harness PRs are recorded separately. File hashes bind the release to the physically tested runtime. See [full metrics](deliverables/v02/regression-metrics.json), [performance method](deliverables/v02/PERFORMANCE_PROTOCOL.md), [Harness audit](deliverables/v02/HARNESS_AUDIT.md), and [implementation report](deliverables/v02/IMPLEMENTATION_REPORT.zh.md).
+
+Known limitations: [Isaac startup timeout](deliverables/v02/STARTUP_FAILURE.md) and [provider stall/aborted request](deliverables/v02/PROVIDER_FAILURE.md). The extra target of five accepted missions per condition is reported separately and is not forced by retries.
+
+The five historical October 8 successes used different integration revisions. The three videos all depict the same historical fifth mission with synchronized robot-forward, third-person and close-top cameras; they are not recordings of the new sixteen-attempt batch. The 60-second edit marks jumps; source time/speed labels remain. Output FPS and repeated real frames are not camera acquisition FPS. [Historical v0.1](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.1.0) and [pre-freeze failures](deliverables/v02/preliminary) remain separate.
 
 ```bash
 cd challenges/01-isaac-warehouse-patrol
 ./scripts/setup.sh
-./scripts/doctor.sh
-ROSCLAW_CAMERA_VIEW=top ROSCLAW_CAPTURE_SECONDS=1400 ./scripts/demo.sh streaming patrol
-# In a second terminal:
-./scripts/start-agent-observers.sh
-# Send one task with the real Native runner as described in the tutorial.
+python3 scripts/lab.py doctor
+python3 scripts/lab.py start headless patrol
+# Start observers and submit one Native task as described in the tutorial.
+python3 scripts/lab.py stop
 ```
 
-Read [the English tutorial](challenges/01-isaac-warehouse-patrol/docs/tutorial_en.md),
-[中文教程](challenges/01-isaac-warehouse-patrol/docs/tutorial_zh.md),
-[execution architecture](challenges/01-isaac-warehouse-patrol/docs/architecture.md),
-[retained failures](challenges/01-isaac-warehouse-patrol/docs/failures.md), and
-[implementation report](FINAL_IMPLEMENTATION_REPORT.md).
-The [acceptance summary](challenges/01-isaac-warehouse-patrol/reports/acceptance-summary.json)
-records actual source snapshots, Body hashes, image IDs, SDK model turns and metrics.
+The unified entry also provides `task`, `results` and fifteen-reset `regression SHORT_DIRECTORY`. Startup sends no goals. Use official online assets and accept NVIDIA's license yourself. The public Docker base manifest is pinned; apt resolution may vary, so record the actual local image ID and packages. No NVIDIA installer/USD/cache, authentication, operator keys, private model home or full video is committed to Git.
 
-Startup sends no goals. `smoke-official.sh` is the separate NVIDIA baseline.
-Videos use actual timestamped viewport captures, recorded visible terminal output
-and independent PhysX. Promo time compression is labeled; full workflow preserves
-wall time at 2 fps. They are frame-based reconstructions, not continuous screen
-recordings. Private model thinking, authentication and operator keys are excluded.
+[Independent reproduction handoff](deliverables/v02/reproduction/README.md): **external execution NOT RUN**, no engineer/second machine assigned. Offline archive replay is evidence consistency, not a new simulator run. The [Challenge 02 prototype](challenges/02-semantic-inspection/README.md) generates read-only observation candidates from actual USD/map/pose/Body inputs; new-target motion, sensor inspection and held-out evaluation remain pending. Fair runtime and development-efficiency studies are designed separately; no superiority over Codex is claimed. This SIM uses SQLite Memory and disables optional firewall integration; it does not validate all security modules or seekdb performance.
 
-Passing resets used documented source revisions during integration. Failed runs
-remain available; these successes do not establish a statistical success rate.
-The public ARM64 Dockerfile and its runtime were tested locally. An
-[independent engineer's clean-machine reproduction](challenges/01-isaac-warehouse-patrol/docs/reproduction-checklist.md)
-is still pending. External WebRTC clients, China asset loading and dynamic
-pedestrians are not validated.
-
-Sources: [ROSClaw](https://github.com/ros-claw/rosclaw),
-[NVIDIA workspace](https://github.com/isaac-sim/IsaacSim-ros_workspaces/tree/IsaacSim-6.1.0).
-No NVIDIA USD, installer, cache, private model home or full video is committed.
+Sources: [ROSClaw](https://github.com/ros-claw/rosclaw), [NVIDIA workspace](https://github.com/isaac-sim/IsaacSim-ros_workspaces/tree/IsaacSim-6.1.0).
