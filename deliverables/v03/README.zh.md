@@ -1,16 +1,19 @@
 # Challenge 02 交付与复现
 
-本阶段是开发集工程验收，任务、边界、全部尝试和视频见 [Challenge 02 README](../../challenges/02-semantic-inspection/README.md)。保留首轮失败和首次录制不完整；留出集、公平对照与独立工程师实测未执行。
+本阶段是开发集及最终候选集成工程验收，任务、边界、全部尝试和视频见 [Challenge 02 README](../../challenges/02-semantic-inspection/README.md)。保留首轮失败和首次录制不完整；留出集、公平对照与独立工程师实测未执行。
 
 ## 下载与核对
 
 从 [semantic-observation-v0.3.0](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/semantic-observation-v0.3.0) 下载：
 
 - `semantic-evidence-package.zip`：4 次开发尝试的规范收据、动作/路径/扫描/PhysX 证据、Body、配置和逐次冻结源码；包含失败。
+- `semantic-final-candidate-evidence.zip`：第五次 c02b03 的独立集成补测，实测最终组合 PR 头 `b7bbe8c3`，冻结代码重放 PASS。
 - `rosclaw-semantic-promo-90s.mp4`、对应 JSON 与海报：c02b02 同一任务同步三视角。视频只有展示字幕，没有配音。
 - `c01-compatibility-evidence.zip`：新增一次原四站兼容性任务，独立重放 PASS，不改变 v0.2 分母。
 - 可选 `c02b02-camera-source.zip.part-001` 至 `013`：约 1.3 GB 原始画面，按 100 MiB 分卷；重组后核对 `camera-archive-sha256.json`，再按 `camera-source-manifest.json` 验证每张图片。
 - `SHA256SUMS`：逐个发行文件的 SHA256；解压证据包后再核对 `manifest-sha256.json`。
+
+原始相机分卷为可选；只下载视频和小体积证据包时，核对 `SHA256SUMS` 中相应文件的行即可。
 
 源文件中原始绝对路径保留用于审计；离线评价器将白名单动作与语义证据映射至解压目录，并验证原文件哈希，不改写 Body 或配置。模型认证、操作员私钥、私有 Agent home、原始思考、完整私有账本及 NVIDIA USD/安装器不在证据包中。
 
@@ -25,7 +28,7 @@ cat c02b02-camera-source.zip.part-* > c02b02-camera-source.zip
 
 ## 离线重放
 
-后三次成功任务实际使用 ROSClaw 候选 SHA `8340a693801f28c2c0703a049e6306e5bd82b147`，不是已合并 main 的集成测试。可从公开来源分支 `test/semantic-pilot-upstream-20261009` 获取该提交。
+初始四次中的三次成功任务实际使用 ROSClaw 候选 SHA `8340a693801f28c2c0703a049e6306e5bd82b147`，不是已合并 main 的集成测试。可从公开来源分支 `test/semantic-pilot-upstream-20261009` 获取该提交。
 
 ```bash
 # 先核对发行文件 SHA256。使用隔离的 ROSClaw checkout 和 Python 3.12 环境。
@@ -40,6 +43,8 @@ python3 challenges/02-semantic-inspection/replay_evidence.py \
   --output /path/to/new-empty-replay-directory \
   --rosclaw-source /path/to/rosclaw-c02-replay
 ```
+
+第五次的单独证据包重放时，可从公开来源分支 `test/semantic-final-pilot-upstream-20261009` 获取提交，须另建 checkout 并固定到 `b7bbe8c39e5c2be7d90ebb6df8328898add9e308`，对应 `--archive semantic-final-candidate-evidence.zip`。不要把旧包的运行源码 SHA 改写成新提交。
 
 工具逐项核对 manifest，再以每次试验自己冻结的评价代码重放成功任务。首轮原始 FAIL 缺少完整任务收据，明确记录 `NOT_REPLAYED`，不把它升级成成功。重放结果是证据自洽检查，不是新的仿真或第三方复现。依赖安装需要网络，Python 依赖并未制作离线 wheel 包。
 

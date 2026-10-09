@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "scope": "archive consistency only; not a new simulation or independent engineer run",
+  "attempts": [
+    {
+      "attempt": "c02b03",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    }
+  ]
+}
