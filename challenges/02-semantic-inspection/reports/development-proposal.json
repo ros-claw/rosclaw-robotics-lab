@@ -1,0 +1,69 @@
+{
+  "schema_version": "rosclaw.semantic_observation_proposals.v1",
+  "status": "PROPOSAL_ONLY",
+  "authorization": false,
+  "execution_allowed": false,
+  "evidence_domain": "OFFLINE_ANALYSIS_OF_SIMULATION",
+  "semantic_source": "USD-known prim names/bounds; not visual or sensor discovery",
+  "split": "development",
+  "target_prim": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_158",
+  "target_bounds_xy": [
+    [
+      -9.858389325339777,
+      -3.7000054637399042
+    ],
+    [
+      -8.781611287991987,
+      0.29999577411036077
+    ]
+  ],
+  "body_id": "nova_carter_isaac",
+  "body_enclosing_radius_with_margins_m": 0.7364670593411371,
+  "evidence": {
+    "inventory_sha256": "9fa534e397778fe19d320e7f3acc222533f5ebeb85274cdd6e2932e4316e54b5",
+    "map_yaml_sha256": "05263f31a87ef9510145b4606eda7f2f849f5740e5668f9e4fb1fc520e76f012",
+    "map_image_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+    "physics_snapshot_sha256": "fabaafcedf29c928aefaf4240e5e0b4ca7f7b8dca930a5af420535fb563980f4",
+    "nav_params_sha256": "2999509e1fa9d8afae9bca35fc0df3cf4eaf151ea479efb0d032d56895756993",
+    "body_snapshot_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+    "observer_id": "e958f5730c75452980678bd4cd12e21e"
+  },
+  "captured_at_wall": 1791528431.5067894,
+  "generated_at_wall": 1791528431.6036584,
+  "candidates": [
+    {
+      "x": -6.94514422865085,
+      "y": -0.7000045353522055,
+      "yaw": -2.743048423166946,
+      "static_clearance_m": 1.4646446609406727,
+      "distance_from_current_pose_m": 2.8205388640828106,
+      "target_prim": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_158",
+      "proposal_id": "0fa63667197d964b1c2d16261961183f418ec5a169bc501b61c7acb89cd91f4d"
+    },
+    {
+      "x": -7.345144228650851,
+      "y": -0.7000045353522055,
+      "yaw": -2.672865087966855,
+      "static_clearance_m": 1.4146446609406729,
+      "distance_from_current_pose_m": 2.825142132032497,
+      "target_prim": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_158",
+      "proposal_id": "552b07524df713dd3db9c68f99b2d509d60052bbd27bab96e05840d7385cb266"
+    },
+    {
+      "x": -7.69514422865085,
+      "y": -0.7000045353522055,
+      "yaw": -2.5898979981677974,
+      "static_clearance_m": 1.0646446609406728,
+      "distance_from_current_pose_m": 2.8751813987591714,
+      "target_prim": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_RackShelf_158",
+      "proposal_id": "640cdae8975ae521b221de018437829e96a51f5a57ae74e13499022b23511d60"
+    }
+  ],
+  "required_before_execution": [
+    "Revalidate fresh map/costmap, robot pose, TF, clock and complete contacts inside daemon",
+    "Validate proposal intent and measured Body snapshot via existing Body validator",
+    "Obtain Nav2 ComputePathToPose path and validate swept footprint against current costmap",
+    "Dispatch only through existing rosclawd guarded action with exact bound proposal hash",
+    "Independent arrival/dwell/collision and target-facing observation verification; final task receipt"
+  ]
+}

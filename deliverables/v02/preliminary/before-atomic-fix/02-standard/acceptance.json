@@ -1,0 +1,119 @@
+{
+  "run_id": "native",
+  "status": "FAIL",
+  "failure": "verified patrol artifact missing",
+  "task": "\u8bf7\u5148\u68c0\u67e5\u673a\u5668\u4eba\u72b6\u6001\uff0c\u518d\u4f9d\u6b21\u5de1\u68c0\u5165\u53e3\u3001\u8d27\u67b6\u533a\u3001\u4ed3\u5e93\u901a\u9053\u3001Home\u3002\u6bcf\u7ad9\u9a8c\u8bc1\u5230\u8fbe\u5e76\u505c\u7559\uff0c\u5b8c\u6210\u540e\u4fdd\u5b58\u5de1\u68c0\u62a5\u544a\u548c\u8bb0\u5fc6\u3002",
+  "body_snapshot_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+  "ground_truth_source": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T065442Z",
+  "partial_visits": [
+    {
+      "action_id": "act_0f0d0395a3ae4b95872e9fec",
+      "site_id": "shelf",
+      "status": "PASS",
+      "error": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791529121.94277
+      },
+      "verification": {
+        "verification_status": "PASS",
+        "success": true,
+        "position_error_m": 0.1275698726026055,
+        "yaw_error_rad": 0.2320249112766162,
+        "stable_dwell_sim_seconds": 2.083333333333215,
+        "collision_count": 0,
+        "sensor": {
+          "wall_time": 1791529127.663905,
+          "stamp": 97.7,
+          "frame_id": "front_3d_lidar",
+          "range_count": 362,
+          "finite_hits": 362,
+          "valid": true
+        },
+        "failures": [],
+        "missing_evidence": [],
+        "physics_sample_count": 388
+      },
+      "artifact_sha256": "b074917c9a0f7d9d0df7f1e96d995103f1a81faaf07be332d2e11c501a21b10a",
+      "sample_count": 388
+    },
+    {
+      "action_id": "act_1f80ff1dd24746809cef9bb8",
+      "site_id": "aisle",
+      "status": "PASS",
+      "error": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791529178.7833345
+      },
+      "verification": {
+        "verification_status": "PASS",
+        "success": true,
+        "position_error_m": 0.11053331386885822,
+        "yaw_error_rad": 0.23188251340212762,
+        "stable_dwell_sim_seconds": 2.0499999999998835,
+        "collision_count": 0,
+        "sensor": {
+          "wall_time": 1791529184.5764482,
+          "stamp": 120.2,
+          "frame_id": "front_3d_lidar",
+          "range_count": 362,
+          "finite_hits": 362,
+          "valid": true
+        },
+        "failures": [],
+        "missing_evidence": [],
+        "physics_sample_count": 208
+      },
+      "artifact_sha256": "960de6cd7e636f2839a63bfea4f516a9fa7beef2305d29f95bbf180219afdeda",
+      "sample_count": 208
+    },
+    {
+      "action_id": "act_e7f1266e9209466abcc5e49c",
+      "site_id": "entry",
+      "status": "PASS",
+      "error": null,
+      "nav2": {
+        "status": 4,
+        "error_code": 0,
+        "result": {
+          "error_code": 0,
+          "error_msg": ""
+        },
+        "wall_time": 1791529023.9610205
+      },
+      "verification": {
+        "verification_status": "PASS",
+        "success": true,
+        "position_error_m": 0.08739079217776356,
+        "yaw_error_rad": 0.2425849794105066,
+        "stable_dwell_sim_seconds": 2.1666666666665435,
+        "collision_count": 0,
+        "sensor": {
+          "wall_time": 1791529028.9529023,
+          "stamp": 58.6,
+          "frame_id": "front_3d_lidar",
+          "range_count": 362,
+          "finite_hits": 362,
+          "valid": true
+        },
+        "failures": [],
+        "missing_evidence": [],
+        "physics_sample_count": 336
+      },
+      "artifact_sha256": "4aeee39bd0683978af2ca2d51297bbec1af08a6dc411b54ab465d5e8f457995e",
+      "sample_count": 336
+    }
+  ],
+  "memory_success_claimed": false
+}

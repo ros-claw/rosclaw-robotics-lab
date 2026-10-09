@@ -1,0 +1,448 @@
+{
+  "status": "PASS",
+  "scope_note": "PASS means offline consistency, not all mission attempts succeeded",
+  "five_accepted_per_condition_goal_met": false,
+  "completed_native_attempts_per_condition": {
+    "standard": 5,
+    "reordered": 5,
+    "unmapped-box": 5
+  },
+  "attempts": 16,
+  "physically_accepted_attempts": 14,
+  "failure_records_retained": 2,
+  "unique_reset_observers": 14,
+  "unique_native_reset_observers_including_failed": 15,
+  "scope": "offline source/config/Body-declaration/receipt/physical evidence consistency; not live reproduction or signature attestation",
+  "reports": [
+    {
+      "attempt": "01-standard",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08367509701247697,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.10954807391303589,
+          "stable_dwell_sim_seconds": 2.2166666666665407,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.11561928579494572,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.1444265074524657,
+          "stable_dwell_sim_seconds": 2.2000000000017508,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "01-reordered",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08132146835989741,
+          "stable_dwell_sim_seconds": 2.1833333333332092,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08966587957021241,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.1269085852254134,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.10406450417703561,
+          "stable_dwell_sim_seconds": 2.0833333333349913,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "01-unmapped-box",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08972013563134965,
+          "stable_dwell_sim_seconds": 2.133333333333219,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.0988979363372035,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11330506304114349,
+          "stable_dwell_sim_seconds": 2.0333333333349515,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.08527252589703106,
+          "stable_dwell_sim_seconds": 2.150000000001711,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "02-standard",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08734038986230222,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11919050990120687,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.11565625385330099,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.14861151210728807,
+          "stable_dwell_sim_seconds": 2.116666666668351,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "02-reordered",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08996717678845176,
+          "stable_dwell_sim_seconds": 2.133333333333212,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09951437070203206,
+          "stable_dwell_sim_seconds": 2.066666666666549,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.10964091923209442,
+          "stable_dwell_sim_seconds": 2.133333333333212,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.10677050999262958,
+          "stable_dwell_sim_seconds": 2.0500000000016314,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "02-unmapped-box",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.10576587142840604,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.10533781217802858,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11754086443751981,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.09668497784457647,
+          "stable_dwell_sim_seconds": 2.0500000000016314,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "03-standard",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08860430958830619,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.14303032001849414,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.12079263362257571,
+          "stable_dwell_sim_seconds": 2.0333333333332178,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.08821647595428744,
+          "stable_dwell_sim_seconds": 2.0333333333349515,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "03-reordered",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.0909114124436103,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08986804946643528,
+          "stable_dwell_sim_seconds": 2.266666666666538,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11672020638088373,
+          "stable_dwell_sim_seconds": 2.066666666666549,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.1063475435602936,
+          "stable_dwell_sim_seconds": 2.100000000001671,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "03-unmapped-box",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.1099814411640859,
+          "stable_dwell_sim_seconds": 2.2333333333332064,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09722587557554994,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.14146163720128138,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.09935432535018186,
+          "stable_dwell_sim_seconds": 2.100000000001671,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "04-standard",
+      "status": "INCOMPLETE",
+      "visits": 0
+    },
+    {
+      "attempt": "04-reordered",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08435517208894232,
+          "stable_dwell_sim_seconds": 2.133333333333212,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09025883328713641,
+          "stable_dwell_sim_seconds": 2.0333333333332178,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.13932790163569872,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.09745099881156434,
+          "stable_dwell_sim_seconds": 2.0166666666682715,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "04-unmapped-box",
+      "status": "FAIL",
+      "visits": 0
+    },
+    {
+      "attempt": "05-standard",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08637745124378554,
+          "stable_dwell_sim_seconds": 2.266666666666538,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.15182715309076297,
+          "stable_dwell_sim_seconds": 2.066666666666549,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.12156911367609226,
+          "stable_dwell_sim_seconds": 2.0499999999998835,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.12290563528304631,
+          "stable_dwell_sim_seconds": 2.0000000000015916,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "05-reordered",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.08113125798826681,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.09213497741474962,
+          "stable_dwell_sim_seconds": 2.149999999999878,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.11161217327070962,
+          "stable_dwell_sim_seconds": 2.1666666666665435,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.08984874145938518,
+          "stable_dwell_sim_seconds": 2.100000000001671,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "05-unmapped-box",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.11019023480500809,
+          "stable_dwell_sim_seconds": 2.0333333333332178,
+          "collision_count": 0
+        },
+        {
+          "site_id": "entry",
+          "position_error_m": 0.1004910234963842,
+          "stable_dwell_sim_seconds": 2.1166666666665463,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.14057035595805892,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.11251633777809718,
+          "stable_dwell_sim_seconds": 2.166666666668391,
+          "collision_count": 0
+        }
+      ]
+    },
+    {
+      "attempt": "06-standard",
+      "status": "PASS",
+      "visits": [
+        {
+          "site_id": "entry",
+          "position_error_m": 0.08062047421028509,
+          "stable_dwell_sim_seconds": 2.0999999999998806,
+          "collision_count": 0
+        },
+        {
+          "site_id": "shelf",
+          "position_error_m": 0.1304466472724821,
+          "stable_dwell_sim_seconds": 2.016666666666552,
+          "collision_count": 0
+        },
+        {
+          "site_id": "aisle",
+          "position_error_m": 0.09473028067067392,
+          "stable_dwell_sim_seconds": 2.1833333333332092,
+          "collision_count": 0
+        },
+        {
+          "site_id": "home",
+          "position_error_m": 0.13519111984283189,
+          "stable_dwell_sim_seconds": 2.0500000000016314,
+          "collision_count": 0
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "lab_commit": "2e42537e41dd2ca050a32f730197347740797765",
+  "rosclaw_commit": "21838614bb14c39599b8acef731b2b64dad3b92a",
+  "docker_image_id": "sha256:43cca6319ba787aed099db6cceb4ca22de4a24ab0d24b0f9a8b1ef14399ec232",
+  "configuration_and_evaluator_sha256": {
+    "config/calibration_navigation_params.yaml": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+    "config/headless_nav.launch.xml": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+    "config/rosbridge.launch.xml": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+    "config/patrol_navigation_params.yaml": "2999509e1fa9d8afae9bca35fc0df3cf4eaf151ea479efb0d032d56895756993",
+    "config/runtime.env": "7a702348e6ff6b8c1106bef1fabed1d70085d9ca2973d853cd6015bfe4265c5c",
+    "config/inspection_sites.yaml": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+    "config/baseline-goals.txt": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+    "evaluator/patrol.py": "70bac522781c92ea7a03afade165a0682e19aff8039371009e54e0c7ed352fae",
+    "evaluator/obstacle.py": "19b602fab75bba8b27e052e17b1a1a82c0d230f531a85177ded3f722a71b9df2",
+    "evaluator/summarize_runs.py": "3135473c48c708c163ce3f4915a194b27fb07dc252c0c45ab87cce524bfa14f1",
+    "evaluator/baseline.py": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+    "evaluator/run_report.py": "fb82743b1ed05ed89b2121a85097cb98d8df95d7bbca3f98525b8c23e0078015",
+    "evaluator/replay_archive.py": "ebbee4f26ec7a77eb0229650a3be2253f530cc9733ded1c4290fddc989f1fa0b"
+  },
+  "plan": "Exactly 15 attempts; 5 independent resets per condition; all attempts retained; no success selection",
+  "capture_profile": "follow 1280x720, capture disabled, one viewport; separate from historical three-view video"
+}

@@ -174,3 +174,13 @@ proof is bound to the actual official map file hash. Merely reaching the site is
 insufficient. The first insufficient case and the corrected full case are both
 publicly reported. Package only whitelist evidence with
 `visualization/package_evidence.py`; its offline replay includes this extra gate.
+
+<!-- V02-ACCEPTANCE -->
+
+## v0.2 acceptance and reproducibility
+
+Frozen runtime `09739cb34c8a1d37ad95cfa4f146ad1e47798ec3`: **14/16 local attempts**, including startup/provider failures; at least five independent Native trials per condition, all outcomes retained. Maximum recorded position error: 0.151827 m. Upstream runtime remains `21838614bb14c39599b8acef731b2b64dad3b92a`. These results are separate from the five historical missions and the historical fifth-run video.
+
+Use `python3 scripts/lab.py doctor`, `start headless patrol`, `task ...`, `results DIRECTORY` and `stop` as the unified entry. See the existing task command above for exact arguments. `regression SHORT_DIRECTORY` performs fifteen independent resets; keep result paths short and outside Git. No automatic navigation goal is sent by startup.
+
+[Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0) · [Full metrics](../../../deliverables/v02/regression-metrics.json) · [Fault supplement](../../../deliverables/v02/FAULT_TESTS.md) · [Performance](../../../deliverables/v02/PERFORMANCE_PROTOCOL.md) · [External handoff](../../../deliverables/v02/reproduction/README.md). External engineer/second machine unassigned: third-party execution NOT RUN. Offline replay does not change that status.

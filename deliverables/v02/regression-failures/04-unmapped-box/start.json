@@ -1,0 +1,9 @@
+{
+  "attempt": "04-unmapped-box",
+  "condition": "unmapped-box",
+  "repetition": 4,
+  "started_wall_time": 1791535642.2125354,
+  "status": "RUNNING",
+  "manual_interventions": [],
+  "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3"
+}

@@ -1,0 +1,1 @@
+{"scope":"preliminary batch, not final frozen regression","first_attempt":"FAIL: Native AF_UNIX path too long, no task execution","second_attempt":"INTERRUPTED during startup by supervisor SIGINT after first failure diagnosis; original RUNNING ledger retained","manual_interventions":["SIGINT supervisor"],"next_batch":"/home/nvidia/sim/r02"}

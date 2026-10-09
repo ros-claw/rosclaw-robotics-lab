@@ -1,0 +1,167 @@
+{
+  "fault": "navigator-abort",
+  "scope": "actual SIM adapter negative test, not Native mission",
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "error": "Nav2 terminal result was not SUCCEEDED",
+  "nav2": {
+    "status": 6,
+    "error_code": 0,
+    "result": {
+      "error_code": 0,
+      "error_msg": ""
+    },
+    "wall_time": 1791530695.5423734
+  },
+  "wall_seconds": 5.550468921661377,
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791530699.1586366,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"servers\": [{\"action\": \"/navigate_to_pose\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": []}, {\"action\": \"/follow_path\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[182, 212, 189, 36, 77, 32, 64, 128, 160, 175, 157, 110, 167, 163, 54, 140]]}], \"goal_ids\": [[182, 212, 189, 36, 77, 32, 64, 128, 160, 175, 157, 110, 167, 163, 54, 140]], \"return_code\": 0}\n",
+      "stderr": "[WARN] [1791530696.276413604] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791530696.276424116] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "injection_events": [],
+  "cancel_confirmed": true,
+  "actual_navigator_abort_with_active_controller": true,
+  "overlap_samples": [
+    {
+      "wall_time": 1791530695.5339482,
+      "event": "actual_action_status",
+      "server": "/navigate_to_pose",
+      "goals": [
+        {
+          "uuid": [
+            152,
+            46,
+            243,
+            145,
+            155,
+            167,
+            65,
+            171,
+            180,
+            24,
+            81,
+            17,
+            53,
+            132,
+            14,
+            104
+          ],
+          "status": 6
+        }
+      ],
+      "all_servers": {
+        "/navigate_to_pose": {
+          "wall_time": 1791530695.5331576,
+          "goals": [
+            {
+              "uuid": [
+                152,
+                46,
+                243,
+                145,
+                155,
+                167,
+                65,
+                171,
+                180,
+                24,
+                81,
+                17,
+                53,
+                132,
+                14,
+                104
+              ],
+              "status": 6
+            }
+          ]
+        },
+        "/follow_path": {
+          "wall_time": 1791530694.783054,
+          "goals": [
+            {
+              "uuid": [
+                182,
+                212,
+                189,
+                36,
+                77,
+                32,
+                64,
+                128,
+                160,
+                175,
+                157,
+                110,
+                167,
+                163,
+                54,
+                140
+              ],
+              "status": 2
+            }
+          ]
+        }
+      },
+      "physics": {
+        "sequence": 103,
+        "observer_id": "8a341d51b52646c5a55fd5edd50c0042",
+        "wall_time": 1791530695.3243833,
+        "monotonic_time": 7822.491368213,
+        "sim_time": 14.550000000000303,
+        "timeline_playing": true,
+        "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+        "physics_transforms_xyzw": [
+          [
+            -6.016871929168701,
+            -0.999908983707428,
+            2.130866050720215e-06,
+            0.0007659264956600964,
+            -3.225010368623771e-05,
+            0.9991194009780884,
+            0.04195230081677437
+          ]
+        ],
+        "contact_callbacks": 875,
+        "contact_pairs": {
+          "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 875,
+          "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 875,
+          "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1750,
+          "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1750,
+          "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 875,
+          "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 875,
+          "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1750,
+          "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1750
+        },
+        "contact_errors": [],
+        "floor_contact_events": 10500,
+        "non_floor_contact_pairs": [],
+        "collision_count": 0,
+        "collision_observer_complete": true,
+        "linear_velocity_xyz": [
+          -0.01492621935904026,
+          -0.09916157275438309,
+          0.000647476757876575
+        ],
+        "angular_velocity_xyz": [
+          -0.0007667809259146452,
+          -0.0028646134305745363,
+          -0.5689601898193359
+        ]
+      }
+    }
+  ],
+  "fault_source_sha256": {
+    "delayed_follow_path.py": "eaf9926152e2743e0518191291de78fc9f53aa6a8d51553d2bb444650561ada6",
+    "abort_with_active_controller.xml": "4591e945fe62fcd65b4cc86d880b1e70705346bc5e3e3faee7486c11741ff919"
+  },
+  "nav2_aborted": true,
+  "fault_injected": true,
+  "status": "PASS",
+  "physics_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T072402Z"
+}

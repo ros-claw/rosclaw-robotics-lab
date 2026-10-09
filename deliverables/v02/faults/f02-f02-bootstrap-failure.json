@@ -1,0 +1,1 @@
+{"status": "INCOMPLETE", "failure": "Fault-suite supervisor launched with system Python lacking rosclaw; import failed before any environment startup or action", "repair": "Use pinned ROSClaw .venv Python; retry directory f03"}

@@ -1,0 +1,11 @@
+{
+  "attempt": "04-standard",
+  "condition": "standard",
+  "repetition": 4,
+  "started_wall_time": 1791534090.451119,
+  "status": "INCOMPLETE",
+  "manual_interventions": [],
+  "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+  "error": "CalledProcessError(1, ['/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/scripts/demo.sh', 'headless', 'patrol'])",
+  "finished_wall_time": 1791535291.3729897
+}

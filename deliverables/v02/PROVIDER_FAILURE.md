@@ -1,0 +1,11 @@
+# Provider stall during the frozen Native regression
+
+`04-unmapped-box` physically completed `aisle` and `entry`, then received no provider first token for 30 seconds. Native's existing watchdog aborted the request. The last SDK assistant message has `stopReason: aborted` and `errorMessage: Operation aborted`; the UI displayed the stall warning followed by `MODEL_UNKNOWN`. No new task/resend or manual recovery was submitted. Missing shelf/Home/final Memory evidence prevents full mission acceptance.
+
+The frozen lab runner detects assistant `stop` and `error`, but not `aborted`. It therefore waits until its pre-existing 1,500 s outer deadline, performs owned Native/daemon cleanup, and retains the failed attempt. No time limit or frozen code was changed to rescue it. The expected five Native attempts in this condition remain in the denominator; failed partial visits are not counted as complete patrols.
+
+[Issue #649](https://github.com/ros-claw/rosclaw/issues/649) / [PR #650](https://github.com/ros-claw/rosclaw/pull/650) preserve the known local watchdog origin through the existing classifier/gate, including SDK messages without error text. The diagnosis uses `PROVIDER_RESPONSE_TIMEOUT`, records the raw error in the existing activity ledger and preserves PAUSED state. Explicit user cancellation keeps its existing separate interruption path. There is no automatic task resend, changed timeout, robot action cancellation, or claim that this patch fixes the external provider/network stall. The merged revision is separate from the frozen upstream used in this batch.
+
+The original fifteen-attempt plan and the one predeclared standard appendix are retained. No additional box runs are added to obtain five successes. Each-condition counts and the extra target of five accepted missions per condition are reported explicitly; the release does not claim all tests passed. Offline verifier PASS means source/ledger/receipt consistency, including failed attempts; it does not convert a failed robot task into a success.
+
+Follow-up for the lab acceptance harness: recognize SDK `aborted` as an incomplete mission promptly and preserve receipts/cleanup, with a newly frozen integration qualification. That future change is not silently applied to the physically tested source in this release.

@@ -1,0 +1,38 @@
+{
+  "fault": "navigator-abort",
+  "scope": "actual SIM adapter negative test, not Native mission",
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "error": "Nav2 terminal result was not SUCCEEDED",
+  "nav2": {
+    "status": 6,
+    "error_code": 0,
+    "result": {
+      "error_code": 0,
+      "error_msg": ""
+    },
+    "wall_time": 1791530099.9705966
+  },
+  "wall_seconds": 3.2533273696899414,
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791530102.2286804,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"servers\": [{\"action\": \"/navigate_to_pose\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": []}, {\"action\": \"/follow_path\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": []}], \"goal_ids\": [], \"return_code\": 0}\n",
+      "stderr": "[WARN] [1791530100.578891049] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791530100.578950906] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "injection_events": [],
+  "cancel_confirmed": true,
+  "actual_navigator_abort_with_active_controller": false,
+  "overlap_samples": [],
+  "fault_source_sha256": {
+    "delayed_follow_path.py": "ee88b5ac2f596118fa5fda1462ce4872d3787025bed29ddecd33904ec2599fc1",
+    "abort_with_active_controller.xml": "4591e945fe62fcd65b4cc86d880b1e70705346bc5e3e3faee7486c11741ff919"
+  },
+  "nav2_aborted": true,
+  "fault_injected": false,
+  "status": "FAIL",
+  "physics_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T071406Z"
+}

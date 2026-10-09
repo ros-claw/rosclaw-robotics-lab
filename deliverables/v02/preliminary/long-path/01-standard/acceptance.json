@@ -1,0 +1,10 @@
+{
+  "run_id": "native",
+  "status": "FAIL",
+  "failure": "verified patrol artifact missing",
+  "task": "\u8bf7\u5148\u68c0\u67e5\u673a\u5668\u4eba\u72b6\u6001\uff0c\u518d\u4f9d\u6b21\u5de1\u68c0\u5165\u53e3\u3001\u8d27\u67b6\u533a\u3001\u4ed3\u5e93\u901a\u9053\u3001Home\u3002\u6bcf\u7ad9\u9a8c\u8bc1\u5230\u8fbe\u5e76\u505c\u7559\uff0c\u5b8c\u6210\u540e\u4fdd\u5b58\u5de1\u68c0\u62a5\u544a\u548c\u8bb0\u5fc6\u3002",
+  "body_snapshot_hash": "7665b05487c9f95de7b4f195f7f7b59da10f22a1285b4e13fba1437cb7988fdf",
+  "ground_truth_source": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T063406Z",
+  "partial_visits": [],
+  "memory_success_claimed": false
+}

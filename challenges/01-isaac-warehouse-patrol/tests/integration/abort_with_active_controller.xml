@@ -1,0 +1,9 @@
+<!-- Isolated SIM fault test only. Delayed acceptance produces a real Nav2 ABORT. -->
+<root BTCPP_format="4" main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <Sequence>
+      <ComputePathToPose goal="{goal}" path="{path}" planner_id="GridBased" server_timeout="1000" error_code_id="{compute_path_error_code}"/>
+      <FollowPath path="{path}" controller_id="FollowPath" server_name="/rosclaw_fault/follow_path" server_timeout="500" error_code_id="{follow_path_error_code}"/>
+    </Sequence>
+  </BehaviorTree>
+</root>
