@@ -1,15 +1,35 @@
 """Check actual three-camera frames cover the entire Native execution window."""
 
 import json
+import math
 from pathlib import Path
 
 
 def verify_recording(directory: Path, started: float, finished: float) -> dict:
+    # Recording failure must remain separate from physical task acceptance.
+    try:
+        return _verify_recording(directory, started, finished)
+    except (OSError, ValueError, KeyError, TypeError) as exc:
+        return {
+            "status": "FAIL",
+            "failures": ["Unreadable recording index: " + str(exc)],
+        }
+
+
+def _verify_recording(directory: Path, started: float, finished: float) -> dict:
     failures = []
     rows = [
         json.loads(line)
         for line in (directory / "timestamps.jsonl").read_text().splitlines()
     ]
+    if (
+        not all(
+            math.isfinite(t)
+            for t in [started, finished] + [r["wall_time"] for r in rows]
+        )
+        or started > finished
+    ):
+        raise ValueError("Invalid recording or Native timestamps")
     if not rows or rows[0]["wall_time"] > started or rows[-1]["wall_time"] < finished:
         failures.append("Frames do not cover the complete Native execution window")
     for row in rows:

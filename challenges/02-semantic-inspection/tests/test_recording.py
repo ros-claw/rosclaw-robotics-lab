@@ -9,6 +9,16 @@ from recording import verify_recording
 
 
 class RecordingTests(unittest.TestCase):
+    def test_missing_corrupt_or_nonfinite_index_reports_failure(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            self.assertEqual(verify_recording(root, 10, 20)["status"], "FAIL")
+            index = root / "timestamps.jsonl"
+            index.write_text("incomplete JSON")
+            self.assertEqual(verify_recording(root, 10, 20)["status"], "FAIL")
+            index.write_text(json.dumps({"wall_time": float("nan")}))
+            self.assertEqual(verify_recording(root, 10, 20)["status"], "FAIL")
+
     def test_sync_and_full_window_required(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)
