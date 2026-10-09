@@ -15,4 +15,15 @@ The ABORT injector forwards a real planned path to the real controller and delay
 
 Integration fixtures are in `challenges/01-isaac-warehouse-patrol/tests/integration/`. They require a dedicated, already authorized isolated simulation. They are not automatic CI physical tests and must never be run against REAL hardware.
 
+The public `run_fault_supplement.py` accepts your own prior Native SIM `execution_config.json`, creates independent resets and retains every result. It refuses an existing owned SIM session and existing output directory. From the challenge directory, using the pinned ROSClaw Python:
+
+```bash
+"$ROSCLAW_SOURCE/.venv/bin/python" tests/integration/run_fault_supplement.py \
+  --config YOUR_NATIVE_RUN/execution_config.json --output "$HOME/sim/fault01" \
+  --fault timeout --fault disconnect --fault pause --fault navigator-abort \
+  --isolated-simulation
+```
+
+The published wrapper extracts the accepted local protocol and removes machine-specific input paths. Wrapper CLI/lint checks are separate from physical protocol evidence; a final standalone public-wrapper integration run will be recorded separately, rather than retroactively attributing earlier tests to this file.
+
 Total test wall time is not a measured stop latency. Dispatch, response acknowledgement, terminal CANCELED and physical stopping are distinct evidence. The lab DDS fallback cancels both servers only in its isolated SIM environment; upstream diagnostics do not infer goal ownership or automatically cancel all goals.
