@@ -26,9 +26,10 @@ Use the same model/provider/version/account settings, token limits, Nav2 interfa
 
 Preregister randomized paired orders and environment seeds (start with 30 pairs per task family after pilot sizing). Reset environment and memory for every pair; freeze prompts before evaluation. Record one-task-input acceptance, proposal rejection, physical task success, collisions, wrong semantic target, latency, tokens, tool calls, interventions and cost. Publish all runs, paired differences and uncertainty. Failed/time-limited runs remain in the denominator; success-only latency is secondary. No winner is assumed.
 
-## Fair application-development comparison
-
 For attribution beyond the primary equal-tool runtime comparison, preregister a 2×2 ablation: generic versus Native orchestration, each with common foundational tools alone or with the same ROS Expert Harness augmentation. A/C and B/D comparisons control tool exposure; A/B and C/D isolate expert-tool additions. Keep the model and daemon/Nav2 physical boundary fixed. If an arm cannot run with the audited equivalent contract, mark it unimplemented. Do not attribute the combined D/A difference entirely to the model. See the [detailed pairing, denominator and timing protocol](FAIR_COMPARISON.zh.md).
+
+
+## Fair application-development comparison
 
 This is a separate study, starting when a developer/Agent receives an existing ROS robot environment and the same task brief. It includes diagnosis, capability selection, integration and first independent physical acceptance. Record wall/active engineering time, human interventions with reasons, files/lines changed, configuration changes, failed attempts and repairs. Infrastructure installation/caching is recorded separately. Assign equivalent fresh environments and counterbalance experienced developers to reduce learning effects. Keep developer identities independent of task implementation where possible.
 
