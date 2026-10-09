@@ -1,6 +1,6 @@
 # Fault supplement
 
-The [index](faults/index.json) retains all bootstrap, protocol, startup and physical test attempts. These are actual SIM adapter negative tests, **separate from the fifteen complete Native missions**. Expected action outcome is FAILED; PASS below means the negative-test gates passed.
+The [index](faults/index.json) retains all bootstrap, protocol, startup and physical test attempts. These are actual SIM adapter negative tests, **separate from the frozen-source Native mission batch**. Expected action outcome is FAILED; PASS below means the negative-test gates passed.
 
 | Fault | Accepted attempt | Actual evidence |
 |---|---|---|

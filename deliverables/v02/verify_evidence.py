@@ -77,6 +77,45 @@ def check_native_binding(archive, *, source, runtime, upstream, body, image):
     return config, freeze["source_hashes"]
 
 
+def check_plan(rows, amendment, original):
+    expected = {
+        f"{i:02d}-{c}"
+        for i in range(1, 6)
+        for c in ["standard", "reordered", "unmapped-box"]
+    }
+    expected.add("06-standard")
+    if len(rows) != 16 or {r["attempt"] for r in rows} != expected:
+        raise ValueError(
+            "Expected original fifteen attempts plus predeclared standard appendix"
+        )
+    if Counter(r["condition"] for r in rows) != {
+        "standard": 6,
+        "reordered": 5,
+        "unmapped-box": 5,
+    }:
+        raise ValueError("Unexpected condition counts")
+    extra = next(r for r in rows if r["attempt"] == "06-standard")
+    if amendment["declared_wall_time"] >= extra["started_wall_time"]:
+        raise ValueError("Appendix was not declared before execution")
+    if original["attempts"] != 15 or original["passes"] != sum(
+        r["status"] == "PASS" for r in rows if r["attempt"] != "06-standard"
+    ):
+        raise ValueError("Original fifteen-attempt outcome was changed")
+    passed_counts = Counter(r["condition"] for r in rows if r["status"] == "PASS")
+    if any(passed_counts[c] < 5 for c in ["standard", "reordered", "unmapped-box"]):
+        raise ValueError("Fewer than five complete accepted missions per condition")
+    failures = [
+        r["attempt"]
+        for r in rows
+        if r["attempt"] != "06-standard" and r["status"] != "PASS"
+    ]
+    if original["failures_and_incomplete"] != failures:
+        raise ValueError("Original failed attempts were omitted or changed")
+    for row in rows:
+        if row["attempt"] != f"{row['repetition']:02d}-{row['condition']}":
+            raise ValueError("Condition/repetition does not match attempt identity")
+
+
 def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=BODY):
     reports = []
     with zipfile.ZipFile(path) as outer:
@@ -86,34 +125,9 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
             json.loads(line)
             for line in outer.read("final-native/attempts.jsonl").splitlines()
         ]
-        expected = {
-            f"{i:02d}-{c}"
-            for i in range(1, 6)
-            for c in ["standard", "reordered", "unmapped-box"]
-        }
-        expected.add("06-standard")
         amendment = json.loads(outer.read("final-native/plan-amendment.json"))
-        if len(rows) != 16 or {r["attempt"] for r in rows} != expected:
-            raise ValueError(
-                "Expected original fifteen attempts plus predeclared standard appendix"
-            )
-        if Counter(r["condition"] for r in rows) != {
-            "standard": 6,
-            "reordered": 5,
-            "unmapped-box": 5,
-        }:
-            raise ValueError("Unexpected condition counts")
-        extra = next(r for r in rows if r["attempt"] == "06-standard")
-        if amendment["declared_wall_time"] >= extra["started_wall_time"]:
-            raise ValueError("Appendix was not declared before execution")
         original = json.loads(outer.read("final-native/original-fifteen-summary.json"))
-        if original["attempts"] != 15 or original["passes"] != sum(
-            r["status"] == "PASS" for r in rows if r["attempt"] != "06-standard"
-        ):
-            raise ValueError("Original fifteen-attempt outcome was changed")
-        passed_counts = Counter(r["condition"] for r in rows if r["status"] == "PASS")
-        if any(passed_counts[c] < 5 for c in ["standard", "reordered", "unmapped-box"]):
-            raise ValueError("Fewer than five complete accepted missions per condition")
+        check_plan(rows, amendment, original)
         if freeze["lab_commit"] != runtime or freeze["rosclaw_commit"] != upstream:
             raise ValueError("Outer source freeze mismatch")
         observers = set()

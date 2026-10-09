@@ -28,4 +28,6 @@ python3 scripts/lab.py stop
 
 离线重放只说明发布证据自洽，不说明在此机器上重新运行了仿真。交接包不含认证、私有运行目录、NVIDIA 资产或 Piper 声音模型。
 
-在正式 Release checkout 运行 `python3 deliverables/v02/verify_evidence.py warehouse-v02-evidence.zip`，可核对完整十五次账本、冻结配置与运行文件、Body 声明、独立观察者身份、收据及物理证据重放。它不提供签名认证或第三方运行证明。另有五项元数据绑定回归覆盖配置/checkout 变化、错误 Body 声明和未列入清单文件，不计为机器人实验。
+在正式 Release checkout 运行 `python3 deliverables/v02/verify_evidence.py warehouse-v02-evidence.zip`，可核对原定十五次及预先声明一次追加测试的完整十六次账本、冻结配置与运行文件、Body 声明、独立观察者身份、收据及物理证据重放。它不提供签名认证或第三方运行证明。另有九项元数据绑定与完整账本回归覆盖配置/checkout 变化、错误 Body 声明和未列入清单文件，不计为机器人实验。
+
+Known startup limitation: one frozen-source attempt reached the 1,200 s Isaac viewport initialization timeout before physics/Native. It remains INCOMPLETE in the published denominator; see [startup report](../STARTUP_FAILURE.md). The original fifteen-run summary is not rewritten by the single predeclared appendix.
