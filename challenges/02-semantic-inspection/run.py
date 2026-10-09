@@ -50,7 +50,7 @@ def main():
         os.environ,
         ROSCLAW_CAMERA_VIEW="follow",
         ROSCLAW_CAMERA_RESOLUTION="1920x1080" if a.record_multiview else "1280x720",
-        ROSCLAW_CAPTURE_SECONDS="1" if a.record_multiview else "0",
+        ROSCLAW_CAPTURE_SECONDS="1600" if a.record_multiview else "0",
         ROSCLAW_MULTIVIEW="1" if a.record_multiview else "0",
         ROSCLAW_OBSTACLE_TEST="0",
     )
@@ -105,6 +105,7 @@ def main():
             if a.require_target_lidar:
                 command.append("--require-target-lidar")
             run(command, stdout=log, stderr=subprocess.STDOUT, timeout=30)
+            record["native_started_wall_time"] = time.time()
             native = subprocess.Popen(
                 [
                     python,
@@ -128,6 +129,21 @@ def main():
                     os.killpg(native.pid, signal.SIGKILL)
                     native.wait()
             record["native_exit_code"] = native.returncode
+            record["native_finished_wall_time"] = time.time()
+            if a.record_multiview:
+                # Let the already scheduled capture complete after Native exits.
+                time.sleep(3)
+                from recording import verify_recording
+
+                coverage = verify_recording(
+                    physics / "baseline-frames",
+                    record["native_started_wall_time"],
+                    record["native_finished_wall_time"],
+                )
+                (output / "recording-acceptance.json").write_text(
+                    json.dumps(coverage, indent=2) + "\n"
+                )
+                record["recording_status"] = coverage["status"]
             evaluation = subprocess.run(
                 [
                     python,
@@ -185,7 +201,11 @@ def main():
         (output / "result.json").write_text(json.dumps(record, indent=2) + "\n")
         print(json.dumps(record, ensure_ascii=False))
     raise SystemExit(
-        0 if record["status"] == "PASS" and record["cleanup_exit_code"] == 0 else 1
+        0
+        if record["status"] == "PASS"
+        and record["cleanup_exit_code"] == 0
+        and record.get("recording_status", "PASS") == "PASS"
+        else 1
     )
 
 
