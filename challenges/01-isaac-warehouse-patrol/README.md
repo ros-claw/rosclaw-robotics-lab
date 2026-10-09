@@ -21,11 +21,13 @@ Use official online NVIDIA assets and your own model authentication/license acce
 
 ## Task variants and acceptance
 
-| Variant | One-input task | What it tests |
+| Variant | One-input task | Challenge and what it tests |
 |---|---|---|
 | Standard | 入口 → 货架区 → 通道 → Home | Agent chooses individual registered goals and verifies the full sequence |
 | Reordered | 通道 → 入口 → 货架区 → Home | Order comes from the instruction; the executor contains no patrol sequence |
 | Unmapped box | Reordered route, with a physical box absent from the original map | Actual LiDAR/master-costmap evidence and conservative clearance, plus zero non-floor contact |
+
+任务难点：标准巡检要求分步动作后继续任务并完成最终闭环；改序巡检要求实际顺序服从新指令；未映射箱体要求将实际 LiDAR、局部代价地图与物理净距联系起来，不能凭静态地图或导航返回成功就判定避障通过。
 
 Each visit requires Nav2 success, ≤0.4 m independent position error, ≤0.35 rad yaw error, ≥2 simulation seconds stable dwell, fresh LiDAR and complete collision observation. Final ordered canonical receipts, verified Practice/Memory and subsequent TaskKernel success are required. Startup failures, model errors and interventions remain in the denominator.
 

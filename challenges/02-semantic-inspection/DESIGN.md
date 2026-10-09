@@ -18,7 +18,7 @@ Nav2 ComputePathToPose must succeed for the fresh current pose/target. Independe
 
 ## Held-out targets
 
-The prototype groups parent/child RackShelf prims into the outermost physical shelf Xform, then hash-splits entity paths before testing candidate quality. The current actual inventory yields 8 development entities and 5 holdout entities. Only one development entity has been evaluated for candidate generation; no holdout outcomes have been accessed. A preliminary prim-level split was discarded to eliminate parent/child leakage. Freeze the entity manifest and SHA outside Agent prompts before evaluation; reveal targets only after code, thresholds and prompts are frozen. Report held-out failures and unsafe rejections as well as successful motion. The present preparation is not a completed held-out experiment.
+The prototype groups parent/child RackShelf prims into the outermost physical shelf Xform, then hash-splits entity paths before testing candidate quality. The current actual inventory yields 8 development entities and 5 holdout entities. The v0.2 prototype evaluated one development entity; the v0.3 catalog evaluates all eight development entities (four have static candidates), and actual mission trials select one of them. No holdout task has run. A preliminary prim-level split was discarded to eliminate parent/child leakage. Freeze the entity manifest and SHA outside Agent prompts before evaluation; reveal targets only after code, thresholds and prompts are frozen. Report held-out failures and unsafe rejections as well as successful motion. The present preparation is not a completed held-out experiment. The full inventory is now included in public audit evidence, so a strict unseen-layout study must use fresh independent geometry/targets, frozen and withheld before testing; the original 8/5 split is a development record.
 
 ## Fair task-runtime comparison
 
@@ -37,7 +37,10 @@ The runtime experiment cannot establish development-time benefit. Existing wareh
 
 ## Acceptance status
 
-- Static candidate generation on actual map/USD/PhysX/Body inputs: demonstrated on one development target; read-only proposal only.
-- Nine deterministic gate regressions: pass (unknown occupancy, stale/paused state, contacts, Body binding, margins, split restriction, actual geometry/hash sensitivity).
-- Fresh Nav2 path and daemon dynamic-target execution: pending.
-- Sensor inspection, held-out generalization, paired Agent comparison and development-time study: pending.
+- Static candidate generation and fresh Nav2 path/swept-footprint validation: implemented in the existing daemon.
+- Deterministic semantic regressions: 24 pass, covering stale/paused states, unknown occupancy, footprint geometry, Body binding, source hashes, fresh sensor/TF/PhysX inspection, compact catalogs, relocated artifacts and recording coverage.
+- Development attempts: c02a01 FAIL retained; c02a02 navigation PASS; c02b01/b02 known-region LiDAR PASS. These use different source revisions and are not a frozen reliability batch.
+- c02b01 video INCOMPLETE retained; c02b02 complete synchronized recording PASS, with a 90-second video.
+- Actual successful upstream runtime is candidate SHA `8340a693`, distinct from eventual merged main.
+- Held-out generalization, paired Agent comparison, development-time study and independent engineer/second-machine reproduction: NOT RUN.
+- Full records, limits and video: [Challenge README](README.md), [implementation report](../../deliverables/v03/IMPLEMENTATION_REPORT.zh.md).

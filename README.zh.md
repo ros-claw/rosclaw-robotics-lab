@@ -4,12 +4,14 @@
 
 真实 ROSClaw Native Agent 在 DGX Spark 上，通过 ROS 2 Jazzy/Nav2 运行 Isaac Sim 6.1 官方仓库里的 Nova Carter。**v0.2 冻结源码回归：16 次尝试中（含启动失败） 14 次通过**，三类各至少五次独立 Native 测试；保留启动失败和模型请求中断，唯一一次标准追加测试已提前声明。成功整圈共 56 次到点记录，最大实际位置误差 0.151827 米。这是本机仿真工程验收，尚未证明生产可靠性或真实硬件能力。
 
+**新增 Challenge 02：** 从 USD 已知货架生成动态观察位置，完成往返及真实 LiDAR 区域观测。开发阶段 4 次尝试保留 1 次失败、3 次完整通过；[场景说明与独立三视角视频](challenges/02-semantic-inspection/README.md)。
+
 ## 场景任务 Challenges
 
 | Challenge | 用户任务与能力 | 独立验收与当前状态 | 展示 |
 |---|---|---|---|
 | [01 · 仓库四站巡检](challenges/01-isaac-warehouse-patrol/README.md) | 一句话完成入口、货架、通道、返回；支持改序及未映射箱体 | v0.2：16 次尝试，14 次完整通过；每站物理到达/停留、LiDAR、接触及最终 Memory/TaskKernel | [180 秒宣传片](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510 秒教程](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
-| [02 · 语义观察点导航与区域观测](challenges/02-semantic-inspection/README.md) | 从 USD 已知货架语义生成新观察位置，再返回实际起点；不使用四站坐标 | v0.3 开发中：动态 SIM 契约、候选 ID、实时路径/扫掠足迹门槛已实现，真实任务验收待执行；LiDAR 区域观测单独验收 | 尚无本 Challenge 实测宣传视频；不使用 Challenge 01 视频代替 |
+| [02 · 语义观察点导航与区域观测](challenges/02-semantic-inspection/README.md) | 从 USD 已知货架语义生成新观察位置，再返回实际起点；不使用四站坐标 | 开发集 4 次尝试：1 次 FAIL、3 次完整 PASS（含两次 LiDAR 区域观测）；保留录制失败，非冻结版本可靠性统计 | [90 秒三视角展示](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
 
 视频中的历史第五轮与 v0.2 冻结回归分别记录。每个 Challenge 页面说明输入、工具边界、成功门槛、失败和复现方式。
 
@@ -44,4 +46,4 @@ python3 scripts/lab.py stop
 
 统一入口另提供 `task`、`results` 和十五次重置的 `regression SHORT_DIRECTORY`。启动不自动发导航目标；官方资产在线加载，使用者自行接受 NVIDIA 许可。Docker 基础镜像固定 manifest digest，apt 结果可能变化，每轮记录实际 image ID 与包版本。安装器、USD、缓存、认证、操作员密钥、私有模型目录和完整视频不进入 Git。
 
-[独立复现交接包](deliverables/v02/reproduction/README.zh.md)已准备，用户暂未安排工程师和另一台机器，因此第三方实测为 **NOT RUN / 待安排**。离线重放只验证证据自洽。[Challenge 02](challenges/02-semantic-inspection/README.md)目前从真实 USD/地图/位姿/Body 生成只读候选；新目标运动、传感器检查和 holdout 实验待完成。运行对照与应用开发效率对照分开设计，不预设 ROSClaw 优于 Codex。当前 SIM 使用 SQLite、关闭可选 firewall 集成，未验收全部安全模块或 seekdb 性能。
+[独立复现交接包](deliverables/v02/reproduction/README.zh.md)已准备，用户暂未安排工程师和另一台机器，因此第三方实测为 **NOT RUN / 待安排**。离线重放只验证证据自洽。[Challenge 02](challenges/02-semantic-inspection/README.md)已从真实 USD/地图/位姿/Body 动态生成观察位置，完成开发集新目标导航及已知区域 LiDAR 验收；holdout 和公平对照尚未执行。运行对照与应用开发效率对照分开设计，不预设 ROSClaw 优于 Codex。当前 SIM 使用 SQLite、关闭可选 firewall 集成，未验收全部安全模块或 seekdb 性能。
