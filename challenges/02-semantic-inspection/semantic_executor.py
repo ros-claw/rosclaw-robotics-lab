@@ -8,6 +8,7 @@ import subprocess
 import threading
 import time
 
+from artifacts import artifact_path
 from rosclaw.body.resolver import BodyResolver
 from rosclaw.kernel import ExecutionMode
 from point_executor import PointExecutor
@@ -21,14 +22,10 @@ def file_sha(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
 
-def checked_artifact(root, artifact):
-    path = Path(artifact["path"]).resolve()
-    if (
-        not path.is_relative_to((Path(root) / "semantic-evidence").resolve())
-        or file_sha(path) != artifact["sha256"]
-    ):
-        raise ValueError("Semantic evidence artifact path/hash mismatch")
-    return json.loads(path.read_text())
+def checked_artifact(root, config, artifact):
+    return json.loads(
+        artifact_path(root, config, artifact, directory="semantic-evidence").read_text()
+    )
 
 
 class SemanticExecutor(PointExecutor):
@@ -266,6 +263,16 @@ class SemanticExecutor(PointExecutor):
         if self.stopping.is_set():
             raise ValueError("Stop requested during planning")
         self.source_check()
+        sample = self.fresh()
+        if (
+            not 0
+            <= time.time() - entry["generated_at_wall"]
+            <= self.contract["proposal_max_wall_age_seconds"]
+            or not 0
+            <= sample["sim_time"] - entry["generated_at_sim"]
+            <= self.contract["proposal_max_sim_age_seconds"]
+        ):
+            raise ValueError("Proposal expired during planning; no motion dispatched")
         target = self.evidence_dir / (ident + "-plan.json")
         write_json_atomic(
             target,
@@ -344,14 +351,14 @@ class SemanticMemoryExecutor(PatrolMemoryExecutor):
 
     def check_extra_evidence(self, data, proof):
         semantic = data["verification"]["semantic"]
-        plan = checked_artifact(self.root, semantic["plan_artifact"])
+        plan = checked_artifact(self.root, self.config, semantic["plan_artifact"])
         if plan["proposal"] != semantic["proposal"]:
             raise ValueError("Planning proposal mismatch")
         import yaml
 
         params = yaml.safe_load(
             (
-                Path(self.config["challenge"]) / "config/patrol_navigation_params.yaml"
+                self.root / "frozen-source/config/patrol_navigation_params.yaml"
             ).read_text()
         )
         footprint = json.loads(
@@ -367,7 +374,9 @@ class SemanticMemoryExecutor(PatrolMemoryExecutor):
             self.config.get("require_target_lidar")
             and semantic["proposal"]["kind"] == "shelf"
         ):
-            inspection = checked_artifact(self.root, semantic["inspection_artifact"])
+            inspection = checked_artifact(
+                self.root, self.config, semantic["inspection_artifact"]
+            )
             lidar_target_hits(
                 inspection["snapshot"]["scan"],
                 semantic["proposal"]["target_bounds_xy"],
@@ -380,18 +389,24 @@ class SemanticMemoryExecutor(PatrolMemoryExecutor):
                 "Pilot requires exactly one requested shelf and return to actual initial pose"
             )
         entries = [
-            json.loads(Path(v["artifact"]["path"]).read_text())["verification"][
-                "semantic"
-            ]["proposal"]
+            json.loads(
+                artifact_path(
+                    self.root, self.config, v["artifact"], directory="actions"
+                ).read_text()
+            )["verification"]["semantic"]["proposal"]
             for v in visits
         ]
         if entries[0]["kind"] != "shelf" or entries[1]["kind"] != "return":
             raise ValueError("Shelf/return order mismatch")
-        inventory = json.loads(
-            (
-                Path(self.config["physics_directory"]) / "stage-inventory.json"
-            ).read_text()
+        inventory = json.loads((self.root / "semantic-inventory.json").read_text())
+        inventory_source = str(
+            Path(self.config["physics_directory"]) / "stage-inventory.json"
         )
+        if (
+            file_sha(self.root / "semantic-inventory.json")
+            != self.config["semantic_contract"]["source_sha256"][inventory_source]
+        ):
+            raise ValueError("Semantic inventory differs from immutable Body source")
         initial = self.config["semantic_contract"]["return_pose"]
         allowed = self.config["semantic_contract"]["allowed_development_targets"]
         rows = []

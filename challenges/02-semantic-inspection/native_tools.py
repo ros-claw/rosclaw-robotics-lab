@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 from mcp.server.fastmcp import FastMCP
+from catalog_view import compact_catalog
 
 p = argparse.ArgumentParser()
 p.add_argument("--directory", type=Path, required=True)
@@ -17,22 +18,10 @@ server = FastMCP("isaac-semantic-observation")
 def observe_candidates() -> dict:
     """Read USD-known development shelves, daemon-generated safe proposals and actual current robot state. No motion."""
     catalog = json.loads((root / "semantic-catalog.json").read_text())
-    return {
-        **catalog,
-        "physics": json.loads(
-            (Path(config["physics_directory"]) / "physics-latest.json").read_text()
-        ),
-        "requirements": [
-            "Choose the shelf requested by the user from the USD-known catalog yourself; no fixed four-site IDs are used.",
-            "Choose one fresh proposal_id and request exactly one navigation.navigate_to_pose at a time.",
-            "Observe candidates again before each navigation; proposals expire. Use the return_to_initial_pose proposal to return.",
-            "After the requested shelf and return, call mission.verify_and_remember with their canonical action_ids in order.",
-            "Register the verified artifact and close the existing TaskKernel only after the final canonical verification receipt.",
-            "Inspection scope is explicit. USD supplies semantics; display cameras are not Agent sensor observations.",
-        ],
-        "authorization": False,
-        "evidence_domain": "SIMULATION",
-    }
+    physics = json.loads(
+        (Path(config["physics_directory"]) / "physics-latest.json").read_text()
+    )
+    return compact_catalog(catalog, physics)
 
 
 @server.tool(name="navigation.navigate_to_pose")

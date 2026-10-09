@@ -284,6 +284,9 @@ def prepare(root, challenge, physics, task, order, credentials, require_obstacle
             "models": [model],
         }
         (dest / "models.json").write_text(json.dumps(declarations, indent=2) + "\n")
+    if scenario is not None:
+        shutil.copyfile(inventory_path, root / "semantic-inventory.json")
+        (root / "body-effective.json").write_text(json.dumps(effective.to_dict(), indent=2) + "\n")
     print(
         json.dumps(
             {

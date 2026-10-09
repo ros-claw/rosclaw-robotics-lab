@@ -119,6 +119,7 @@ def main():
         a.physics.resolve(), a.map_yaml.resolve(), require_lidar=a.require_target_lidar
     )
     scenario["mcp"]["args"][-1] = str(root)
+    scenario["config"]["execution_root"] = str(root)
     prepare(
         root,
         PATROL,

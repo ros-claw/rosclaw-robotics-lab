@@ -11,6 +11,8 @@ HERE = Path(__file__).resolve().parent
 PATROL = HERE.parent / "01-isaac-warehouse-patrol"
 for p in [PATROL / "evaluator", PATROL / "rosclaw", HERE]:
     sys.path.insert(0, str(p))
+from artifacts import artifact_path
+from rosclaw.body.schema import EffectiveBody
 from patrol import verify_visit
 from semantic_executor import SemanticMemoryExecutor
 
@@ -21,11 +23,19 @@ def evaluate(root):
     visits = []
     checker = SemanticMemoryExecutor(None, root, config, None)
     body = config["body_snapshot_hash"]
+    effective = EffectiveBody.from_dict(
+        json.loads((root / "body-effective.json").read_text())
+    )
+    if (
+        effective.compute_hash() != body
+        or effective.safety["navigation_contract"] != config["semantic_contract"]
+    ):
+        raise ValueError("Effective Body or semantic contract binding mismatch")
     receipts = json.loads((root / "canonical-receipts-final.json").read_text())
     complete = [
         r["receipt"]
         for r in receipts
-        if r.get("receipt", {}).get("final_state") == "COMPLETED"
+        if (r.get("receipt") or {}).get("final_state") == "COMPLETED"
     ]
     nav = [r for r in complete if r["capability_id"] == "navigation.navigate_to_pose"]
     nav.sort(key=lambda r: r["started_at"])
@@ -39,12 +49,7 @@ def evaluate(root):
         ):
             raise ValueError("Canonical receipt Body/domain/evidence mismatch")
         artifact = r["verification_result"]["evidence_artifact"]
-        p = Path(artifact["path"]).resolve()
-        if (
-            p.parent != (root / "actions").resolve()
-            or hashlib.sha256(p.read_bytes()).hexdigest() != artifact["sha256"]
-        ):
-            raise ValueError("Physical artifact path/hash mismatch")
+        p = artifact_path(root, config, artifact, directory="actions")
         data = json.loads(p.read_text())
         site = checker.target_for_visit(data)
         proof = verify_visit(
@@ -100,6 +105,14 @@ def evaluate(root):
         != freeze["rosclaw_upstream"]["git_sha"]
     ):
         failures.append("Source/compiled Native pins not clean or consistent")
+    if (
+        hashlib.sha256((root / "execution_config.json").read_bytes()).hexdigest()
+        != freeze["execution_config_sha256"]
+    ):
+        failures.append("Execution configuration differs from frozen hash")
+    for f, h in freeze["source_hashes"].items():
+        if hashlib.sha256((root / "frozen-source" / f).read_bytes()).hexdigest() != h:
+            failures.append("Frozen runtime code/config hash mismatch")
     for f, h in freeze["semantic_source_hashes"].items():
         if (
             hashlib.sha256(
