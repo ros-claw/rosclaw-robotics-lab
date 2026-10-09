@@ -139,6 +139,22 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
         amendment = json.loads(outer.read("final-native/plan-amendment.json"))
         original = json.loads(outer.read("final-native/original-fifteen-summary.json"))
         check_plan(rows, amendment, original)
+        appendix_freeze = json.loads(outer.read("final-native/appendix-freeze.json"))
+        for key in [
+            "lab_commit",
+            "rosclaw_commit",
+            "docker_image_id",
+            "configuration_and_evaluator_sha256",
+            "capture_profile",
+        ]:
+            if appendix_freeze[key] != freeze[key]:
+                raise ValueError("Appendix freeze differs from original batch: " + key)
+        extra_summary = json.loads(outer.read("final-native/appendix-summary.json"))
+        extra = next(row for row in rows if row["attempt"] == "06-standard")
+        if extra_summary["attempts"] != 1 or extra_summary["passes"] != int(
+            extra["status"] == "PASS"
+        ):
+            raise ValueError("Appendix summary does not match its retained attempt")
         supervisor = outer.read(
             "release-documents/evidence-scripts/standard-appendix-supervisor.py"
         )
