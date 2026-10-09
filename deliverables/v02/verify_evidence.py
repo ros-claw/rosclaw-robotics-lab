@@ -128,6 +128,11 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
         amendment = json.loads(outer.read("final-native/plan-amendment.json"))
         original = json.loads(outer.read("final-native/original-fifteen-summary.json"))
         check_plan(rows, amendment, original)
+        supervisor = outer.read(
+            "release-documents/evidence-scripts/standard-appendix-supervisor.py"
+        )
+        if hashlib.sha256(supervisor).hexdigest() != amendment["supervisor_sha256"]:
+            raise ValueError("Appendix supervisor does not match predeclared source")
         if freeze["lab_commit"] != runtime or freeze["rosclaw_commit"] != upstream:
             raise ValueError("Outer source freeze mismatch")
         observers = set()
