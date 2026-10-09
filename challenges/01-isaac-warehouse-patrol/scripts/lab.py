@@ -6,6 +6,7 @@ import json
 import os
 from pathlib import Path
 import socket
+import signal
 import subprocess
 import time
 
@@ -79,8 +80,20 @@ def regression(destination):
                     if obstacle:
                         task += "遇到未标在地图上的箱体，使用实际激光数据避障。"
                     record["task"] = task
-                    task_result = subprocess.run([str(ROOT / "scripts/run-native-acceptance.sh"), str(attempt / "native"), str(physics), task, *order], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, timeout=1500)
-                    record["native_exit_code"] = task_result.returncode
+                    native = subprocess.Popen([str(ROOT / "scripts/run-native-acceptance.sh"), str(attempt / "native"), str(physics), task, *order], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
+                    try:
+                        native.wait(timeout=1500)
+                    except (subprocess.TimeoutExpired, KeyboardInterrupt) as exc:
+                        native.send_signal(signal.SIGINT)
+                        try:
+                            native.wait(timeout=45)
+                        except subprocess.TimeoutExpired:
+                            os.killpg(native.pid, signal.SIGKILL)
+                            native.wait()
+                        if isinstance(exc, KeyboardInterrupt):
+                            raise
+                        record["native_timeout"] = True
+                    record["native_exit_code"] = native.returncode
                     time.sleep(3)
                     evaluation = subprocess.run([str(python), str(ROOT / "evaluator/run_report.py"), "--directory", str(attempt / "native"), "--output", str(attempt / "acceptance.json")], cwd=ROOT, env=env, stdout=log, stderr=subprocess.STDOUT, timeout=90)
                     if (attempt / "acceptance.json").exists():
@@ -88,7 +101,7 @@ def regression(destination):
                     else:
                         record["status"] = "INCOMPLETE"
                     record["evaluator_exit_code"] = evaluation.returncode
-                    if task_result.returncode != 0 and record["status"] == "PASS":
+                    if (native.returncode != 0 or record.get("native_timeout")) and record["status"] == "PASS":
                         record["status"] = "FAIL"
             except KeyboardInterrupt:
                 record.update(status="INTERRUPTED", error="Operator interrupted supervisor", manual_interventions=["supervisor SIGINT; owned environment cleanup required"] )
