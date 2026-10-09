@@ -294,16 +294,14 @@ for fault in args.fault:
                     or ack,
                 }
                 if fault == "navigator-abort":
-                    rows = (
-                        [
-                            json.loads(line)
-                            for line in (physics / "abort-status.jsonl")
-                            .read_text()
-                            .splitlines()
-                        ]
-                        if (physics / "abort-status.jsonl").exists()
-                        else []
-                    )
+                    status_path = physics / "abort-status.jsonl"
+                    raw = status_path.read_bytes() if status_path.exists() else b""
+                    # The DDS witness is still active. Only complete newline-
+                    # committed records can be evidence; malformed full records
+                    # still fail, and the raw final archive retains the prefix.
+                    rows = [json.loads(line) for line in raw.splitlines(keepends=True)
+                            if line.endswith(b"\n")]
+                    summary["incomplete_status_tail_ignored"] = bool(raw and not raw.endswith(b"\n"))
                     actual_overlap = []
                     for row in rows:
                         statuses = row.get("all_servers", {})
