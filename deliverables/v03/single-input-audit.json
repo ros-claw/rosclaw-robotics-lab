@@ -1,0 +1,438 @@
+{
+  "status": "PASS",
+  "scope": "Sanitized extract from actual local SDK journals, not an independent attestation. Operator SIM decisions are separate from task inputs. Assistant prose/thinking, tool arguments/results and authentication are excluded.",
+  "attempts": [
+    {
+      "attempt": "c02a01",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-09T20:03:09.641Z",
+          "text": "请检查本次任务起点西侧最近的一组开发集货架：选择面向货架的安全观察位置，到达并停留，然后返回本次任务的实际起点。最后保存验证报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-09T20:03:13.250Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:15.623Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:18.773Z",
+          "name": "rosclaw_capabilities"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:24.034Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:47.946Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:49.985Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:52.616Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:03:56.208Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:00.370Z",
+          "name": "rosclaw_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:02.724Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:05.360Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:09.206Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:09.206Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:09.206Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:11.541Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:14.826Z",
+          "name": "bash"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:22.515Z",
+          "name": "bash"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:28.437Z",
+          "name": "bash"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:35.653Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:37.925Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:40.558Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:43.633Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:46.343Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:50.723Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:56.746Z",
+          "name": "rosclaw_status"
+        },
+        {
+          "timestamp": "2026-10-09T20:04:56.746Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:03.976Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:10.606Z",
+          "name": "ls"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:10.606Z",
+          "name": "rosclaw_artifact_list"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:14.677Z",
+          "name": "grep"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:21.160Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:25.551Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:31.392Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:53.656Z",
+          "name": "write"
+        },
+        {
+          "timestamp": "2026-10-09T20:05:57.307Z",
+          "name": "rosclaw_deliver"
+        },
+        {
+          "timestamp": "2026-10-09T20:06:05.990Z",
+          "name": "rosclaw_fail_safe"
+        }
+      ],
+      "private_journal_sha256": [
+        "a370f8eb7d3e0707123ce682672595a9cc25685f8f8ef724eab18816199100da"
+      ],
+      "status": "PASS"
+    },
+    {
+      "attempt": "c02a02",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-09T20:16:10.118Z",
+          "text": "请检查本次任务起点西侧最近的一组开发集货架：选择面向货架的安全观察位置，到达并停留，然后返回本次任务的实际起点。最后保存验证报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-09T20:16:13.460Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:16:15.950Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:16:20.400Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:16:46.085Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:16:49.103Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:17:21.618Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-09T20:17:26.705Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:17:28.917Z",
+          "name": "read"
+        }
+      ],
+      "private_journal_sha256": [
+        "6d7d0ed7c89da189ce67463d8ce3cb920cb53d96368248a22638f2f43b950c55"
+      ],
+      "status": "PASS"
+    },
+    {
+      "attempt": "c02b01",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-09T20:21:08.067Z",
+          "text": "请检查本次任务起点西侧最近的一组开发集货架：选择面向货架的安全观察位置，到达并停留，然后返回本次任务的实际起点。最后保存验证报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-09T20:21:11.886Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:21:14.071Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:21:19.937Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:22:08.891Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:22:13.587Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:23:10.918Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-09T20:23:16.714Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:23:19.162Z",
+          "name": "read"
+        }
+      ],
+      "private_journal_sha256": [
+        "c78ecbfe1bfae9ab64ecd44b00276edf9c562d5c03972dba52968883c38bd6a3"
+      ],
+      "status": "PASS"
+    },
+    {
+      "attempt": "c02b02",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-09T20:30:20.281Z",
+          "text": "请检查本次任务起点西侧最近的一组开发集货架：选择面向货架的安全观察位置，到达并停留，然后返回本次任务的实际起点。最后保存验证报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-09T20:30:23.512Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:30:25.962Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:30:28.950Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:31:10.650Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:31:16.070Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:32:04.480Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-09T20:32:09.658Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:32:11.598Z",
+          "name": "read"
+        }
+      ],
+      "private_journal_sha256": [
+        "0515a33dd4f1bfa11bc3baf2d4ebf2608dfc4d49fc1a5ab371e71ca7ead930b5"
+      ],
+      "status": "PASS"
+    },
+    {
+      "attempt": "c02b03",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-09T20:59:37.251Z",
+          "text": "请检查本次任务起点西侧最近的一组开发集货架：选择面向货架的安全观察位置，到达并停留，然后返回本次任务的实际起点。最后保存验证报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-09T20:59:40.724Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:59:42.827Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T20:59:48.126Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T21:00:18.107Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-09T21:00:21.124Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T21:00:56.519Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-09T21:01:02.773Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T21:01:04.775Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T21:01:07.486Z",
+          "name": "read"
+        }
+      ],
+      "private_journal_sha256": [
+        "1ebe3e9887b0d7dc6ac03780ab0bc154ff48032160c337d0616d9a7ca7fb2578"
+      ],
+      "status": "PASS"
+    },
+    {
+      "attempt": "c01i01",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-09T20:46:03.193Z",
+          "text": "请先检查机器人状态，再依次巡检入口、货架区、仓库通道、Home。每站验证到达并停留，完成后保存巡检报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-09T20:46:06.406Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:46:09.571Z",
+          "name": "rosclaw_status"
+        },
+        {
+          "timestamp": "2026-10-09T20:46:11.320Z",
+          "name": "ros__observe_system"
+        },
+        {
+          "timestamp": "2026-10-09T20:46:16.396Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:47:19.201Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T20:47:21.133Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:48:20.479Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T20:48:22.010Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:48:55.262Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T20:48:57.332Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-09T20:49:39.800Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-09T20:49:42.650Z",
+          "name": "propose_patrol__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-09T20:49:48.523Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-09T20:49:50.297Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-09T20:49:52.343Z",
+          "name": "rosclaw_artifact_resolve"
+        }
+      ],
+      "private_journal_sha256": [
+        "6c9f9188d6ae3566d1a21979a4bc8c95fa68889666a1a52ebc462b2bd9e35ed4"
+      ],
+      "status": "PASS"
+    }
+  ]
+}

@@ -4,14 +4,14 @@
 
 A real ROSClaw Native Agent runs Nova Carter in NVIDIA's official Isaac Sim 6.1 warehouse through ROS 2 Jazzy/Nav2 on DGX Spark. **v0.2: 14/16 frozen-source attempts passed independent physical acceptance**; at least five independent Native trials per condition, with startup and provider failures retained. 56 visits in accepted complete missions; maximum actual position error 0.151827 m. These are local SIM engineering results; production reliability and hardware execution are not established.
 
-**New Challenge 02:** generated observation poses from USD-known shelves, round-trip navigation and measured region LiDAR observation. Four development attempts retain one failure and three complete acceptances. [Task details and its own three-view video](challenges/02-semantic-inspection/README.md).
+**New Challenge 02:** generated observation poses from USD-known shelves, round-trip navigation and measured region LiDAR observation. Five development/integration attempts retain one failure and four complete acceptances. [Task details and its own three-view video](challenges/02-semantic-inspection/README.md).
 
 ## Scenario challenges
 
 | Challenge | User task and capability | Acceptance and status | Watch |
 |---|---|---|---|
 | [01 · Warehouse patrol](challenges/01-isaac-warehouse-patrol/README.md) | One prompt selects four sites; reordered and unmapped-box variants | v0.2: 14/16 complete physical acceptances; arrival/dwell, LiDAR, contacts and final Memory/TaskKernel | [180s promo](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s tutorial](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
-| [02 · Semantic observation](challenges/02-semantic-inspection/README.md) | Generate observation poses from USD-known shelves and return to measured initial pose | Development: 4 attempts, 1 FAIL and 3 complete PASS (2 with region LiDAR); recording failure retained; different source revisions, not a reliability batch | [90s synchronized views](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
+| [02 · Semantic observation](challenges/02-semantic-inspection/README.md) | Generate observation poses from USD-known shelves and return to measured initial pose | Development/integration: 5 attempts, 1 FAIL and 4 complete PASS (3 with region LiDAR); recording failure retained; different source revisions, not a reliability batch | [90s synchronized views](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
 
 Historical fifth-mission videos and the frozen v0.2 regression are separate evidence. Each challenge describes its task, tools, physical gates, failures and reproduction steps.
 

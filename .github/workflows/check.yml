@@ -13,6 +13,7 @@ jobs:
       - run: python -m unittest discover -s deliverables/v02/tests
       - run: ruff check --select F,E9 challenges/01-isaac-warehouse-patrol
       - run: ruff check --select F,E9 deliverables/v02
+      - run: ruff check --select F,E9 deliverables/v03
       - run: |
           for script in challenges/01-isaac-warehouse-patrol/scripts/*.sh; do
             bash -n "$script"

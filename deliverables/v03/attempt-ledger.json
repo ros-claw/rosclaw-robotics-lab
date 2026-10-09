@@ -34,5 +34,15 @@
     "upstream_sha": "8340a693801f28c2c0703a049e6306e5bd82b147",
     "development_only": true,
     "manual_interventions": []
+  },
+  {
+    "attempt": "c02b03",
+    "physical_status": "PASS",
+    "recording_status": "NOT_REQUESTED",
+    "lab_sha": "41eb138cb07b8e114950ad1eb40d4a4053ab644e",
+    "upstream_sha": "b7bbe8c39e5c2be7d90ebb6df8328898add9e308",
+    "development_only": true,
+    "manual_interventions": [],
+    "kind": "final combined upstream PR-head integration, distinct from initial four development attempts"
   }
 ]
