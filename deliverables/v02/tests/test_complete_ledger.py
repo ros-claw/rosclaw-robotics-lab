@@ -44,6 +44,14 @@ class LedgerTests(unittest.TestCase):
     def test_predeclared_appendix_keeps_startup_failure(self):
         verify.check_plan(*records())
 
+    def test_additional_native_failure_is_retained_without_forcing_success(self):
+        rows, amendment, original = records()
+        next(r for r in rows if r["attempt"] == "04-unmapped-box")["status"] = "FAIL"
+        original["passes"] = 13
+        original["failures_and_incomplete"].append("04-unmapped-box")
+        verify.check_plan(rows, amendment, original)
+        self.assertEqual(sum(r["status"] == "PASS" for r in rows), 14)
+
     def test_failure_cannot_be_dropped_from_denominator(self):
         rows, amendment, original = records()
         rows = [r for r in rows if r["status"] == "PASS"]

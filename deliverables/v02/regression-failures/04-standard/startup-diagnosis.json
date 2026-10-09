@@ -1,0 +1,24 @@
+{
+  "attempt": "04-standard",
+  "status": "INCOMPLETE",
+  "phase": "environment startup before physics/Nav2/Native",
+  "physics_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T082130Z",
+  "startup_timeout_seconds": 1200,
+  "native_task_started": false,
+  "manual_interventions": [],
+  "kit_log_sha256": "ad54dd613f61213fd0ab8fb8bbfe736020d03a27c88a341b6854645cc7277c2d",
+  "viewport_wait_log_rows": 159435,
+  "samples": [
+    "2026-10-09T08:21:40Z [9,852ms] [Info] [isaacsim.app.setup.startup] await_viewport: waiting for viewport handle... frame 1",
+    "2026-10-09T08:21:40Z [9,882ms] [Info] [isaacsim.app.setup.startup] await_viewport: waiting for viewport handle... frame 2",
+    "2026-10-09T08:21:40Z [9,893ms] [Info] [omni.kit.app.plugin] kEventAppReady event was delayed by: omni.usd,omni.usd,IsaacSim,IsaacSim,IsaacSim,IsaacSim,IsaacSim,omni.usd,IsaacSim,IsaacSim,IsaacSim,IsaacSim",
+    "2026-10-09T08:41:30Z [1,200,143ms] [Info] [omni.kit.app.plugin] kEventAppReady event was delayed by: IsaacSim",
+    "2026-10-09T08:41:30Z [1,200,211ms] [Info] [isaacsim.app.setup.startup] await_viewport: waiting for viewport handle... frame 79718",
+    "2026-10-09T08:41:30Z [1,200,211ms] [Info] [omni.kit.app.plugin] kEventAppReady event was delayed by: IsaacSim"
+  ],
+  "observed_cause": "Isaac app setup never received a viewport handle before the existing readiness deadline.",
+  "underlying_trigger": "Not established. Hidden viewport rendering is a hypothesis, not a validated root cause.",
+  "candidate_workaround": "Explicit skipWhileInvisible=false / skipWhileMinimized=false may be tested in a future separate source freeze; no such change or live intervention was applied to this batch.",
+  "official_reference": "https://docs.omniverse.nvidia.com/kit/docs/omni.kit.viewport.window/latest/Settings.html",
+  "external_asset_head": "HTTP 200 during read-only diagnosis; not proof that all dependencies were fetched successfully."
+}

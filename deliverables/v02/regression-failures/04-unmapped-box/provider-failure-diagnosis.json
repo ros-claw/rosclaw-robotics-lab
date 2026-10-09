@@ -1,0 +1,30 @@
+{
+  "attempt": "04-unmapped-box",
+  "observed_wall_time": 1791536851.758636,
+  "phase": "Native model turn after two physically accepted navigation sites",
+  "native_stop_reason": "aborted",
+  "safe_sdk_error_message": "Operation aborted",
+  "first_token_watchdog_warning_observed": true,
+  "unknown_model_card_observed": true,
+  "source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+  "upstream_commit": "21838614bb14c39599b8acef731b2b64dad3b92a",
+  "manual_interventions": [],
+  "task_resent": false,
+  "partial_sites": [
+    "aisle",
+    "entry"
+  ],
+  "full_mission_success": false,
+  "remaining_sites": [
+    "shelf",
+    "home"
+  ],
+  "memory_success": false,
+  "acceptance_runner_limitation": "Frozen runner detects stop/error but not SDK aborted; the pre-existing 1500 s outer deadline is allowed to end the attempt without intervention.",
+  "diagnosis_followup": "https://github.com/ros-claw/rosclaw/pull/650",
+  "followup_scope": "Known watchdog cause/paused-state diagnosis only; no provider/network fix or automatic retry; frozen failure not repaired or replaced.",
+  "final_attempt_status": "FAIL",
+  "finished_wall_time": 1791537216.6545844,
+  "native_outer_timeout": true,
+  "native_exit_code": -2
+}
