@@ -91,16 +91,22 @@ def main():
             raise ConnectionError(response.error)
     client = Ros2ActionClient(transports[0])
     sensor = ScanWitness(transports[1])
-    executor = PointExecutor(root=root, config=config, client=client, sensor=sensor)
+    executor_type = PointExecutor
+    memory_type = PatrolMemoryExecutor
+    if config.get("scenario") == "semantic_observation":
+        sys.path.insert(0, config["semantic_source_directory"])
+        from semantic_executor import SemanticExecutor, SemanticMemoryExecutor
+        executor_type, memory_type = SemanticExecutor, SemanticMemoryExecutor
+    executor = executor_type(root=root, config=config, client=client, sensor=sensor)
     executor.fresh()
     runtime.action_gateway.register_executor(
         "navigation.navigate_to_pose", ExecutionMode.SIMULATION, executor
     )
     runtime.register_driver("isaac_nav2", executor)
     runtime.action_gateway.register_executor(
-        "patrol.verify_and_remember",
+        config.get("verification_capability", "patrol.verify_and_remember"),
         ExecutionMode.SIMULATION,
-        PatrolMemoryExecutor(runtime, root, config, bus),
+        memory_type(runtime, root, config, bus),
     )
     ledger = DaemonLedger(root / "state/control.sqlite")
     daemon = RosclawDaemon(
@@ -118,6 +124,8 @@ def main():
         stopped.wait()
     finally:
         executor.emergency_stop()
+        if hasattr(executor, "close"):
+            executor.close()
         daemon.stop()
         sensor.close()
         client.close()

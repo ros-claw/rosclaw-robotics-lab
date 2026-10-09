@@ -1,0 +1,38 @@
+[
+  {
+    "attempt": "c02a01",
+    "physical_status": "FAIL",
+    "recording_status": "NOT_REQUESTED",
+    "lab_sha": "dc75225581bd4bf823b9f53796d0ae8ba59642c3",
+    "upstream_sha": "924aa8ee7e728cdb3812ac4ba8df4f6d6b25f54e",
+    "development_only": true,
+    "manual_interventions": []
+  },
+  {
+    "attempt": "c02a02",
+    "physical_status": "PASS",
+    "recording_status": "NOT_REQUESTED",
+    "lab_sha": "e727e93991049090114ee07d7cc4f6a2079bf312",
+    "upstream_sha": "8340a693801f28c2c0703a049e6306e5bd82b147",
+    "development_only": true,
+    "manual_interventions": []
+  },
+  {
+    "attempt": "c02b01",
+    "physical_status": "PASS",
+    "recording_status": "INCOMPLETE",
+    "lab_sha": "3562bd6b12fa05b948ad78b995c6c2e4884d46f5",
+    "upstream_sha": "8340a693801f28c2c0703a049e6306e5bd82b147",
+    "development_only": true,
+    "manual_interventions": []
+  },
+  {
+    "attempt": "c02b02",
+    "physical_status": "PASS",
+    "recording_status": "PASS",
+    "lab_sha": "5eafb708db3e601d58d7de0cba156d3002320e92",
+    "upstream_sha": "8340a693801f28c2c0703a049e6306e5bd82b147",
+    "development_only": true,
+    "manual_interventions": []
+  }
+]

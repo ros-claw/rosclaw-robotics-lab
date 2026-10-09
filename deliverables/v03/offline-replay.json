@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "archive consistency only; not a new simulation or independent engineer run",
+  "attempts": [
+    {
+      "attempt": "c02a01",
+      "original_status": "FAIL",
+      "replay_status": "NOT_REPLAYED",
+      "reason": "Retained incomplete original mission"
+    },
+    {
+      "attempt": "c02a02",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "c02b01",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "c02b02",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    }
+  ]
+}

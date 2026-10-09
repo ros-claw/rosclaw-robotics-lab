@@ -30,6 +30,15 @@ def freeze(root, challenge):
             (root / "execution_config.json").read_bytes()
         ).hexdigest(),
     }
+    config = json.loads((root / "execution_config.json").read_text())
+    if config.get("scenario") == "semantic_observation":
+        semantic = Path(config["semantic_source_directory"])
+        semantic_files = [p for p in semantic.glob("*.py") if p.is_file()]
+        manifest["semantic_source_hashes"] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in semantic_files}
+        for p in semantic_files:
+            target = root / "frozen-semantic-source" / p.name
+            target.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(p, target)
     upstream = Path(
         os.environ.get("ROSCLAW_SOURCE", str(Path.home() / "sim/rosclaw-upstream"))
     )
@@ -41,6 +50,10 @@ def freeze(root, challenge):
             subprocess.check_output(["git", "status", "--porcelain"], cwd=upstream)
         ),
     }
+    stamp = upstream / "packages/rosclaw-agent/dist/build-stamp.json"
+    if stamp.exists():
+        manifest["native_build_stamp"] = json.loads(stamp.read_text())
+        manifest["native_build_sha256"] = {str(p.relative_to(upstream)): hashlib.sha256(p.read_bytes()).hexdigest() for p in [stamp, upstream / "packages/rosclaw-agent/dist/src/main.js", upstream / "packages/rosclaw-agent/dist/src/extension/index.js"]}
     try:
         manifest["docker_image"] = json.loads(
             subprocess.check_output(

@@ -4,6 +4,17 @@
 
 A real ROSClaw Native Agent runs Nova Carter in NVIDIA's official Isaac Sim 6.1 warehouse through ROS 2 Jazzy/Nav2 on DGX Spark. **v0.2: 14/16 frozen-source attempts passed independent physical acceptance**; at least five independent Native trials per condition, with startup and provider failures retained. 56 visits in accepted complete missions; maximum actual position error 0.151827 m. These are local SIM engineering results; production reliability and hardware execution are not established.
 
+**New Challenge 02:** generated observation poses from USD-known shelves, round-trip navigation and measured region LiDAR observation. Four development attempts retain one failure and three complete acceptances. [Task details and its own three-view video](challenges/02-semantic-inspection/README.md).
+
+## Scenario challenges
+
+| Challenge | User task and capability | Acceptance and status | Watch |
+|---|---|---|---|
+| [01 · Warehouse patrol](challenges/01-isaac-warehouse-patrol/README.md) | One prompt selects four sites; reordered and unmapped-box variants | v0.2: 14/16 complete physical acceptances; arrival/dwell, LiDAR, contacts and final Memory/TaskKernel | [180s promo](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s tutorial](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
+| [02 · Semantic observation](challenges/02-semantic-inspection/README.md) | Generate observation poses from USD-known shelves and return to measured initial pose | Development: 4 attempts, 1 FAIL and 3 complete PASS (2 with region LiDAR); recording failure retained; different source revisions, not a reliability batch | [90s synchronized views](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
+
+Historical fifth-mission videos and the frozen v0.2 regression are separate evidence. Each challenge describes its task, tools, physical gates, failures and reproduction steps.
+
 [![Synchronized three-view Native mission](challenges/01-isaac-warehouse-patrol/reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
 
 [60s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-short-60s.mp4) · [180s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) · [Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0)
@@ -37,6 +48,6 @@ python3 scripts/lab.py stop
 
 The unified entry also provides `task`, `results` and fifteen-reset `regression SHORT_DIRECTORY`. Startup sends no goals. Use official online assets and accept NVIDIA's license yourself. The public Docker base manifest is pinned; apt resolution may vary, so record the actual local image ID and packages. No NVIDIA installer/USD/cache, authentication, operator keys, private model home or full video is committed to Git.
 
-[Independent reproduction handoff](deliverables/v02/reproduction/README.md): **external execution NOT RUN**, no engineer/second machine assigned. Offline archive replay is evidence consistency, not a new simulator run. The [Challenge 02 prototype](challenges/02-semantic-inspection/README.md) generates read-only observation candidates from actual USD/map/pose/Body inputs; new-target motion, sensor inspection and held-out evaluation remain pending. Fair runtime and development-efficiency studies are designed separately; no superiority over Codex is claimed. This SIM uses SQLite Memory and disables optional firewall integration; it does not validate all security modules or seekdb performance.
+[Independent reproduction handoff](deliverables/v02/reproduction/README.md): **external execution NOT RUN**, no engineer/second machine assigned. Offline archive replay is evidence consistency, not a new simulator run. The [Challenge 02 prototype](challenges/02-semantic-inspection/README.md) generates observation poses from actual USD/map/pose/Body inputs and passed development-set navigation plus known-region LiDAR observation; held-out and fair-comparison evaluation remain pending. Fair runtime and development-efficiency studies are designed separately; no superiority over Codex is claimed. This SIM uses SQLite Memory and disables optional firewall integration; it does not validate all security modules or seekdb performance.
 
 Sources: [ROSClaw](https://github.com/ros-claw/rosclaw), [NVIDIA workspace](https://github.com/isaac-sim/IsaacSim-ros_workspaces/tree/IsaacSim-6.1.0).

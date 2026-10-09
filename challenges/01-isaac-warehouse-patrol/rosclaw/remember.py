@@ -26,6 +26,16 @@ class PatrolMemoryExecutor:
             recorder_bus,
         )
 
+    def target_for_visit(self, data):
+        return self.config["sites"][data["site_id"]]
+
+    def check_mission(self, visits):
+        if [v["site_id"] for v in visits] != self.config["expected_order"]:
+            raise ValueError("visits do not satisfy operator task order/skipped sites")
+
+    def check_extra_evidence(self, data, proof):
+        return None
+
     def __call__(self, action):
         try:
             if (
@@ -64,11 +74,12 @@ class PatrolMemoryExecutor:
                 site_id = data["site_id"]
                 proof = verify_visit(
                     data["trajectory"],
-                    self.config["sites"][site_id],
+                    self.target_for_visit(data),
                     data["nav2"],
                     data["verification"]["sensor"],
                     body_path=self.config["physics_body_path"],
                 )
+                self.check_extra_evidence(data, proof)
                 if data["action_id"] != action_id or not proof["success"]:
                     raise ValueError("independent visit replay failed")
                 if (
@@ -86,10 +97,7 @@ class PatrolMemoryExecutor:
                         "artifact": artifact,
                     }
                 )
-            if [v["site_id"] for v in visits] != self.config["expected_order"]:
-                raise ValueError(
-                    "visits do not satisfy the operator task order/skipped sites"
-                )
+            self.check_mission(visits)
             obstacle_proof = None
             if self.config.get("require_obstacle_evidence"):
                 trajectories = [sample for v in visits
@@ -100,7 +108,7 @@ class PatrolMemoryExecutor:
                 if obstacle_proof["status"] != "PASS":
                     raise ValueError("unmapped obstacle evidence failed: " + str(obstacle_proof["failures"]))
             verification = {
-                "schema_version": "rosclaw.isaac_patrol_verification.v1",
+                "schema_version": self.config.get("verification_schema", "rosclaw.isaac_patrol_verification.v1"),
                 "mission_id": self.config["mission_id"],
                 "body_id": action.body_id,
                 "body_snapshot_hash": action.body_snapshot_hash,
@@ -130,7 +138,7 @@ class PatrolMemoryExecutor:
             )
             if not stored or stored.get("outcome") != "success":
                 raise ValueError("existing Memory did not persist verified success")
-            target = self.root / "actions" / "patrol.verification.json"
+            target = self.root / "actions" / self.config.get("verification_artifact_name", "patrol.verification.json")
             verification["memory_id"] = self.config["mission_id"]
             verification["memory_outcome"] = stored["outcome"]
             write_json_atomic(target, verification)
