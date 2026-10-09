@@ -17,3 +17,5 @@ Start with a separate NVIDIA GPU ARM64 host supporting Isaac Sim 6.1. Record har
 From a release checkout, `python3 deliverables/v02/verify_evidence.py warehouse-v02-evidence.zip` checks the exact fifteen-attempt ledger, frozen configuration and runtime files, Body declarations, distinct reset identities, receipts and physical evidence replay. It is an offline consistency check, not signature attestation or third-party execution. Five deterministic metadata-binding tests cover changed configuration/checkout, wrong Body declarations and unlisted files; they do not simulate a robot.
 
 Known startup limitation: one frozen-source attempt reached the 1,200 s Isaac viewport initialization timeout before physics/Native. It remains INCOMPLETE in the published denominator; see [startup report](../STARTUP_FAILURE.md). The original fifteen-run summary is not rewritten by the single predeclared appendix.
+
+Also read [provider stall during Native](../PROVIDER_FAILURE.md): a partial task can fail when the provider request is aborted. Keep the failure, use your own explicit recovery, and do not treat an offline consistency PASS as an all-missions-passed result.

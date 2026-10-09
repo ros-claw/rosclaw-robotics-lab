@@ -20,3 +20,7 @@
 通用能力进入已有 Harness、probe、action client、SIM executor 或 Native CLI，不建立第二套安全 Runtime/Memory。修复建议应先有来源，再在隔离仿真验证；本轮没有给真实机器人自动写入运动参数。Runtime 本场景 `enable_firewall=False`，Memory SQLite，不能据此宣称全部安全模块或 seekdb 性能已验收。
 
 PR 状态及合并 SHA 以最终 [交付清单](STATUS.md) 为准。主仓库新功能的单元/CI 验证与仍固定旧上游版本的仓库物理回归分开记录，不混成“新上游已完成全部物理验收”。
+
+## 本轮新增 Provider 停滞诊断
+
+实际箱体任务两站后发生 30 秒无首 token，SDK `aborted` 被显示为 MODEL_UNKNOWN。独立 [PR #650](https://github.com/ros-claw/rosclaw/pull/650)保留看门狗来源、明确超时码及 Provider PAUSED；复用已有错误分类/闸门，不自动重发、不改变运动取消。另有 lab 验收器遗漏 `aborted` 导致等待既有外层期限，列为后续协议修复；本轮冻结源不悄悄变更。[失败与边界](PROVIDER_FAILURE.md)。

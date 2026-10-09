@@ -101,9 +101,6 @@ def check_plan(rows, amendment, original):
         r["status"] == "PASS" for r in rows if r["attempt"] != "06-standard"
     ):
         raise ValueError("Original fifteen-attempt outcome was changed")
-    passed_counts = Counter(r["condition"] for r in rows if r["status"] == "PASS")
-    if any(passed_counts[c] < 5 for c in ["standard", "reordered", "unmapped-box"]):
-        raise ValueError("Fewer than five complete accepted missions per condition")
     failures = [
         r["attempt"]
         for r in rows
@@ -137,6 +134,7 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
             raise ValueError("Outer source freeze mismatch")
         observers = set()
         hashes = None
+        native_counts = Counter()
         for row in rows:
             if row["source_commit"] != runtime or row["manual_interventions"]:
                 raise ValueError("Changed/intervened attempt: " + row["attempt"])
@@ -148,10 +146,37 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
             if row["status"] != "PASS":
                 if row["status"] not in {"FAIL", "INCOMPLETE", "INTERRUPTED"}:
                     raise ValueError("Unfinished attempt in release")
+                failed_archive = "final-native/" + row["attempt"] + ".zip"
+                if failed_archive in outer.namelist():
+                    with zipfile.ZipFile(
+                        io.BytesIO(outer.read(failed_archive))
+                    ) as inner:
+                        _, current_hashes = check_native_binding(
+                            inner,
+                            source=source,
+                            runtime=runtime,
+                            upstream=upstream,
+                            body=body,
+                            image=freeze["docker_image_id"],
+                        )
+                        if hashes is not None and current_hashes != hashes:
+                            raise ValueError(
+                                "Failed attempt source differs from frozen batch"
+                            )
+                        hashes = current_hashes
+                    native_counts[row["condition"]] += 1
+                    acceptance = json.loads(
+                        outer.read(
+                            "final-native/" + row["attempt"] + "/acceptance.json"
+                        )
+                    )
+                    if acceptance["status"] == "PASS":
+                        raise ValueError("Failed Native attempt mislabeled as accepted")
                 reports.append(
                     {"attempt": row["attempt"], "status": row["status"], "visits": 0}
                 )
                 continue
+            native_counts[row["condition"]] += 1
             payload = outer.read("final-native/" + row["attempt"] + ".zip")
             with zipfile.ZipFile(io.BytesIO(payload)) as inner:
                 config, current_hashes = check_native_binding(
@@ -211,8 +236,21 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
                     "visits": proof["visits"],
                 }
             )
+        if any(native_counts[c] < 5 for c in ["standard", "reordered", "unmapped-box"]):
+            raise ValueError("Fewer than five completed Native attempts in a condition")
+        passed_counts = Counter(r["condition"] for r in rows if r["status"] == "PASS")
+        summary = json.loads(outer.read("final-native/summary.json"))
+        if summary["passes"] != len(observers) or summary["attempts"] != len(rows):
+            raise ValueError("Published summary counts do not match replayed ledger")
+        if summary["accepted_per_condition"] != dict(passed_counts):
+            raise ValueError("Published accepted condition counts do not match ledger")
     return {
         "status": "PASS",
+        "scope_note": "PASS means offline consistency, not all mission attempts succeeded",
+        "five_accepted_per_condition_goal_met": all(
+            passed_counts[c] >= 5 for c in ["standard", "reordered", "unmapped-box"]
+        ),
+        "completed_native_attempts_per_condition": dict(native_counts),
         "attempts": len(reports),
         "physically_accepted_attempts": len(observers),
         "failure_records_retained": len(reports) - len(observers),
