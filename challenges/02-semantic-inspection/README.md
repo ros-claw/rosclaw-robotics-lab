@@ -24,4 +24,4 @@ python -m unittest discover -s tests
 
 按实际物理货架实体分组：同一货架的父/子 prim 合并到最外层 RackShelf Xform，再按实体路径 SHA256 前 8 位模 4 等于 0 固定 holdout。实际清单得到 **8 个开发实体、5 个 holdout 实体**。只对一个开发实体运行了候选生成；holdout 未运行。分组规则及目标 manifest 必须在正式实验前冻结，并向参试 Agent 隐藏 holdout 清单。当前仅为准备工作，没有泛化实验结论。早期 prim 级划分已弃用，避免同一货架父/子 prim 跨组泄漏。
 
-完整执行与公平对照方案见 [DESIGN.md](DESIGN.md)。
+完整执行设计见 [DESIGN.md](DESIGN.md)，公平对照的配对、消融、分母和开发计时方案见 [FAIR_COMPARISON.zh.md](FAIR_COMPARISON.zh.md)。实际对照尚未运行。
