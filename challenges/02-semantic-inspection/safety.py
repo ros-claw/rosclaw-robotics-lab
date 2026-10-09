@@ -141,3 +141,41 @@ def lidar_target_hits(scan, bounds, *, sim_time, minimum_hits=3):
         "semantic_source": "USD-known bounds; LaserScan measured returns, not sensor semantic discovery",
         "inspection_scope": "known-region LiDAR observation only; no visual/defect inspection",
     }
+
+
+def inspect_known_region(snapshot, physics, site, bounds, *, body_path, observer_id):
+    """Bind actual LiDAR returns to fresh independent stopped target-facing PhysX."""
+    if (
+        physics.get("physics_body_path") != body_path
+        or physics.get("observer_id") != observer_id
+        or physics.get("timeline_playing") is not True
+        or not physics.get("collision_observer_complete")
+        or physics.get("collision_count")
+        or physics.get("contact_errors")
+    ):
+        raise ValueError(
+            "Inspection independent Body/contact/clock observation invalid"
+        )
+    if (
+        abs(snapshot["wall_time"] - physics["wall_time"]) > 2
+        or abs(snapshot["sim_time"] - physics["sim_time"]) > 1.5
+    ):
+        raise ValueError("Inspection independent PhysX is not synchronized")
+    p = physics["physics_transforms_xyzw"][0]
+    qx, qy, qz, qw = p[3:7]
+    yaw = math.atan2(2 * (qw * qz + qx * qy), 1 - 2 * (qy * qy + qz * qz))
+    if (
+        math.dist(p[:2], [site["x"], site["y"]]) > 0.4
+        or abs(angle_delta(yaw, site["yaw"])) > 0.35
+    ):
+        raise ValueError(
+            "Inspection physical pose does not face target from accepted observation position"
+        )
+    if (
+        math.hypot(*physics["linear_velocity_xyz"][:2]) > 0.02
+        or abs(physics["angular_velocity_xyz"][2]) > 0.1
+    ):
+        raise ValueError("Inspection robot is not independently stopped")
+    if snapshot["scan"]["frame"] != "front_3d_lidar":
+        raise ValueError("Inspection sensor frame differs from measured Body")
+    return lidar_target_hits(snapshot["scan"], bounds, sim_time=physics["sim_time"])

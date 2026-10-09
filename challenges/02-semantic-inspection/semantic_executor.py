@@ -15,7 +15,7 @@ from point_executor import PointExecutor
 from remember import PatrolMemoryExecutor
 from evidence_io import write_json_atomic
 from propose_observation import propose
-from safety import canonical_hash, swept_footprint, lidar_target_hits
+from safety import canonical_hash, swept_footprint, inspect_known_region
 
 
 def file_sha(p):
@@ -299,13 +299,24 @@ class SemanticExecutor(PointExecutor):
             and semantic["proposal"]["kind"] == "shelf"
         ):
             snapshot = self.probe(site, sensor_only=True)
-            hit_proof = lidar_target_hits(
-                snapshot["scan"],
+            physical = self.fresh()
+            hit_proof = inspect_known_region(
+                snapshot,
+                physical,
+                site,
                 semantic["proposal"]["target_bounds_xy"],
-                sim_time=snapshot["sim_time"],
+                body_path=self.body_path,
+                observer_id=self.observer_id,
             )
             target = self.evidence_dir / (site_id + "-inspection.json")
-            write_json_atomic(target, {"snapshot": snapshot, "verification": hit_proof})
+            write_json_atomic(
+                target,
+                {
+                    "snapshot": snapshot,
+                    "independent_physics": physical,
+                    "verification": hit_proof,
+                },
+            )
             semantic = {
                 **semantic,
                 "inspection_artifact": {
@@ -377,10 +388,13 @@ class SemanticMemoryExecutor(PatrolMemoryExecutor):
             inspection = checked_artifact(
                 self.root, self.config, semantic["inspection_artifact"]
             )
-            lidar_target_hits(
-                inspection["snapshot"]["scan"],
+            inspect_known_region(
+                inspection["snapshot"],
+                inspection["independent_physics"],
+                data["site"],
                 semantic["proposal"]["target_bounds_xy"],
-                sim_time=inspection["snapshot"]["sim_time"],
+                body_path=self.config["physics_body_path"],
+                observer_id=self.config["semantic_contract"]["initial_observer_id"],
             )
 
     def check_mission(self, visits):

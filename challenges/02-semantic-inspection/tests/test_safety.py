@@ -95,3 +95,61 @@ class LidarInspectionTests(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class IndependentInspectionTests(unittest.TestCase):
+    def test_sensor_returns_require_stopped_facing_collision_free_independent_body(
+        self,
+    ):
+        from safety import inspect_known_region
+
+        scan = {
+            "stamp": 10,
+            "tf_stamp": 10,
+            "map_sensor_xy_yaw": [0, 0, 0],
+            "frame": "front_3d_lidar",
+            "angle_min": -0.01,
+            "angle_increment": 0.01,
+            "range_min": 0.1,
+            "range_max": 20,
+            "ranges": [2, 2, 2, None],
+        }
+        snapshot = {"wall_time": 100, "sim_time": 10, "scan": scan}
+        physics = {
+            "wall_time": 100,
+            "sim_time": 10,
+            "physics_body_path": "body",
+            "observer_id": "reset",
+            "timeline_playing": True,
+            "collision_observer_complete": True,
+            "collision_count": 0,
+            "contact_errors": [],
+            "physics_transforms_xyzw": [[0, 0, 0, 0, 0, 0, 1]],
+            "linear_velocity_xyz": [0, 0, 0],
+            "angular_velocity_xyz": [0, 0, 0],
+        }
+        site = {"x": 0, "y": 0, "yaw": 0}
+        bounds = [[1.9, -0.2], [2.1, 0.2]]
+        self.assertEqual(
+            inspect_known_region(
+                snapshot, physics, site, bounds, body_path="body", observer_id="reset"
+            )["hit_count"],
+            3,
+        )
+        for patch in [
+            {"collision_count": 1},
+            {"observer_id": "another-reset"},
+            {"timeline_playing": False},
+            {"wall_time": 90},
+            {"linear_velocity_xyz": [0.3, 0, 0]},
+            {"physics_transforms_xyzw": [[0, 0, 0, 0, 0, 1, 0]]},
+        ]:
+            with self.assertRaises(ValueError):
+                inspect_known_region(
+                    snapshot,
+                    {**physics, **patch},
+                    site,
+                    bounds,
+                    body_path="body",
+                    observer_id="reset",
+                )
