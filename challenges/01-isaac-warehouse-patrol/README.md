@@ -18,3 +18,21 @@ python3 scripts/lab.py stop
 Startup sends no goals. The unified `task`, `results` and independent-reset `regression SHORT_DIRECTORY` commands reuse the existing scripts. Keep results outside Git with short socket paths. The 15-trial regression command retains failures; it does not automatically rerun until success.
 
 Use official online NVIDIA assets and your own model authentication/license acceptance. No installer/USD/cache, private Native home or credentials belong in Git or public evidence. [Independent reproduction](../../deliverables/v02/reproduction/README.md) is NOT RUN; the handoff is ready. [Actual fault CLI](../../deliverables/v02/FAULT_TESTS.md), [performance CLI](../../deliverables/v02/PERFORMANCE_PROTOCOL.md) and the offline verifier provide separate, explicit scopes.
+
+## Task variants and acceptance
+
+| Variant | One-input task | What it tests |
+|---|---|---|
+| Standard | 入口 → 货架区 → 通道 → Home | Agent chooses individual registered goals and verifies the full sequence |
+| Reordered | 通道 → 入口 → 货架区 → Home | Order comes from the instruction; the executor contains no patrol sequence |
+| Unmapped box | Reordered route, with a physical box absent from the original map | Actual LiDAR/master-costmap evidence and conservative clearance, plus zero non-floor contact |
+
+Each visit requires Nav2 success, ≤0.4 m independent position error, ≤0.35 rad yaw error, ≥2 simulation seconds stable dwell, fresh LiDAR and complete collision observation. Final ordered canonical receipts, verified Practice/Memory and subsequent TaskKernel success are required. Startup failures, model errors and interventions remain in the denominator.
+
+## Watch the task
+
+[![Three synchronized views: robot-forward, third-person and close top](reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
+
+[60-second excerpts](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-short-60s.mp4) · [180-second promo](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510-second tutorial](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4)
+
+All three videos depict the same historical fifth mission, with source time/speed and excerpt labels. They are separate from the v0.2 sixteen-attempt regression and do not demonstrate Challenge 02.

@@ -4,6 +4,15 @@
 
 A real ROSClaw Native Agent runs Nova Carter in NVIDIA's official Isaac Sim 6.1 warehouse through ROS 2 Jazzy/Nav2 on DGX Spark. **v0.2: 14/16 frozen-source attempts passed independent physical acceptance**; at least five independent Native trials per condition, with startup and provider failures retained. 56 visits in accepted complete missions; maximum actual position error 0.151827 m. These are local SIM engineering results; production reliability and hardware execution are not established.
 
+## Scenario challenges
+
+| Challenge | User task and capability | Acceptance and status | Watch |
+|---|---|---|---|
+| [01 · Warehouse patrol](challenges/01-isaac-warehouse-patrol/README.md) | One prompt selects four sites; reordered and unmapped-box variants | v0.2: 14/16 complete physical acceptances; arrival/dwell, LiDAR, contacts and final Memory/TaskKernel | [180s promo](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s tutorial](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
+| [02 · Semantic observation](challenges/02-semantic-inspection/README.md) | Generate observation poses from USD-known shelves and return to measured initial pose | v0.3 in development: immutable SIM proposal contract and live path/swept-footprint gates implemented; actual task acceptance pending; LiDAR region observation assessed separately | No accepted Challenge 02 video yet; Challenge 01 footage does not demonstrate this task |
+
+Historical fifth-mission videos and the frozen v0.2 regression are separate evidence. Each challenge describes its task, tools, physical gates, failures and reproduction steps.
+
 [![Synchronized three-view Native mission](challenges/01-isaac-warehouse-patrol/reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
 
 [60s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-short-60s.mp4) · [180s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) · [Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0)

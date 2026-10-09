@@ -53,6 +53,8 @@ def main():
 
     freeze(root, Path(__file__).resolve().parents[1])
     config = yaml.safe_load((home / "config.yaml").read_text())
+    execution_config = json.loads((root / "execution_config.json").read_text())
+    verification_capability = execution_config.get("verification_capability", "patrol.verify_and_remember")
     body_id = json.loads((root / "body.json").read_text())["body_id"]
     validate_fixture_config(config, body_id, args.endpoint)
     env = os.environ.copy()
@@ -213,7 +215,7 @@ def main():
                     json.dumps(canonical, indent=2) + "\n"
                 )
                 if not any(
-                    x["capability_id"] == "patrol.verify_and_remember"
+                    x["capability_id"] == verification_capability
                     and x.get("receipt", {}).get("final_state") == "COMPLETED"
                     for x in canonical
                 ):
@@ -228,7 +230,7 @@ def main():
                 memory_receipt = next(
                     x["receipt"]
                     for x in canonical
-                    if x["capability_id"] == "patrol.verify_and_remember"
+                    if x["capability_id"] == verification_capability
                 )
                 if datetime.fromisoformat(task[1]) < datetime.fromisoformat(
                     memory_receipt["finished_at"]
@@ -319,7 +321,7 @@ def main():
                     message = json.loads(rows[-1]).get("message", {}) if rows else {}
                     if (
                         message.get("role") == "assistant"
-                        and message.get("stopReason") in ("stop", "error")
+                        and message.get("stopReason") in ("stop", "error", "aborted")
                     ):
                         raise RuntimeError(
                             "model finished without a verified Memory artifact and TaskKernel success"

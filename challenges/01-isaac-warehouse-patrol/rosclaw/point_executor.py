@@ -126,19 +126,26 @@ class PointExecutor:
             stopped = False
         return {"acknowledged": True, "physical_stop_verified": stopped}
 
+    def validate_action(self, action):
+        return (
+            action.execution_mode is ExecutionMode.SIMULATION
+            and action.body_id == self.config["body_id"]
+            and action.body_snapshot_hash == self.config["body_snapshot_hash"]
+            and action.capability_id == "navigation.navigate_to_pose"
+            and set(action.arguments) == {"site_id"}
+            and action.arguments.get("site_id") in self.config["sites"]
+        )
+
+    def resolve_target(self, action):
+        site_id = action.arguments["site_id"]
+        return site_id, self.config["sites"][site_id]
+
+    def enrich_verification(self, action, site_id, site, proof):
+        return proof
+
     def __call__(self, action):
-        if (
-            action.execution_mode is not ExecutionMode.SIMULATION
-            or action.body_id != self.config["body_id"]
-            or action.body_snapshot_hash != self.config["body_snapshot_hash"]
-            or action.capability_id != "navigation.navigate_to_pose"
-            or set(action.arguments) != {"site_id"}
-            or action.arguments.get("site_id") not in self.config["sites"]
-        ):
-            return self.result(
-                ActionState.BLOCKED,
-                error="SIM mode, Body binding or registered site invalid",
-            )
+        if not self.validate_action(action):
+            return self.result(ActionState.BLOCKED, error="SIM mode, Body binding or target contract invalid")
         if not self.lock.acquire(blocking=False):
             return self.result(
                 ActionState.BLOCKED, error="another navigation action is active"
@@ -160,8 +167,7 @@ class PointExecutor:
             time.monotonic() + 420,
             time.monotonic() + max(0, action.deadline_at.timestamp() - time.time()),
         )
-        site_id = action.arguments["site_id"]
-        site = self.config["sites"][site_id]
+        site_id, site = "unresolved", None
         proof = None
         last_sim_change = time.monotonic()
 
@@ -187,6 +193,7 @@ class PointExecutor:
 
         try:
             self.fresh()
+            site_id, site = self.resolve_target(action)
             if self.stopping.is_set():
                 raise RuntimeError("daemon stop latch is set")
             with self.goal_lock:
@@ -253,6 +260,7 @@ class PointExecutor:
                 time.sleep(0.1)
             else:
                 raise TimeoutError("single-site deadline reached")
+            proof = self.enrich_verification(action, site_id, site, proof)
             data = {
                 "schema_version": "rosclaw.isaac_visit.v1",
                 "action_id": action.action_id,

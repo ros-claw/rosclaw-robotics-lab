@@ -27,5 +27,7 @@ exec "$launcher" "${args[@]}" \
   --/exts/isaacsim.core.simulation_manager/default_engine=physx \
   --/exts/isaacsim.physics.newton/auto_switch_on_startup=false \
   --/renderer/raytracingMotion/enabled=true \
+  --/app/renderer/skipWhileInvisible=false \
+  --/app/renderer/skipWhileMinimized=false \
   --/isaac/startup/ros_bridge_extension=isaacsim.ros2.bridge \
   --exec "$startup_script --path $scene_uri --start-on-play --python-script $CHALLENGE_DIR/isaac/baseline_observer.py"

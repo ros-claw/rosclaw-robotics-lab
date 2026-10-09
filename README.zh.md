@@ -4,6 +4,15 @@
 
 真实 ROSClaw Native Agent 在 DGX Spark 上，通过 ROS 2 Jazzy/Nav2 运行 Isaac Sim 6.1 官方仓库里的 Nova Carter。**v0.2 冻结源码回归：16 次尝试中（含启动失败） 14 次通过**，三类各至少五次独立 Native 测试；保留启动失败和模型请求中断，唯一一次标准追加测试已提前声明。成功整圈共 56 次到点记录，最大实际位置误差 0.151827 米。这是本机仿真工程验收，尚未证明生产可靠性或真实硬件能力。
 
+## 场景任务 Challenges
+
+| Challenge | 用户任务与能力 | 独立验收与当前状态 | 展示 |
+|---|---|---|---|
+| [01 · 仓库四站巡检](challenges/01-isaac-warehouse-patrol/README.md) | 一句话完成入口、货架、通道、返回；支持改序及未映射箱体 | v0.2：16 次尝试，14 次完整通过；每站物理到达/停留、LiDAR、接触及最终 Memory/TaskKernel | [180 秒宣传片](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510 秒教程](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
+| [02 · 语义观察点导航与区域观测](challenges/02-semantic-inspection/README.md) | 从 USD 已知货架语义生成新观察位置，再返回实际起点；不使用四站坐标 | v0.3 开发中：动态 SIM 契约、候选 ID、实时路径/扫掠足迹门槛已实现，真实任务验收待执行；LiDAR 区域观测单独验收 | 尚无本 Challenge 实测宣传视频；不使用 Challenge 01 视频代替 |
+
+视频中的历史第五轮与 v0.2 冻结回归分别记录。每个 Challenge 页面说明输入、工具边界、成功门槛、失败和复现方式。
+
 [![Synchronized three-view Native mission](challenges/01-isaac-warehouse-patrol/reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
 
 [60s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-short-60s.mp4) · [180s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510s](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) · [Release](https://github.com/ros-claw/rosclaw-robotics-lab/releases/tag/warehouse-patrol-v0.2.0)

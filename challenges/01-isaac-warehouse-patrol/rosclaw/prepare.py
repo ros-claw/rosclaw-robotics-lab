@@ -15,7 +15,7 @@ from rosclaw.body.resolver import BodyResolver
 from rosclaw.body.schema import BodyYaml, CalibrationYaml, EurdfProfile
 
 
-def prepare(root, challenge, physics, task, order, credentials, require_obstacle=False):
+def prepare(root, challenge, physics, task, order, credentials, require_obstacle=False, scenario=None):
     root.mkdir(parents=True, exist_ok=False)
     os.chmod(root, 0o700)
     home = root / "home"
@@ -107,6 +107,9 @@ def prepare(root, challenge, physics, task, order, credentials, require_obstacle
             "max_angular_velocity_rps": 1.2,
         },
     )
+    if scenario is not None:
+        profile.safety["navigation_contract"] = scenario["navigation_contract"]
+        profile.capability_hints["all"] = ["navigation.navigate_to_pose", "mission.verify_and_remember"]
     resolver = BodyResolver(workspace=home)
     resolver.ensure_body_dir()
     resolver.eurdf_profile_path.write_text(
@@ -160,6 +163,9 @@ def prepare(root, challenge, physics, task, order, credentials, require_obstacle
         "mission_id": root.name,
         "challenge": str(challenge),
     }
+    if scenario is not None:
+        config.update(scenario["config"])
+        config["sites"] = {}
     if require_obstacle:
         map_proof = json.loads((challenge / "reports/obstacle-map-validation.json").read_text())
         actual_map = Path(os.environ["ISAAC_ROS_WS"]) / "src/navigation/carter_navigation/maps/carter_warehouse_navigation.png"
@@ -229,6 +235,8 @@ def prepare(root, challenge, physics, task, order, credentials, require_obstacle
             }
         ],
     }
+    if scenario is not None:
+        native["mcp_servers"][0].update(scenario["mcp"])
     (home / "config.yaml").write_text(yaml.safe_dump(native, sort_keys=False))
     if credentials:
         dest = home / "agent"
