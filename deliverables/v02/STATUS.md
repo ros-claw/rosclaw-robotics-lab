@@ -11,4 +11,4 @@ Work in progress: final runtime regression is running. This document is not a re
 - [Challenge 02 prototype/design](../../challenges/02-semantic-inspection/README.md): one development target, read-only static proposals; new-target navigation, sensor inspection, held-out experiments and fair comparisons pending.
 - Hardware, complete optional security-module coverage, seekdb performance and superiority over Codex are not established.
 
-- Additional upstream [PR #650](https://github.com/ros-claw/rosclaw/pull/650) fixes the known watchdog-timeout diagnosis and paused state; required CI/merge pending. The actual provider stall and the frozen lab runner waiting for its outer deadline remain explicitly documented in [PROVIDER_FAILURE.md](PROVIDER_FAILURE.md).
+- Additional upstream [PR #650](https://github.com/ros-claw/rosclaw/pull/650) fixes the known watchdog-timeout diagnosis and paused state; merged after all thirteen required CI checks at `924aa8ee7e728cdb3812ac4ba8df4f6d6b25f54e`. The actual provider stall and the frozen lab runner waiting for its outer deadline remain explicitly documented in [PROVIDER_FAILURE.md](PROVIDER_FAILURE.md).

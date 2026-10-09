@@ -1,0 +1,47 @@
+{
+  "prs": {
+    "642": {
+      "mergeCommit": {
+        "oid": "74f83d9e40d2bbbfdd79d13b6c26835c3abfdd37"
+      },
+      "mergedAt": "2026-10-09T07:01:06Z",
+      "state": "MERGED",
+      "url": "https://github.com/ros-claw/rosclaw/pull/642"
+    },
+    "644": {
+      "mergeCommit": {
+        "oid": "45e4d234134b68010a397f8c7aa5fc2a30254264"
+      },
+      "mergedAt": "2026-10-09T08:01:15Z",
+      "state": "MERGED",
+      "url": "https://github.com/ros-claw/rosclaw/pull/644"
+    },
+    "646": {
+      "mergeCommit": {
+        "oid": "b7c544c235a1095432cba21e9fc3d667523c380d"
+      },
+      "mergedAt": "2026-10-09T08:23:46Z",
+      "state": "MERGED",
+      "url": "https://github.com/ros-claw/rosclaw/pull/646"
+    },
+    "648": {
+      "mergeCommit": {
+        "oid": "80c3efe65637c05fd3c49540240447d89d66bb6e"
+      },
+      "mergedAt": "2026-10-09T07:29:41Z",
+      "state": "MERGED",
+      "url": "https://github.com/ros-claw/rosclaw/pull/648"
+    },
+    "650": {
+      "mergeCommit": {
+        "oid": "924aa8ee7e728cdb3812ac4ba8df4f6d6b25f54e"
+      },
+      "mergedAt": "2026-10-09T09:20:39Z",
+      "state": "MERGED",
+      "url": "https://github.com/ros-claw/rosclaw/pull/650"
+    }
+  },
+  "physical_regression_upstream": "21838614bb14c39599b8acef731b2b64dad3b92a",
+  "new_upstream_main_after_pr650": "924aa8ee7e728cdb3812ac4ba8df4f6d6b25f54e",
+  "scope": "New upstream changes separately tested/merged; not substituted into frozen physical regression"
+}
