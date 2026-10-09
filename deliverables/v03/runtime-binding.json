@@ -1,0 +1,387 @@
+{
+  "tested_lab_sha": "41eb138cb07b8e114950ad1eb40d4a4053ab644e",
+  "tested_upstream_sha": "b7bbe8c39e5c2be7d90ebb6df8328898add9e308",
+  "native_build_stamp": {
+    "commit": "b7bbe8c39e5c2be7d90ebb6df8328898add9e308"
+  },
+  "lab_runtime_files": [
+    {
+      "group": "source_hashes",
+      "path": "isaac/camera_setup.py",
+      "sha256": "008ae559337e49d7a3155d0e8ef589c327b4cd41b4bd46d87578c4f7664c7db8",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "isaac/asset_resolver.py",
+      "sha256": "8c42f58edcca4dfdac0c9c4144fbad73be4003168fb433f2008a1b46ad43000c",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "isaac/stage_inventory.py",
+      "sha256": "4b56191dc3eb066344fbe71b16de37ab492e56646694c9b27bd8a5e2d1b95516",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "isaac/baseline_observer.py",
+      "sha256": "5a5e3d0956d3f319f56ff7528e15c54de1500b0cef24e627b7d20ab2b5292215",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/native_probe.py",
+      "sha256": "8c80f652b991278bd90dbaef839f9b85dcbebc91646a2f7fa0b425142b25b1f2",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/obstacle_witness.py",
+      "sha256": "e338ca7f4640d4569b1229d718800f8e3a3f7aec8135ac1c60d453776b159a0b",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/semantic_path_probe.py",
+      "sha256": "4145b7540a7a05091e24ace3dcf5b5dcd1ea0014b14d1fdec709143152b91558",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/wait_navigation.py",
+      "sha256": "5d7a5c5e33e4959b8f5574cddd30caf2369a2593a4537b1c65214ce26ec68991",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/nav_probe.py",
+      "sha256": "2046ac61dd9df448bfc377075fec6fcdd09849faf65ebfb02a604a6ca635fe77",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/audit_runtime.py",
+      "sha256": "aa9b834ee86671147e814af1b1a90dd48458bbf473caebac21e5d010de7c39fa",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "ros2/cancel_navigation.py",
+      "sha256": "fbc0b961a756ba6420ff51ef07ebf23325213485138e3ef4cdc0f1f5c1de6bdd",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/evidence_io.py",
+      "sha256": "6c1bb56b75fa50b701ca561db024fd3d063d175437ee36484395b7c9095142f4",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/fault_probe.py",
+      "sha256": "74dbbc7fd164a378722785ee25c02b73b38c455a912e60e66bfc6bcb33acb038",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/prepare.py",
+      "sha256": "c6fc03634a93b76cfec1039328101d7ac160adde1d8b724fc4d55ce63ad08251",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/native.py",
+      "sha256": "75d3ceec210ee6d8e0647c0310ea9c47681fe82df4d40f141577048bba18cc8f",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/native_tools.py",
+      "sha256": "b2b255b2e232c3f2de98712eef4d470f32a9ec0cc0ae3caee7ef8001ea8cceed",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/remember.py",
+      "sha256": "5e991dfbc4dd1b4adb03860c35d7ee3987f347ae60301645fbc33ced7b22110a",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/daemon.py",
+      "sha256": "e8aeb253334d3d8f1a55977174a2f9f6660fea0f94721add0bc47890860d765e",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/pty_session.py",
+      "sha256": "02f0aa15bf11613740a7cc8d36ffa9e00be098dcd5cf576dc6b38f32689e748c",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/freeze.py",
+      "sha256": "d41b2d4d753337615ed7e2658358d2b366f9257253993764d99bfd167afd5b34",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "rosclaw/point_executor.py",
+      "sha256": "ea1c7ffefe4a7cf7f7d69893b9bcbc2bb7e77dad5875de9acb80b3d071ea30ce",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "evaluator/patrol.py",
+      "sha256": "70bac522781c92ea7a03afade165a0682e19aff8039371009e54e0c7ed352fae",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "evaluator/obstacle.py",
+      "sha256": "19b602fab75bba8b27e052e17b1a1a82c0d230f531a85177ded3f722a71b9df2",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "evaluator/summarize_runs.py",
+      "sha256": "3135473c48c708c163ce3f4915a194b27fb07dc252c0c45ab87cce524bfa14f1",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "evaluator/baseline.py",
+      "sha256": "42e37e3d46a3dfe03e57f2eea476ee01bc9c0a58da61861e0f815bc1e674399e",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "evaluator/run_report.py",
+      "sha256": "fb82743b1ed05ed89b2121a85097cb98d8df95d7bbca3f98525b8c23e0078015",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "evaluator/replay_archive.py",
+      "sha256": "ebbee4f26ec7a77eb0229650a3be2253f530cc9733ded1c4290fddc989f1fa0b",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/calibration_navigation_params.yaml",
+      "sha256": "f42d61a9f6bcea1b71d31185c38bb4de1f0243a074045a2980aa2ce212171af5",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/headless_nav.launch.xml",
+      "sha256": "f19c9229103015e9416e7d7f9bfa2409617c4c69cad9faf805e79fe674401725",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/rosbridge.launch.xml",
+      "sha256": "7a375385381d75de3129d0ecc26f6de1696b80b0add0ec9c69e8e74657c96252",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/patrol_navigation_params.yaml",
+      "sha256": "2999509e1fa9d8afae9bca35fc0df3cf4eaf151ea479efb0d032d56895756993",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/runtime.env",
+      "sha256": "7a702348e6ff6b8c1106bef1fabed1d70085d9ca2973d853cd6015bfe4265c5c",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/inspection_sites.yaml",
+      "sha256": "1530307383e7ee9b2de8b3d42a6c6225c8c8ec8ea04520a781a9d6d6cb8dfa76",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "config/baseline-goals.txt",
+      "sha256": "21db9c492d7217c14d4a3401ddaa36b35001b592f7d3de51e214763ef6181fb4",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/setup.sh",
+      "sha256": "94f65a36a8a2d16cf3c20921b18a431cedda7272302a2b4b3a0227ed9ac1d9d0",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/start-rosclaw.sh",
+      "sha256": "88ee1eaf88ee76f6ea01b9d32ee06e63978f7da2414f6cd78de14a227490fe9e",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/demo.sh",
+      "sha256": "637207cc23d0587ac5024bf69bfaa75961009fe90d75ea79fc42003cb1c50dda",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/start-agent-observers.sh",
+      "sha256": "93af504d5037e437cda1e1a3c694f66ca9b8930bc2337d9ae2fc68b634294eae",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/doctor.sh",
+      "sha256": "313887b6a8b601cca86da6fac09c890f9c60f175a0126f7cb8cfe6c48c7754d3",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/start-nav2.sh",
+      "sha256": "29308eb4588f9169a6d797f18df9c52c2d69ebbd6325187872ecc1b16cf91071",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/ros-container.sh",
+      "sha256": "bf2926db0ed4c1959432fbc30f1d1916eeb0d0134d4b3c3939428693e0eaedae",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/lab.py",
+      "sha256": "1caaafda3b545374bf470cfa8b337ec5e9051a1e706cbf303f8b934fb4d80218",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/smoke-official.sh",
+      "sha256": "a3453ec1b7e1c0e03e4186ad7aac29e7fcba8fae1b62b85cb338605810957f9d",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/common.sh",
+      "sha256": "7a9d7ebc58fa318c295ecf97161ea65286e071393f89edf10bd299ccd111b351",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/run-native-acceptance.sh",
+      "sha256": "6e2f65e83036703ef91f7200921d4bb4155ddb9493906b3e95831fe2cc2bed25",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/stop.sh",
+      "sha256": "b00ae8111f9e823abd7cda2f7eda0654bca4be44f5f0781527adddf4183c3fe7",
+      "match": true
+    },
+    {
+      "group": "source_hashes",
+      "path": "scripts/start-sim.sh",
+      "sha256": "ac8729df6474351c1b862616c49a45dd94b3571acd8821307be9b994f2888d03",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "collect_evidence.py",
+      "sha256": "ef21ad40dba721e44d07942866a0bf29188d621ccbea9db5bc4b5082242be22b",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "catalog_view.py",
+      "sha256": "ab4293a9dafd376f8938ab3bb5bb1c6e995ba01b802bf2347e0b7ff168be65e8",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "semantic_executor.py",
+      "sha256": "4d884b16c302db402569fdaaa883568e1e932a493de1cf5c7cc559e79f92c280",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "native_tools.py",
+      "sha256": "a405de78b0d3acfd55c25b1d25c7c99069e46788cc204d4daaf7f4f4dfbdc6cc",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "propose_observation.py",
+      "sha256": "3032ae4822f56c9bc2454682726f0b0ac48a4072f00ae34705df0457451a3e8f",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "run.py",
+      "sha256": "b39b7364367774c1b7e6f36468d5c8c7b1083cbf7594a8f97b69b08c212b605b",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "replay_evidence.py",
+      "sha256": "5abc65d0df5aed5178e80b25f98be3780f780baa913634fa6d8dc14a570bb0f5",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "artifacts.py",
+      "sha256": "5af90db899a8cb7d362d95179678f1580fe5bddc3b674cabb17e1f08fb68748e",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "safety.py",
+      "sha256": "9f6bb6fe3cd2a9cabe8cf60fed3529b6d1f412e57911f0645d77d144aa62f80c",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "evaluate.py",
+      "sha256": "529cf9a2b5a7a3f1de98366cfaa5c17530ab66675b7af40e77a9226ec32eaa03",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "recording.py",
+      "sha256": "b7c3158a01fa95ab1a7d43b41d1f41bc6aad6dcd488008aefeae8049c9b410f5",
+      "match": true
+    },
+    {
+      "group": "semantic_source_hashes",
+      "path": "prepare_semantic.py",
+      "sha256": "03a62adb5ef31faae06423912e5646fae74d0f3c5b2145e6ad928ead3f1f2f88",
+      "match": true
+    }
+  ],
+  "compiled_native_files": [
+    {
+      "path": "packages/rosclaw-agent/dist/build-stamp.json",
+      "sha256": "f49ef0194361975faa831d5fd94c28634224779f6b4073ff7d354b9d35adaf4d",
+      "match": true
+    },
+    {
+      "path": "packages/rosclaw-agent/dist/src/main.js",
+      "sha256": "39b8b79d86799ce34686adc0ad9b8bca46a2d086dbf84aa9764407fb956af4d7",
+      "match": true
+    },
+    {
+      "path": "packages/rosclaw-agent/dist/src/extension/index.js",
+      "sha256": "6aecaa3ca18ddfa17e42774588a2cc9a5a5235da7ae1b59d8275fb2bc7a8e158",
+      "match": true
+    }
+  ],
+  "status": "PASS",
+  "scope": "59 current lab runtime files and 3 actual compiled Native files match the accepted c02b03 freeze. Tested upstream source tree equals the final merged commit; actual run/build stamp remains b7bbe8c3, not relabelled as merge SHA.",
+  "merged_upstream_sha": "dfb2507ee7ca2949d86709cb97a7b59a6fb444ec",
+  "tested_upstream_tree": "78ba0bf0e8451877b0d57c98fb816a381f6f1a8f",
+  "merged_upstream_tree": "78ba0bf0e8451877b0d57c98fb816a381f6f1a8f",
+  "merged_upstream_tree_matches_tested": true,
+  "checked_at": "2026-10-09T21:23:54.024775+00:00"
+}

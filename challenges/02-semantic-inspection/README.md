@@ -90,9 +90,11 @@ export ISAAC_ROS_WS="$HOME/IsaacSim-ros_workspaces/jazzy_ws"
 
 成功整项任务共 8 次到点，均满足位置误差 ≤0.4 m、朝向误差 ≤0.35 rad、稳定停留 ≥2 仿真秒、完整接触观察和零非地面碰撞。首轮单点成功不计作完整任务成功。所有尝试都保留，均无人工重发。[实际 SDK 单次输入审计](../../deliverables/v03/single-input-audit.json)显示这五次任务及另计的四站兼容性试验，每轮恰有一个用户任务消息。脱敏记录只公开该任务与工具名称/时间，原始私有会话留本机；SIM Operator 审批与任务输入分开统计。
 
-运行 lab SHA 依次为 `dc75225`、`e727e939`、`3562bd6`、`5eafb708`。初始四次中的后三次使用上游候选构建 `8340a693801f28c2c0703a049e6306e5bd82b147`，包含两个新修复；不是以最终合并提交 SHA/build stamp 运行的验收。c02b03 使用 lab `41eb138`、包含最终两项补丁的上游 PR 头 `b7bbe8c39e5c2be7d90ebb6df8328898add9e308`；另包并以该次冻结代码离线重放 PASS。每轮完整源码与 Native 编译哈希见证据包 `source-freeze.json`。
+运行 lab SHA 依次为 `dc75225`、`e727e939`、`3562bd6`、`5eafb708`。初始四次中的后三次使用上游候选构建 `8340a693801f28c2c0703a049e6306e5bd82b147`，包含两个新修复；不是以最终合并提交 SHA/build stamp 运行的验收。c02b03 使用 lab `41eb138`、包含最终两项补丁的上游 PR 头 `b7bbe8c39e5c2be7d90ebb6df8328898add9e308`；另包并以该次冻结代码离线重放 PASS。每轮完整源码与 Native 编译哈希见证据包 `source-freeze.json`。两项上游修复现已合并，最终合并提交 `dfb2507e` 的源码树与 c02b03 实测 PR 头一致；[运行绑定](../../deliverables/v03/runtime-binding.json)记录 59 个 lab 文件及 3 个 Native 编译文件的逐项匹配。
 
 ## 发现的问题与复现
+
+下列两项上游修复均已通过必需检查并合并。非必需 Cross-UID Operator E2E 两次拉取 Docker Hub 基础镜像遇到 429，未执行测试代码，明确保留为环境阻断；不计为通过。
 
 - 上游 [#657](https://github.com/ros-claw/rosclaw/pull/657)：超预算观察结果不再截成非法 JSON，而以 `CAPABILITY_OUTPUT_TOO_LARGE` 明确失败，提示缩小查询；实验接口同时提供有界目录。
 - 上游 [#659](https://github.com/ros-claw/rosclaw/pull/659)：每个分别批准的非 REAL 动作创建独立有界会话，结束后关闭；不复用 LOST 会话，也不重放旧动作。

@@ -1,0 +1,39 @@
+{
+  "checked_at": "2026-10-09T21:23:54.024775+00:00",
+  "prs": [
+    {
+      "headRefOid": "62479ecceace6647825c9f08d85f26d66e4100f4",
+      "mergeCommit": {
+        "oid": "bd4b2078b7361a81bbbe343d5f484b074dba19d5"
+      },
+      "mergedAt": "2026-10-09T20:56:19Z",
+      "state": "MERGED",
+      "title": "Native capability observations silently truncate JSON and lose required tail fields",
+      "url": "https://github.com/ros-claw/rosclaw/pull/657"
+    },
+    {
+      "headRefOid": "b7bbe8c39e5c2be7d90ebb6df8328898add9e308",
+      "mergeCommit": {
+        "oid": "dfb2507ee7ca2949d86709cb97a7b59a6fb444ec"
+      },
+      "mergedAt": "2026-10-09T21:21:47Z",
+      "state": "MERGED",
+      "title": "Native non-real actions reuse LOST per-capability daemon sessions after idle",
+      "url": "https://github.com/ros-claw/rosclaw/pull/659"
+    }
+  ],
+  "pr659_required_checks": 13,
+  "pr659_required_checks_status": "PASS",
+  "pr659_full_regression": {
+    "parallel_passed": 8112,
+    "parallel_skipped": 114,
+    "serial_passed": 50,
+    "serial_skipped": 7
+  },
+  "pr659_optional_cross_uid_operator": "ENVIRONMENT_BLOCKED: two DockerHub 429 manifest pull failures before code execution",
+  "optional_failure_jobs": [
+    "https://github.com/ros-claw/rosclaw/actions/runs/37990306465/job/114022454600",
+    "https://github.com/ros-claw/rosclaw/actions/runs/37990306465/job/114030930250"
+  ],
+  "merge_method": "normal squash merge under existing branch protection; no admin override"
+}

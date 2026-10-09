@@ -52,13 +52,13 @@ c02b03 预先声明为最终组合 PR 头的一次独立重置，实际运行和
 - [PR #657](https://github.com/ros-claw/rosclaw/pull/657)，对应 [issue #656](https://github.com/ros-claw/rosclaw/issues/656)：超预算的完整观察投影以 `CAPABILITY_OUTPUT_TOO_LARGE` 明确拒绝并给出缩小查询建议，避免静默截断成非法 JSON；实验接口同时提供紧凑目录。6 个新回归用例，相关 23 项测试通过。
 - [PR #659](https://github.com/ros-claw/rosclaw/pull/659)，对应 [issue #658](https://github.com/ros-claw/rosclaw/issues/658)：每个分别批准的非 REAL 动作获得新的 Body/能力有界会话，动作后关闭；失败/取消遵循原孤儿动作策略，不复活旧会话、不重放旧动作。清理错误保留原动作错误；已有成功结果遇到清理失败不能谎报通道成功。7 个新回归用例，相关 20 项测试通过。
 
-PR #657 已于 2026-10-09 合并为 `bd4b2078b7361a81bbbe343d5f484b074dba19d5`；PR #659 同步该主分支后，最终组合 PR 头为 `b7bbe8c3`，正在接受必需 CI。没有绕过保护强行合并。候选试验中的正常多目标流程已通过，最终补丁另修正外层无关异常不应掩盖清理错误的边界情况；最终组合 PR 头上 43 项相关测试通过。更新后的 CI 曾在拉取 Docker Hub `python:3.12-slim` 时遇到 429 限流，发生在执行测试代码之前，日志保留；等待整轮结束后补跑该失败项。
+PR #657 合并为 `bd4b2078b7361a81bbbe343d5f484b074dba19d5`，PR #659 合并为 `dfb2507ee7ca2949d86709cb97a7b59a6fb444ec`。第 659 项的 13 个必需检查全部通过，按现有保护规则普通 squash 合并。最终合并提交与 c02b03 实测 PR 头 `b7bbe8c3` 的 Git 源码树均为 `78ba0bf0e8451877b0d57c98fb816a381f6f1a8f`，内容完全一致；实际运行 SHA/build stamp 仍记录 b7bbe8c3，不改写成合并 SHA。59 个 lab 运行文件和 3 个实际 Native 编译文件均与 c02b03 冻结哈希一致，详见 [运行绑定](runtime-binding.json)。候选试验中的正常多目标流程已通过，最终补丁另修正外层无关异常不应掩盖清理错误的边界情况；最终组合 PR 头上 43 项相关测试通过。更新后的非必需 Cross-UID Operator E2E 在拉取 Docker Hub `python:3.12-slim` 时遇到 429 限流；整轮结束后补跑一次仍为相同环境故障，两次均未执行测试代码。保留为 ENVIRONMENT_BLOCKED / NOT RUN，不将其计为通过。
 
 ## 验证、证据与视频
 
 实验仓库确定性回归共 56 项：原巡检 19、语义候选/足迹/扫描/绑定/目录预算/路径映射/录制 25、原发行审计 12。Native 使用量以公开 `sdk-usage.json` 为依据，`core_metered_turns=0` 不代表模型零调用或零 token，SDK 成本字段也不等于已核对的供应商账单。新增运行代码按 scoped Ruff 验证，脚本通过语法检查。上游 Practice 套件从 lab 目录调用时 182 PASS / 9 SKIP / 1 个相对 fixture 路径失败；回到上游根目录重跑该文件 2 项 PASS。上游要求的 mypy 检查 121 个文件通过，compileall 通过。
 
-本机上游大范围 agentd/practice 测试未完整通过：中止时 516 PASS、8 SKIP、2 deselected、3 FAIL、4 setup ERROR。安装式 PTY 用例出现缺少 `aiohttp` 离线 wheel，以及构建脚本 217/254 退出，保留日志；没有把未完成测试写成全量 PASS。根目录 Ruff 还发现已有报告脚本等范围外格式问题，format 检查报告 589 个文件需格式化；本次改动文件 scoped 检查通过，未批量改动无关代码。正式合并依赖上游当前 head 的 CI。
+本机上游大范围 agentd/practice 测试未完整通过：中止时 516 PASS、8 SKIP、2 deselected、3 FAIL、4 setup ERROR。安装式 PTY 用例出现缺少 `aiohttp` 离线 wheel，以及构建脚本 217/254 退出，保留日志；没有把未完成测试写成全量 PASS。根目录 Ruff 还发现已有报告脚本等范围外格式问题，format 检查报告 589 个文件需格式化；本次改动文件 scoped 检查通过，未批量改动无关代码。最终组合 PR 头的必需 CI 全部通过：完整回归并行段 8112 PASS / 114 SKIP，资源敏感串行段 50 PASS / 7 SKIP；另有三版 Python、跨 UID Boundary、集成与构建检查。非必需 Cross-UID Operator E2E 的镜像 429 阻断另计，Data Flywheel 扩展检查按 GitHub 实时状态，不宣称所有可选检查已通过。详见 [合并与 CI 记录](upstream-merged-prs.json)。
 
 白名单公开包包含规范收据、Body、冻结配置/源码、实际路径/costmap/扫描/PhysX 轨迹、任务状态和 SDK 使用量，原包包含初始四次尝试，另包包含第五次最终候选集成补测；不导出私有认证、密钥、思考与完整 home。解压到新路径后，四次成功任务各自冻结的评价代码离线重放全部 PASS，首轮保留 FAIL / NOT_REPLAYED。离线重放只是证据一致性验证。
 

@@ -1,6 +1,6 @@
 # Challenge 02 交付与复现
 
-本阶段是开发集及最终候选集成工程验收，任务、边界、全部尝试和视频见 [Challenge 02 README](../../challenges/02-semantic-inspection/README.md)。保留首轮失败和首次录制不完整；留出集、公平对照与独立工程师实测未执行。
+本阶段是开发集及最终补丁集成工程验收，任务、边界、全部尝试和视频见 [Challenge 02 README](../../challenges/02-semantic-inspection/README.md)。保留首轮失败和首次录制不完整；留出集、公平对照与独立工程师实测未执行。
 
 ## 下载与核对
 
@@ -28,7 +28,7 @@ cat c02b02-camera-source.zip.part-* > c02b02-camera-source.zip
 
 ## 离线重放
 
-初始四次中的三次成功任务实际使用 ROSClaw 候选 SHA `8340a693801f28c2c0703a049e6306e5bd82b147`，不是已合并 main 的集成测试。可从公开来源分支 `test/semantic-pilot-upstream-20261009` 获取该提交。
+初始四次中的三次成功任务实际使用 ROSClaw 候选 SHA `8340a693801f28c2c0703a049e6306e5bd82b147`，不是以最终合并 SHA/build stamp 运行的集成测试。第五次使用最终 PR 头 b7bbe8c3；两项修复已合并，最终合并源码树与第五次实测源码树完全一致，见 [运行绑定](runtime-binding.json)。可从公开来源分支 `test/semantic-pilot-upstream-20261009` 获取该提交。
 
 ```bash
 # 先核对发行文件 SHA256。使用隔离的 ROSClaw checkout 和 Python 3.12 环境。
