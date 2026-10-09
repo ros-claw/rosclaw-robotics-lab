@@ -113,6 +113,20 @@ def check_plan(rows, amendment, original):
             raise ValueError("Condition/repetition does not match attempt identity")
 
 
+def register_reset(archive, observed):
+    identities = {
+        json.loads(line)["observer_id"]
+        for line in archive.read("independent/physics-trajectory.jsonl").splitlines()
+    }
+    if len(identities) != 1:
+        raise ValueError("Missing or mixed independent trajectory observer identity")
+    identity = next(iter(identities))
+    if not identity or identity in observed:
+        raise ValueError("Repeated independent reset observer identity")
+    observed.add(identity)
+    return identity
+
+
 def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=BODY):
     reports = []
     with zipfile.ZipFile(path) as outer:
@@ -133,6 +147,7 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
         if freeze["lab_commit"] != runtime or freeze["rosclaw_commit"] != upstream:
             raise ValueError("Outer source freeze mismatch")
         observers = set()
+        all_reset_observers = set()
         hashes = None
         native_counts = Counter()
         for row in rows:
@@ -164,6 +179,7 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
                                 "Failed attempt source differs from frozen batch"
                             )
                         hashes = current_hashes
+                        register_reset(inner, all_reset_observers)
                     native_counts[row["condition"]] += 1
                     acceptance = json.loads(
                         outer.read(
@@ -190,6 +206,7 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
                 if hashes is not None and current_hashes != hashes:
                     raise ValueError("Runtime source hashes differ between attempts")
                 hashes = current_hashes
+                reset_identity = register_reset(inner, all_reset_observers)
                 wanted_order = (
                     ["entry", "shelf", "aisle", "home"]
                     if row["condition"] == "standard"
@@ -224,7 +241,7 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
             ids = acceptance["observer_ids"]
             if acceptance["status"] != "PASS" or set(ids) != actual_observers:
                 raise ValueError("Acceptance does not match replayed reset evidence")
-            if len(ids) != 1 or ids[0] in observers:
+            if len(ids) != 1 or ids[0] in observers or ids[0] != reset_identity:
                 raise ValueError(
                     "Missing or repeated independent reset observer identity"
                 )
@@ -255,6 +272,7 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
         "physically_accepted_attempts": len(observers),
         "failure_records_retained": len(reports) - len(observers),
         "unique_reset_observers": len(observers),
+        "unique_native_reset_observers_including_failed": len(all_reset_observers),
         "scope": "offline source/config/Body-declaration/receipt/physical evidence consistency; not live reproduction or signature attestation",
         "reports": reports,
     }
