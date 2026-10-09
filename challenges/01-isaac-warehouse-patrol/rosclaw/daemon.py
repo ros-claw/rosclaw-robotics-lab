@@ -11,6 +11,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "evaluator"))
 from point_executor import PointExecutor, ScanWitness
+from evidence_io import write_json_atomic
 from remember import PatrolMemoryExecutor
 from rosclaw.connectors.ros.action_client import Ros2ActionClient
 from rosclaw.connectors.ros.practice import RosPracticeAdapter
@@ -113,9 +114,7 @@ def main():
         signal.signal(sig, lambda *_: stopped.set())
     try:
         daemon.start()
-        (root / "daemon_ready.json").write_text(
-            json.dumps({"pid": os.getpid(), "body_id": config["body_id"]})
-        )
+        write_json_atomic(root / "daemon_ready.json", {"pid": os.getpid(), "body_id": config["body_id"]})
         stopped.wait()
     finally:
         executor.emergency_stop()

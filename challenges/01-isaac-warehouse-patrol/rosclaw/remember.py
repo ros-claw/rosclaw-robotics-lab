@@ -1,6 +1,7 @@
 """Verify canonical SIM visit evidence and persist through existing ROS Practice."""
 
 import hashlib
+from evidence_io import write_json_atomic
 import json
 from pathlib import Path
 from rosclaw.connectors.ros.intelligence.evidence import emit_expert_evidence
@@ -132,7 +133,7 @@ class PatrolMemoryExecutor:
             target = self.root / "actions" / "patrol.verification.json"
             verification["memory_id"] = self.config["mission_id"]
             verification["memory_outcome"] = stored["outcome"]
-            target.write_text(json.dumps(verification, indent=2) + "\n")
+            write_json_atomic(target, verification)
             self.bus.publish(
                 RuntimeEvent(
                     type="practice.stop",

@@ -16,6 +16,7 @@ from rosclaw.kernel import (
     ExecutionMode,
 )
 from patrol import verify_visit
+from evidence_io import write_json_atomic
 
 
 class ScanWitness:
@@ -267,7 +268,7 @@ class PointExecutor:
                 "trajectory": samples,
                 "events": events,
             }
-            path.write_text(json.dumps(data, indent=2, allow_nan=False) + "\n")
+            write_json_atomic(path, data)
             artifact = {
                 "path": str(path),
                 "sha256": hashlib.sha256(path.read_bytes()).hexdigest(),
@@ -322,7 +323,7 @@ class PointExecutor:
                 "trajectory": samples,
                 "events": events,
             }
-            path.write_text(json.dumps(failure, indent=2, allow_nan=False) + "\n")
+            write_json_atomic(path, failure)
             return self.result(
                 ActionState.FAILED,
                 error=str(exc),
