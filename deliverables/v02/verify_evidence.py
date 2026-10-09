@@ -91,30 +91,48 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
             for i in range(1, 6)
             for c in ["standard", "reordered", "unmapped-box"]
         }
-        if len(rows) != 15 or {r["attempt"] for r in rows} != expected:
+        expected.add("06-standard")
+        amendment = json.loads(outer.read("final-native/plan-amendment.json"))
+        if len(rows) != 16 or {r["attempt"] for r in rows} != expected:
             raise ValueError(
-                "Expected exact fifteen-attempt ledger, with no replacement selection"
+                "Expected original fifteen attempts plus predeclared standard appendix"
             )
         if Counter(r["condition"] for r in rows) != {
-            "standard": 5,
+            "standard": 6,
             "reordered": 5,
             "unmapped-box": 5,
         }:
             raise ValueError("Unexpected condition counts")
+        extra = next(r for r in rows if r["attempt"] == "06-standard")
+        if amendment["declared_wall_time"] >= extra["started_wall_time"]:
+            raise ValueError("Appendix was not declared before execution")
+        original = json.loads(outer.read("final-native/original-fifteen-summary.json"))
+        if original["attempts"] != 15 or original["passes"] != sum(
+            r["status"] == "PASS" for r in rows if r["attempt"] != "06-standard"
+        ):
+            raise ValueError("Original fifteen-attempt outcome was changed")
+        passed_counts = Counter(r["condition"] for r in rows if r["status"] == "PASS")
+        if any(passed_counts[c] < 5 for c in ["standard", "reordered", "unmapped-box"]):
+            raise ValueError("Fewer than five complete accepted missions per condition")
         if freeze["lab_commit"] != runtime or freeze["rosclaw_commit"] != upstream:
             raise ValueError("Outer source freeze mismatch")
         observers = set()
         hashes = None
         for row in rows:
-            if (
-                row["status"] != "PASS"
-                or row["source_commit"] != runtime
-                or row["manual_interventions"]
-            ):
-                raise ValueError(
-                    "Release acceptance includes failed/changed/intervened attempt: "
-                    + row["attempt"]
+            if row["source_commit"] != runtime or row["manual_interventions"]:
+                raise ValueError("Changed/intervened attempt: " + row["attempt"])
+            recorded = json.loads(
+                outer.read("final-native/" + row["attempt"] + "/result.json")
+            )
+            if recorded != row:
+                raise ValueError("Attempt result does not match complete ledger")
+            if row["status"] != "PASS":
+                if row["status"] not in {"FAIL", "INCOMPLETE", "INTERRUPTED"}:
+                    raise ValueError("Unfinished attempt in release")
+                reports.append(
+                    {"attempt": row["attempt"], "status": row["status"], "visits": 0}
                 )
+                continue
             payload = outer.read("final-native/" + row["attempt"] + ".zip")
             with zipfile.ZipFile(io.BytesIO(payload)) as inner:
                 config, current_hashes = check_native_binding(
@@ -177,6 +195,8 @@ def verify(path, *, source=CHALLENGE, runtime=RUNTIME, upstream=UPSTREAM, body=B
     return {
         "status": "PASS",
         "attempts": len(reports),
+        "physically_accepted_attempts": len(observers),
+        "failure_records_retained": len(reports) - len(observers),
         "unique_reset_observers": len(observers),
         "scope": "offline source/config/Body-declaration/receipt/physical evidence consistency; not live reproduction or signature attestation",
         "reports": reports,

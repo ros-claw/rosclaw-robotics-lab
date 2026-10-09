@@ -1,0 +1,10 @@
+{
+  "declared_wall_time": 1791535261.9063609,
+  "original_plan": "15 attempts; 5 per condition; original ledger and summary immutable",
+  "reason": "04-standard Isaac startup waiting indefinitely for viewport handle; no physics or Native task began. Existing 1200 s startup deadline retained.",
+  "appendix_plan": "Exactly one additional independent standard reset, 06-standard, after all original fifteen attempts. No further success-driven retries.",
+  "runtime_source": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+  "upstream_source": "21838614bb14c39599b8acef731b2b64dad3b92a",
+  "reporting": "All sixteen attempts retained; qualification requires five physically accepted missions per condition and cleanup of every attempt. Startup failure remains a failed attempt.",
+  "supervisor_sha256": "6b46360d049772a18e9e300d318d303b2272eb1ee2126784f4f0f7c1deda79e6"
+}
