@@ -1,0 +1,9 @@
+{
+  "status": "FROZEN_FOR_FUTURE_EVALUATION",
+  "manifest_sha256": "05d6d1798a591bddd5f71b183f251da901a7bce631fcd48e82f19385de5002e4",
+  "split_rule": "Outermost RackShelf Xform entity; SHA256(entity_path) first8hex modulo4==0 => holdout",
+  "development_entity_count": 8,
+  "holdout_entity_count": 5,
+  "holdout_runs": 0,
+  "independent_agent_generalization": "NOT_EVALUATED"
+}

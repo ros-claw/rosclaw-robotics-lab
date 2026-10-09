@@ -1,0 +1,5 @@
+{
+  "fault": "navigator-abort",
+  "status": "INCOMPLETE",
+  "error": "CalledProcessError(1, ['/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/scripts/demo.sh', 'headless', 'patrol'])"
+}

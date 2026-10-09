@@ -1,0 +1,24 @@
+{
+  "fault": "disconnect",
+  "scope": "real adapter single-goal negative test, not Native mission",
+  "wall_seconds": 14.507476329803467,
+  "final_state": "FAILED",
+  "physical_stop_verified": true,
+  "peak_linear_speed_mps": 0.8006206272310995,
+  "peak_angular_speed_rps": 1.0369235277175903,
+  "feedback_count": 278,
+  "error": "LiDAR stream is stale or invalid during action",
+  "nav2": {},
+  "DDS_fallback_events": [
+    {
+      "wall_time": 1791529948.563805,
+      "event": "DDS_cancel_fallback",
+      "returncode": 0,
+      "stdout": "{\"acknowledged\": true, \"transport\": \"DDS\", \"motion_command\": false, \"servers\": [{\"action\": \"/navigate_to_pose\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[175, 17, 222, 166, 134, 126, 78, 70, 190, 99, 203, 203, 158, 110, 217, 10]]}, {\"action\": \"/follow_path\", \"acknowledged\": true, \"return_code\": 0, \"goal_ids\": [[83, 133, 167, 29, 148, 13, 172, 86, 239, 41, 148, 188, 56, 31, 137, 190]]}], \"goal_ids\": [[175, 17, 222, 166, 134, 126, 78, 70, 190, 99, 203, 203, 158, 110, 217, 10], [83, 133, 167, 29, 148, 13, 172, 86, 239, 41, 148, 188, 56, 31, 137, 190]], \"return_code\": 0}\n",
+      "stderr": "[WARN] [1791529946.374780643] [rcl]: ROS_LOCALHOST_ONLY is deprecated but still honored if it is enabled. Use ROS_AUTOMATIC_DISCOVERY_RANGE and ROS_STATIC_PEERS instead.\n[WARN] [1791529946.374793491] [rcl]: 'localhost_only' is enabled, 'automatic_discovery_range' and 'static_peers' will be ignored.\n"
+    }
+  ],
+  "status": "PASS",
+  "cancel_confirmed": true,
+  "physics_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T071123Z"
+}

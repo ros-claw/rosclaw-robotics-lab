@@ -1,0 +1,644 @@
+{
+  "fault": "pause",
+  "scope": "actual SIM adapter negative test, not Native mission",
+  "final_state": "FAILED",
+  "physical_stop_verified": false,
+  "error": "independent physics is stale",
+  "nav2": {
+    "status": 5,
+    "error_code": 0,
+    "result": {
+      "error_code": 0,
+      "error_msg": ""
+    },
+    "wall_time": 1791530172.831895
+  },
+  "wall_seconds": 5.017138242721558,
+  "DDS_fallback_events": [],
+  "injection_events": [
+    {
+      "wall_time": 1791530170.7914515,
+      "event": "SIGSTOP_owned_simulator",
+      "sim_time": 11.033333333333461,
+      "actual_speed_mps": 0.10370607396593791
+    },
+    {
+      "wall_time": 1791530174.7917967,
+      "event": "paused_snapshot_observed",
+      "sim_time": 11.033333333333461,
+      "snapshot_wall_time": 1791530170.7854817
+    },
+    {
+      "wall_time": 1791530174.792356,
+      "event": "SIGCONT_owned_simulator"
+    }
+  ],
+  "cancel_confirmed": true,
+  "fault_injected": true,
+  "post_resume_observations": [
+    {
+      "sequence": 74,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530174.8145716,
+      "monotonic_time": 7301.981556178,
+      "sim_time": 11.050000000000129,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.013439655303955,
+          -0.9998365640640259,
+          2.1904706954956055e-06,
+          0.0007703567389398813,
+          -4.336787242209539e-05,
+          0.9984109401702881,
+          0.05634913593530655
+        ]
+      ],
+      "contact_callbacks": 665,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 665,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 665,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1330,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1330,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 665,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 665,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1330,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1330
+      },
+      "contact_errors": [],
+      "floor_contact_events": 7980,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        -0.020574163645505905,
+        -0.10322216898202896,
+        0.0007045071106404066
+      ],
+      "angular_velocity_xyz": [
+        -0.0011850352166220546,
+        -0.003165481612086296,
+        -0.5975275635719299
+      ]
+    },
+    {
+      "sequence": 75,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.02689,
+      "monotonic_time": 7302.1938746,
+      "sim_time": 11.150000000000134,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.014673709869385,
+          -0.9996357560157776,
+          2.2351741790771484e-06,
+          0.0007987204589881003,
+          -6.83690159348771e-05,
+          0.9963201284408569,
+          0.08570761233568192
+        ]
+      ],
+      "contact_callbacks": 671,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 671,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 671,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1342,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1342,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 671,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 671,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1342,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1342
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8052,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        -0.02855919860303402,
+        -0.09086570888757706,
+        0.0001846090890467167
+      ],
+      "angular_velocity_xyz": [
+        -6.25554021098651e-05,
+        -0.0010489487322047353,
+        -0.5390928983688354
+      ]
+    },
+    {
+      "sequence": 76,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.246312,
+      "monotonic_time": 7302.413296672,
+      "sim_time": 11.250000000000139,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.015775680541992,
+          -0.999409556388855,
+          1.2367963790893555e-06,
+          0.0008143393788486719,
+          -8.806123514659703e-05,
+          0.9942473769187927,
+          0.10710583627223969
+        ]
+      ],
+      "contact_callbacks": 677,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 677,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 677,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1354,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1354,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 677,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 677,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1354,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1354
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8124,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        -0.02234768681228161,
+        -0.051390282809734344,
+        -7.657623791601509e-05
+      ],
+      "angular_velocity_xyz": [
+        0.00032797595486044884,
+        -0.0003854661772493273,
+        -0.3142414093017578
+      ]
+    },
+    {
+      "sequence": 77,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.4520109,
+      "monotonic_time": 7302.618995877,
+      "sim_time": 11.383333333333479,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016515731811523,
+          -0.9992372393608093,
+          8.195638656616211e-07,
+          0.0008164887549355626,
+          -9.63284182944335e-05,
+          0.9931507110595703,
+          0.11683764308691025
+        ]
+      ],
+      "contact_callbacks": 685,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 685,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 685,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1370,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1370,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 685,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 685,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1370,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1370
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8220,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        -0.0019814157858490944,
+        -0.0027721570804715157,
+        -4.923647429677658e-05
+      ],
+      "angular_velocity_xyz": [
+        0.00039331233710981905,
+        6.040255175321363e-05,
+        -0.017826512455940247
+      ]
+    },
+    {
+      "sequence": 78,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.7041569,
+      "monotonic_time": 7302.871141492,
+      "sim_time": 11.500000000000151,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016498565673828,
+          -0.9992417097091675,
+          8.791685104370117e-07,
+          0.0008170619839802384,
+          -9.608275286154822e-05,
+          0.9931247234344482,
+          0.11705932766199112
+        ]
+      ],
+      "contact_callbacks": 692,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 692,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 692,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1384,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1384,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 692,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 692,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1384,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1384
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8304,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.0005266016814857721,
+        0.0002902223204728216,
+        -5.0459846534067765e-05
+      ],
+      "angular_velocity_xyz": [
+        5.242943370831199e-05,
+        0.0001900948554975912,
+        0.002683239756152034
+      ]
+    },
+    {
+      "sequence": 79,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.9300835,
+      "monotonic_time": 7303.097068138,
+      "sim_time": 11.650000000000158,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016488552093506,
+          -0.999243974685669,
+          1.0132789611816406e-06,
+          0.0008170194923877716,
+          -9.636489994591102e-05,
+          0.9931371212005615,
+          0.11695338040590286
+        ]
+      ],
+      "contact_callbacks": 701,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 701,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 701,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1402,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1402,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 701,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 701,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1402,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1402
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8412,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.00040888390503823757,
+        0.00014731295232195407,
+        -5.235807839198969e-05
+      ],
+      "angular_velocity_xyz": [
+        -3.824198211077601e-05,
+        0.00011595518299145624,
+        0.0009435407118871808
+      ]
+    },
+    {
+      "sequence": 80,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530176.1453764,
+      "monotonic_time": 7303.312361194,
+      "sim_time": 11.783333333333498,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016488075256348,
+          -0.9992436170578003,
+          9.834766387939453e-07,
+          0.0008169565116986632,
+          -9.627923282096162e-05,
+          0.9931386113166809,
+          0.11694112420082092
+        ]
+      ],
+      "contact_callbacks": 709,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 709,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 709,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1418,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1418,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 709,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 709,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1418,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1418
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8508,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.0004897812032140791,
+        6.0363392549334094e-05,
+        -1.2311933460296132e-05
+      ],
+      "angular_velocity_xyz": [
+        7.377355359494686e-05,
+        0.0001660306443227455,
+        8.273663115687668e-05
+      ]
+    },
+    {
+      "sequence": 81,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530176.3680935,
+      "monotonic_time": 7303.535079471,
+      "sim_time": 11.933333333333506,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016486644744873,
+          -0.999243438243866,
+          9.08970832824707e-07,
+          0.0008169602951966226,
+          -9.624081576475874e-05,
+          0.9931381344795227,
+          0.11694539338350296
+        ]
+      ],
+      "contact_callbacks": 718,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 718,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 718,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1436,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1436,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 718,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 718,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1436,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1436
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8616,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.0004471413849387318,
+        6.554644642164931e-05,
+        -2.7404952561482787e-05
+      ],
+      "angular_velocity_xyz": [
+        0.00011563788575585932,
+        0.0003001837758347392,
+        0.00010963119711959735
+      ]
+    }
+  ],
+  "post_resume_stop_verified": true,
+  "post_resume_stable_stop_observations": [
+    {
+      "sequence": 77,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.4520109,
+      "monotonic_time": 7302.618995877,
+      "sim_time": 11.383333333333479,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016515731811523,
+          -0.9992372393608093,
+          8.195638656616211e-07,
+          0.0008164887549355626,
+          -9.63284182944335e-05,
+          0.9931507110595703,
+          0.11683764308691025
+        ]
+      ],
+      "contact_callbacks": 685,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 685,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 685,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1370,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1370,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 685,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 685,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1370,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1370
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8220,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        -0.0019814157858490944,
+        -0.0027721570804715157,
+        -4.923647429677658e-05
+      ],
+      "angular_velocity_xyz": [
+        0.00039331233710981905,
+        6.040255175321363e-05,
+        -0.017826512455940247
+      ]
+    },
+    {
+      "sequence": 78,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.7041569,
+      "monotonic_time": 7302.871141492,
+      "sim_time": 11.500000000000151,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016498565673828,
+          -0.9992417097091675,
+          8.791685104370117e-07,
+          0.0008170619839802384,
+          -9.608275286154822e-05,
+          0.9931247234344482,
+          0.11705932766199112
+        ]
+      ],
+      "contact_callbacks": 692,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 692,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 692,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1384,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1384,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 692,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 692,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1384,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1384
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8304,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.0005266016814857721,
+        0.0002902223204728216,
+        -5.0459846534067765e-05
+      ],
+      "angular_velocity_xyz": [
+        5.242943370831199e-05,
+        0.0001900948554975912,
+        0.002683239756152034
+      ]
+    },
+    {
+      "sequence": 79,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530175.9300835,
+      "monotonic_time": 7303.097068138,
+      "sim_time": 11.650000000000158,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016488552093506,
+          -0.999243974685669,
+          1.0132789611816406e-06,
+          0.0008170194923877716,
+          -9.636489994591102e-05,
+          0.9931371212005615,
+          0.11695338040590286
+        ]
+      ],
+      "contact_callbacks": 701,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 701,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 701,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1402,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1402,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 701,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 701,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1402,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1402
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8412,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.00040888390503823757,
+        0.00014731295232195407,
+        -5.235807839198969e-05
+      ],
+      "angular_velocity_xyz": [
+        -3.824198211077601e-05,
+        0.00011595518299145624,
+        0.0009435407118871808
+      ]
+    },
+    {
+      "sequence": 80,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530176.1453764,
+      "monotonic_time": 7303.312361194,
+      "sim_time": 11.783333333333498,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016488075256348,
+          -0.9992436170578003,
+          9.834766387939453e-07,
+          0.0008169565116986632,
+          -9.627923282096162e-05,
+          0.9931386113166809,
+          0.11694112420082092
+        ]
+      ],
+      "contact_callbacks": 709,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 709,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 709,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1418,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1418,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 709,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 709,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1418,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1418
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8508,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.0004897812032140791,
+        6.0363392549334094e-05,
+        -1.2311933460296132e-05
+      ],
+      "angular_velocity_xyz": [
+        7.377355359494686e-05,
+        0.0001660306443227455,
+        8.273663115687668e-05
+      ]
+    },
+    {
+      "sequence": 81,
+      "observer_id": "296e562105f94e9e92d06e9a9b81ab9b",
+      "wall_time": 1791530176.3680935,
+      "monotonic_time": 7303.535079471,
+      "sim_time": 11.933333333333506,
+      "timeline_playing": true,
+      "physics_body_path": "/World/Nova_Carter_ROS/chassis_link",
+      "physics_transforms_xyzw": [
+        [
+          -6.016486644744873,
+          -0.999243438243866,
+          9.08970832824707e-07,
+          0.0008169602951966226,
+          -9.624081576475874e-05,
+          0.9931381344795227,
+          0.11694539338350296
+        ]
+      ],
+      "contact_callbacks": 718,
+      "contact_pairs": {
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 718,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 718,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1436,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/GroundPlane/collisionPlane": 1436,
+        "/World/Nova_Carter_ROS/caster_wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 718,
+        "/World/Nova_Carter_ROS/caster_wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 718,
+        "/World/Nova_Carter_ROS/wheel_right|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1436,
+        "/World/Nova_Carter_ROS/wheel_left|/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/GroundPlane/CollisionPlane": 1436
+      },
+      "contact_errors": [],
+      "floor_contact_events": 8616,
+      "non_floor_contact_pairs": [],
+      "collision_count": 0,
+      "collision_observer_complete": true,
+      "linear_velocity_xyz": [
+        0.0004471413849387318,
+        6.554644642164931e-05,
+        -2.7404952561482787e-05
+      ],
+      "angular_velocity_xyz": [
+        0.00011563788575585932,
+        0.0003001837758347392,
+        0.00010963119711959735
+      ]
+    }
+  ],
+  "status": "PASS",
+  "physical_claim_boundary": "Initial stale/paused physics cannot verify stop; post-resume advancing PhysX samples separately verify stopped state.",
+  "physics_directory": "/home/nvidia/sim/rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261009T071526Z"
+}

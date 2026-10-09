@@ -1,0 +1,67 @@
+{
+  "attempts": [
+    {
+      "attempt": "f02/f02",
+      "result": "INCOMPLETE",
+      "evidence": "f02-f02-bootstrap-failure.json",
+      "sha256": "6541193860bb35973acc8f01a2b4542ead5c3dcd0704eff49cf4a962003eb977"
+    },
+    {
+      "attempt": "f03/f03",
+      "result": "INCOMPLETE",
+      "evidence": "f03-f03-bootstrap-failure.json",
+      "sha256": "79dda9c14c029ad0c1e6663d5c5857dc2ad360a5bae2e20bb3a39c96daa3ca0f"
+    },
+    {
+      "attempt": "f04/disconnect",
+      "result": "PASS",
+      "evidence": "f04-disconnect-summary.json",
+      "sha256": "315d94c13b163c0318eb384bc75728962cbc84ce43b464e8138deb7752335b10"
+    },
+    {
+      "attempt": "f04/navigator-abort",
+      "result": "FAIL",
+      "evidence": "f04-navigator-abort-summary.json",
+      "sha256": "cd9384098d21d062bc0fb79b539534a9198e7c61193bd239b320ef3b3d138b5a"
+    },
+    {
+      "attempt": "f04/pause",
+      "result": "FAIL",
+      "evidence": "f04-pause-summary.json",
+      "sha256": "881d5faa4ee35132bc212f37fed5756f3537a94ee0b573620d8d3a8fa9d1a2b2"
+    },
+    {
+      "attempt": "f04/timeout",
+      "result": "PASS",
+      "evidence": "f04-timeout-summary.json",
+      "sha256": "87b5413f92b2465ddbf6ab28ca51d8f01544053b66dce7c870dcd14d7726ce8e"
+    },
+    {
+      "attempt": "f05/pause",
+      "result": "PASS",
+      "evidence": "f05-pause-summary.json",
+      "sha256": "f33cb8f25fa2f2eef6553037fab716a25a391f1f407347bd551a04a00ba24196"
+    },
+    {
+      "attempt": "f06/navigator-abort",
+      "result": "INCOMPLETE",
+      "evidence": "f06-navigator-abort-summary.json",
+      "sha256": "3936de5ac5f59889eb62521657ac6b9d2ffee40037d735c2bc01234d5391d21e"
+    },
+    {
+      "attempt": "f07/navigator-abort",
+      "result": "PASS",
+      "evidence": "f07-navigator-abort-summary.json",
+      "sha256": "7faa88272d81e6bfb706a75614d2f7132773a1ff5499a2a86aae50a27c2ca483"
+    }
+  ],
+  "accepted_fault_attempts": {
+    "timeout": "f04/timeout",
+    "disconnect": "f04/disconnect",
+    "pause": "f05/pause",
+    "navigator-abort": "f07/navigator-abort"
+  },
+  "all_attempts_retained": true,
+  "runtime_source_commit": "09739cb34c8a1d37ad95cfa4f146ad1e47798ec3",
+  "interpretation": "SIM adapter negative tests, separate from 15 full Native missions. Paused initial physics cannot verify stopped state; post-resume stable advancing observations do."
+}
