@@ -1,0 +1,33 @@
+{
+  "run_id": "native",
+  "status": "PASS",
+  "failures": [],
+  "visits": [
+    {
+      "site_id": "entry",
+      "position_error_m": 0.08336029192845822,
+      "stable_dwell_sim_seconds": 2.0499999999998835,
+      "collision_count": 0
+    },
+    {
+      "site_id": "shelf",
+      "position_error_m": 0.12924705108028217,
+      "stable_dwell_sim_seconds": 2.016666666666552,
+      "collision_count": 0
+    },
+    {
+      "site_id": "aisle",
+      "position_error_m": 0.11489036952097964,
+      "stable_dwell_sim_seconds": 2.0999999999998806,
+      "collision_count": 0
+    },
+    {
+      "site_id": "home",
+      "position_error_m": 0.13773989385939575,
+      "stable_dwell_sim_seconds": 2.0333333333349515,
+      "collision_count": 0
+    }
+  ],
+  "obstacle_verification": null,
+  "scope": "offline receipt/hash/physical replay; does not independently reproduce live simulator or model"
+}

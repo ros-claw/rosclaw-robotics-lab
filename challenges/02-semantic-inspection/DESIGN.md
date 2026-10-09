@@ -38,7 +38,7 @@ The runtime experiment cannot establish development-time benefit. Existing wareh
 ## Acceptance status
 
 - Static candidate generation and fresh Nav2 path/swept-footprint validation: implemented in the existing daemon.
-- Deterministic semantic regressions: 24 pass, covering stale/paused states, unknown occupancy, footprint geometry, Body binding, source hashes, fresh sensor/TF/PhysX inspection, compact catalogs, relocated artifacts and recording coverage.
+- Deterministic semantic regressions: 25 pass, covering stale/paused states, unknown occupancy, footprint geometry, Body binding, source hashes, fresh sensor/TF/PhysX inspection, compact catalogs, relocated artifacts and recording coverage.
 - Development attempts: c02a01 FAIL retained; c02a02 navigation PASS; c02b01/b02 known-region LiDAR PASS. These use different source revisions and are not a frozen reliability batch.
 - c02b01 video INCOMPLETE retained; c02b02 complete synchronized recording PASS, with a 90-second video.
 - Actual successful upstream runtime is candidate SHA `8340a693`, distinct from eventual merged main.

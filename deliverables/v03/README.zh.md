@@ -8,9 +8,20 @@
 
 - `semantic-evidence-package.zip`：4 次开发尝试的规范收据、动作/路径/扫描/PhysX 证据、Body、配置和逐次冻结源码；包含失败。
 - `rosclaw-semantic-promo-90s.mp4`、对应 JSON 与海报：c02b02 同一任务同步三视角。视频只有展示字幕，没有配音。
+- `c01-compatibility-evidence.zip`：新增一次原四站兼容性任务，独立重放 PASS，不改变 v0.2 分母。
+- 可选 `c02b02-camera-source.zip.part-001` 至 `013`：约 1.3 GB 原始画面，按 100 MiB 分卷；重组后核对 `camera-archive-sha256.json`，再按 `camera-source-manifest.json` 验证每张图片。
 - `SHA256SUMS`：逐个发行文件的 SHA256；解压证据包后再核对 `manifest-sha256.json`。
 
 源文件中原始绝对路径保留用于审计；离线评价器将白名单动作与语义证据映射至解压目录，并验证原文件哈希，不改写 Body 或配置。模型认证、操作员私钥、私有 Agent home、原始思考、完整私有账本及 NVIDIA USD/安装器不在证据包中。
+
+可选原始画面重组：
+
+```bash
+cat c02b02-camera-source.zip.part-* > c02b02-camera-source.zip
+# 核对 camera-archive-sha256.json 中完整 ZIP 的 SHA256 后解压。
+```
+
+相机原始索引共 213 组；原任务录制验收时已核验 190 组覆盖完整 Native 执行，后续组是评价和清理前的额外录制。没有时间索引的最后 3 张关停截图排除。
 
 ## 离线重放
 
