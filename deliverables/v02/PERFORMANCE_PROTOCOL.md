@@ -13,6 +13,16 @@ The fifteen Native missions use one 1280×720 follow viewport and no PNG capture
 
 The no-PNG base still renders the viewport and RTX LiDAR. It is **not** a headless pure-physics baseline. Three-view capture changes rendering and encoding workload together. Two repetitions are exploratory and do not establish a causal per-frame decomposition or a production benchmark. The 1280×720 Native trials cannot be directly subtracted from the 1920×1080 ablation as an Agent cost.
 
+The public isolated-SIM runner records its own script SHA256 and actual source commit:
+
+```bash
+"$ROSCLAW_SOURCE/.venv/bin/python" tests/integration/run_camera_ablation.py \
+  --config YOUR_NATIVE_RUN/execution_config.json --output "$HOME/sim/camera01" \
+  --isolated-simulation
+```
+
+Run from the challenge directory after stopping the owned lab session. It refuses existing result directories, takes the Body/configuration from your own prior Native SIM run and writes six independent trial results. This is a model-free adapter experiment, not a complete Native task or hardware benchmark. Documentation/test commits may differ from the fifteen-run runtime SHA; record them and compare the runtime file hashes.
+
 Resource samples are collected every ten seconds, including failed startup intervals. CPU ticks are converted with recorded clock ticks per second; container CPU is in microseconds. Report average cores as CPU seconds / wall seconds. GPU utilization/power is host-wide sampled telemetry, not exclusive attribution to Kit or an inference model. Missing or unsupported metrics remain missing. Compare counters only for the same PID/container/observer identity and increasing timestamps.
 
 Installation, cached environment readiness, input-to-first-motion, physical action intervals and whole-attempt wall time are distinct. SDK cost fields are estimates from the SDK metadata, not verified charges. Neither video encoding FPS nor repeated output frames are actual camera acquisition FPS. Historical three-view video performance belongs to its historical fifth mission, separate from this frozen regression.
