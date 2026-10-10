@@ -99,7 +99,7 @@ def main():
                 (PATROL / "config/patrol_navigation_params.yaml").read_text()
             )
             x, y, yaw = fixture["initial_pose"]
-            params["amcl"]["ros__parameters"]["initial_pose"].update(x=x, y=y, yaw=yaw)
+            params["amcl"]["ros__parameters"]["initial_pose"].update(x=float(x), y=float(y), yaw=float(yaw))
             nav_file = PATROL / ".runtime" / ("loading-nav-" + output.name + ".yaml")
             nav_file.write_text(yaml.safe_dump(params))
             env["ROSCLAW_NAV_PARAMS_FILE"] = "/lab/.runtime/" + nav_file.name
