@@ -4,16 +4,24 @@
 
 真实 ROSClaw Native Agent 在 DGX Spark 上，通过 ROS 2 Jazzy/Nav2 运行 Isaac Sim 6.1 官方仓库里的 Nova Carter。**v0.2 冻结源码回归：16 次尝试中（含启动失败） 14 次通过**，三类各至少五次独立 Native 测试；保留启动失败和模型请求中断，唯一一次标准追加测试已提前声明。成功整圈共 56 次到点记录，最大实际位置误差 0.151827 米。这是本机仿真工程验收，尚未证明生产可靠性或真实硬件能力。
 
-**新增 Challenge 02：** 从 USD 已知货架生成动态观察位置，完成往返及真实 LiDAR 区域观测。开发与最终候选集成共 5 次尝试保留 1 次失败、4 次完整通过；[场景说明与独立三视角视频](challenges/02-semantic-inspection/README.md)。
+**Challenge 02 已升级为仓库装卸区自主安全巡查：** 通过设施几何关系选择靠货架的叉车，生成经实际 Nav2 扫掠验证的观察点，以原始点云检查地面区域；证据不足时有限次补看，再返回并保存 Memory。最终冻结批次 12 次独立重置全部通过（A 3/3 · B 3/3 · C 3/3 · D 3/3）；共 27 次验证到点，最大位置误差 0.172721 米，最大朝向误差 0.251624 rad，最小稳定停留 2.017 仿真秒，零非地面有效接触。 同一最终源码的全部装卸区尝试（含校准与中断批次，旧任务兼容另计）为 20 PASS / 1 FAIL；最后批次的通过率不覆盖这些历史失败。 全部尝试另列，包括最终源码早期转向拒绝导致的任务失败；不主张任意起点可靠。[任务、四类挑战与视频](challenges/02-semantic-inspection/README.md)。
 
 ## 场景任务 Challenges
 
 | Challenge | 用户任务与能力 | 独立验收与当前状态 | 展示 |
 |---|---|---|---|
 | [01 · 仓库四站巡检](challenges/01-isaac-warehouse-patrol/README.md) | 一句话完成入口、货架、通道、返回；支持改序及未映射箱体 | v0.2：16 次尝试，14 次完整通过；每站物理到达/停留、LiDAR、接触及最终 Memory/TaskKernel | [180 秒宣传片](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510 秒教程](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
-| [02 · 语义观察点导航与区域观测](challenges/02-semantic-inspection/README.md) | 从 USD 已知货架语义生成新观察位置，再返回实际起点；不使用四站坐标 | 开发及最终候选集成共 5 次：1 次 FAIL、4 次完整 PASS（含三次 LiDAR 区域观测）；保留录制失败，非冻结版本可靠性统计 | [90 秒三视角展示](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
+| [02 · 装卸区自主安全巡查](challenges/02-semantic-inspection/README.md) | 靠货架叉车关系、自动选点、点云净空、第二视角及 UNKNOWN 拒绝 | A 3/3 · B 3/3 · C 3/3 · D 3/3；原始失败另列，实际合并后源码/Native 构建；不代表生产可靠性 | [90 秒三视角 + 实际 LiDAR](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/loading-area-inspection-v0.4.0/loading-area-inspection-90s.mp4) |
+| [历史 02 · v0.3 动态货架观察](challenges/02-semantic-inspection/README.md) | 从 USD 已知货架语义生成新观察位置，再返回实际起点；不使用四站坐标 | 开发及最终候选集成共 5 次：1 次 FAIL、4 次完整 PASS（含三次 LiDAR 区域观测）；保留录制失败，非冻结版本可靠性统计 | [90 秒三视角展示](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
 
 视频中的历史第五轮与 v0.2 冻结回归分别记录。每个 Challenge 页面说明输入、工具边界、成功门槛、失败和复现方式。
+
+
+[![装卸区真实三视角与点云反馈](challenges/02-semantic-inspection/reports/loading-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/loading-area-inspection-v0.4.0/loading-area-inspection-90s.mp4)
+
+[最新实施报告](FINAL_IMPLEMENTATION_REPORT.md) · [中文完整报告](deliverables/v04/IMPLEMENTATION_REPORT.zh.md) · [中文教程](challenges/02-semantic-inspection/docs/LOADING_TUTORIAL.zh.md) · [P0 审计](challenges/02-semantic-inspection/docs/P0_AUDIT.zh.md) · [全部尝试与复现](deliverables/v04/README.zh.md)
+
+RGB 视角用于展示，实际检查使用 PointCloud2；CLEAR/OBSTRUCTED/UNKNOWN 与任务 PASS 分开。独立复现与公平 Codex 对照未运行。上游 [PR #660](https://github.com/ros-claw/rosclaw/pull/660) 已合并，并以实际 merge SHA 重新构建和开展物理回归。
 
 [![Synchronized three-view Native mission](challenges/01-isaac-warehouse-patrol/reports/v02-demo-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4)
 

@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "attempt": "l04qc07",
+  "full_decode_exit_code": 0,
+  "decode_error_output": "",
+  "output_sha256": "b11f601c1e1c502679f0e97e1c6c0f0723a3ae400ba6f9f045764ab6fa94f61b",
+  "visual_checks": {
+    "opening_and_views": "inspected 0s, 40s, 65s, 89s",
+    "reviewed_clearance_overlay": "inspected corrected 65s frame; actual measured deficit cells, no truth overlay",
+    "text_clipping": "none observed at checked frames"
+  },
+  "scope": "Artifact decoding and visual inspection; physical and recording acceptance remain independently bound."
+}

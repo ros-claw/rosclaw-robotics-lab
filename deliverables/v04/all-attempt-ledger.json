@@ -1,0 +1,1651 @@
+{
+  "scope": "All started Native/startup engineering attempts. Historical raw acceptance remains unchanged; superseded claims explicitly noted. Planned unstarted cases are not counted as executed failures. P0 environment/control ledger separate.",
+  "groups": {
+    "calibration": {
+      "FAIL": 4,
+      "PASS": 8,
+      "INCOMPLETE": 1
+    },
+    "first_frozen_interrupted": {
+      "PASS": 3,
+      "FAIL": 1
+    },
+    "second_frozen_interrupted": {
+      "PASS": 3
+    },
+    "third_frozen_interrupted": {
+      "PASS": 6,
+      "FAIL": 1
+    },
+    "final_frozen": {
+      "PASS": 12
+    },
+    "postmerge_compatibility": {
+      "PASS": 2
+    }
+  },
+  "attempts": [
+    {
+      "attempt": "l04pa01",
+      "group": "calibration",
+      "status": "FAIL",
+      "acceptance_status": "FAIL",
+      "inspection_result": "UNKNOWN",
+      "coverage_ratio": 0.6009615384615384,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_2f6c4927ff5b4526b6b13e47",
+          "new_observed_cells": 73,
+          "coverage_ratio": 0.35096153846153844
+        },
+        {
+          "site": {
+            "x": -5.289188756914006,
+            "y": 3.16597084942907,
+            "yaw": -1.9559538331583708
+          },
+          "action_id": "act_041185093af34660a6e1d98a",
+          "new_observed_cells": 52,
+          "coverage_ratio": 0.6009615384615384
+        }
+      ],
+      "independent_case": null,
+      "lab_sha": "f8b424b3d14c0ba3e814030564cd102de0ca16d1",
+      "upstream_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "native_build_sha": "7e8441fa7f146c334694dee42b124263d3f619ea",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": "Source/build mismatch; physical sequence completed but acceptance FAIL",
+      "result_sha256": "07f9e0faddc2b1689129d3036ce97e1555fc29d20939dbf80543991a492b6613",
+      "started_wall_time": 1791617031.585718,
+      "finished_wall_time": 1791617321.8889992
+    },
+    {
+      "attempt": "l04pa02",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "CLEAR",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_be777d52cb5745028ef430f2",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": null,
+      "lab_sha": "9d0c02f4de8f89eb88c858c10c7061c2a60f806e",
+      "upstream_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "native_build_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": "Historical PASS under old cropped-ROI classifier; CLEAR superseded by boundary reanalysis, not final evidence",
+      "result_sha256": "9dda928a2d37402e902061e9ad3a85cc5a020edcd5eab4dbcee7ba7eb93ae714",
+      "started_wall_time": 1791617588.6566339,
+      "finished_wall_time": 1791617807.4747684
+    },
+    {
+      "attempt": "l04pb01",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_98a6682e842f4b208d77e40f",
+          "new_observed_cells": 193,
+          "coverage_ratio": 0.8109243697478992
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_83621539d753447a8f6969bd",
+          "new_observed_cells": 1,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "independent_case": null,
+      "lab_sha": "9d0c02f4de8f89eb88c858c10c7061c2a60f806e",
+      "upstream_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "native_build_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": "Pilot obstacle detected; second gain 1 cell does not count as active observation success",
+      "result_sha256": "2d517f1eaa12fe381dfd4834a5e66c52998d0400dabfb12f6bbc467f449d539f",
+      "started_wall_time": 1791617830.1560998,
+      "finished_wall_time": 1791618106.0299363
+    },
+    {
+      "attempt": "l04pc01",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "CLEAR",
+      "coverage_ratio": 0.9789915966386554,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -3.9340291505709297,
+            "yaw": 2.436162749289174
+          },
+          "action_id": "act_9eb2413e558f48778cef0541",
+          "new_observed_cells": 233,
+          "coverage_ratio": 0.9789915966386554
+        }
+      ],
+      "independent_case": null,
+      "lab_sha": "50792faad4cfb07a6727155f62f41e87ce7b30d2",
+      "upstream_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "native_build_sha": "ced5b0da728bb14e4334e6ef00be452c2e31435a",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": "Historical physical PASS, intended occlusion condition FAIL: first view already 97.9%; old CLEAR superseded",
+      "result_sha256": "f203c424de5f10a51357d1e3e091f929e377c1d7eb4aa3d1d32a1d5e2cec06e4",
+      "started_wall_time": 1791618360.2601202,
+      "finished_wall_time": 1791618588.221735
+    },
+    {
+      "attempt": "l04pc02",
+      "group": "calibration",
+      "status": "INCOMPLETE",
+      "acceptance_status": null,
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": null,
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": null,
+      "manual_interventions": [],
+      "note": "AMCL double-type startup failure; no Native task",
+      "result_sha256": "eaa956e644f000388557278f5c8ca9aabf4d566d60279020ab25b2ac3057b256",
+      "started_wall_time": 1791618911.2064264,
+      "finished_wall_time": 1791619081.1271884
+    },
+    {
+      "attempt": "l04pc03",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_c0ba08bf0e62401ab73d154c",
+          "new_observed_cells": 201,
+          "coverage_ratio": 0.8445378151260504
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_56593b4bd3e146beb8501519",
+          "new_observed_cells": 37,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "a0262ac240fd871ffb08be480fb8fd8280912bd571282a0a37fc5fea48de16a6",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "8011cd6c3fb9471dab079bf51b8fb9c55a40b186",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "f0ee2c2e45bd9f818f059689ce4175b5bab6872aa3a4f028a3a60326e3323f4e",
+      "started_wall_time": 1791619119.6120768,
+      "finished_wall_time": 1791619407.5882158
+    },
+    {
+      "attempt": "l04pd01",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "UNKNOWN",
+      "coverage_ratio": 0.0,
+      "views": [],
+      "independent_case": {
+        "status": "PASS",
+        "case": "D",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "UNKNOWN",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "2514588e7818c7b6a770cd464cdeb563d11e532b3928a47020414d7878a937c8",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "3fa9dd7aff634753708ea23b5e981d5ef7965ed3",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "00e589d4dc3a79a374e7d3435e480853d08d4368206514d2c8f5d9bb123c9e38",
+      "started_wall_time": 1791619436.9597423,
+      "finished_wall_time": 1791619603.941326
+    },
+    {
+      "attempt": "l04qa03",
+      "group": "calibration",
+      "status": "FAIL",
+      "acceptance_status": "FAIL",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "a7a310092269bf1569b598b171000343f008c3ee",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 1,
+      "manual_interventions": [],
+      "note": "Actual path previews exceeded old startup readiness; no Native task",
+      "result_sha256": "9893972563ceb9e230dd8968add25c0a1e7320291be763c806cbaf301f22934c",
+      "started_wall_time": 1791620864.448241,
+      "finished_wall_time": 1791620968.1852403
+    },
+    {
+      "attempt": "l04qa04",
+      "group": "calibration",
+      "status": "FAIL",
+      "acceptance_status": "FAIL",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "b1a6ebd93f34d36f9daeba7dfc3f8071029f0e54",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 1,
+      "manual_interventions": [],
+      "note": "Return proposal expired before dispatch; canonical FAILED receipt retained",
+      "result_sha256": "d4180915d931e6a184ddba82528724b634dc2d8314b0fc8b9ab52c6a04d398d2",
+      "started_wall_time": 1791621063.678145,
+      "finished_wall_time": 1791621266.5136323
+    },
+    {
+      "attempt": "l04qd05",
+      "group": "calibration",
+      "status": "FAIL",
+      "acceptance_status": "FAIL",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "a092aad0e683fb6e9ba32add8a2fb6e2b69ebf2a",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 1,
+      "manual_interventions": [],
+      "note": "Observation paths unsafe; computed return also unsafe; dispatch blocked, Memory incomplete, remains FAIL",
+      "result_sha256": "33768e1399664932299f5f3e10df1904815eaa398cf699f18bbe8879e447f6d4",
+      "started_wall_time": 1791621558.592958,
+      "finished_wall_time": 1791621733.7600296
+    },
+    {
+      "attempt": "l04qc06",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_9553f76fab194a22b2418db1",
+          "new_observed_cells": 201,
+          "coverage_ratio": 0.8445378151260504
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_3a1470bf9eeb47c3aaf7536b",
+          "new_observed_cells": 37,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "a0262ac240fd871ffb08be480fb8fd8280912bd571282a0a37fc5fea48de16a6",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "a092aad0e683fb6e9ba32add8a2fb6e2b69ebf2a",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "d855f08ad70bc01c5283911a170e2682d172556974a06fa6b6f11948091b8d6b",
+      "started_wall_time": 1791622084.408329,
+      "finished_wall_time": 1791622349.334981
+    },
+    {
+      "attempt": "l04qc07",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_ba31d7d581064407ae84e211",
+          "new_observed_cells": 199,
+          "coverage_ratio": 0.8361344537815126
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_9de6e62fe1b141588388b0c6",
+          "new_observed_cells": 39,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "a0262ac240fd871ffb08be480fb8fd8280912bd571282a0a37fc5fea48de16a6",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "fd39adbc547fa8414ff5e539512f992e7f741b668c90cd04fc80d555a9174d06",
+      "started_wall_time": 1791623162.4631922,
+      "finished_wall_time": 1791623517.7586198
+    },
+    {
+      "attempt": "l04qb08",
+      "group": "calibration",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_0451dce70271424f85975d79",
+          "new_observed_cells": 191,
+          "coverage_ratio": 0.8025210084033614
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_260e75c02f7541e98ad07b55",
+          "new_observed_cells": 3,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "fb5aa451c16188a316295fe62353e21364fe63e9e7883b8a8f947ee5d080f222",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "e8688d489fbf2f2396646f44b3070670ed543a8f2e946d0c1a600c51cc78b327",
+      "started_wall_time": 1791625326.5791662,
+      "finished_wall_time": 1791625596.6437614
+    },
+    {
+      "attempt": "l04fa01",
+      "group": "first_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_279ffdc150bf46f6bebedd6c",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "4f6c02f969703cf8089a9cf9c8447180d13f30799e450815b60eeece561d381c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "9f3049a4046920fd4d7d4a290755fa8211009ba02969d850d6128100d3f5b4d3",
+      "started_wall_time": 1791619669.467625,
+      "finished_wall_time": 1791619902.7444127
+    },
+    {
+      "attempt": "l04fa02",
+      "group": "first_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_e124d9e3c60c4340986df51e",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "8b98c290759c7a452d9b1131dd1c4253476d103263bff98e3f4b9a6ad2f39a5f",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "7fa54dc7fa39f3eb060f9aac6a9be87bdd97cc165a61865e9acea8e3f448cc5f",
+      "started_wall_time": 1791619902.8591268,
+      "finished_wall_time": 1791620137.7811105
+    },
+    {
+      "attempt": "l04fa03",
+      "group": "first_frozen_interrupted",
+      "status": "FAIL",
+      "acceptance_status": "FAIL",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 1,
+      "manual_interventions": [],
+      "note": "Actual full sweep rejected initial rotation; failed task retained",
+      "result_sha256": "7eaf1541c243587a4400a605ae51d64f69a9774de14aa38d8862cd809965270b",
+      "started_wall_time": 1791620137.91045,
+      "finished_wall_time": 1791620236.7771988
+    },
+    {
+      "attempt": "l04fb01",
+      "group": "first_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8109243697478992,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_1438a62e79c54a089b342ff3",
+          "new_observed_cells": 193,
+          "coverage_ratio": 0.8109243697478992
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_c734f34981cc4770aadf9ee4",
+          "new_observed_cells": 0,
+          "coverage_ratio": 0.8109243697478992
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "0c445d6535f3d9867358c872915312b28a6c7445e5c79a14426fca8c3e886f66",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": "Completed after parent supervisor pause; child PASS and cleanup 0; parent wrapper exit code not recovered",
+      "result_sha256": "f1570d75da635bee29d943a32dbd55dc9f162bedc4a19dfc7a49a12f55286b84",
+      "started_wall_time": 1791620236.8664672,
+      "finished_wall_time": 1791620483.755943
+    },
+    {
+      "attempt": "l04ga01",
+      "group": "second_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_16a86a22ba1a4eccad0d3d6f",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "4f6c02f969703cf8089a9cf9c8447180d13f30799e450815b60eeece561d381c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "a092aad0e683fb6e9ba32add8a2fb6e2b69ebf2a",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "21542bf8d1942f6ac82e3b36119f53c2a795f38c8429432d788b119e94c50485",
+      "started_wall_time": 1791622350.4337096,
+      "finished_wall_time": 1791622581.8588603
+    },
+    {
+      "attempt": "l04ga02",
+      "group": "second_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_8aa4f5abe1de42689a47fc34",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "8b98c290759c7a452d9b1131dd1c4253476d103263bff98e3f4b9a6ad2f39a5f",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "a092aad0e683fb6e9ba32add8a2fb6e2b69ebf2a",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "45b1a86007c4729897ac40431d344138e38e6b34aa59c05abbf561dce8e09a33",
+      "started_wall_time": 1791622581.9533079,
+      "finished_wall_time": 1791622813.630044
+    },
+    {
+      "attempt": "l04ga03",
+      "group": "second_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_98427123390a4c619acd00a0",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "d72ad471a54003c031b5967e95e1c3e23d2f539a29cbd075958c6918cd3074c9",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "a092aad0e683fb6e9ba32add8a2fb6e2b69ebf2a",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "beac3a0a23acc8e61eec157a9378e0be620804d17781021a1a118efeb96f5f4b",
+      "started_wall_time": 1791622813.7092927,
+      "finished_wall_time": 1791623052.7388196
+    },
+    {
+      "attempt": "l04ha01",
+      "group": "third_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_0a258534e6e4452a99a3774e",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "4f6c02f969703cf8089a9cf9c8447180d13f30799e450815b60eeece561d381c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "fda897ddb2e6cb9cfd01a1577be7fe4447d23955233fe8d3bae8a35fc2aee0d4",
+      "started_wall_time": 1791623518.0121067,
+      "finished_wall_time": 1791623762.6544921
+    },
+    {
+      "attempt": "l04ha02",
+      "group": "third_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_80014ec9be9345688de3355e",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "8b98c290759c7a452d9b1131dd1c4253476d103263bff98e3f4b9a6ad2f39a5f",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "443b0449ecdedbeb8c6e6451324161f01891e1e554fb8130b3866737763eddd8",
+      "started_wall_time": 1791623762.7182522,
+      "finished_wall_time": 1791623992.3414788
+    },
+    {
+      "attempt": "l04ha03",
+      "group": "third_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_6943805440da47b1864392b3",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "d72ad471a54003c031b5967e95e1c3e23d2f539a29cbd075958c6918cd3074c9",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "17a0498dab3acaa71f88098ec67f1ca9232e0aafa75102b2e2a94144a6277cd8",
+      "started_wall_time": 1791623992.4178092,
+      "finished_wall_time": 1791624235.2536783
+    },
+    {
+      "attempt": "l04hb01",
+      "group": "third_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_e49f3b49cbcf49ef84bddd63",
+          "new_observed_cells": 193,
+          "coverage_ratio": 0.8109243697478992
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_4a8e982e939845fdac1a3e48",
+          "new_observed_cells": 1,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "0c445d6535f3d9867358c872915312b28a6c7445e5c79a14426fca8c3e886f66",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "d59a77c8b795d646aa4f125e48f4414119e89d7c55f1d7601b875159dd19e827",
+      "started_wall_time": 1791624235.333571,
+      "finished_wall_time": 1791624523.4168544
+    },
+    {
+      "attempt": "l04hb02",
+      "group": "third_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8109243697478992,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_4041f6cb50ed447cbe0d414c",
+          "new_observed_cells": 192,
+          "coverage_ratio": 0.8067226890756303
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_12b6224ac21841e2b81d5444",
+          "new_observed_cells": 1,
+          "coverage_ratio": 0.8109243697478992
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "7107fcfe9b8be5c3a90d47796837e4529b17ed7e4e3c5ef5a6f8cffdf0d0334c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "e46f9ae58dcc9caea4904df72c9bdd9938fffce97c5b0f3356d88fb1150a4b59",
+      "started_wall_time": 1791624523.5181293,
+      "finished_wall_time": 1791624810.94947
+    },
+    {
+      "attempt": "l04hb03",
+      "group": "third_frozen_interrupted",
+      "status": "FAIL",
+      "acceptance_status": "FAIL",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 1,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "cdd4e0ba6afbe8f86e74e6e021070cba39baab27594e09b8373e595cd4bf40fa",
+      "started_wall_time": 1791624811.0203993,
+      "finished_wall_time": 1791624933.2533731
+    },
+    {
+      "attempt": "l04hc01",
+      "group": "third_frozen_interrupted",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_ad90d8bb1dbc402a8a5c0732",
+          "new_observed_cells": 199,
+          "coverage_ratio": 0.8361344537815126
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_511e4daf22f340d391e9e79c",
+          "new_observed_cells": 39,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "9dfbd28eac15fc034830338937d6d56dcdaf9dd9f2742bc55e080e2e8f4783ad",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "5cad3375a8fefa1dedc876f626b812e2fceee3d465c040c47e3a5f6d40970929",
+      "started_wall_time": 1791624933.3427248,
+      "finished_wall_time": 1791625325.820344
+    },
+    {
+      "attempt": "l04ia01",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_86e5b9ed58ef4d409d1840e7",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "4f6c02f969703cf8089a9cf9c8447180d13f30799e450815b60eeece561d381c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "29d3af57776185028e07f2c2e6f104da63ce6bf94e7e1e6815b0ae95cf15a7b7",
+      "started_wall_time": 1791625598.1970928,
+      "finished_wall_time": 1791625832.412485
+    },
+    {
+      "attempt": "l04ia02",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_e59272bf53e84e82a8aec151",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "8b98c290759c7a452d9b1131dd1c4253476d103263bff98e3f4b9a6ad2f39a5f",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "6990829adaa7e35cc8824b114af2714be70cdfc5b2a21a05f698809612fee7d7",
+      "started_wall_time": 1791625832.4916027,
+      "finished_wall_time": 1791626079.2961822
+    },
+    {
+      "attempt": "l04ia03",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_75ca347bc47e46d984eff488",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "d72ad471a54003c031b5967e95e1c3e23d2f539a29cbd075958c6918cd3074c9",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "e4d0b63ab130156661fab3171d300c69ed9b793978d089de7b2b249d77907ca6",
+      "started_wall_time": 1791626079.3933868,
+      "finished_wall_time": 1791626307.1024823
+    },
+    {
+      "attempt": "l04ib01",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_57607abeb924419b8ef30d68",
+          "new_observed_cells": 190,
+          "coverage_ratio": 0.7983193277310925
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_0bcf273259c0481e8998af7a",
+          "new_observed_cells": 4,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "bc3d0233fdf0301bb426b159015516865a031d14339a6c05a6208201d3997ad2",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "f016c4e81edbb073ff1979a5107a36cd5500ab607d381d217975f80854b8afb8",
+      "started_wall_time": 1791626307.198248,
+      "finished_wall_time": 1791626591.877547
+    },
+    {
+      "attempt": "l04ib02",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_3b29e96aa2a9483a8d7702ea",
+          "new_observed_cells": 191,
+          "coverage_ratio": 0.8025210084033614
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_e71b0bd3aafa46abadf5b796",
+          "new_observed_cells": 3,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "b62272137fa2787691f5a240eaf7d355dd86aec5ba09ff6dec0999a54aa95235",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "fc5ad358446b707fdb779dda6129aa3731a3d64f0f03296a3687fd43b35a6fef",
+      "started_wall_time": 1791626591.977747,
+      "finished_wall_time": 1791626896.5467565
+    },
+    {
+      "attempt": "l04ib03",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_590cff241fc4432f838c75fe",
+          "new_observed_cells": 192,
+          "coverage_ratio": 0.8067226890756303
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_2781f20a57324c859a828d10",
+          "new_observed_cells": 2,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "491661cc769bfa2cafa1977c42afb808be0eaaecf01b29e373951d393d388c80",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "4eb303bcb9f793182fe72588f8747a5dbe4f76224575dade800197bd7ca243c3",
+      "started_wall_time": 1791626896.6266174,
+      "finished_wall_time": 1791627208.5329187
+    },
+    {
+      "attempt": "l04ic01",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_e5a05893a7bb424e9ff90bf0",
+          "new_observed_cells": 200,
+          "coverage_ratio": 0.8403361344537815
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_2c85ecc7057940c684c6e4fd",
+          "new_observed_cells": 38,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "9dfbd28eac15fc034830338937d6d56dcdaf9dd9f2742bc55e080e2e8f4783ad",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "2db068a8fc3bc3d7fa6509b21a0938b46f5da42298cdb0094001f58158620d7e",
+      "started_wall_time": 1791627208.6212416,
+      "finished_wall_time": 1791627727.2084677
+    },
+    {
+      "attempt": "l04ic02",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_30e95776bec04b0697043c06",
+          "new_observed_cells": 202,
+          "coverage_ratio": 0.8487394957983193
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_a5e35f64afd74404a5b316bf",
+          "new_observed_cells": 36,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "0fc1c9d6bc5989baa804e5028f4da7eaaa364179cdc4d7d9353ff36972a58f99",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "4d9bae98b5e095af082379f4a7eaa78d3e0cacf8a8176af2189b67b3dfe60b28",
+      "started_wall_time": 1791627727.3201897,
+      "finished_wall_time": 1791628076.9953885
+    },
+    {
+      "attempt": "l04ic03",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_42e4ace4822e4d09aaba4139",
+          "new_observed_cells": 200,
+          "coverage_ratio": 0.8403361344537815
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_68986e407c004b00960cd6a0",
+          "new_observed_cells": 38,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "ff694d0454a46f1a4f9792a8d0a460508c9158cca542d7f5576ba2cdd7499db5",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "9efd39f75c2efda950e436139a886071f236582b8766fc4085ab1b31e9c9fcae",
+      "started_wall_time": 1791628077.0970664,
+      "finished_wall_time": 1791628412.613353
+    },
+    {
+      "attempt": "l04id01",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "UNKNOWN",
+      "coverage_ratio": 0.0,
+      "views": [],
+      "independent_case": {
+        "status": "PASS",
+        "case": "D",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "UNKNOWN",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "6f483421d373e1193132ab39028ff2b78c2cd6468b22f5f0c68ef0745e8bf6b3",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "dffabcfefb2cb644fbd1ef36b9ed47a476419f91f668471ca18e7086503861ce",
+      "started_wall_time": 1791628412.7239385,
+      "finished_wall_time": 1791628570.0309227
+    },
+    {
+      "attempt": "l04id02",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "UNKNOWN",
+      "coverage_ratio": 0.0,
+      "views": [],
+      "independent_case": {
+        "status": "PASS",
+        "case": "D",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "UNKNOWN",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "87658a5f979dce9316095463cd64ff4d63417ef484e663730a9ed2ed45f15acc",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "496c12d7d677c3c4fad1a886620d45a579968d52362432e67f775e38b467f21d",
+      "started_wall_time": 1791628570.12207,
+      "finished_wall_time": 1791628734.1850936
+    },
+    {
+      "attempt": "l04id03",
+      "group": "final_frozen",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": "UNKNOWN",
+      "coverage_ratio": 0.0,
+      "views": [],
+      "independent_case": {
+        "status": "PASS",
+        "case": "D",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "UNKNOWN",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "3a66f0fe5c5272c3ea6fe52eb91edb5723f3c59cf33a8d127dfac944c8d8d093",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "f110902a83267133b61497497c26b6fbbdb919dc356cbf8afb8fe0062a4946b7",
+      "started_wall_time": 1791628734.2815936,
+      "finished_wall_time": 1791628906.8474863
+    },
+    {
+      "attempt": "l04c01",
+      "group": "postmerge_compatibility",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "497d5feb61775037d041c403c32c0a3b85bcaab6a18509a05a7c5a29c3247f25",
+      "started_wall_time": 1791628906.9961436,
+      "finished_wall_time": 1791629289.5752573
+    },
+    {
+      "attempt": "l04oldc02",
+      "group": "postmerge_compatibility",
+      "status": "PASS",
+      "acceptance_status": "PASS",
+      "inspection_result": null,
+      "coverage_ratio": null,
+      "views": null,
+      "independent_case": null,
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "cleanup_exit_code": 0,
+      "native_exit_code": 0,
+      "manual_interventions": [],
+      "note": null,
+      "result_sha256": "b7600630e5166234aa2514393f253800e93056b25125596d99efaf36453d6cae",
+      "started_wall_time": 1791629289.6137145,
+      "finished_wall_time": 1791629498.8969965
+    }
+  ],
+  "current_frozen_source_loading_outcomes": {
+    "PASS": 20,
+    "FAIL": 1
+  }
+}

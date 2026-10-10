@@ -1,0 +1,61 @@
+{
+  "status": "PASS",
+  "scope": "Actual post-merge pre-dispatch expiry and unsafe swept-path rejections. Guard PASS is separate from original mission FAIL; no successful inspection/return/Memory is fabricated. No live Nav2 motion was sent in these attempts.",
+  "attempts": [
+    {
+      "attempt": "l04qa04",
+      "original_mission_status": "FAIL",
+      "safety_guard_status": "PASS",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "proofs": [
+        {
+          "action_id": "act_1ea0b523cf684271bf6cd183",
+          "error": "Proposal expired; observe current candidates and explicitly choose again",
+          "physical_stop_verified": true,
+          "nav2_dispatched": false,
+          "canonical_final_state": "FAILED",
+          "artifact_sha256": "a29d2c45ed3a82b67845706f1186b4c06a9f2aa37cc2baa7ad1f06878ed6fe16",
+          "canonical_receipts_sha256": "10291c1cc3ff29e815bdcdefd16079c38a1306d1b83f376ff73db09986b5e96f"
+        }
+      ]
+    },
+    {
+      "attempt": "l04qd05",
+      "original_mission_status": "FAIL",
+      "safety_guard_status": "PASS",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "proofs": [
+        {
+          "action_id": "act_e96680d385eb4ffa81b6d389",
+          "error": "Swept footprint intersects unknown/inscribed/lethal cells {'sampled_pose': [-6.272735562474706, -1.1932475755233758, 2.2937133665452087], 'cell_xy_cost': [[117, 321, 99], [116, 322, 99]]}",
+          "physical_stop_verified": true,
+          "nav2_dispatched": false,
+          "canonical_final_state": "FAILED",
+          "artifact_sha256": "709be4d3f1b7d13295d65b78025b0074e644ef64cff63cbcdf61d330ca8507df",
+          "canonical_receipts_sha256": "a37fb375812f98edc510cc82d4c8485416029a511d8f4a17d93eb39ac9548f56"
+        }
+      ]
+    },
+    {
+      "attempt": "l04hb03",
+      "original_mission_status": "FAIL",
+      "safety_guard_status": "PASS",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "native_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "proofs": [
+        {
+          "action_id": "act_2257345d10574eaeb22bb2d2",
+          "error": "Swept footprint intersects unknown/inscribed/lethal cells {'sampled_pose': [-5.6284576859027355, -0.6968246193600246, 2.7425969255237748], 'cell_xy_cost': [[126, 353, 99]]}",
+          "physical_stop_verified": true,
+          "nav2_dispatched": false,
+          "canonical_final_state": "FAILED",
+          "artifact_sha256": "1bcce7213460f49f2c8ed069f1c4ffc13f5570afe753be8d0f6a4ef1863df27f",
+          "canonical_receipts_sha256": "d9c69632ad33d413a9dbe1ab9560afad740911d9f6340072a65c185e48bee7a4"
+        }
+      ]
+    }
+  ]
+}

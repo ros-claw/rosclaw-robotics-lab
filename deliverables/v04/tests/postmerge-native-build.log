@@ -1,0 +1,15 @@
+
+> rosclaw-agent@0.1.0 build
+> tsc -p tsconfig.json && npm run copy-assets && npm run stamp-build
+
+
+> rosclaw-agent@0.1.0 copy-assets
+> node scripts/copy-assets.mjs
+
+copied prompt from /home/nvidia/sim/rosclaw-v04-merged/src/rosclaw/agentd/context/prompts/native_agent_v2.md
+copied skills
+copied effects.generated.json
+
+> rosclaw-agent@0.1.0 stamp-build
+> node -e "const{execSync}=require('child_process');const fs=require('fs');let c=process.env.GITHUB_SHA||'';if(!c){try{c=execSync('git rev-parse HEAD').toString().trim()}catch(e){c=''}}fs.writeFileSync('dist/build-stamp.json',JSON.stringify({commit:c||'unknown'}))"
+

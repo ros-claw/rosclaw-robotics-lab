@@ -52,10 +52,12 @@ class SemanticExecutor(PointExecutor):
         self.catalog_thread.start()
 
     def source_check(self):
-        if (
-            self.contract.get("real_allowed") is not False
-            or self.contract.get("kind") != "immutable_semantic_proposal_SIM_v1"
-        ):
+        if self.contract.get("real_allowed") is not False or self.contract.get(
+            "kind"
+        ) not in {
+            "immutable_semantic_proposal_SIM_v1",
+            "immutable_loading_proposal_SIM_v1",
+        }:
             raise ValueError("Only explicit generated-target SIM contract supported")
         for p, h in self.contract["source_sha256"].items():
             if file_sha(p) != h:
@@ -223,6 +225,14 @@ class SemanticExecutor(PointExecutor):
             )
         site = {k: entry["candidate"][k] for k in ["x", "y", "yaw"]}
         snapshot = self.probe(site)
+        write_json_atomic(
+            self.evidence_dir / (ident + "-dispatch-snapshot.json"),
+            {
+                "proposal": entry,
+                "snapshot": snapshot,
+                "role": "actual pre-dispatch snapshot retained even if subsequent safety gate rejects",
+            },
+        )
         sample = self.fresh()
         if (
             not 0 <= time.time() - snapshot["wall_time"] <= 3
@@ -342,10 +352,11 @@ class SemanticMemoryExecutor(PatrolMemoryExecutor):
             or ident != data["site_id"]
         ):
             raise ValueError("Proposal content/ID mismatch")
-        if (
-            entry["kind"] == "shelf"
-            and candidate["target_prim"]
-            not in self.config["semantic_contract"]["allowed_development_targets"]
+        if entry["kind"] == "shelf" and candidate["target_prim"] not in self.config[
+            "semantic_contract"
+        ].get(
+            "allowed_targets",
+            self.config["semantic_contract"].get("allowed_development_targets", []),
         ):
             raise ValueError("Target outside immutable Body contract")
         if entry["evidence"]["body_snapshot_hash"] != self.config["body_snapshot_hash"]:

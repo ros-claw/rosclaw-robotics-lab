@@ -1,0 +1,7 @@
+{
+  "reason": "Catalog retained stale preview IDs alongside freshly reissued IDs; fix and refreeze, without changing completed trials",
+  "stopped_wall_time": 1791623111.3821957,
+  "started": 3,
+  "not_started": 9,
+  "human_robot_steering": false
+}

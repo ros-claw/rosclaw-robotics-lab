@@ -55,6 +55,23 @@ if os.environ.get("ROSCLAW_OBSTACLE_TEST") == "1":
         "source": "session layer; absent from official occupancy map",
     }
 
+FORK_CONTROLS = []
+if os.environ.get("ROSCLAW_LOADING_AUDIT") == "1":
+    sys.path.insert(0, str(Path(os.environ["ROSCLAW_LAB_CHALLENGE_DIR"]) / "isaac"))
+    from loading_audit import prepare_fork_control
+    FORK_CONTROLS = prepare_fork_control(
+        STAGE, repair=os.environ.get("ROSCLAW_FORK_REPAIR") == "1",
+        control=os.environ.get("ROSCLAW_FORK_CONTROL") == "1",
+    )
+
+if os.environ.get("ROSCLAW_LOADING_FIXTURE"):
+    sys.path.insert(0, str(Path(os.environ["ROSCLAW_LAB_CHALLENGE_DIR"]).parent / "02-semantic-inspection"))
+    from loading_audit import audit_stage
+    # Freeze known facility prior BEFORE evaluator-only random fixture additions.
+    (OUTPUT / "loading-known-prior.json").write_text(json.dumps(audit_stage(STAGE), allow_nan=False) + "\n")
+    from loading_scene import apply_fixture
+    apply_fixture(STAGE, os.environ["ROSCLAW_LOADING_FIXTURE"], OUTPUT)
+
 DISABLED_ROS_VARIANTS = []
 for camera_name in ("front_hawk", "left_hawk", "back_hawk", "right_hawk"):
     path = "/World/Nova_Carter_ROS/chassis_link/sensors/" + camera_name
@@ -92,6 +109,13 @@ update_display_camera = setup_camera(
 )
 EXTRA_CAMERA_UPDATES = []
 DISPLAY_WINDOWS = []
+
+if os.environ.get("ROSCLAW_LOADING_AUDIT") == "1":
+    from loading_audit import audit_stage
+    audit = audit_stage(STAGE)
+    (OUTPUT / "composed-scene-audit.json").write_text(
+        json.dumps(audit, indent=2, allow_nan=False) + "\n"
+    )
 
 INVENTORY = inspect_scene(STAGE)
 (OUTPUT / "stage-inventory.json").write_text(json.dumps(INVENTORY, indent=2) + "\n")
@@ -254,9 +278,18 @@ async def observe():
         await app.next_update_async()
     if not TIMELINE.is_playing():
         raise RuntimeError("timeline did not start")
+    if FORK_CONTROLS:
+        from loading_audit import measure_fork_control
+        control_task = omni.kit.async_engine.run_coroutine(
+            measure_fork_control(STAGE, FORK_CONTROLS, OUTPUT / "fork-collision-control.json")
+        )
+        control_task.add_done_callback(on_task_done)
     start_sim = TIMELINE.get_current_time()
     for _ in range(120):
         await app.next_update_async()
+    if os.environ.get("ROSCLAW_LOADING_FIXTURE"):
+        from loading_scene import measure_loading_truth
+        measure_loading_truth(STAGE, OUTPUT)
     robots = [
         str(p.GetPath()) for p in STAGE.Traverse() if p.GetName() == "Nova_Carter_ROS"
     ]

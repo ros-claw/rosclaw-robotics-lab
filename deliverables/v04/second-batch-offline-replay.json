@@ -1,0 +1,30 @@
+{
+  "status": "PASS",
+  "scope": "archive consistency only; not a new simulation or independent engineer run",
+  "attempts": [
+    {
+      "attempt": "l04ga01",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04ga02",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04ga03",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04qc06",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    }
+  ]
+}

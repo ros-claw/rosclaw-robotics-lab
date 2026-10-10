@@ -1,0 +1,26 @@
+{
+  "scope": "Actual selected renderer frames, display-only; no RGB inference. Each archive has measured timestamps and SHA256 for the exact frames used in the edit.",
+  "archives": [
+    {
+      "file": "loading-camera-follow.zip",
+      "bytes": 998993744,
+      "sha256": "e7379c2c0e2146e84b32d23d02a6aa41cc3d6da528665654a787ab457adccca7",
+      "selected_unique_frames": 317,
+      "view": "follow"
+    },
+    {
+      "file": "loading-camera-robot.zip",
+      "bytes": 465418727,
+      "sha256": "1b994ef9d435c8dccf8c3d52324555721c7a8e399747c2a99e4b1ad27cd1ccb5",
+      "selected_unique_frames": 317,
+      "view": "robot"
+    },
+    {
+      "file": "loading-camera-top-close.zip",
+      "bytes": 388653894,
+      "sha256": "891b35c28b095470b83fa64edfadcdd66a363ba2e384b84f977d1a5cdb482931",
+      "selected_unique_frames": 317,
+      "view": "top-close"
+    }
+  ]
+}

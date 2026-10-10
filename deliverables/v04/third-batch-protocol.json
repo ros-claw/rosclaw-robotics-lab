@@ -1,0 +1,110 @@
+{
+  "frozen_wall_time": 1791623183.9012961,
+  "lab_commit": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+  "upstream_commit": "9862058c445c88156b9080832b5dd803c75279ae",
+  "native_build_stamp": {
+    "commit": "9862058c445c88156b9080832b5dd803c75279ae"
+  },
+  "trials": [
+    {
+      "id": "l04ha01",
+      "case": "A",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/a1.json",
+      "fixture_sha256": "443c64fde1761b870a369fe62ebc36e841392dbb13fd7d7e294ba67ebe356c0a",
+      "record_multiview": false
+    },
+    {
+      "id": "l04ha02",
+      "case": "A",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/a2.json",
+      "fixture_sha256": "8f11c1569a9c72664790d0fc355416ca8f10aebdac62a77e348ff773bf774e67",
+      "record_multiview": false
+    },
+    {
+      "id": "l04ha03",
+      "case": "A",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/a3.json",
+      "fixture_sha256": "27daeed8c3aeb125cc2fe9173e3c0ca774dd23e5daa1d9cb6cba474de602408c",
+      "record_multiview": false
+    },
+    {
+      "id": "l04hb01",
+      "case": "B",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/b1.json",
+      "fixture_sha256": "b1c2aa0727c77ba281fc206453d017fb796ae96ad6073fc75d48d3f12d8824d0",
+      "record_multiview": false
+    },
+    {
+      "id": "l04hb02",
+      "case": "B",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/b2.json",
+      "fixture_sha256": "d754081c8943753f87c441bf69429a55523bf2e70ad20431be4856e8df046517",
+      "record_multiview": false
+    },
+    {
+      "id": "l04hb03",
+      "case": "B",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/b3.json",
+      "fixture_sha256": "0a5734e679d66dc7f5a952d3b4b3c12b686519a4eb8ca0f47ce0c053af87de29",
+      "record_multiview": false
+    },
+    {
+      "id": "l04hc01",
+      "case": "C",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/c1.json",
+      "fixture_sha256": "c61dfa8cacbd9b9b0bf1cea0ca8fa03b8b35b49c0005ea74c2479aaddc75ff77",
+      "record_multiview": true
+    },
+    {
+      "id": "l04hc02",
+      "case": "C",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/c2.json",
+      "fixture_sha256": "7944875cfc5a96354028f37f0589ac6cc73eccf3dac605a4297b395e670078e9",
+      "record_multiview": false
+    },
+    {
+      "id": "l04hc03",
+      "case": "C",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/c3.json",
+      "fixture_sha256": "82dc6d5e91764e07b2173d23c04b19262e7f5d0c05aee9a0d8c658a4f2032684",
+      "record_multiview": false
+    },
+    {
+      "id": "l04hd01",
+      "case": "D",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/d1.json",
+      "fixture_sha256": "0af167a96a2e412dca7c629c9a15b87538e3e2c87b6e8ff125d08913b4e02e59",
+      "record_multiview": false,
+      "bounds": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/d1-bounds.json",
+      "bounds_sha256": "b2c91b55689d92c8b10d62d86f696f0fc4f68acc2f81ad1ba5e444173208c505"
+    },
+    {
+      "id": "l04hd02",
+      "case": "D",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/d2.json",
+      "fixture_sha256": "65ab375c0efa70904f355bca9ca974c280980e8eb3da2a9a2127ba2403d02a21",
+      "record_multiview": false,
+      "bounds": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/d2-bounds.json",
+      "bounds_sha256": "143be752d9d3d84cb0209fec270922936b392b3373d8432a10821db736fe9f57"
+    },
+    {
+      "id": "l04hd03",
+      "case": "D",
+      "fixture": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/d3.json",
+      "fixture_sha256": "f1c2ba62d9351f10069d0b123f9e9c72c6c63dbfd82032bfab7e99dad0aa1599",
+      "record_multiview": false,
+      "bounds": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal3/d3-bounds.json",
+      "bounds_sha256": "3b811ec73073934b202b70a7f4708723c6470e01638b18c52b61f93acc55d1eb"
+    }
+  ],
+  "rule": "3 independent resets per case; retain every failure; no source/threshold changes within batch; engineering regression, not production reliability or held-out evaluation",
+  "thresholds": {
+    "resolution_m": 0.2,
+    "minimum_coverage": 0.7,
+    "clearance_radius_m": 0.75,
+    "max_observations": 2,
+    "minimum_gain_cells": 3,
+    "C_first_view_coverage_below": 0.95
+  },
+  "case_gate": "Measured non-UNKNOWN must agree with independent actual PhysX conservative configuration-space oracle; B must detect actual fixture; C must have 2 actual views with >=3 new cells; D no observation, UNKNOWN, verified return and Memory; source/body/receipt/stop/nav/contact gates apply to all"
+}

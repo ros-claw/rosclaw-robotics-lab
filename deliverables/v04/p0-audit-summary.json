@@ -1,0 +1,161 @@
+{
+  "status": "PASS for tested scene/controls; not navigation/production acceptance",
+  "composed_stage": "rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261010T071230Z",
+  "controls": "rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261010T071421Z",
+  "actual_entities": [
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_PushcartA_02_22",
+      "type": "Xform",
+      "min": [
+        -7.062773631334932,
+        12.90132121727397,
+        4.483519165410537e-08
+      ],
+      "max": [
+        -5.194026094704245,
+        14.344278173739418,
+        0.3774050504376183
+      ],
+      "visible": true,
+      "collision_enabled": false,
+      "source_specs": [
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Samples/ROS2/Scenario/carter_warehouse_navigation.usd",
+          "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_PushcartA_02_22"
+        },
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Environments/Simple_Warehouse/warehouse.usd",
+          "path": "/Root/SM_PushcartA_02_22"
+        },
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Environments/Simple_Warehouse/Props/SM_PushcartA_02.usd",
+          "path": "/Root"
+        }
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_PushcartA_02_22/SM_PushcartA_02",
+      "type": "Mesh",
+      "min": [
+        -7.06277363133493,
+        12.901321217273965,
+        4.4835191654105353e-08
+      ],
+      "max": [
+        -5.1940260947042445,
+        14.344278173739413,
+        0.3774050504376182
+      ],
+      "visible": true,
+      "collision_enabled": true,
+      "source_specs": [
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Samples/ROS2/Scenario/carter_warehouse_navigation.usd",
+          "path": "/World/warehouse_with_forklifts/Warehouse_Empty_small_realtime/SM_PushcartA_02_22/SM_PushcartA_02"
+        },
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Environments/Simple_Warehouse/warehouse.usd",
+          "path": "/Root/SM_PushcartA_02_22/SM_PushcartA_02"
+        },
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Environments/Simple_Warehouse/Props/SM_PushcartA_02.usd",
+          "path": "/Root/SM_PushcartA_02"
+        }
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift/S_ForkliftFork/collision_box",
+      "type": "Mesh",
+      "min": [
+        1.854175719982354,
+        -3.4047558110601015,
+        0.05716518274325466
+      ],
+      "max": [
+        3.534248702427738,
+        -1.7610072123852198,
+        1.0488627390072622
+      ],
+      "visible": false,
+      "collision_enabled": true,
+      "source_specs": [
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Props/Forklift/forklift.usd",
+          "path": "/Root/S_ForkliftFork/collision_box"
+        },
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Props/Forklift/S_ForkliftFork.usd",
+          "path": "/Root/collision_box"
+        }
+      ]
+    },
+    {
+      "path": "/World/warehouse_with_forklifts/Forklift_01/S_ForkliftFork/collision_box",
+      "type": "Mesh",
+      "min": [
+        -9.591446323505089,
+        -3.4154170636179777,
+        0.05716518274325466
+      ],
+      "max": [
+        -8.328296022148855,
+        -2.266448125676388,
+        1.0488627390072622
+      ],
+      "visible": false,
+      "collision_enabled": true,
+      "source_specs": [
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Props/Forklift/forklift.usd",
+          "path": "/Root/S_ForkliftFork/collision_box"
+        },
+        {
+          "layer": "https://omniverse-content-production.s3-us-west-2.amazonaws.com/Assets/Isaac/6.1/Isaac/Props/Forklift/S_ForkliftFork.usd",
+          "path": "/Root/collision_box"
+        }
+      ]
+    }
+  ],
+  "fork_controls": [
+    {
+      "fork": "/World/warehouse_with_forklifts/Forklift/S_ForkliftFork/S_ForkliftFork",
+      "sampled_visible_surface_points": 32,
+      "points_with_actual_fork_proxy_overlap": 32
+    },
+    {
+      "fork": "/World/warehouse_with_forklifts/Forklift_01/S_ForkliftFork/S_ForkliftFork",
+      "sampled_visible_surface_points": 32,
+      "points_with_actual_fork_proxy_overlap": 32
+    }
+  ],
+  "actual_contact_proxy_paths": [
+    "/World/warehouse_with_forklifts/Forklift/S_ForkliftFork/collision_box",
+    "/World/warehouse_with_forklifts/Forklift_01/S_ForkliftFork/collision_box"
+  ],
+  "low_box_point_counts_above_10cm": {
+    "height_15cm": [
+      39,
+      38,
+      38
+    ],
+    "height_35cm": [
+      327,
+      323,
+      320
+    ],
+    "height_70cm": [
+      691,
+      692,
+      690
+    ]
+  },
+  "low_box_capture": "rosclaw-robotics-lab/challenges/01-isaac-warehouse-patrol/reports/runs/20261010T072011Z/loading-sensor-low.json",
+  "sensor_scope": "Only tested distances/poses/heights; objects below 10cm not cleared; /chassis/odom actual odometry",
+  "repair": "No added proxy required: original invisible guide Mesh collision_box exists for both forks. Official assets unchanged.",
+  "failed_controls_retained": [
+    "near-fork initial falling sphere hit pallet above fork; not accepted as fork proof",
+    "BBoxCache positional-signature startup failure",
+    "old startup cleanup race"
+  ],
+  "reference": "https://docs.isaacsim.omniverse.nvidia.com/latest/python_scripting/environment_setup.html"
+}

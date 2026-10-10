@@ -17,11 +17,11 @@ from patrol import verify_visit
 from semantic_executor import SemanticMemoryExecutor
 
 
-def evaluate(root):
+def evaluate(root, checker_type=SemanticMemoryExecutor):
     config = json.loads((root / "execution_config.json").read_text())
     failures = []
     visits = []
-    checker = SemanticMemoryExecutor(None, root, config, None)
+    checker = checker_type(None, root, config, None)
     body = config["body_snapshot_hash"]
     effective = EffectiveBody.from_dict(
         json.loads((root / "body-effective.json").read_text())
@@ -39,6 +39,18 @@ def evaluate(root):
     ]
     nav = [r for r in complete if r["capability_id"] == "navigation.navigate_to_pose"]
     nav.sort(key=lambda r: r["started_at"])
+    if config.get("scenario") == "loading_inspection":
+        final = json.loads((root / "actions/mission.verification.json").read_text())
+        from types import SimpleNamespace
+
+        checker.validate_arguments(
+            SimpleNamespace(
+                arguments={
+                    "action_ids": [r["action_id"] for r in nav],
+                    "inspection_report": final["inspection_report"],
+                }
+            )
+        )
     for r in nav:
         if (
             r["body_snapshot_hash"] != body
@@ -140,6 +152,15 @@ def evaluate(root):
         "failures": failures,
         "holdout_evaluation": False,
         "manual_interventions": [],
+        **(
+            {
+                "loading_inspection": checker.replay_summary,
+                "inspection_report": checker.agent_report,
+                "observation_views": checker.replay_views,
+            }
+            if config.get("scenario") == "loading_inspection"
+            else {}
+        ),
     }
 
 

@@ -97,6 +97,10 @@ def main():
         sys.path.insert(0, config["semantic_source_directory"])
         from semantic_executor import SemanticExecutor, SemanticMemoryExecutor
         executor_type, memory_type = SemanticExecutor, SemanticMemoryExecutor
+    if config.get("scenario") == "loading_inspection":
+        sys.path.insert(0, config["semantic_source_directory"])
+        from loading_executor import LoadingExecutor, LoadingMemoryExecutor
+        executor_type, memory_type = LoadingExecutor, LoadingMemoryExecutor
     executor = executor_type(root=root, config=config, client=client, sensor=sensor)
     executor.fresh()
     runtime.action_gateway.register_executor(

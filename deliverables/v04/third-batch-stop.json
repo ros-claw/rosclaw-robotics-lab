@@ -1,0 +1,7 @@
+{
+  "reason": "B3 initial rotation rejected against temporary obstacle; retain failure, calibrate open B start and refreeze fixtures without changing source or safety thresholds",
+  "stopped_wall_time": 1791625367.8077037,
+  "started": 7,
+  "not_started": 5,
+  "human_robot_steering": false
+}

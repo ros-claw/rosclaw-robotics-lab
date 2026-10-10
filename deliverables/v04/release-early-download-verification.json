@@ -1,0 +1,62 @@
+{
+  "status": "PASS",
+  "scope": "Actual authenticated re-download of staged GitHub release assets, before publication; file hashes match local finalized assets. Other final artifacts are verified separately.",
+  "assets": [
+    {
+      "name": "loading-area-inspection-90s.mp4",
+      "bytes": 19896399,
+      "local_sha256": "b11f601c1e1c502679f0e97e1c6c0f0723a3ae400ba6f9f045764ab6fa94f61b",
+      "download_sha256": "b11f601c1e1c502679f0e97e1c6c0f0723a3ae400ba6f9f045764ab6fa94f61b",
+      "status": "PASS"
+    },
+    {
+      "name": "p0-evidence.zip",
+      "bytes": 31286238,
+      "local_sha256": "8bfb517b9dc5b071e6202166325d0bccce269bbe234eee6ec0ca5c21d428e75e",
+      "download_sha256": "8bfb517b9dc5b071e6202166325d0bccce269bbe234eee6ec0ca5c21d428e75e",
+      "status": "PASS"
+    },
+    {
+      "name": "pilot-evidence-early.zip",
+      "bytes": 433789443,
+      "local_sha256": "79aba0e4cd79c0b2419fb156bd3448c40aa0ec6ef203ba7941f77c3ae5d2bba1",
+      "download_sha256": "79aba0e4cd79c0b2419fb156bd3448c40aa0ec6ef203ba7941f77c3ae5d2bba1",
+      "status": "PASS"
+    },
+    {
+      "name": "interrupted-batch-and-safety-evidence.zip",
+      "bytes": 350523046,
+      "local_sha256": "972572d0157cf5769ecdeca5c925c9a9b69aa59d1da7305d24da0feb42d588a2",
+      "download_sha256": "972572d0157cf5769ecdeca5c925c9a9b69aa59d1da7305d24da0feb42d588a2",
+      "status": "PASS"
+    },
+    {
+      "name": "catalog-review-batch-evidence.zip",
+      "bytes": 176964785,
+      "local_sha256": "1940f359dba198cd83d815862e40559cee42a29e9db97fce06d562fd1521792d",
+      "download_sha256": "1940f359dba198cd83d815862e40559cee42a29e9db97fce06d562fd1521792d",
+      "status": "PASS"
+    },
+    {
+      "name": "loading-camera-follow.zip",
+      "bytes": 998993744,
+      "local_sha256": "e7379c2c0e2146e84b32d23d02a6aa41cc3d6da528665654a787ab457adccca7",
+      "download_sha256": "e7379c2c0e2146e84b32d23d02a6aa41cc3d6da528665654a787ab457adccca7",
+      "status": "PASS"
+    },
+    {
+      "name": "loading-camera-robot.zip",
+      "bytes": 465418727,
+      "local_sha256": "1b994ef9d435c8dccf8c3d52324555721c7a8e399747c2a99e4b1ad27cd1ccb5",
+      "download_sha256": "1b994ef9d435c8dccf8c3d52324555721c7a8e399747c2a99e4b1ad27cd1ccb5",
+      "status": "PASS"
+    },
+    {
+      "name": "loading-camera-top-close.zip",
+      "bytes": 388653894,
+      "local_sha256": "891b35c28b095470b83fa64edfadcdd66a363ba2e384b84f977d1a5cdb482931",
+      "download_sha256": "891b35c28b095470b83fa64edfadcdd66a363ba2e384b84f977d1a5cdb482931",
+      "status": "PASS"
+    }
+  ]
+}

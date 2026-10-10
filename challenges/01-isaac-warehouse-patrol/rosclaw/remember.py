@@ -36,15 +36,22 @@ class PatrolMemoryExecutor:
     def check_extra_evidence(self, data, proof):
         return None
 
+    def validate_arguments(self, action):
+        if set(action.arguments) != {"action_ids"}:
+            raise ValueError("Canonical action_ids required")
+
+    def verification_extras(self):
+        return {}
+
     def __call__(self, action):
         try:
             if (
                 action.execution_mode is not ExecutionMode.SIMULATION
                 or action.body_id != self.config["body_id"]
                 or action.body_snapshot_hash != self.config["body_snapshot_hash"]
-                or set(action.arguments) != {"action_ids"}
             ):
                 raise ValueError("SIM-only Body-bound memory action required")
+            self.validate_arguments(action)
             ids = action.arguments["action_ids"]
             if not ids or len(set(ids)) != len(ids):
                 raise ValueError("unique canonical action IDs required")
@@ -121,6 +128,7 @@ class PatrolMemoryExecutor:
                 "execution_receipts": receipts,
                 "visits": visits,
                 "obstacle_verification": obstacle_proof,
+                **self.verification_extras(),
             }
             emit_expert_evidence(
                 self.runtime.event_bus,
