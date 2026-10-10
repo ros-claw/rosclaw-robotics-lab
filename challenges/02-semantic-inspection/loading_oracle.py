@@ -9,7 +9,9 @@ from scipy.ndimage import label
 
 def evaluate_case(root, acceptance):
     config = json.loads((root / "execution_config.json").read_text())
-    physics = Path(config["physics_directory"])
+    physics = root.parent / "physics"
+    if not physics.is_dir():
+        physics = Path(config["physics_directory"])
     truth_path = physics / "loading-physx-truth.json"
     truth = json.loads(truth_path.read_text())
     fixture = json.loads((physics / "loading-fixture-truth.json").read_text())
