@@ -54,7 +54,7 @@ class SemanticExecutor(PointExecutor):
     def source_check(self):
         if (
             self.contract.get("real_allowed") is not False
-            or self.contract.get("kind") != "immutable_semantic_proposal_SIM_v1"
+            or self.contract.get("kind") not in {"immutable_semantic_proposal_SIM_v1", "immutable_loading_proposal_SIM_v1"}
         ):
             raise ValueError("Only explicit generated-target SIM contract supported")
         for p, h in self.contract["source_sha256"].items():
@@ -345,7 +345,7 @@ class SemanticMemoryExecutor(PatrolMemoryExecutor):
         if (
             entry["kind"] == "shelf"
             and candidate["target_prim"]
-            not in self.config["semantic_contract"]["allowed_development_targets"]
+            not in self.config["semantic_contract"].get("allowed_targets", self.config["semantic_contract"].get("allowed_development_targets", []))
         ):
             raise ValueError("Target outside immutable Body contract")
         if entry["evidence"]["body_snapshot_hash"] != self.config["body_snapshot_hash"]:

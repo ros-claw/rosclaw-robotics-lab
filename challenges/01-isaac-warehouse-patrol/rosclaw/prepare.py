@@ -107,6 +107,10 @@ def prepare(root, challenge, physics, task, order, credentials, require_obstacle
             "max_angular_velocity_rps": 1.2,
         },
     )
+    if scenario is not None and scenario.get("raw_pointcloud"):
+        profile.sensors.append({"name": "front_3d_lidar_points", "type": "lidar", "parent_link": "front_3d_lidar", "topic": "/front_3d_lidar/lidar_points"})
+        profile.provider_interfaces["ros_capability_bindings"]["pointcloud.observe"] = {
+            "topic": "/front_3d_lidar/lidar_points", "message_type": "sensor_msgs/msg/PointCloud2"}
     if scenario is not None:
         profile.safety["navigation_contract"] = scenario["navigation_contract"]
         profile.capability_hints["all"] = ["navigation.navigate_to_pose", "mission.verify_and_remember"]

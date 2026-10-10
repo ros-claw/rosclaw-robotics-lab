@@ -31,7 +31,7 @@ def freeze(root, challenge):
         ).hexdigest(),
     }
     config = json.loads((root / "execution_config.json").read_text())
-    if config.get("scenario") == "semantic_observation":
+    if config.get("scenario") in {"semantic_observation", "loading_inspection"}:
         semantic = Path(config["semantic_source_directory"])
         semantic_files = [p for p in semantic.glob("*.py") if p.is_file()]
         manifest["semantic_source_hashes"] = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in semantic_files}

@@ -17,11 +17,11 @@ from patrol import verify_visit
 from semantic_executor import SemanticMemoryExecutor
 
 
-def evaluate(root):
+def evaluate(root, checker_type=SemanticMemoryExecutor):
     config = json.loads((root / "execution_config.json").read_text())
     failures = []
     visits = []
-    checker = SemanticMemoryExecutor(None, root, config, None)
+    checker = checker_type(None, root, config, None)
     body = config["body_snapshot_hash"]
     effective = EffectiveBody.from_dict(
         json.loads((root / "body-effective.json").read_text())
@@ -74,6 +74,9 @@ def evaluate(root):
                 ]["target_prim"],
             }
         )
+    if config.get("scenario") == "loading_inspection":
+        final = json.loads((root / "actions/mission.verification.json").read_text())
+        checker.agent_report = final["inspection_report"]
     checker.check_mission(visits)
     for a, b in zip(visits, visits[1:]):
         if a["finished_wall_time"] > b["started_wall_time"]:
@@ -140,6 +143,10 @@ def evaluate(root):
         "failures": failures,
         "holdout_evaluation": False,
         "manual_interventions": [],
+        **({"loading_inspection": checker.replay_summary,
+             "inspection_report": checker.agent_report,
+             "observation_views": checker.replay_views}
+            if config.get("scenario") == "loading_inspection" else {}),
     }
 
 

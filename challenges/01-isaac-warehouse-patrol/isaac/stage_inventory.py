@@ -24,6 +24,11 @@ def inspect_scene(stage):
                     "entrance",
                     "wall",
                     "gate",
+                    "pushcart",
+                    "trolley",
+                    "trailer",
+                    "palette",
+                    "pallet",
                 ]
             )
         )
@@ -107,7 +112,12 @@ def inspect_scene(stage):
                     },
                 }
             )
+    # Full structural composed audit includes invisible guide collision proxies;
+    # legacy scene_objects remains available for frozen v0.3 shelf replay.
+    from loading_audit import audit_stage
+    composed = audit_stage(stage)
     return {
+        "composed_geometry": composed,
         "up_axis": str(UsdGeom.GetStageUpAxis(stage)),
         "meters_per_unit": UsdGeom.GetStageMetersPerUnit(stage),
         "floors": floors,
