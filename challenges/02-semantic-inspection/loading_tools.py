@@ -1,5 +1,6 @@
 """Bounded robot-facing prior/proposals/measured feedback only. No scene truth."""
 
+from collections import Counter
 import argparse
 import json
 from pathlib import Path
@@ -18,7 +19,14 @@ def observe_scene() -> dict:
     c = json.loads((root / "loading-catalog.json").read_text())
     targets = []
     for row in c["targets"]:
-        targets.append({k: v for k, v in row.items() if k not in {"rejections"}})
+        targets.append(
+            {
+                **{k: v for k, v in row.items() if k not in {"rejections"}},
+                "rejection_reasons": dict(
+                    Counter(r["reason"] for r in row["rejections"]).most_common(3)
+                ),
+            }
+        )
     summary = c["latest_inspection"]
     if summary:
         summary = {

@@ -184,3 +184,42 @@ def test_full_footprint_halo_is_required_at_roi_edge(monkeypatch, halo_state, ex
     assert report["result"] == expected
     assert report["obstacle_cells"] == 0  # Raw ROI occupancy is not rewritten.
     assert report["coverage_ratio"] == 1.0  # Halo is not substituted for coverage.
+
+
+@pytest.mark.parametrize(
+    "key, value",
+    [
+        ("max_observations", 3),
+        ("max_observations", True),
+        ("minimum_gain_cells", 1),
+        ("clearance_radius_m", 0.1),
+        ("minimum_coverage", float("nan")),
+        ("obstacle_min_z_m", 0.05),
+    ],
+)
+def test_body_cannot_expand_budget_or_reduce_audited_safety(key, value):
+    from loading_contract import validate_thresholds
+    from loading_perception import DEFAULT_THRESHOLDS
+
+    with pytest.raises(ValueError):
+        validate_thresholds({**DEFAULT_THRESHOLDS, key: value})
+
+
+def test_calibrated_contract_is_valid():
+    from loading_contract import validate_thresholds
+    from loading_perception import DEFAULT_THRESHOLDS
+
+    assert validate_thresholds(DEFAULT_THRESHOLDS) == DEFAULT_THRESHOLDS
+
+
+def test_actual_ray_does_not_clear_beyond_its_return_or_other_heights():
+    import numpy as np
+    from loading_visibility import observed_height_bands
+
+    region = {"min": [0, -0.1], "max": [3, 0.1]}
+    mask = observed_height_bands(np.array([[2, 0, 0.2]]), [0, 0, 0.2], region, 1, 3, 1)
+    assert mask.tolist() == [[1, 1, 0]]
+    missing = observed_height_bands(np.empty((0, 3)), [0, 0, 0.2], region, 1, 3, 1)
+    assert not missing.any()
+    high = observed_height_bands(np.array([[2, 0, 4.1]]), [0, 0, 4.1], region, 1, 3, 1)
+    assert not high.any()

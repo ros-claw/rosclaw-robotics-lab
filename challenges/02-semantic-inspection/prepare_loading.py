@@ -10,6 +10,7 @@ import sys
 from prepare_semantic import build_scenario, HERE, PATROL
 from loading_geometry import entities
 from loading_perception import DEFAULT_THRESHOLDS
+from loading_contract import validate_thresholds
 
 sys.path.insert(0, str(PATROL / "rosclaw"))
 from prepare import prepare
@@ -37,6 +38,7 @@ def main():
     thresholds = (
         json.loads(a.thresholds.read_text()) if a.thresholds else DEFAULT_THRESHOLDS
     )
+    thresholds = validate_thresholds(thresholds)
     contract = scenario["navigation_contract"]
     del contract["allowed_development_targets"]
     contract.update(
