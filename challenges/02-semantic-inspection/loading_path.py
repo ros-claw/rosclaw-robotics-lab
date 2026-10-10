@@ -6,7 +6,7 @@ from safety import swept_footprint
 
 
 def preview_candidates(
-    candidates, entries, probe, footprint, *, now=time.time, limit=3
+    candidates, entries, probe, footprint, *, now=time.time, limit=3, on_record=None
 ):
     accepted, records = [], []
     for candidate in candidates:
@@ -33,6 +33,8 @@ def preview_candidates(
         except (ValueError, RuntimeError, subprocess.SubprocessError) as exc:
             record.update(status="REJECTED", error=str(exc))
         records.append(record)
+        if on_record is not None:
+            on_record(record)
         if len(accepted) == limit:
             break
     return accepted, records

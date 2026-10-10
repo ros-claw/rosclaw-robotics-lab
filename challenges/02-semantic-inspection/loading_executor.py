@@ -167,7 +167,17 @@ class LoadingExecutor(SemanticExecutor):
                     )
                 )
             accepted, previews = preview_candidates(
-                proposals, entries, self.probe, footprint
+                proposals,
+                entries,
+                self.probe,
+                footprint,
+                on_record=lambda record: write_json_atomic(
+                    self.evidence_dir
+                    / (
+                        record["proposal"]["candidate"]["proposal_id"] + "-preview.json"
+                    ),
+                    record,
+                ),
             )
             checked_proposals = [{**c, "actual_path_preview": "PASS"} for c in accepted]
             for preview in previews:

@@ -80,7 +80,9 @@ def main():
     operator = None
     operator_log = None
     try:
-        deadline = time.monotonic() + 30
+        # Loading prefilters several read-only Nav2 paths before publishing its catalog.
+        scenario = json.loads((root / "execution_config.json").read_text()).get("scenario")
+        deadline = time.monotonic() + (180 if scenario == "loading_inspection" else 30)
         while not (root / "daemon_ready.json").exists():
             if daemon.poll() is not None or time.monotonic() > deadline:
                 raise RuntimeError("daemon not ready")
