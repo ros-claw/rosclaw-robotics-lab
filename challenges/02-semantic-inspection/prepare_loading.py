@@ -4,6 +4,7 @@
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 import sys
 from prepare_semantic import build_scenario, HERE, PATROL
@@ -47,6 +48,12 @@ def main():
     contract["source_sha256"][str(prior_path)] = hashlib.sha256(
         prior_path.read_bytes()
     ).hexdigest()
+    nav_host = os.environ.get("ROSCLAW_LOADING_NAV_HOST_PARAMS")
+    if nav_host:
+        nav_path = Path(nav_host)
+        contract["source_sha256"][str(nav_path)] = hashlib.sha256(
+            nav_path.read_bytes()
+        ).hexdigest()
     loading = {
         "known_prior_source": str(prior_path),
         "thresholds": thresholds,

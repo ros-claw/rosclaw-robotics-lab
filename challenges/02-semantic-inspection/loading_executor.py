@@ -30,6 +30,8 @@ from loading_perception import inspect_clouds
 class LoadingExecutor(SemanticExecutor):
     def __init__(self, **kwargs):
         self.loading = kwargs["config"]["loading_contract"]
+        if self.loading != kwargs["config"]["semantic_contract"]["loading_contract"]:
+            raise ValueError("Loading rules differ from immutable Body contract")
         self.inspections = []
         self.selected_target = None
         super().__init__(**kwargs)

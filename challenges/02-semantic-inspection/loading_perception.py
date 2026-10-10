@@ -5,6 +5,7 @@ import hashlib
 import math
 import numpy as np
 from rosclaw.connectors.ros.verification.inspection import classify_passage
+from loading_visibility import observed_height_bands
 
 DEFAULT_THRESHOLDS = {
     "resolution_m": 0.2,
@@ -27,12 +28,13 @@ def inspect_clouds(
     res = t["resolution_m"]
     lo = region["min"]
     hi = region["max"]
-    width, height = [int(math.floor((hi[i] - lo[i]) / res)) for i in (0, 1)]
+    width, height = [int(math.ceil((hi[i] - lo[i]) / res)) for i in (0, 1)]
     if min(width, height) < 1:
         raise ValueError("Empty measured inspection grid")
     free_counts = np.zeros((height, width), dtype=np.int64)
     occ_counts = np.zeros_like(free_counts)
     known_counts = np.zeros_like(free_counts)
+    visibility = np.zeros((height, width), dtype=np.uint8)
     valid = snapshot.get("status") == "PASS" and bool(snapshot.get("frames"))
     for f in snapshot.get("frames", []):
         if "raw_data_base64" not in f:
@@ -99,7 +101,12 @@ def inspect_clouds(
             & (cell[:, 0] < width)
             & (cell[:, 1] >= 0)
             & (cell[:, 1] < height)
+            & np.all(xyz[:, :2] <= np.asarray(hi), axis=1)
         )
+        if int((np.abs(xyz[:, 2]) <= t["ground_abs_z_m"]).sum()) >= 10:
+            visibility |= observed_height_bands(
+                xyz, f["map_sensor_origin"], region, res, width, height
+            )
         ground = inside & (np.abs(xyz[:, 2]) <= t["ground_abs_z_m"])
         obstacle = (
             inside
@@ -121,10 +128,14 @@ def inspect_clouds(
     occupied = set(
         zip(*np.where(occ_counts >= t["minimum_obstacle_points_per_cell"])[::-1])
     )
-    free = (
-        set(zip(*np.where(free_counts >= t["minimum_ground_points_per_cell"])[::-1]))
-        - occupied
-    )
+    accumulated_visibility = visibility.copy()
+    if previous:
+        if previous["region"] != region or previous["thresholds"] != t:
+            raise ValueError("Cannot combine different regions/thresholds")
+        accumulated_visibility |= np.asarray(
+            previous["accumulated_height_band_mask"], dtype=np.uint8
+        )
+    free = set(zip(*np.where(accumulated_visibility == 7)[::-1])) - occupied
     occupied = {tuple(map(int, p)) for p in occupied}
     free = {tuple(map(int, p)) for p in free}
     old = set()
@@ -145,7 +156,7 @@ def inspect_clouds(
         height=h,
         observed_free=transform(free),
         occupied=transform(occupied),
-        clearance_cells=math.ceil(t["clearance_radius_m"] / res),
+        clearance_cells=math.ceil((t["clearance_radius_m"] + res / math.sqrt(2)) / res),
         minimum_coverage=t["minimum_coverage"],
         evidence_valid=valid,
     )
@@ -166,7 +177,12 @@ def inspect_clouds(
         "new_observed_cells": len((free | occupied) - old),
         "previous_observed_cells": len(old),
         "height_scope_m": [t["obstacle_min_z_m"], t["obstacle_max_z_m"]],
-        "coverage_source": "actual ground/height-band PointCloud2 endpoints only; no USD or costmap free-space credit",
+        "coverage_source": "finite-return rays in all three height bands (.10-.30/.30-.55/.55-.80m); no USD/costmap/predicted credit",
+        "measured_ground_endpoint_cells_this_view": int(
+            np.count_nonzero(free_counts >= t["minimum_ground_points_per_cell"])
+        ),
+        "height_band_mask_this_view": visibility.tolist(),
+        "accumulated_height_band_mask": accumulated_visibility.tolist(),
         "limits": [
             "Unobserved cells remain unknown",
             "Low objects below declared band are not cleared",

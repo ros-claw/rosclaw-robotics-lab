@@ -71,6 +71,44 @@ def main():
         return subprocess.run(command, env=env, check=True, **kw)
 
     try:
+        upstream = Path(source).resolve()
+        head = subprocess.check_output(
+            ["git", "rev-parse", "HEAD"], cwd=upstream, text=True
+        ).strip()
+        stamp = json.loads(
+            (upstream / "packages/rosclaw-agent/dist/build-stamp.json").read_text()
+        )
+        if (
+            stamp.get("commit") != head
+            or subprocess.check_output(
+                ["git", "status", "--porcelain"], cwd=upstream
+            ).strip()
+        ):
+            raise ValueError(
+                "Build/source mismatch or dirty upstream; rebuild BEFORE environment startup"
+            )
+        import rosclaw
+
+        if not Path(rosclaw.__file__).resolve().is_relative_to(upstream / "src"):
+            raise ValueError("Python import is not bound to selected ROSClaw source")
+        fixture = json.loads(a.fixture.read_text())
+        if "initial_pose" in fixture:
+            import yaml
+
+            params = yaml.safe_load(
+                (PATROL / "config/patrol_navigation_params.yaml").read_text()
+            )
+            x, y, yaw = fixture["initial_pose"]
+            params["amcl"]["ros__parameters"]["initial_pose"].update(x=x, y=y, yaw=yaw)
+            nav_file = PATROL / ".runtime" / ("loading-nav-" + output.name + ".yaml")
+            nav_file.write_text(yaml.safe_dump(params))
+            env["ROSCLAW_NAV_PARAMS_FILE"] = "/lab/.runtime/" + nav_file.name
+            env["ROSCLAW_LOADING_NAV_HOST_PARAMS"] = str(nav_file)
+            record["nav_runtime_params_sha256"] = (
+                __import__("hashlib").sha256(nav_file.read_bytes()).hexdigest()
+            )
+        record["upstream_source_sha"] = head
+        record["native_build_stamp"] = stamp
         with (output / "orchestration.log").open("w") as log:
             run(
                 [str(PATROL / "scripts/demo.sh"), "headless", "patrol"],

@@ -113,15 +113,15 @@ def test_extra_obstacle_is_separate_from_blockage():
 
 
 def test_coverage_only_increases_from_measured_new_cells():
-    first = inspect_clouds(snapshot([[0.5, 0.5, 0]] * 3), REGION)
-    same = inspect_clouds(snapshot([[0.5, 0.5, 0]] * 3), REGION, previous=first)
-    second = inspect_clouds(snapshot([[1.5, 1.5, 0]] * 3), REGION, previous=first)
+    first = inspect_clouds(snapshot([[0.5, 0.5, 0.3]] * 3), REGION)
+    same = inspect_clouds(snapshot([[0.5, 0.5, 0.3]] * 3), REGION, previous=first)
+    second = inspect_clouds(snapshot([[1.5, 1.5, 0.3]] * 3), REGION, previous=first)
     assert same["new_observed_cells"] == 0
     assert second["new_observed_cells"] == 1
 
 
 def test_cannot_merge_different_regions():
-    first = inspect_clouds(snapshot([[0.5, 0.5, 0]] * 3), REGION)
+    first = inspect_clouds(snapshot([[0.5, 0.5, 0.3]] * 3), REGION)
     with pytest.raises(ValueError):
         inspect_clouds(
             snapshot([[0.5, 0.5, 0]] * 3), {**REGION, "max": [3, 3]}, previous=first
@@ -130,7 +130,7 @@ def test_cannot_merge_different_regions():
 
 def test_previous_extra_obstacle_not_forgotten():
     first = inspect_clouds(snapshot([[0.5, 0.5, 0.3]] * 3), REGION)
-    second = inspect_clouds(snapshot([[1.5, 1.5, 0]] * 3), REGION, previous=first)
+    second = inspect_clouds(snapshot([[1.5, 1.5, 0.3]] * 3), REGION, previous=first)
     assert second["extra_obstacle_detected"]
 
 

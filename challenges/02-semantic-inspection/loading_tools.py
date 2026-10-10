@@ -24,7 +24,15 @@ def observe_scene() -> dict:
         summary = {
             k: v
             for k, v in summary.items()
-            if k not in {"free_cells", "occupied_cells", "region", "thresholds"}
+            if k
+            not in {
+                "free_cells",
+                "occupied_cells",
+                "region",
+                "thresholds",
+                "height_band_mask_this_view",
+                "accumulated_height_band_mask",
+            }
         }
     result = {**c, "targets": targets, "latest_inspection": summary}
     if len(json.dumps(result, ensure_ascii=False)) > 7600:

@@ -11,4 +11,10 @@ elif [[ "${1:-official}" == "patrol" ]]; then
 elif [[ "${1:-official}" != "official" ]]; then
   echo "Usage: start-nav2.sh [official|calibration|patrol]" >&2; exit 2
 fi
+if [[ -n "${ROSCLAW_NAV_PARAMS_FILE:-}" ]]; then
+  case "$ROSCLAW_NAV_PARAMS_FILE" in /lab/.runtime/loading-nav-*.yaml) ;;
+    *) echo 'Loading SIM reset params must be project-owned under /lab/.runtime.' >&2; exit 2 ;;
+  esac
+  nav_args=(params_file:="$ROSCLAW_NAV_PARAMS_FILE")
+fi
 exec "$CHALLENGE_DIR/scripts/ros-container.sh" ros2 launch /lab/config/headless_nav.launch.xml "${nav_args[@]}"
