@@ -124,7 +124,7 @@ def observation_seeds(region):
     cx, cy = [(a + b) / 2 for a, b in zip(lo, hi)]
     # Both sides of a geometric work patch, no named-site coordinates.
     return (
-        [(hi[0] + 2.3, lo[1] - 2.0)]
+        [(hi[0] + 2.3, lo[1] - 4.5)]
         + [(hi[0] + d, cy + dy) for d in (1.6, 2.3) for dy in (-1.0, 0.0, 1.0)]
         + [(cx + dx, hi[1] + d) for d in (1.6, 2.3) for dx in (0.0, 1.5)]
     )

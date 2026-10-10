@@ -13,7 +13,19 @@ import json, sys, time
 from pathlib import Path
 Path(sys.argv[1]).write_text(json.dumps({"wall_time": time.time(), "scope": "environment startup"}))
 PY_TIME
-trap '"$CHALLENGE_DIR/scripts/stop.sh"' ERR
+cleanup_failed_start() {
+  # A delayed supervisor must never stop a later reset's simulator.
+  if [[ -n "${sim_pid:-}" ]] && python3 - "$CHALLENGE_DIR/.runtime/sim-process.json" "$sim_pid" <<'PY_OWNER'
+import json, sys
+from pathlib import Path
+p = Path(sys.argv[1])
+raise SystemExit(0 if p.exists() and json.loads(p.read_text())["pid"] == int(sys.argv[2]) else 1)
+PY_OWNER
+  then
+    "$CHALLENGE_DIR/scripts/stop.sh"
+  fi
+}
+trap cleanup_failed_start ERR
 ROSCLAW_LAB_REPORT_DIR="$run_dir" "$CHALLENGE_DIR/scripts/start-sim.sh" "${1:-streaming}" > "$run_dir/scene.log" 2>&1 &
 sim_pid=$!
 python3 - "$run_dir" "$sim_pid" <<'PY'

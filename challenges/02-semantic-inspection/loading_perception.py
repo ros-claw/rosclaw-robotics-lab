@@ -21,7 +21,7 @@ DEFAULT_THRESHOLDS = {
 }
 
 
-def inspect_clouds(
+def _inspect_grid(
     snapshot, region, *, thresholds=None, previous=None, known_facilities=()
 ):
     t = thresholds or DEFAULT_THRESHOLDS
@@ -188,4 +188,96 @@ def inspect_clouds(
             "Low objects below declared band are not cleared",
             "No RGB recognition, identity or goods-condition inference",
         ],
+    }
+
+
+def inspect_clouds(
+    snapshot, region, *, thresholds=None, previous=None, known_facilities=()
+):
+    """Include measured surroundings in full-footprint clearance at ROI boundaries.
+
+    The passage is a robot-center path across the declared ROI. Rays outside it
+    supply the required footprint halo; unknown halo cannot support CLEAR.
+    Occupancy and coverage reported for the ROI remain raw measured cells.
+    """
+    from scipy.ndimage import maximum_filter, minimum_filter
+
+    t = thresholds or DEFAULT_THRESHOLDS
+    roi = _inspect_grid(
+        snapshot,
+        region,
+        thresholds=t,
+        previous=previous,
+        known_facilities=known_facilities,
+    )
+    res = t["resolution_m"]
+    radius = math.ceil((t["clearance_radius_m"] + res / math.sqrt(2)) / res)
+    if t["clearance_radius_m"] == 0:
+        return roi
+    # Align halo with ROI grid, including partial final cells conservatively.
+    lo, hi = np.asarray(region["min"]), np.asarray(region["max"])
+    size = np.ceil((hi - lo) / res).astype(int)
+    halo_region = {
+        **region,
+        "min": (lo - radius * res).tolist(),
+        "max": (lo + (size + radius) * res).tolist(),
+    }
+    halo = _inspect_grid(
+        snapshot,
+        halo_region,
+        thresholds=t,
+        previous=previous.get("clearance_halo") if previous else None,
+        known_facilities=known_facilities,
+    )
+    shape = (int(size[1] + 2 * radius), int(size[0] + 2 * radius))
+    free, occupied = np.zeros(shape, bool), np.zeros(shape, bool)
+    for x, y in halo["free_cells"]:
+        free[y, x] = True
+    for x, y in halo["occupied_cells"]:
+        occupied[y, x] = True
+    stencil = 2 * radius + 1
+    safe = minimum_filter(free, size=stencil, mode="constant", cval=0)
+    blocked = maximum_filter(occupied, size=stencil, mode="constant", cval=0)
+    crop = (slice(radius, radius + size[1]), slice(radius, radius + size[0]))
+    safe, blocked = safe[crop].copy(), blocked[crop]
+    # Entire footprint must stay within the declared lateral passage boundary.
+    if region["passage_axis"] == 1:
+        safe[:, :radius] = False
+        safe[:, max(0, size[0] - radius) :] = False
+    else:
+        safe[:radius, :] = False
+        safe[max(0, size[1] - radius) :, :] = False
+    cells = lambda mask: {tuple(map(int, p)) for p in zip(*np.where(mask)[::-1])}
+    safe_cells, blocked_cells = cells(safe), cells(blocked)
+    transform = lambda pts: (
+        {(y, x) for x, y in pts} if region["passage_axis"] == 0 else pts
+    )
+    w, h = (
+        (int(size[1]), int(size[0]))
+        if region["passage_axis"] == 0
+        else tuple(map(int, size))
+    )
+    configuration = classify_passage(
+        width=w,
+        height=h,
+        observed_free=transform(safe_cells),
+        occupied=transform(blocked_cells),
+        clearance_cells=0,
+        minimum_coverage=1e-12,
+        evidence_valid=roi["evidence_valid"] and halo["evidence_valid"],
+    )
+    result = configuration["result"]
+    reason = configuration["reason"]
+    if result == "CLEAR" and roi["coverage_ratio"] < t["minimum_coverage"]:
+        result, reason = "UNKNOWN", "ROI measured coverage below frozen threshold"
+    return {
+        **roi,
+        "result": result,
+        "reason": "Full-footprint measured halo: " + reason,
+        "verified_free_path": result == "CLEAR",
+        "measured_obstacle_barrier": configuration["measured_obstacle_barrier"],
+        "clearance_halo": halo,
+        "clearance_safe_center_cells": sorted(map(list, safe_cells)),
+        "clearance_blocked_center_cells": sorted(map(list, blocked_cells)),
+        "boundary_clearance_source": "Actual raw PointCloud2 halo only; no prior/ground-truth free or occupied credit",
     }

@@ -6,6 +6,7 @@ import json
 from pathlib import Path
 from evaluate import evaluate
 from loading_executor import LoadingMemoryExecutor
+from loading_oracle import evaluate_case
 
 p = argparse.ArgumentParser()
 p.add_argument("--directory", type=Path, required=True)
@@ -13,6 +14,10 @@ p.add_argument("--output", type=Path, required=True)
 a = p.parse_args()
 try:
     result = evaluate(a.directory.resolve(), checker_type=LoadingMemoryExecutor)
+    result["independent_case"] = evaluate_case(a.directory.resolve(), result)
+    if result["independent_case"]["status"] != "PASS":
+        result["status"] = "FAIL"
+        result["failures"].extend(result["independent_case"]["failures"])
 except Exception as e:
     result = {
         "status": "FAIL",

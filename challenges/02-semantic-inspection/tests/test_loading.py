@@ -9,8 +9,8 @@ import pytest
 
 HERE = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(HERE))
-from loading_geometry import relations, region_for_relation, entities
-from loading_perception import inspect_clouds, DEFAULT_THRESHOLDS
+from loading_geometry import relations, entities
+from loading_perception import inspect_clouds
 
 
 def object_(path, category, lo, hi):
@@ -146,3 +146,41 @@ def test_missing_raw_buffer_cannot_claim_inspection():
     del snap["frames"][0]["raw_data_base64"]
     with pytest.raises(ValueError):
         inspect_clouds(snap, REGION)
+
+
+@pytest.mark.parametrize(
+    "halo_state, expected",
+    [("free", "CLEAR"), ("barrier", "OBSTRUCTED"), ("unknown", "UNKNOWN")],
+)
+def test_full_footprint_halo_is_required_at_roi_edge(monkeypatch, halo_state, expected):
+    import loading_perception as perception
+
+    # 3m ROI, 1m conservative clearance stencil, halo covers whole footprint.
+    region = {"min": [0, 0], "max": [3, 3], "passage_axis": 1}
+    roi_free = [[x, y] for x in range(15) for y in range(15)]
+    halo_free = [[x, y] for x in range(25) for y in range(25)]
+    halo_occ = []
+    if halo_state == "barrier":
+        # Actual obstacle is outside the ROI, within its entry footprint.
+        halo_occ = [[x, 4] for x in range(25)]
+        halo_free = [p for p in halo_free if p not in halo_occ]
+    elif halo_state == "unknown":
+        halo_free = [[x + 5, y + 5] for x, y in roi_free]
+
+    def measured_grid(snapshot, box, **kwargs):
+        is_roi = box == region
+        return {
+            "result": "CLEAR",
+            "region": box,
+            "free_cells": roi_free if is_roi else halo_free,
+            "occupied_cells": [] if is_roi else halo_occ,
+            "evidence_valid": True,
+            "coverage_ratio": 1.0,
+            "obstacle_cells": 0,
+        }
+
+    monkeypatch.setattr(perception, "_inspect_grid", measured_grid)
+    report = perception.inspect_clouds({}, region)
+    assert report["result"] == expected
+    assert report["obstacle_cells"] == 0  # Raw ROI occupancy is not rewritten.
+    assert report["coverage_ratio"] == 1.0  # Halo is not substituted for coverage.

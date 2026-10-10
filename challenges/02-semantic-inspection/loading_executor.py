@@ -198,7 +198,7 @@ class LoadingExecutor(SemanticExecutor):
                 "requirements": [
                     "Choose the forklift NEAR SHELVES using geometry; not nearest to robot.",
                     "Request one immutable proposal at a time. After each visit read actual measured inspection.",
-                    "If UNKNOWN and safe unused candidates remain, choose a second with predicted new coverage. Max two views.",
+                    "If UNKNOWN or coverage below 95% and safe unused candidates remain, choose a second with predicted new coverage. Max two views. Do not call low-gain repositioning a successful active observation.",
                     "CLEAR, OBSTRUCTED and UNKNOWN are inspection results, separate from task success.",
                     "Return to actual initial pose, then verify_and_remember with canonical action_ids and inspection_report.",
                     "No scene truth/file/ground-truth access. Scene prior supplies facilities only; sensor measures temporary occupancy.",
@@ -312,7 +312,18 @@ class LoadingExecutor(SemanticExecutor):
             "inspection_result": {
                 k: v
                 for k, v in summary.items()
-                if k not in ["free_cells", "occupied_cells", "region", "thresholds"]
+                if k
+                not in [
+                    "free_cells",
+                    "occupied_cells",
+                    "region",
+                    "thresholds",
+                    "clearance_halo",
+                    "clearance_safe_center_cells",
+                    "clearance_blocked_center_cells",
+                    "height_band_mask_this_view",
+                    "accumulated_height_band_mask",
+                ]
             },
         }
 

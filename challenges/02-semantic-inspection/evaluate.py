@@ -39,6 +39,18 @@ def evaluate(root, checker_type=SemanticMemoryExecutor):
     ]
     nav = [r for r in complete if r["capability_id"] == "navigation.navigate_to_pose"]
     nav.sort(key=lambda r: r["started_at"])
+    if config.get("scenario") == "loading_inspection":
+        final = json.loads((root / "actions/mission.verification.json").read_text())
+        from types import SimpleNamespace
+
+        checker.validate_arguments(
+            SimpleNamespace(
+                arguments={
+                    "action_ids": [r["action_id"] for r in nav],
+                    "inspection_report": final["inspection_report"],
+                }
+            )
+        )
     for r in nav:
         if (
             r["body_snapshot_hash"] != body
@@ -74,9 +86,6 @@ def evaluate(root, checker_type=SemanticMemoryExecutor):
                 ]["target_prim"],
             }
         )
-    if config.get("scenario") == "loading_inspection":
-        final = json.loads((root / "actions/mission.verification.json").read_text())
-        checker.agent_report = final["inspection_report"]
     checker.check_mission(visits)
     for a, b in zip(visits, visits[1:]):
         if a["finished_wall_time"] > b["started_wall_time"]:
@@ -143,10 +152,15 @@ def evaluate(root, checker_type=SemanticMemoryExecutor):
         "failures": failures,
         "holdout_evaluation": False,
         "manual_interventions": [],
-        **({"loading_inspection": checker.replay_summary,
-             "inspection_report": checker.agent_report,
-             "observation_views": checker.replay_views}
-            if config.get("scenario") == "loading_inspection" else {}),
+        **(
+            {
+                "loading_inspection": checker.replay_summary,
+                "inspection_report": checker.agent_report,
+                "observation_views": checker.replay_views,
+            }
+            if config.get("scenario") == "loading_inspection"
+            else {}
+        ),
     }
 
 

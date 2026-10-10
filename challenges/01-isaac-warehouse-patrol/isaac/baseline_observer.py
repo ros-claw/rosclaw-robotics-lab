@@ -287,6 +287,9 @@ async def observe():
     start_sim = TIMELINE.get_current_time()
     for _ in range(120):
         await app.next_update_async()
+    if os.environ.get("ROSCLAW_LOADING_FIXTURE"):
+        from loading_scene import measure_loading_truth
+        measure_loading_truth(STAGE, OUTPUT)
     robots = [
         str(p.GetPath()) for p in STAGE.Traverse() if p.GetName() == "Nova_Carter_ROS"
     ]

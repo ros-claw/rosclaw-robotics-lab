@@ -30,6 +30,9 @@ def observe_scene() -> dict:
                 "occupied_cells",
                 "region",
                 "thresholds",
+                "clearance_halo",
+                "clearance_safe_center_cells",
+                "clearance_blocked_center_cells",
                 "height_band_mask_this_view",
                 "accumulated_height_band_mask",
             }
