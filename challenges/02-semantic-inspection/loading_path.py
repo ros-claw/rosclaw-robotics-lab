@@ -2,7 +2,27 @@
 
 import subprocess
 import time
-from safety import swept_footprint
+from safety import canonical_hash, swept_footprint
+
+
+def validate_catalog_proposals(proposals, entries):
+    """Never expose retired IDs or content that differs from daemon registration."""
+    seen = set()
+    for proposal in proposals:
+        ident = proposal["proposal_id"]
+        if ident in seen:
+            raise ValueError("Catalog contains duplicate proposal IDs")
+        seen.add(ident)
+        entry = entries.get(ident)
+        if entry is None:
+            raise ValueError("Catalog contains an unregistered proposal ID")
+        candidate = entry["candidate"]
+        raw = {k: v for k, v in candidate.items() if k != "proposal_id"}
+        if canonical_hash({"candidate": raw, "evidence": entry["evidence"]}) != ident:
+            raise ValueError("Catalog proposal hash differs from registered evidence")
+        if any(proposal[k] != candidate[k] for k in candidate):
+            raise ValueError("Catalog proposal content differs from registered target")
+    return proposals
 
 
 def preview_candidates(

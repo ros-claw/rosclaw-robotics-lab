@@ -325,3 +325,25 @@ def test_refusal_requires_every_generated_path_and_no_safe_counterexample():
     snapshot["costmap"]["data"][45] = 0
     with pytest.raises(ValueError):
         verify_refused_candidates(records, [(1.5, 1.5)], footprint, "/fork")
+
+
+def test_robot_facing_catalog_rejects_retired_and_tampered_proposals():
+    from loading_path import validate_catalog_proposals
+    from safety import canonical_hash
+
+    candidate = {"x": 2.0, "y": 3.0, "yaw": 0.5, "target_prim": "/fork"}
+    evidence = {"issued_at_wall": 100.0, "body_snapshot_hash": "body"}
+    ident = canonical_hash({"candidate": candidate, "evidence": evidence})
+    registered = {"candidate": {**candidate, "proposal_id": ident}, "evidence": evidence}
+    fresh = {**registered["candidate"], "predicted_new_cells": 12}
+    registry = {ident: registered}
+    assert validate_catalog_proposals([fresh], registry) == [fresh]
+    with pytest.raises(ValueError, match="unregistered"):
+        validate_catalog_proposals([dict(fresh, proposal_id="retired"), fresh], registry)
+    with pytest.raises(ValueError, match="content"):
+        validate_catalog_proposals([dict(fresh, x=99.0)], registry)
+    with pytest.raises(ValueError, match="duplicate"):
+        validate_catalog_proposals([fresh, fresh], registry)
+    registered["evidence"]["issued_at_wall"] = 101.0
+    with pytest.raises(ValueError, match="hash"):
+        validate_catalog_proposals([fresh], registry)

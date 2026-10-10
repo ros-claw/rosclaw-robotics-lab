@@ -27,7 +27,11 @@ from loading_geometry import (
 )
 from loading_perception import inspect_clouds
 from loading_contract import validate_thresholds
-from loading_path import preview_candidates, verify_refused_candidates
+from loading_path import (
+    preview_candidates,
+    validate_catalog_proposals,
+    verify_refused_candidates,
+)
 
 
 class CatalogPreviewInterrupted(Exception):
@@ -208,7 +212,7 @@ class LoadingExecutor(SemanticExecutor):
                     record,
                 ),
             )
-            checked_proposals = [{**c, "actual_path_preview": "PASS"} for c in accepted]
+            checked_proposals = []
             for preview in previews:
                 entry = preview["proposal"]
                 candidate = entry["candidate"]
@@ -270,7 +274,7 @@ class LoadingExecutor(SemanticExecutor):
                     "shelf_distance_m": relation["shelf_distance_m"],
                     "nearest_shelf": relation["nearest_shelf"]["path"],
                     "region": region,
-                    "proposals": checked_proposals,
+                    "proposals": validate_catalog_proposals(checked_proposals, entries),
                     "rejected_count": len(rejected),
                     "rejections": rejected,
                 }
