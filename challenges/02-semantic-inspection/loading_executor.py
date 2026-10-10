@@ -27,7 +27,11 @@ from loading_geometry import (
 )
 from loading_perception import inspect_clouds
 from loading_contract import validate_thresholds
-from loading_path import preview_candidates
+from loading_path import preview_candidates, verify_refused_candidates
+
+
+class CatalogPreviewInterrupted(Exception):
+    """A motion request takes precedence over a background read-only refresh."""
 
 
 class LoadingExecutor(SemanticExecutor):
@@ -48,9 +52,27 @@ class LoadingExecutor(SemanticExecutor):
         if self.lock.locked() and not allow_during_action:
             return
         with self.loading_catalog_lock:
-            return self._refresh_loading_catalog()
+            return self._refresh_loading_catalog(
+                allow_during_action=allow_during_action
+            )
 
-    def _refresh_loading_catalog(self):
+    def catalog_loop(self):
+        while not self.catalog_stop.wait(5):
+            if self.lock.locked():
+                continue
+            try:
+                catalog = json.loads((self.root / "loading-catalog.json").read_text())
+                if time.time() - catalog["generated_at_wall"] >= 45:
+                    self.refresh_catalog()
+            except CatalogPreviewInterrupted:
+                continue
+            except Exception as exc:
+                write_json_atomic(
+                    self.root / "semantic-catalog-error.json",
+                    {"wall_time": time.time(), "error": str(exc)},
+                )
+
+    def _refresh_loading_catalog(self, *, allow_during_action=False):
         self.source_check()
         sample = self.fresh()
         now = time.time()
@@ -80,6 +102,7 @@ class LoadingExecutor(SemanticExecutor):
         initial = self.contract["return_pose"]
         entries = {}
         targets = []
+        all_rejected_path_artifacts = {}
         latest = self.inspections[-1]["summary"] if self.inspections else None
         observed = (
             set(tuple(p) for p in (latest["free_cells"] + latest["occupied_cells"]))
@@ -166,10 +189,16 @@ class LoadingExecutor(SemanticExecutor):
                         p["distance_from_robot_m"],
                     )
                 )
+
+            def preview_probe(candidate):
+                if self.lock.locked() and not allow_during_action:
+                    raise CatalogPreviewInterrupted()
+                return self.probe(candidate)
+
             accepted, previews = preview_candidates(
                 proposals,
                 entries,
-                self.probe,
+                preview_probe,
                 footprint,
                 on_record=lambda record: write_json_atomic(
                     self.evidence_dir
@@ -184,6 +213,35 @@ class LoadingExecutor(SemanticExecutor):
                 entry = preview["proposal"]
                 candidate = entry["candidate"]
                 ident = candidate["proposal_id"]
+                if preview["status"] == "PASS":
+                    entries.pop(ident)
+                    issued = self.fresh()
+                    entry["evidence"].update(
+                        issued_at_wall=time.time(), issued_at_sim=issued["sim_time"]
+                    )
+                    raw = {k: v for k, v in candidate.items() if k != "proposal_id"}
+                    ident = canonical_hash(
+                        {"candidate": raw, "evidence": entry["evidence"]}
+                    )
+                    candidate["proposal_id"] = ident
+                    entry.update(
+                        generated_at_wall=entry["evidence"]["issued_at_wall"],
+                        generated_at_sim=issued["sim_time"],
+                    )
+                    entries[ident] = entry
+                    original = next(
+                        c
+                        for c in accepted
+                        if c["x"] == candidate["x"] and c["y"] == candidate["y"]
+                    )
+                    checked_proposals.append(
+                        {
+                            **original,
+                            "proposal_id": ident,
+                            "actual_path_preview": "PASS",
+                            "path_preview_wall_time": preview["snapshot"]["wall_time"],
+                        }
+                    )
                 artifact_path = self.evidence_dir / (ident + "-preview.json")
                 write_json_atomic(artifact_path, preview)
                 if preview["status"] != "PASS":
@@ -194,6 +252,13 @@ class LoadingExecutor(SemanticExecutor):
                         }
                     )
                     entries.pop(ident)
+                    if "snapshot" in preview and "checked_path" in preview:
+                        all_rejected_path_artifacts.setdefault(target, []).append(
+                            {
+                                "path": str(artifact_path),
+                                "sha256": file_sha(artifact_path),
+                            }
+                        )
                 else:
                     entry["path_preview_artifact"] = {
                         "path": str(artifact_path),
@@ -210,6 +275,30 @@ class LoadingExecutor(SemanticExecutor):
                     "rejections": rejected,
                 }
             )
+        # Return proposal and catalog lifetime begin AFTER path previews finish.
+        sample = self.fresh()
+        now = time.time()
+        unavailable = None
+        nearest = targets[0]
+        rejection_proofs = all_rejected_path_artifacts.get(nearest["target_prim"], [])
+        if (
+            not nearest["proposals"]
+            and nearest["region"]
+            and len(rejection_proofs) == len(observation_seeds(nearest["region"]))
+        ):
+            refusal = {
+                "body_snapshot_hash": self.config["body_snapshot_hash"],
+                "observer_id": self.observer_id,
+                "target": nearest["target_prim"],
+                "region": nearest["region"],
+                "path_rejections": rejection_proofs,
+                "reason": "Every generated observation path failed actual full-footprint checks; this bounded candidate set cannot support inspection",
+            }
+            path = self.evidence_dir / (
+                "unavailable-" + canonical_hash(refusal) + ".json"
+            )
+            write_json_atomic(path, refusal)
+            unavailable = {"path": str(path), "sha256": file_sha(path)}
         evidence = {
             "body_snapshot_hash": self.config["body_snapshot_hash"],
             "observer_id": self.observer_id,
@@ -217,6 +306,8 @@ class LoadingExecutor(SemanticExecutor):
             "issued_at_wall": now,
             "issued_at_sim": sample["sim_time"],
         }
+        if unavailable:
+            evidence["observation_unavailable_sha256"] = unavailable["sha256"]
         home = {**initial, "target_prim": "return_to_initial_pose"}
         ident = canonical_hash({"candidate": home, "evidence": evidence})
         home["proposal_id"] = ident
@@ -227,6 +318,8 @@ class LoadingExecutor(SemanticExecutor):
             "generated_at_wall": now,
             "generated_at_sim": sample["sim_time"],
         }
+        if unavailable:
+            entries[ident]["observation_unavailable_artifact"] = unavailable
         with self.registry_lock:
             self.registry.update(entries)
         write_json_atomic(
@@ -280,8 +373,8 @@ class LoadingExecutor(SemanticExecutor):
                 and entry["candidate"]["target_prim"] != self.selected_target
             ):
                 raise ValueError("Cannot silently switch inspection target")
-        with self.loading_catalog_lock:
-            return super().resolve_target(action)
+        # Registry is immutable; do not wait for an entire background preview batch.
+        return super().resolve_target(action)
 
     def enrich_verification(self, action, site_id, site, proof):
         semantic = self.resolved[action.action_id]
@@ -519,16 +612,55 @@ class LoadingMemoryExecutor(SemanticMemoryExecutor):
             # Restricted Body must make every generated observation inadmissible.
             allowed = self.config["loading_contract"].get("allowed_observation_bounds")
             region = region_for_relation(relation["ranked"][0])
-            if not allowed or any(
+            zone_refusal = allowed and not any(
                 all(allowed["min"][i] <= p[i] <= allowed["max"][i] for i in (0, 1))
                 for p in observation_seeds(region)
-            ):
-                raise ValueError("Cannot skip available observation candidates")
+            )
+            refusal_reason = (
+                "No generated observation lies in immutable authorized observation zone"
+            )
+            if not zone_refusal:
+                artifact = entries[-1].get("observation_unavailable_artifact")
+                if (
+                    not artifact
+                    or entries[-1]["evidence"].get("observation_unavailable_sha256")
+                    != artifact["sha256"]
+                ):
+                    raise ValueError("Cannot skip available observation candidates")
+                refusal = checked_artifact(self.root, self.config, artifact)
+                if (
+                    refusal["body_snapshot_hash"] != self.config["body_snapshot_hash"]
+                    or refusal["observer_id"]
+                    != self.config["semantic_contract"]["initial_observer_id"]
+                    or refusal["target"] != expected_target
+                    or refusal["region"] != region
+                ):
+                    raise ValueError("Unsafe-path refusal binding mismatch")
+                params = yaml.safe_load(
+                    (
+                        self.root / "frozen-source/config/patrol_navigation_params.yaml"
+                    ).read_text()
+                )
+                footprint = json.loads(
+                    params["local_costmap"]["local_costmap"]["ros__parameters"][
+                        "footprint"
+                    ]
+                )
+                verify_refused_candidates(
+                    [
+                        checked_artifact(self.root, self.config, item)
+                        for item in refusal["path_rejections"]
+                    ],
+                    observation_seeds(region),
+                    footprint,
+                    expected_target,
+                )
+                refusal_reason = refusal["reason"]
             self.replay_summary = {
                 "result": "UNKNOWN",
                 "extra_obstacle_detected": False,
                 "coverage_ratio": 0.0,
-                "reason": "No generated observation lies in immutable authorized observation zone",
+                "reason": refusal_reason,
                 "new_observed_cells": 0,
             }
         if self.agent_report:

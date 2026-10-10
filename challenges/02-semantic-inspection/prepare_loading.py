@@ -89,6 +89,9 @@ def main():
     import shutil
 
     shutil.copyfile(prior_path, root / "loading-known-prior.json")
+    # Legacy inventory includes evaluator-only fixture geometry. Loading tools use
+    # the pre-fixture known prior exclusively; do not expose this extra copy.
+    (root / "semantic-inventory.json").unlink()
 
 
 if __name__ == "__main__":

@@ -285,3 +285,43 @@ def test_stale_path_preview_never_becomes_robot_facing():
         now=lambda: 5,
     )
     assert not accepted and records[0]["status"] == "REJECTED"
+
+
+def test_refusal_requires_every_generated_path_and_no_safe_counterexample():
+    from loading_path import preview_candidates, verify_refused_candidates
+
+    footprint = [[0.1, 0.1], [0.1, -0.1], [-0.1, -0.1], [-0.1, 0.1]]
+    candidate = {
+        "proposal_id": "p",
+        "x": 1.5,
+        "y": 1.5,
+        "yaw": 0,
+        "target_prim": "/fork",
+    }
+    snapshot = {
+        "wall_time": 1.0,
+        "base_pose": [0.5, 0.5, 0],
+        "path": [[0.5, 0.5, 0], [1.5, 1.5, 0]],
+        "costmap": {
+            "width": 8,
+            "height": 8,
+            "resolution": 0.5,
+            "origin": [-1, -1],
+            "data": [0] * 64,
+        },
+    }
+    snapshot["costmap"]["data"][45] = 100
+    accepted, records = preview_candidates(
+        [candidate],
+        {"p": {"candidate": candidate}},
+        lambda _: snapshot,
+        footprint,
+        now=lambda: 1.1,
+    )
+    assert not accepted
+    assert verify_refused_candidates(records, [(1.5, 1.5)], footprint, "/fork")
+    with pytest.raises(ValueError):
+        verify_refused_candidates(records, [(1.5, 1.5), (2, 2)], footprint, "/fork")
+    snapshot["costmap"]["data"][45] = 0
+    with pytest.raises(ValueError):
+        verify_refused_candidates(records, [(1.5, 1.5)], footprint, "/fork")

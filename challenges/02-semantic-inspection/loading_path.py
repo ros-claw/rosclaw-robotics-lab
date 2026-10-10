@@ -38,3 +38,26 @@ def preview_candidates(
         if len(accepted) == limit:
             break
     return accepted, records
+
+
+def verify_refused_candidates(records, expected_positions, footprint, target):
+    """Recheck every generated path; a single safe or missing candidate defeats refusal."""
+    rejected_xy = set()
+    for record in records:
+        candidate = record["proposal"]["candidate"]
+        if record["status"] != "REJECTED" or candidate["target_prim"] != target:
+            raise ValueError("Refusal requires actual rejected target paths")
+        try:
+            swept_footprint(
+                record["checked_path"],
+                record["snapshot"]["costmap"],
+                footprint,
+                padding=0.08,
+            )
+        except ValueError:
+            rejected_xy.add((candidate["x"], candidate["y"]))
+        else:
+            raise ValueError("Refusal contains a safe observation path")
+    if rejected_xy != set(expected_positions):
+        raise ValueError("Refusal did not examine every generated observation path")
+    return True
