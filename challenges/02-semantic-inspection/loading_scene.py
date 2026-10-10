@@ -2,7 +2,7 @@
 
 import json
 from pathlib import Path
-from pxr import Gf, UsdGeom, UsdPhysics
+from pxr import Gf, Usd, UsdGeom, UsdPhysics
 
 
 def apply_fixture(stage, config_path, output):
@@ -17,7 +17,26 @@ def apply_fixture(stage, config_path, output):
         p.AddScaleOp().Set(Gf.Vec3d(*box["size"]))
         p.CreateDisplayColorAttr([Gf.Vec3f(0.55, 0.27, 0.08)])
         UsdPhysics.CollisionAPI.Apply(p.GetPrim())
-        records.append({"path": str(p.GetPath()), **box, "collision_enabled": True})
+        bounds = (
+            UsdGeom.BBoxCache(
+                Usd.TimeCode.Default(),
+                ["default", "render", "proxy", "guide"],
+                False,
+                True,
+            )
+            .ComputeWorldBound(p.GetPrim())
+            .ComputeAlignedRange()
+        )
+        records.append(
+            {
+                "path": str(p.GetPath()),
+                **box,
+                "collision_enabled": bool(
+                    UsdPhysics.CollisionAPI(p.GetPrim()).GetCollisionEnabledAttr().Get()
+                ),
+                "bounds": {"min": list(bounds.GetMin()), "max": list(bounds.GetMax())},
+            }
+        )
     if "initial_pose" in config:
         x, y, yaw = config["initial_pose"]
         # Reset-time transform only, before play. No ROS/actuator motion command.
