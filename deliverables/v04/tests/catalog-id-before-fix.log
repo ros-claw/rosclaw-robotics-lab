@@ -1,0 +1,12 @@
+F                                                                        [100%]
+=================================== FAILURES ===================================
+_______ test_robot_facing_catalog_rejects_retired_and_tampered_proposals _______
+
+    def test_robot_facing_catalog_rejects_retired_and_tampered_proposals():
+>       from loading_path import validate_catalog_proposals
+E       ImportError: cannot import name 'validate_catalog_proposals' from 'loading_path' (/home/nvidia/sim/rosclaw-robotics-lab/challenges/02-semantic-inspection/loading_path.py)
+
+rosclaw-robotics-lab/challenges/02-semantic-inspection/tests/test_loading.py:331: ImportError
+=========================== short test summary info ============================
+FAILED rosclaw-robotics-lab/challenges/02-semantic-inspection/tests/test_loading.py::test_robot_facing_catalog_rejects_retired_and_tampered_proposals
+1 failed, 25 deselected in 0.09s

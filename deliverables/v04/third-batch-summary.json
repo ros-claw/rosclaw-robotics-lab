@@ -1,0 +1,457 @@
+{
+  "scope": "Frozen engineering regression only; all attempts retained, no reliability estimate",
+  "protocol_sha256": "34c8625517c0c8f1ab24ac7440a41023cd0a6f419e452a33b8813bebaa9b19a9",
+  "frozen_lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+  "upstream_merge_and_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+  "planned": 12,
+  "completed": 7,
+  "status_counts": {
+    "PASS": 6,
+    "FAIL": 1
+  },
+  "case_counts": {
+    "A": {
+      "PASS": 3
+    },
+    "B": {
+      "PASS": 2,
+      "FAIL": 1
+    },
+    "C": {
+      "PASS": 1
+    },
+    "D": {}
+  },
+  "nav_visits": 15,
+  "max_error_m": 0.20540186357167348,
+  "max_yaw_error_rad": 0.2547751559903282,
+  "minimum_stable_dwell_sim_seconds": 2.016666666666552,
+  "non_floor_contacts": 0,
+  "attempts": [
+    {
+      "attempt": "l04ha01",
+      "case": "A",
+      "status": "PASS",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "443c64fde1761b870a369fe62ebc36e841392dbb13fd7d7e294ba67ebe356c0a",
+      "acceptance_status": "PASS",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "60c255e432260933b1d607c199771ef710a1c786c833337e9a8893ecb16bf4ab",
+      "observer_id": "5779a24eb17f49c5882bb6c8952a8e2b",
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "4f6c02f969703cf8089a9cf9c8447180d13f30799e450815b60eeece561d381c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "extra_obstacle_detected": false,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_0a258534e6e4452a99a3774e",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 2,
+      "max_error_m": 0.15867226916750396,
+      "model_turns": 7,
+      "reported_token_usage": {
+        "input": 9850,
+        "output": 946,
+        "cacheRead": 30208,
+        "cacheWrite": 0,
+        "reasoning": 35,
+        "totalTokens": 41004
+      },
+      "native_wall_seconds": 170.90850496292114,
+      "attempt_wall_seconds": 244.6423854827881
+    },
+    {
+      "attempt": "l04ha02",
+      "case": "A",
+      "status": "PASS",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "8f11c1569a9c72664790d0fc355416ca8f10aebdac62a77e348ff773bf774e67",
+      "acceptance_status": "PASS",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "43d1eb90d24d232639a8d0ed2bd09988ea85a4c421f6f370c54a0c8bcbaaec9b",
+      "observer_id": "f21435181a584123886ae1e0a7ebc908",
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "8b98c290759c7a452d9b1131dd1c4253476d103263bff98e3f4b9a6ad2f39a5f",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "extra_obstacle_detected": false,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_80014ec9be9345688de3355e",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 2,
+      "max_error_m": 0.1219578613397282,
+      "model_turns": 7,
+      "reported_token_usage": {
+        "input": 11942,
+        "output": 881,
+        "cacheRead": 28032,
+        "cacheWrite": 0,
+        "reasoning": 26,
+        "totalTokens": 40855
+      },
+      "native_wall_seconds": 160.21204113960266,
+      "attempt_wall_seconds": 229.62322664260864
+    },
+    {
+      "attempt": "l04ha03",
+      "case": "A",
+      "status": "PASS",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "27daeed8c3aeb125cc2fe9173e3c0ca774dd23e5daa1d9cb6cba474de602408c",
+      "acceptance_status": "PASS",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "aa26d3ca3622506b597baa939f5141e575e58cd3573c21528eb234593c72c8d9",
+      "observer_id": "3a45d8c01e8a4559a9e2b532b8fab20d",
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "d72ad471a54003c031b5967e95e1c3e23d2f539a29cbd075958c6918cd3074c9",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "extra_obstacle_detected": false,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_6943805440da47b1864392b3",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 2,
+      "max_error_m": 0.14784442759554947,
+      "model_turns": 8,
+      "reported_token_usage": {
+        "input": 23856,
+        "output": 1001,
+        "cacheRead": 24064,
+        "cacheWrite": 0,
+        "reasoning": 52,
+        "totalTokens": 48921
+      },
+      "native_wall_seconds": 171.6599473953247,
+      "attempt_wall_seconds": 242.8358690738678
+    },
+    {
+      "attempt": "l04hb01",
+      "case": "B",
+      "status": "PASS",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "b1c2aa0727c77ba281fc206453d017fb796ae96ad6073fc75d48d3f12d8824d0",
+      "acceptance_status": "PASS",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "d16ec746db8b7f3f6821fab37c8de6f928038db907781f507dd7c1140027fdc0",
+      "observer_id": "248e57feae714ccd95a4080bcad8322e",
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "0c445d6535f3d9867358c872915312b28a6c7445e5c79a14426fca8c3e886f66",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8151260504201681,
+      "extra_obstacle_detected": true,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_e49f3b49cbcf49ef84bddd63",
+          "new_observed_cells": 193,
+          "coverage_ratio": 0.8109243697478992
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_4a8e982e939845fdac1a3e48",
+          "new_observed_cells": 1,
+          "coverage_ratio": 0.8151260504201681
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 3,
+      "max_error_m": 0.20540186357167348,
+      "model_turns": 9,
+      "reported_token_usage": {
+        "input": 14077,
+        "output": 982,
+        "cacheRead": 44032,
+        "cacheWrite": 0,
+        "reasoning": 14,
+        "totalTokens": 59091
+      },
+      "native_wall_seconds": 215.01913785934448,
+      "attempt_wall_seconds": 288.08328342437744
+    },
+    {
+      "attempt": "l04hb02",
+      "case": "B",
+      "status": "PASS",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "d754081c8943753f87c441bf69429a55523bf2e70ad20431be4856e8df046517",
+      "acceptance_status": "PASS",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "cb98646dc5398b5549088c7c27fbf18834bc5dfb0459a56e50d8e334c196ed3f",
+      "observer_id": "963d2a6b08ba4a13ac9d2592a7fe45f9",
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "7107fcfe9b8be5c3a90d47796837e4529b17ed7e4e3c5ef5a6f8cffdf0d0334c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8109243697478992,
+      "extra_obstacle_detected": true,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_4041f6cb50ed447cbe0d414c",
+          "new_observed_cells": 192,
+          "coverage_ratio": 0.8067226890756303
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_12b6224ac21841e2b81d5444",
+          "new_observed_cells": 1,
+          "coverage_ratio": 0.8109243697478992
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 3,
+      "max_error_m": 0.19840376899037757,
+      "model_turns": 9,
+      "reported_token_usage": {
+        "input": 18426,
+        "output": 961,
+        "cacheRead": 39424,
+        "cacheWrite": 0,
+        "reasoning": 13,
+        "totalTokens": 58811
+      },
+      "native_wall_seconds": 216.98274779319763,
+      "attempt_wall_seconds": 287.4313406944275
+    },
+    {
+      "attempt": "l04hb03",
+      "case": "B",
+      "status": "FAIL",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "0a5734e679d66dc7f5a952d3b4b3c12b686519a4eb8ca0f47ce0c053af87de29",
+      "acceptance_status": "FAIL",
+      "lab_sha": null,
+      "upstream_sha": null,
+      "body_hash": null,
+      "observer_id": null,
+      "independent_case": null,
+      "model_turns": 4,
+      "reported_token_usage": {
+        "input": 5873,
+        "output": 253,
+        "cacheRead": 12160,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 18286
+      },
+      "native_wall_seconds": 51.22746014595032,
+      "attempt_wall_seconds": 122.23297381401062
+    },
+    {
+      "attempt": "l04hc01",
+      "case": "C",
+      "status": "PASS",
+      "recording_status": "PASS",
+      "manual_interventions": [],
+      "fixture_sha256": "c61dfa8cacbd9b9b0bf1cea0ca8fa03b8b35b49c0005ea74c2479aaddc75ff77",
+      "acceptance_status": "PASS",
+      "lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "155549a6a7c639e3d23ce472233390a138a69150f87ac6885b0468956292ce95",
+      "observer_id": "f42e4a2c974642d286de72d8a3edd4b5",
+      "independent_case": {
+        "status": "PASS",
+        "case": "C",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "9dfbd28eac15fc034830338937d6d56dcdaf9dd9f2742bc55e080e2e8f4783ad",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "extra_obstacle_detected": false,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -6.43402915057093,
+            "yaw": 2.165700462289026
+          },
+          "action_id": "act_ad90d8bb1dbc402a8a5c0732",
+          "new_observed_cells": 199,
+          "coverage_ratio": 0.8361344537815126
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_511e4daf22f340d391e9e79c",
+          "new_observed_cells": 39,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 3,
+      "max_error_m": 0.11059978252703993,
+      "model_turns": 9,
+      "reported_token_usage": {
+        "input": 16635,
+        "output": 1021,
+        "cacheRead": 41216,
+        "cacheWrite": 0,
+        "reasoning": 18,
+        "totalTokens": 58872
+      },
+      "native_wall_seconds": 314.74627327919006,
+      "attempt_wall_seconds": 392.4776191711426
+    },
+    {
+      "attempt": "l04hc02",
+      "case": "C",
+      "status": "NOT_STARTED",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "7944875cfc5a96354028f37f0589ac6cc73eccf3dac605a4297b395e670078e9"
+    },
+    {
+      "attempt": "l04hc03",
+      "case": "C",
+      "status": "NOT_STARTED",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "82dc6d5e91764e07b2173d23c04b19262e7f5d0c05aee9a0d8c658a4f2032684"
+    },
+    {
+      "attempt": "l04hd01",
+      "case": "D",
+      "status": "NOT_STARTED",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "0af167a96a2e412dca7c629c9a15b87538e3e2c87b6e8ff125d08913b4e02e59"
+    },
+    {
+      "attempt": "l04hd02",
+      "case": "D",
+      "status": "NOT_STARTED",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "65ab375c0efa70904f355bca9ca974c280980e8eb3da2a9a2127ba2403d02a21"
+    },
+    {
+      "attempt": "l04hd03",
+      "case": "D",
+      "status": "NOT_STARTED",
+      "recording_status": "NOT_REQUESTED",
+      "manual_interventions": [],
+      "fixture_sha256": "f1c2ba62d9351f10069d0b123f9e9c72c6c63dbfd82032bfab7e99dad0aa1599"
+    }
+  ]
+}

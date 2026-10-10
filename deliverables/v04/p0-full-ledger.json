@@ -1,0 +1,50 @@
+[
+  {
+    "run": "20261010T070103Z",
+    "status": "CAPTURED",
+    "scope": "Actual P0 audit/control capture; not a Native navigation trial",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T070415Z",
+    "status": "CAPTURED",
+    "scope": "Initial control includes confounded high drop; not credited as near-fork proof",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T070555Z",
+    "status": "INCOMPLETE",
+    "scope": "Unsupported BBoxCache keyword signature, startup incomplete",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T070802Z",
+    "status": "INCOMPLETE",
+    "scope": "Old supervisor ERR cleanup raced the next reset, startup incomplete",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T070907Z",
+    "status": "CAPTURED",
+    "scope": "Intermediate audit/control; not final geometry claim",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T071230Z",
+    "status": "CAPTURED",
+    "scope": "Actual P0 audit/control capture; not a Native navigation trial",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T071421Z",
+    "status": "CAPTURED",
+    "scope": "Actual P0 audit/control capture; not a Native navigation trial",
+    "native_task_started": false
+  },
+  {
+    "run": "20261010T072011Z",
+    "status": "CAPTURED",
+    "scope": "Actual P0 audit/control capture; not a Native navigation trial",
+    "native_task_started": false
+  }
+]

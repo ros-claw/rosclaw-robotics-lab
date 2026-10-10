@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "scope": "archive consistency only; not a new simulation or independent engineer run",
+  "attempts": [
+    {
+      "attempt": "l04ha01",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04ha02",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04ha03",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04hb01",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04hb02",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "attempt": "l04hb03",
+      "original_status": "FAIL",
+      "replay_status": "NOT_REPLAYED",
+      "reason": "Retained incomplete original mission"
+    },
+    {
+      "attempt": "l04hc01",
+      "original_status": "PASS",
+      "replay_status": "PASS",
+      "exit_code": 0
+    }
+  ]
+}

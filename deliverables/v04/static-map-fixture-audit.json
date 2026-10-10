@@ -1,0 +1,36 @@
+{
+  "scope": "Read-only independent check of frozen temporary fixture footprints on unchanged official map",
+  "map_yaml_sha256": "05263f31a87ef9510145b4606eda7f2f849f5740e5668f9e4fb1fc520e76f012",
+  "map_image_sha256": "dd2f5e382a5f331866becaeaffb391a7e46b595873bf25c9cbb4e280ec261b8e",
+  "checks": [
+    {
+      "fixture": "fixtures/b1.json",
+      "case": "B",
+      "seed": 1016600,
+      "pixel_count": 552,
+      "all_pixels_known_free": true,
+      "unknown_or_occupied": 0,
+      "fixture_sha256": "eb6043ed88200c7a984af6f9524697d6b92dc7c9381e68b7073268e0364d0f37"
+    },
+    {
+      "fixture": "fixtures/b2.json",
+      "case": "B",
+      "seed": 1016601,
+      "pixel_count": 552,
+      "all_pixels_known_free": true,
+      "unknown_or_occupied": 0,
+      "fixture_sha256": "e97b015ce2b12655402fa4e6f2e01d6470072c8f1ae04f2c0616534c7b07c124"
+    },
+    {
+      "fixture": "fixtures/b3.json",
+      "case": "B",
+      "seed": 1016602,
+      "pixel_count": 552,
+      "all_pixels_known_free": true,
+      "unknown_or_occupied": 0,
+      "fixture_sha256": "db9f5fb1ccbd5471c64b530a8fd6770110fd5f3e1a5915f0bb34cba991374137"
+    }
+  ],
+  "protocol_sha256": "04ae932e0d9334ced14eae2e49822c762de4ab63ce9f7432a6e10b0c5f17e55f",
+  "reuse_scope": "Box geometries exactly equal to audited first-batch fixtures; initial robot pose changes do not alter map pixels under the box."
+}

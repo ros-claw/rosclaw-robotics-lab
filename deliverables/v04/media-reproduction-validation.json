@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "Media reproduction from actually re-downloaded public camera archives, with temporary path relocation and unmodified original task evidence. Not a new robot trial or an independent-machine run.",
+  "source": "release-early-downloads/loading-camera-*.zip",
+  "attempt": "l04qc07",
+  "renderer_sha256": "6525265a7d0bcd2f444e4dc4df3f03e6f7e37ad40e76bc30308502250a877e26",
+  "wrapper_sha256": "f80de63fd7229c77412d6377b268459fed950522365add05ddace8bce738363c",
+  "original_video_sha256": "b11f601c1e1c502679f0e97e1c6c0f0723a3ae400ba6f9f045764ab6fa94f61b",
+  "reencoded_video_sha256": "b11f601c1e1c502679f0e97e1c6c0f0723a3ae400ba6f9f045764ab6fa94f61b",
+  "byte_identical": true
+}

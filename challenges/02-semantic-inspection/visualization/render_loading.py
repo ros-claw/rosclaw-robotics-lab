@@ -153,6 +153,14 @@ def main():
                     x0, y1 = xy(low)
                     x1, y0 = xy(high)
                     draw.rectangle((x0, y0, x1, y1), fill=color)
+            # Measured occupancy, including the actual sensor halo, defines these
+            # configuration-space cells. Do not plot independent PhysX truth.
+            for cell in summary["clearance_blocked_center_cells"]:
+                low = np.array(reg["min"]) + np.array(cell) * r
+                high = np.minimum(low + r, reg["max"])
+                x0, y1 = xy(low)
+                x1, y0 = xy(high)
+                draw.rectangle((x0, y0, x1, y1), outline="#f1ae48", width=2)
             points = np.array(cloud["snapshot"]["frames"][-1]["points_map"])
             keep = (
                 (points[:, 2] >= 0.1)
@@ -166,10 +174,10 @@ def main():
             x0, y1 = xy(reg["min"])
             x1, y0 = xy(reg["max"])
             draw.rectangle((x0, y0, x1, y1), outline="#b3f9ef", width=3)
-            text(draw, (42, 1006), "实际点云 + 已观测区域", 24, "#ffffff")
+            text(draw, (42, 1006), "实测点云 / 地面与净空", 24, "#ffffff")
             title = f"实测 {summary['result']}  ·  覆盖 {summary['coverage_ratio']:.1%}"
             detail = f"已完成 {len(measured)} 次观察；本次新增 {summary['new_observed_cells']} 个有效网格。"
-            detail2 = f"额外障碍：{'检测到' if summary['extra_obstacle_detected'] else '未检测到'}；边界也按完整足迹检查。"
+            detail2 = f"额外障碍：{'检测到' if summary['extra_obstacle_detected'] else '未检测到'}；橙格：实测占用导致净空不足。"
         else:
             text(draw, (42, 1070), "等待实际观测", 32, "#849ab2")
             title = "一次任务输入 → 理解目标并选择安全观察点"
@@ -220,6 +228,8 @@ def main():
     sha = lambda p: hashlib.sha256(p.read_bytes()).hexdigest()
     provenance = {
         "attempt": a.attempt.name,
+        "renderer_sha256": sha(Path(__file__)),
+        "clearance_overlay": "Orange outlined ROI cells are full-footprint clearance deficits computed only from actual measured occupancy, including halo. Green cells show measured free ground, not automatically robot passage.",
         "physical_acceptance_sha256": sha(a.attempt / "acceptance.json"),
         "recording_index_sha256": sha(root / "timestamps.jsonl"),
         "output_sha256": sha(a.output),

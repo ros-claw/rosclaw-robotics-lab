@@ -1,0 +1,73 @@
+{
+  "scope": "Sanitized actual first observe_scene tool response. Before had six choices including three retired pre-reissue IDs; after exposes three current IDs only. No model prose or reasoning exported.",
+  "observations": [
+    {
+      "attempt": "l04ga03",
+      "timestamp": "2026-10-10T09:01:31.012Z",
+      "journal_sha256": "f3fc53209eeaf91a19017d4fe3532fc55533e8d2c7200aac1af10eec96d14cec",
+      "targets": [
+        {
+          "target": "/World/warehouse_with_forklifts/Forklift_01",
+          "proposals": [
+            {
+              "proposal_id": "5d5678418be3951a867b75c99f60423bfce8423df08fe6b28e60fbab80d26896",
+              "preview_timestamp_present": false
+            },
+            {
+              "proposal_id": "50aa4980d567536b1bc425a5f01190423e0f1f8471ba175c835425dd3705d574",
+              "preview_timestamp_present": false
+            },
+            {
+              "proposal_id": "204801c3cabc0a8f3d9e0225873e388ba0e3908699cf25c088b1e207fbd8cf64",
+              "preview_timestamp_present": false
+            },
+            {
+              "proposal_id": "8263650737a82b8939ef88fc9c3df79e33177f51b1b1765adc2e012ca3e57118",
+              "preview_timestamp_present": true
+            },
+            {
+              "proposal_id": "4bd2353f9e32887e4157b9e7592017db5ab10410c6292052829917f4f743e2ee",
+              "preview_timestamp_present": true
+            },
+            {
+              "proposal_id": "7606c7e3580107683e64be86ea82bd14ad67bbba3c68fa8e40d4038df3dde878",
+              "preview_timestamp_present": true
+            }
+          ]
+        },
+        {
+          "target": "/World/warehouse_with_forklifts/Forklift",
+          "proposals": []
+        }
+      ]
+    },
+    {
+      "attempt": "l04qc07",
+      "timestamp": "2026-10-10T09:07:26.273Z",
+      "journal_sha256": "ffff01c100cae008a38abb00720328fbbd9fea181963f2603ff1a80ae5e35888",
+      "targets": [
+        {
+          "target": "/World/warehouse_with_forklifts/Forklift_01",
+          "proposals": [
+            {
+              "proposal_id": "504d7c4b48759a0a7ebdb4cf042157de26d03a02a80e50cb0010e111f8fa9ca7",
+              "preview_timestamp_present": true
+            },
+            {
+              "proposal_id": "0f9d0c0ee6694053276452d62c1ccff77fc654a335884df9d4973b9be04b4ff9",
+              "preview_timestamp_present": true
+            },
+            {
+              "proposal_id": "714e4f41d3f345003ac76549fc11f5dac6e651375ebb14e3bf77d50420d66ec5",
+              "preview_timestamp_present": true
+            }
+          ]
+        },
+        {
+          "target": "/World/warehouse_with_forklifts/Forklift",
+          "proposals": []
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{"scope": "Frozen engineering regression only; all attempts retained, no reliability estimate", "protocol_sha256": "04ae932e0d9334ced14eae2e49822c762de4ab63ce9f7432a6e10b0c5f17e55f", "frozen_lab_sha": "d1a1db271ae0030ea47df415d890751dcfd205fb", "upstream_merge_and_build_sha": "9862058c445c88156b9080832b5dd803c75279ae", "planned": 12, "completed": 12, "status_counts": {"PASS": 12}, "case_counts": {"A": {"PASS": 3}, "B": {"PASS": 3}, "C": {"PASS": 3}, "D": {"PASS": 3}}, "nav_visits": 27, "max_error_m": 0.17272067508682037, "max_yaw_error_rad": 0.25162400870640766, "minimum_stable_dwell_sim_seconds": 2.016666666666552, "non_floor_contacts": 0}
+{"calibration": {"FAIL": 4, "PASS": 8, "INCOMPLETE": 1}, "first_frozen_interrupted": {"PASS": 3, "FAIL": 1}, "second_frozen_interrupted": {"PASS": 3}, "third_frozen_interrupted": {"PASS": 6, "FAIL": 1}, "final_frozen": {"PASS": 12}, "postmerge_compatibility": {"PASS": 2}}
+{"status": "PASS", "attempts": 12, "files_per_attempt": 76}
+{"status": "FAIL", "counts": {"PASS": 37, "NOT_STARTED": 2, "FAIL": 2}}
+{"archive": "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/loading-formal-evidence.zip", "bytes": 667076959, "sha256": "31647de90aba0bc738aa73460e1bd44a494c7cc5249c85472d9c76352bc15a82"}
+Traceback (most recent call last):
+  File "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/replay_evidence.py", line 122, in <module>
+    main()
+  File "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/replay_evidence.py", line 97, in main
+    proof = json.loads(replay.read_text())
+                       ^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1029, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/pathlib.py", line 1015, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal-offline-replay/l04c01-replay.json'
+Traceback (most recent call last):
+  File "/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/evidence4_with_pilots.py", line 16, in <module>
+    subprocess.run([str(home/'rosclaw-v04-merged/.venv/bin/python'),str(b/'replay_evidence.py'),'--archive',str(b/'loading-formal-evidence.zip'),'--output',str(b/'formal-offline-replay'),'--rosclaw-source',str(home/'rosclaw-v04-merged')],check=True)
+  File "/home/nvidia/.local/share/uv/python/cpython-3.11.15-linux-aarch64-gnu/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['/home/nvidia/sim/rosclaw-v04-merged/.venv/bin/python', '/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/replay_evidence.py', '--archive', '/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/loading-formal-evidence.zip', '--output', '/home/nvidia/sim/rosclaw-robotics-lab/.runtime/v04/formal-offline-replay', '--rosclaw-source', '/home/nvidia/sim/rosclaw-v04-merged']' returned non-zero exit status 1.

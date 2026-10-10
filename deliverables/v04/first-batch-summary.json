@@ -1,0 +1,282 @@
+{
+  "scope": "Frozen engineering regression only; all attempts retained, no reliability estimate",
+  "protocol_sha256": "77d5783e0cf4e6fe3b4d4e4c8eeedb3d9dd7516ba5f703efb30b64fa7e214a23",
+  "frozen_lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+  "upstream_merge_and_build_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+  "planned": 12,
+  "completed": 4,
+  "status_counts": {
+    "PASS": 3,
+    "FAIL": 1
+  },
+  "case_counts": {
+    "A": {
+      "PASS": 2,
+      "FAIL": 1
+    },
+    "B": {
+      "PASS": 1
+    },
+    "C": {},
+    "D": {}
+  },
+  "nav_visits": 7,
+  "max_error_m": 0.22364512992364627,
+  "max_yaw_error_rad": 0.2523602257697388,
+  "minimum_stable_dwell_sim_seconds": 2.083333333333215,
+  "non_floor_contacts": 0,
+  "attempts": [
+    {
+      "attempt": "l04fa01",
+      "case": "A",
+      "status": "PASS",
+      "manual_interventions": [],
+      "fixture_sha256": "443c64fde1761b870a369fe62ebc36e841392dbb13fd7d7e294ba67ebe356c0a",
+      "acceptance_status": "PASS",
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "62741a16fe0cf2db9b6269514af300766be9107e9f420d18908793797f6a4b01",
+      "observer_id": "059d34790cae4c8bac3c3fd612037aad",
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "4f6c02f969703cf8089a9cf9c8447180d13f30799e450815b60eeece561d381c",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "extra_obstacle_detected": false,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_279ffdc150bf46f6bebedd6c",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 2,
+      "max_error_m": 0.15795241199651971,
+      "model_turns": 7,
+      "reported_token_usage": {
+        "input": 15010,
+        "output": 911,
+        "cacheRead": 24448,
+        "cacheWrite": 0,
+        "reasoning": 33,
+        "totalTokens": 40369
+      },
+      "native_wall_seconds": 157.072448015213,
+      "attempt_wall_seconds": 233.27678775787354
+    },
+    {
+      "attempt": "l04fa02",
+      "case": "A",
+      "status": "PASS",
+      "manual_interventions": [],
+      "fixture_sha256": "8f11c1569a9c72664790d0fc355416ca8f10aebdac62a77e348ff773bf774e67",
+      "acceptance_status": "PASS",
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "2af5183632b5f0e103954e5aced99bd7731aff115c4af0de2234c6e67a41fd16",
+      "observer_id": "d2e2c5b5b1f44881b286391aac3fda8e",
+      "independent_case": {
+        "status": "PASS",
+        "case": "A",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "6cd349e1efca149bd5d493adddbac961f5a2592f3e01c22863ac292e58939425",
+        "fixture_truth_sha256": "8b98c290759c7a452d9b1131dd1c4253476d103263bff98e3f4b9a6ad2f39a5f",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 1.0,
+      "extra_obstacle_detected": false,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_e124d9e3c60c4340986df51e",
+          "new_observed_cells": 238,
+          "coverage_ratio": 1.0
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 2,
+      "max_error_m": 0.17008918238102658,
+      "model_turns": 7,
+      "reported_token_usage": {
+        "input": 13681,
+        "output": 969,
+        "cacheRead": 25856,
+        "cacheWrite": 0,
+        "reasoning": 27,
+        "totalTokens": 40506
+      },
+      "native_wall_seconds": 157.82901525497437,
+      "attempt_wall_seconds": 234.92198371887207
+    },
+    {
+      "attempt": "l04fa03",
+      "case": "A",
+      "status": "FAIL",
+      "manual_interventions": [],
+      "fixture_sha256": "54e14f7a0879a5c3b168add6ddebe2d6f560fd4cbf6616b32fa6ab80cd94b74f",
+      "acceptance_status": "FAIL",
+      "lab_sha": null,
+      "upstream_sha": null,
+      "body_hash": null,
+      "observer_id": null,
+      "independent_case": null,
+      "model_turns": 3,
+      "reported_token_usage": {
+        "input": 9424,
+        "output": 172,
+        "cacheRead": 3072,
+        "cacheWrite": 0,
+        "reasoning": 0,
+        "totalTokens": 12668
+      },
+      "native_wall_seconds": 30.040537118911743,
+      "attempt_wall_seconds": 98.86674880981445
+    },
+    {
+      "attempt": "l04fb01",
+      "case": "B",
+      "status": "PASS",
+      "manual_interventions": [],
+      "fixture_sha256": "b1c2aa0727c77ba281fc206453d017fb796ae96ad6073fc75d48d3f12d8824d0",
+      "acceptance_status": "PASS",
+      "lab_sha": "fe65ecd760acaf7151f9890c87168c9026746f0e",
+      "upstream_sha": "9862058c445c88156b9080832b5dd803c75279ae",
+      "body_hash": "cb074924b483c2992f583478c24285ed1d2016c52cd50ca69db5fb3705a6ee29",
+      "observer_id": "4dfe5bf19ba14eecb44abd992419b926",
+      "independent_case": {
+        "status": "PASS",
+        "case": "B",
+        "expected_geometry": "OBSTRUCTED",
+        "measured_result": "OBSTRUCTED",
+        "physx_free_path": false,
+        "physx_barrier": true,
+        "truth_sha256": "636a7297b8b70ea0460d8b78fa1ab52008eba6fdebce7bd9b46deab5c14986ff",
+        "fixture_truth_sha256": "0c445d6535f3d9867358c872915312b28a6c7445e5c79a14426fca8c3e886f66",
+        "failures": [],
+        "scope": "Same declared conservative square clearance, actual PhysX geometry; engineering oracle, not independent engineer/hardware validation"
+      },
+      "inspection_result": "OBSTRUCTED",
+      "coverage_ratio": 0.8109243697478992,
+      "extra_obstacle_detected": true,
+      "views": [
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -0.53402915057093,
+            "yaw": 3.141592653589793
+          },
+          "action_id": "act_1438a62e79c54a089b342ff3",
+          "new_observed_cells": 193,
+          "coverage_ratio": 0.8109243697478992
+        },
+        {
+          "site": {
+            "x": -2.796766225836027,
+            "y": -1.53402915057093,
+            "yaw": 2.896167460893863
+          },
+          "action_id": "act_c734f34981cc4770aadf9ee4",
+          "new_observed_cells": 0,
+          "coverage_ratio": 0.8109243697478992
+        }
+      ],
+      "memory_outcome": "success",
+      "task_kernel_state": "SUCCEEDED",
+      "nav_visits": 3,
+      "max_error_m": 0.22364512992364627,
+      "model_turns": 9,
+      "reported_token_usage": {
+        "input": 18041,
+        "output": 1044,
+        "cacheRead": 39040,
+        "cacheWrite": 0,
+        "reasoning": 13,
+        "totalTokens": 58125
+      },
+      "native_wall_seconds": 176.34115982055664,
+      "attempt_wall_seconds": 246.88947582244873
+    },
+    {
+      "attempt": "l04fb02",
+      "case": "B",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "d754081c8943753f87c441bf69429a55523bf2e70ad20431be4856e8df046517"
+    },
+    {
+      "attempt": "l04fb03",
+      "case": "B",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "cbb7f07ba14199f991e5c8cfb72349495061d6a5aab241833be7fde0a514cf17"
+    },
+    {
+      "attempt": "l04fc01",
+      "case": "C",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "c61dfa8cacbd9b9b0bf1cea0ca8fa03b8b35b49c0005ea74c2479aaddc75ff77"
+    },
+    {
+      "attempt": "l04fc02",
+      "case": "C",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "7944875cfc5a96354028f37f0589ac6cc73eccf3dac605a4297b395e670078e9"
+    },
+    {
+      "attempt": "l04fc03",
+      "case": "C",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "82dc6d5e91764e07b2173d23c04b19262e7f5d0c05aee9a0d8c658a4f2032684"
+    },
+    {
+      "attempt": "l04fd01",
+      "case": "D",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "0af167a96a2e412dca7c629c9a15b87538e3e2c87b6e8ff125d08913b4e02e59"
+    },
+    {
+      "attempt": "l04fd02",
+      "case": "D",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "65ab375c0efa70904f355bca9ca974c280980e8eb3da2a9a2127ba2403d02a21"
+    },
+    {
+      "attempt": "l04fd03",
+      "case": "D",
+      "status": "NOT_STARTED",
+      "manual_interventions": [],
+      "fixture_sha256": "f1c2ba62d9351f10069d0b123f9e9c72c6c63dbfd82032bfab7e99dad0aa1599"
+    }
+  ]
+}

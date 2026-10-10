@@ -1,0 +1,2152 @@
+{
+  "status": "PASS",
+  "scope": "Local sanitized SDK audit; not external attestation or malicious-access isolation. SIM approvals are separate. Startup with zero SDK input is NOT_STARTED, never task PASS. Loading tasks allow only the official embodied skill. Legacy compatibility additionally permits read/grep of their exact successful Memory verification report after its creation, with file hash and timestamps. No fixture or PhysX truth access allowed. No assistant prose/thinking or arbitrary tool arguments exported.",
+  "attempts": [
+    {
+      "attempt": "l04pa01",
+      "original_status": "FAIL",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T07:24:55.677Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T07:25:01.352Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T07:25:04.810Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:25:08.792Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:25:56.848Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:26:03.264Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:26:48.609Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:26:52.301Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:27:35.551Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "191bebd9f837e0e6084b92adf11de6d32c60d9b4eabbbd8d2b9fdb43a19a49a0"
+      ]
+    },
+    {
+      "attempt": "l04pa02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T07:34:08.826Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T07:34:13.987Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T07:34:18.463Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:34:21.922Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:35:01.246Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:35:08.551Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:35:41.927Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "59b3560086033e1b4c3ef7e5dfbe70566062a15c87961d5c923368fee4bb2f52"
+      ]
+    },
+    {
+      "attempt": "l04pb01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T07:38:11.059Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T07:38:15.499Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T07:38:20.112Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:38:23.614Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:39:11.720Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:39:19.023Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:39:57.751Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:40:01.188Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:40:39.329Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "5b92dea1e210ac68641b18a19f12fbd4be7f348ff70461c5304d9a7f93ff3f8c"
+      ]
+    },
+    {
+      "attempt": "l04pc01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T07:47:01.308Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T07:47:05.617Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T07:47:09.101Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:47:12.142Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:47:48.528Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:47:55.456Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T07:48:43.025Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "d12dc55eaf5dbd270780822348c38d3e4f2eb7e283dfeaaed9a500cc5b1b1013"
+      ]
+    },
+    {
+      "attempt": "l04pc02",
+      "original_status": "INCOMPLETE",
+      "status": "NOT_STARTED",
+      "task_input_count": 0,
+      "task_inputs": [],
+      "tool_calls": [],
+      "file_access_checks": [],
+      "private_journal_sha256": []
+    },
+    {
+      "attempt": "l04pc03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T07:59:42.736Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T07:59:46.788Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T07:59:51.322Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T07:59:54.969Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:00:30.924Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:00:36.495Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:01:22.196Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:01:26.693Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:02:20.803Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "d20e4af1c75d17e77ac724dbd803da2742fe41053e83a15caad955bf800c9a05"
+      ]
+    },
+    {
+      "attempt": "l04pd01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:04:55.404Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:04:59.690Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:05:03.652Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:05:06.775Z",
+          "name": "rosclaw_capabilities"
+        },
+        {
+          "timestamp": "2026-10-10T08:05:13.885Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:05:29.445Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-10T08:05:39.859Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "113d638a130c2afe7feebcddbda603313193375e24b0fb45ee6de9ce6cfc30f2"
+      ]
+    },
+    {
+      "attempt": "l04qa03",
+      "original_status": "FAIL",
+      "status": "NOT_STARTED",
+      "task_input_count": 0,
+      "task_inputs": [],
+      "tool_calls": [],
+      "file_access_checks": [],
+      "private_journal_sha256": []
+    },
+    {
+      "attempt": "l04qa04",
+      "original_status": "FAIL",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:32:43.921Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:32:47.688Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:32:51.282Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:32:58.929Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:34:02.797Z",
+          "name": "rosclaw_verify"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "aee09d7520b128d9a85c349b529892bad72a9c9258111cb998b2bc2447565fb3"
+      ]
+    },
+    {
+      "attempt": "l04qd05",
+      "original_status": "FAIL",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:40:59.280Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:41:03.504Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:41:10.506Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:41:20.968Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:41:40.000Z",
+          "name": "rosclaw_verify"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "fef3fcb958ed7e4f74c7be74c66d1c417d26d2c8104c61a4dc05140f52f35673"
+      ]
+    },
+    {
+      "attempt": "l04qc06",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:49:06.948Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:49:10.544Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:49:13.805Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:49:16.925Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:49:56.679Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:50:02.707Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:50:33.832Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:50:40.068Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:51:22.665Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "3c489fb519151074e1d8cc876e6db056a7422cc536ab708895c4a98e7cbfc7b5"
+      ]
+    },
+    {
+      "attempt": "l04fa01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:08:48.310Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:08:52.955Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:08:57.400Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:09:00.838Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:09:50.928Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:10:01.905Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:10:37.132Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "75ec80833c7d4416665a562639b159beba69065b35687e0a9be4f0be17fec96d"
+      ]
+    },
+    {
+      "attempt": "l04fa02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:12:42.206Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:12:46.328Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:12:50.308Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:12:53.464Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:13:42.870Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:13:51.046Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:14:31.273Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "96b7b7f2bb315c9d207b9bfcf09154f08b4f55f628ba7e74343b6fe92c46878f"
+      ]
+    },
+    {
+      "attempt": "l04fa03",
+      "original_status": "FAIL",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:16:30.869Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:16:34.923Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:16:38.928Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:16:42.527Z",
+          "name": "propose_navigation__navigate_to_pose"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "f19b4663fb994773b7b152dc0b810c9befc9b728b933601d5babd8d48fe39b01"
+      ]
+    },
+    {
+      "attempt": "l04fb01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:18:08.750Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:18:14.150Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:18:17.926Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:18:22.212Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:19:00.680Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:19:07.316Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:19:37.924Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:19:42.827Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:20:16.311Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "f8b0c48806951ee60437d88ef00724cb55edc1448e1b933749d1a4e12f28a460"
+      ]
+    },
+    {
+      "attempt": "l04ga01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:53:34.943Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:53:38.636Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:53:43.644Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:53:46.860Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:54:38.408Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:54:45.816Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:55:15.767Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "96aca99e4710e6fc6215ebd71b62d144205645c2000cd3f837d8c4589d40812a"
+      ]
+    },
+    {
+      "attempt": "l04ga02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T08:57:30.326Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T08:57:34.444Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T08:57:38.317Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:57:42.295Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:58:28.568Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T08:58:36.100Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T08:59:07.253Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "8fca4e651bf797fe4c066b6ee4b3492e62fbb928f45aad4ed79db17af67ae5fb"
+      ]
+    },
+    {
+      "attempt": "l04ga03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:01:21.966Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:01:27.174Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:01:30.683Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:01:34.620Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:02:24.188Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:02:32.744Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:03:06.283Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "f3fc53209eeaf91a19017d4fe3532fc55533e8d2c7200aac1af10eec96d14cec"
+      ]
+    },
+    {
+      "attempt": "l04ha01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:13:07.817Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:13:12.024Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:13:16.389Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:13:19.944Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:14:12.958Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:14:20.854Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:14:56.775Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "59a66a231f7adbb52c23dfba662cb373f1e95b11e2ab15fe7cd40fbbf4a7bac3"
+      ]
+    },
+    {
+      "attempt": "l04ha02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:17:05.765Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:17:10.099Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:17:14.508Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:17:17.318Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:18:10.122Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:18:18.816Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:18:46.941Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "cd77be00fb90bc836dc92dd794157846ebf7b272a764dca5e536b470647f34ee"
+      ]
+    },
+    {
+      "attempt": "l04ha03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:20:59.167Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:21:03.028Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:21:07.037Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:21:10.804Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:22:10.110Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:22:18.904Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:22:49.332Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-10T09:22:57.756Z",
+          "name": "rosclaw_verify"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "575139ddb633301bd9b67d91f534bef38ab9a619405e05f448321a9a7abe4f84"
+      ]
+    },
+    {
+      "attempt": "l04hb01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:25:00.826Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:25:04.917Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:25:08.362Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:25:11.232Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:26:07.334Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:26:15.569Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:26:53.402Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:26:56.695Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:27:35.864Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "fee7de9506d4424316164afcb5dce4b58e1c73d01a11c214fcf1c1eee3fe822d"
+      ]
+    },
+    {
+      "attempt": "l04hb02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:29:47.033Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:29:51.206Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:29:54.652Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:29:57.908Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:30:59.076Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:31:04.144Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:31:41.429Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:31:44.266Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:32:23.286Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "b5af11e55682267ed6c70dbf4d8803f26b2a7b37a1794457fb6dd313b98c2147"
+      ]
+    },
+    {
+      "attempt": "l04hb03",
+      "original_status": "FAIL",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:34:37.155Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:34:41.696Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:34:46.077Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:34:49.253Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:35:10.350Z",
+          "name": "rosclaw_verify"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "b155bb41e8d3d5fc6f19c169edc4ebf34f38f4e1cabad39087ba7bec640ac50e"
+      ]
+    },
+    {
+      "attempt": "l04hc01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:36:45.973Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:36:50.786Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:36:55.034Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:36:58.030Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:38:18.512Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:38:24.496Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:39:40.541Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:39:47.079Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:40:53.947Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "3bd83a14c9c6ee0a863d62488b54e6220ad55d7430c4b44c46ed427ad089766c"
+      ]
+    },
+    {
+      "attempt": "l04ia01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:47:48.001Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:47:51.919Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:47:55.491Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:47:58.466Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:48:45.888Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:48:54.226Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:49:26.470Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "cf3c09393e2792efd963556ff9e8465be780a4e0fab092de638ac50d9b0f6242"
+      ]
+    },
+    {
+      "attempt": "l04ia02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:51:41.215Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:51:44.930Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:51:49.124Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:51:54.214Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:52:53.848Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:53:00.588Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:53:33.671Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "8be248a13ac1bb3791ec6eed3c3df5aa65392bc0dfa2199db47c9020b1eee965"
+      ]
+    },
+    {
+      "attempt": "l04ia03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:55:44.838Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:55:48.799Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:55:51.958Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:55:54.712Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:56:45.926Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:56:52.349Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:57:21.475Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "48d1db8fadef64af1a20db094b85f1e40a523a23101de0ef5c5de77579960d64"
+      ]
+    },
+    {
+      "attempt": "l04ib01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:59:37.361Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:59:41.752Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:59:45.771Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:59:49.980Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:00:34.773Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:00:40.720Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:01:12.957Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:01:17.006Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:02:04.769Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "76a2f0badb9a5866966aca13f4a30fc3879e220e49c90d4fca2631f4126d6960"
+      ]
+    },
+    {
+      "attempt": "l04ib02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:04:26.762Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:04:30.573Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:04:33.082Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:04:36.328Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:05:28.709Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:05:34.152Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:06:11.754Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:06:14.809Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:07:09.568Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "ae18c0d2d108f25563f6441d3bfb9770d09a55d99dcb82aa1c2af91d94d16c50"
+      ]
+    },
+    {
+      "attempt": "l04ib03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:09:31.544Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:09:35.985Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:09:39.781Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:09:42.835Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:10:33.981Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:10:40.836Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:11:22.736Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:11:26.643Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:12:21.584Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "8ea40575452ebda7b21be5131796c25260af629130746c34dcf82b4f8104c071"
+      ]
+    },
+    {
+      "attempt": "l04ic01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:14:57.312Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:15:01.001Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:15:04.565Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:15:07.591Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:16:46.489Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:16:52.400Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:18:31.349Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:18:36.780Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:20:55.735Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-10T10:21:04.451Z",
+          "name": "rosclaw_task_inspect"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "80b20754454cedc6977958c735e1cf9d0ded724c320b011dcc9ab87e0ccc95e4"
+      ]
+    },
+    {
+      "attempt": "l04ic02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:23:24.281Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:23:27.924Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:23:31.550Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:23:35.045Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:24:37.476Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:24:43.046Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:25:38.856Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:25:41.746Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:26:50.067Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "0960e6fea649ba2e2809e77db1f2b034c75cf6a827a921ed2dd9391fd6c51eba"
+      ]
+    },
+    {
+      "attempt": "l04ic03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:29:13.219Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:29:16.850Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:29:19.794Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:29:22.419Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:30:17.953Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:30:23.107Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:31:14.946Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:31:20.397Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:32:25.359Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "082c3a4a794f5270929e3b24a0fa21c18ba03e2e3a2202e5b2693817a4e5ad85"
+      ]
+    },
+    {
+      "attempt": "l04id01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:34:27.884Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:34:32.098Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:34:35.569Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:34:44.535Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:34:57.644Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:35:06.594Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "f00c6efdd0b25b8d831a664c31013dde0ad18894dab81808f1a84e5ab9417389"
+      ]
+    },
+    {
+      "attempt": "l04id02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:37:06.213Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:37:09.771Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:37:13.255Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:37:19.678Z",
+          "name": "rosclaw_capabilities"
+        },
+        {
+          "timestamp": "2026-10-10T10:37:27.191Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:37:41.273Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:37:50.580Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "41a5ce817ca37005e3dfe92cf46c384675841f200a2c5f45f5d41e98f6aec91e"
+      ]
+    },
+    {
+      "attempt": "l04id03",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:39:54.359Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:39:58.366Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:40:01.772Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:40:09.734Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:40:29.569Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T10:40:43.229Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "d0703a5409ca63fee941a422a2d23c8457ddfdfbfd0532f8013acb4a514b612a"
+      ]
+    },
+    {
+      "attempt": "l04qc07",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:07:16.626Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:07:20.999Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:07:25.822Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:07:30.374Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:08:31.626Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:08:37.244Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:09:33.404Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:09:37.704Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:10:46.130Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "ac4d2e36e3ceacf9af9f428bfe84e48071309ff68d10a669ed124e6fdc3134ed"
+      ]
+    },
+    {
+      "attempt": "l04qb08",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T09:43:10.950Z",
+          "text": "帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。\n你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。\n检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T09:43:15.219Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T09:43:18.754Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:43:22.442Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:44:11.236Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:44:16.761Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:44:44.422Z",
+          "name": "loading__observe_scene"
+        },
+        {
+          "timestamp": "2026-10-10T09:44:47.487Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T09:45:29.122Z",
+          "name": "propose_mission__verify_and_remember"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        }
+      ],
+      "private_journal_sha256": [
+        "c7b700dae3ac25cd1972aef81dc5bfb373c37c07d2b820b94c92fe0e412013f1"
+      ]
+    },
+    {
+      "attempt": "l04c01",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:42:36.009Z",
+          "text": "请先检查机器人状态，再依次巡检入口、货架区、仓库通道、Home。每站验证到达并停留，完成后保存巡检报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:42:39.977Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:42:43.469Z",
+          "name": "rosclaw_status"
+        },
+        {
+          "timestamp": "2026-10-10T10:42:43.469Z",
+          "name": "ros__observe_system"
+        },
+        {
+          "timestamp": "2026-10-10T10:42:49.586Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:43:54.237Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-10T10:43:56.453Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:44:51.809Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-10T10:44:53.673Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:45:36.208Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-10T10:45:38.548Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:47:03.863Z",
+          "name": "rosclaw_verify"
+        },
+        {
+          "timestamp": "2026-10-10T10:47:06.904Z",
+          "name": "propose_patrol__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-10T10:47:11.870Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-10T10:47:14.284Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:47:17.824Z",
+          "name": "grep"
+        },
+        {
+          "timestamp": "2026-10-10T10:47:19.819Z",
+          "name": "rosclaw_artifact_resolve"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        },
+        {
+          "tool": "read",
+          "official_embodied_skill_only": false,
+          "verified_compatibility_report_only": true,
+          "allowed_file_access": true,
+          "report_proof": {
+            "sha256": "8b6f52408becec912a590412525f31acf0d49fe1fd086434538c5dd2dd363c4c",
+            "report_written_wall_time": 1791629229.3295999,
+            "access_wall_time": 1791629234.284,
+            "memory_success": true
+          }
+        },
+        {
+          "tool": "grep",
+          "official_embodied_skill_only": false,
+          "verified_compatibility_report_only": true,
+          "allowed_file_access": true,
+          "report_proof": {
+            "sha256": "8b6f52408becec912a590412525f31acf0d49fe1fd086434538c5dd2dd363c4c",
+            "report_written_wall_time": 1791629229.3295999,
+            "access_wall_time": 1791629237.824,
+            "memory_success": true
+          }
+        }
+      ],
+      "private_journal_sha256": [
+        "d00a276f8846d2ae5d7a2843405c7682454491de989ed43aead5aa34d098f35d"
+      ]
+    },
+    {
+      "attempt": "l04oldc02",
+      "original_status": "PASS",
+      "status": "PASS",
+      "task_input_count": 1,
+      "task_inputs": [
+        {
+          "timestamp": "2026-10-10T10:49:06.114Z",
+          "text": "请检查本次任务起点西侧最近的一组开发集货架：选择面向货架的安全观察位置，到达并停留，然后返回本次任务的实际起点。最后保存验证报告和记忆。"
+        }
+      ],
+      "tool_calls": [
+        {
+          "timestamp": "2026-10-10T10:49:09.655Z",
+          "name": "read"
+        },
+        {
+          "timestamp": "2026-10-10T10:49:11.298Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-10T10:49:16.570Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:49:48.422Z",
+          "name": "semantic__observe_candidates"
+        },
+        {
+          "timestamp": "2026-10-10T10:49:51.493Z",
+          "name": "propose_navigation__navigate_to_pose"
+        },
+        {
+          "timestamp": "2026-10-10T10:50:34.090Z",
+          "name": "propose_mission__verify_and_remember"
+        },
+        {
+          "timestamp": "2026-10-10T10:50:40.398Z",
+          "name": "rosclaw_task_inspect"
+        },
+        {
+          "timestamp": "2026-10-10T10:50:43.076Z",
+          "name": "read"
+        }
+      ],
+      "file_access_checks": [
+        {
+          "tool": "read",
+          "official_embodied_skill_only": true,
+          "verified_compatibility_report_only": false,
+          "allowed_file_access": true,
+          "report_proof": null
+        },
+        {
+          "tool": "read",
+          "official_embodied_skill_only": false,
+          "verified_compatibility_report_only": true,
+          "allowed_file_access": true,
+          "report_proof": {
+            "sha256": "5bf5df958802288c09f2696a28e0877c2895e81bfd2fb16deb868113d8cc7536",
+            "report_written_wall_time": 1791629437.7389367,
+            "access_wall_time": 1791629443.076,
+            "memory_success": true
+          }
+        }
+      ],
+      "private_journal_sha256": [
+        "c7f5f871a27f621bf70c2a7097ea3a3bb72743dcc535ac7209aa831eeaa021bd"
+      ]
+    }
+  ]
+}

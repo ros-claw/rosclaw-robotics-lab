@@ -1,0 +1,13 @@
+{
+  "status": "STOPPED_INCOMPLETE_PROTOCOL",
+  "wall_time": 1791620506.5801215,
+  "reason": "A03 full-footprint preflight rejection; nominal safety proposal path was not prefiltered and rejected path snapshot was not retained. Stop before further resets, diagnose without relaxing safety. B01 already started before pause, allowed to finish and retained.",
+  "attempts_started": [
+    "l04fa01",
+    "l04fa02",
+    "l04fa03",
+    "l04fb01"
+  ],
+  "human_intervention": false,
+  "engineering_supervisor_intervention": "Paused parent between resets, allowed in-flight B01 cleanup, terminated parent; no task steering or motion override."
+}

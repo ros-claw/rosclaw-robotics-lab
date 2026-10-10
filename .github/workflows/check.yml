@@ -14,6 +14,7 @@ jobs:
       - run: ruff check --select F,E9 challenges/01-isaac-warehouse-patrol
       - run: ruff check --select F,E9 deliverables/v02
       - run: ruff check --select F,E9 deliverables/v03
+      - run: ruff check --select F,E9 deliverables/v04
       - run: |
           for script in challenges/01-isaac-warehouse-patrol/scripts/*.sh; do
             bash -n "$script"

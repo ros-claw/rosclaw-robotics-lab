@@ -1,4 +1,60 @@
-# Challenge 02 — USD-known semantic inspection
+# Challenge 02 — Warehouse Loading-Area Inspection / 仓库装卸区自主安全巡查
+
+一句业务指令，让真实 ROSClaw Native Agent 找到靠货架的叉车、选择观察点、依据实际 PointCloud2 检查地面作业区，必要时补看，再返回本次出发点并保存证据。USD 提供已知设施先验，RGB 三视角用于展示，新增箱体的真值只用于独立评价。
+
+> 帮我检查一下货架前的装卸区域。重点看看停在货架旁的那辆叉车，以及附近的地面有没有影响通行的障碍物。
+>
+> 你自己选择合适、安全的观察位置；如果一个位置看不清楚，可以换个位置继续检查。不要冒险进入狭窄区域。
+>
+> 检查完返回出发点，告诉我检查了哪些地方、发现了什么问题，以及哪些情况还不能确认。
+
+## 四个 Challenge 条件
+
+| 场景 | 挑战在哪里 | 独立验收 |
+|---|---|---|
+| A 原始仓库 | 从货架与叉车几何关系选目标；从变化的起点生成安全观察位置；不预设畅通 | 实际点云覆盖、完整足迹净空、正确结果、验证返回及 Memory |
+| B 临时障碍 | 真实碰撞箱体未登记在静态地图中，不能直接读本轮真值 | 实际点云发现额外占用；另判定是否构成通行阻挡 |
+| C 叉车遮挡 | 起点靠近另一辆叉车；第一观察点视线部分被遮挡 | 选对关系目标；第二观察点新增 ≥3 实测网格；最多两次观察 |
+| D 安全拒绝 | 不可变 Body 的授权观察区不包含任何生成观察点 | 不越权；零检查观察；UNKNOWN；验证返回、保存 Memory |
+
+最终冻结批次 12 次独立重置全部通过（A 3/3 · B 3/3 · C 3/3 · D 3/3）；共 27 次验证到点，最大位置误差 0.172721 米，最大朝向误差 0.251624 rad，最小稳定停留 2.017 仿真秒，零非地面有效接触。 同一最终源码的全部装卸区尝试（含校准与中断批次，旧任务兼容另计）为 20 PASS / 1 FAIL；最后批次的通过率不覆盖这些历史失败。
+
+| Attempt | Case | Task | Result | Coverage | Views / actual new cells | Native wall (s) | Measured SIM span (s) | Model turns | Tool calls |
+|---|---|---|---|---:|---|---:|---:|---:|---:|
+| l04ia01 | A | PASS | OBSTRUCTED | 100.0% | 238 | 162.1 | 122.0 | 7 | 6 |
+| l04ia02 | A | PASS | OBSTRUCTED | 100.0% | 238 | 173.7 | 116.8 | 7 | 6 |
+| l04ia03 | A | PASS | OBSTRUCTED | 100.0% | 238 | 158.3 | 120.1 | 7 | 6 |
+| l04ib01 | B | PASS | OBSTRUCTED | 81.5% | 190 / 4 | 210.6 | 137.0 | 9 | 8 |
+| l04ib02 | B | PASS | OBSTRUCTED | 81.5% | 191 / 3 | 226.5 | 113.4 | 9 | 8 |
+| l04ib03 | B | PASS | OBSTRUCTED | 81.5% | 192 / 2 | 235.3 | 114.7 | 9 | 8 |
+| l04ic01 | C | PASS | OBSTRUCTED | 100.0% | 200 / 38 | 435.2 | 80.7 | 10 | 9 |
+| l04ic02 | C | PASS | OBSTRUCTED | 100.0% | 202 / 36 | 267.6 | 108.4 | 9 | 8 |
+| l04ic03 | C | PASS | OBSTRUCTED | 100.0% | 200 / 38 | 255.8 | 109.1 | 9 | 8 |
+| l04id01 | D | PASS | UNKNOWN | 0.0% | none (refusal) | 85.4 | 46.3 | 6 | 5 |
+| l04id02 | D | PASS | UNKNOWN | 0.0% | none (refusal) | 91.3 | 49.4 | 7 | 6 |
+| l04id03 | D | PASS | UNKNOWN | 0.0% | none (refusal) | 96.2 | 56.8 | 6 | 5 |
+
+SIM spans use actual physics samples bracketing each Native window, including model/operator waiting; individual boundary overhangs are recorded in performance-windows.json. No time interpolation.
+
+主动补看能力以 C 类为验收分母：三轮第二处分别新增 38、36、38 格。B 类第三轮第二处只新增 2 格，低于 3 格能力门槛，不计作主动补看成功；其任务 PASS 依据已有实际障碍证据、正确 OBSTRUCTED 报告、安全返回和 Memory。
+
+同一最终源码的早期 B3 起点因转向净空不足导致任务 FAIL，保留在全部账本中；最终协议的 B 使用校准后的开阔起点，未改变安全门槛。最后批次结果不是全部尝试的 100% 可靠性。
+
+原始作业区在声明的保守净空下可能为 OBSTRUCTED；任务 PASS 不等于现场 CLEAR。新增障碍与通行阻挡分开记录。未知空间不能当作空闲，也不能单凭未知把区域判为阻塞。D 的正式范围是授权区拒绝；另有真实扫掠路径失败记录，未冒充完成任务。
+
+[![装卸区实际三视角与 LiDAR](reports/loading-poster.png)](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/loading-area-inspection-v0.4.0/loading-area-inspection-90s.mp4)
+
+[90 秒实际任务视频](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/loading-area-inspection-v0.4.0/loading-area-inspection-90s.mp4) · [中文教程](docs/LOADING_TUTORIAL.zh.md) · [English tutorial](docs/LOADING_TUTORIAL.md) · [P0 场景审计](docs/P0_AUDIT.zh.md) · [最终报告](../../FINAL_IMPLEMENTATION_REPORT.md) · [完整验收和复现](../../deliverables/v04/README.zh.md)
+
+运动仍由 Native → Agentd/Operator → rosclawd → Nav2 执行，分离的 SIM Body 绑定来源、范围和候选 ID；没有任意坐标工具和整项任务黑盒工具。候选先经实际 Nav2 预筛，派发前再次验证新鲜 TF/Costmap 与完整足迹扫掠。评价器重新解码原始点云，核对真实物理轨迹、接触、规范收据、Memory 与 TaskKernel 顺序。
+
+通用三态检查已通过 [上游 PR #660](https://github.com/ros-claw/rosclaw/pull/660) 合并，合并 SHA 与实际重建 Native 均为 `9862058c445c88156b9080832b5dd803c75279ae`。首批失败和开发校准全部独立保留，正式批次不事后改阈值。这里只证明已知仓库的本机 SIM 工程能力，不包含相机语义识别、货物缺陷检测、任意新布局、生产可靠性或真实硬件。第三方新机器复现和公平 Codex 对照均 NOT RUN。
+
+---
+
+## 历史 v0.3：动态货架观察点（原文与证据保留）
+
+### USD-known semantic inspection
 
 目标：让 Agent 从一句区域描述选择 USD 语义目标，生成并验证新观察位置，复用现有 rosclawd/Nav2 受控导航。禁止增加一个写死的第五站并称作空间理解。
 
