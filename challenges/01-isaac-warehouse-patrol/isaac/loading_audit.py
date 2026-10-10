@@ -167,7 +167,6 @@ def prepare_fork_control(stage, *, repair=False, control=False):
 
 
 async def measure_fork_control(stage, controls, output):
-    import asyncio
     import carb
     import json
     import omni.kit.app
@@ -190,7 +189,7 @@ async def measure_fork_control(stage, controls, output):
             if any("ROSClawForkControl" in p for p in paths) and h.num_contact_data:
                 contacts.append({"colliders": paths, "contacts": h.num_contact_data})
 
-    subscription = get_physx_simulation_interface().subscribe_contact_report_events(
+    _subscription = get_physx_simulation_interface().subscribe_contact_report_events(
         report
     )
     app = omni.kit.app.get_app()

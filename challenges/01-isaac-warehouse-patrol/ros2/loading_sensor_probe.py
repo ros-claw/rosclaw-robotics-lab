@@ -5,7 +5,6 @@ import base64
 import hashlib
 import argparse
 import json
-import math
 import time
 import numpy as np
 import rclpy
@@ -41,7 +40,7 @@ def main():
     rclpy.init()
     n = Node("rosclaw_loading_readonly_pointcloud_audit")
     b = Buffer()
-    listener = TransformListener(b, n)
+    n._tf_listener = TransformListener(b, n)
     state = {}
     subs = []
     for topic, typ, key in [
