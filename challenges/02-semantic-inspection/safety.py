@@ -85,7 +85,19 @@ def swept_footprint(path, grid, footprint, padding=0.08):
         selected = costs[ys[inside | near], xs[inside | near]]
         if not len(selected) or np.any((selected < 0) | (selected >= 99)):
             raise ValueError(
-                "Swept footprint intersects unknown/inscribed/lethal cells"
+                "Swept footprint intersects unknown/inscribed/lethal cells "
+                + repr(
+                    {
+                        "sampled_pose": [x, y, yaw],
+                        "cell_xy_cost": [
+                            [int(cx), int(cy), int(cost)]
+                            for cx, cy, cost in zip(
+                                xs[inside | near], ys[inside | near], selected
+                            )
+                            if cost < 0 or cost >= 99
+                        ][:8],
+                    }
+                )
             )
         max_cost = max(max_cost, int(selected.max()))
         checked += len(selected)

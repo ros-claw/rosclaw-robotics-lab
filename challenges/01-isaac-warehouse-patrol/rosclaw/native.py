@@ -177,6 +177,9 @@ def main():
                 if json.loads(p.read_text()).get("status") == "FAIL"
             ]
             if failed:
+                # Allow daemon finalization/Agentd acknowledgement before snapshotting
+                # canonical failures. No further SIM card is approved during this wait.
+                time.sleep(5)
                 raise RuntimeError(
                     "canonical mission failed: "
                     + json.loads(failed[0].read_text())["error"]
@@ -371,6 +374,16 @@ def main():
                 ).fetchall()
             finally:
                 connection.close()
+            seen_ids = {row[1] for row in action_rows if row[1]}
+            # A pre-dispatch rejection can arrive before Agentd persists action_id.
+            # Recover the actual ID from the daemon's own failure artifact, then
+            # query its canonical receipt; never synthesize a receipt.
+            for artifact in (root / "actions").glob("*.json"):
+                data = json.loads(artifact.read_text())
+                action_id = data.get("action_id")
+                if action_id and action_id not in seen_ids and "nav2" in data and "trajectory" in data:
+                    action_rows.append(("navigation.navigate_to_pose", action_id))
+                    seen_ids.add(action_id)
             captured = []
             for capability, action_id in action_rows:
                 try:

@@ -5,6 +5,7 @@ import math
 from pathlib import Path
 import subprocess
 import time
+import threading
 import yaml
 import numpy as np
 from evidence_io import write_json_atomic
@@ -26,6 +27,7 @@ from loading_geometry import (
 )
 from loading_perception import inspect_clouds
 from loading_contract import validate_thresholds
+from loading_path import preview_candidates
 
 
 class LoadingExecutor(SemanticExecutor):
@@ -34,12 +36,21 @@ class LoadingExecutor(SemanticExecutor):
         if self.loading != kwargs["config"]["semantic_contract"]["loading_contract"]:
             raise ValueError("Loading rules differ from immutable Body contract")
         validate_thresholds(self.loading["thresholds"])
+        self.loading_catalog_lock = threading.RLock()
+        self.loading_planning_lock = threading.Lock()
         self.inspections = []
         self.selected_target = None
         super().__init__(**kwargs)
         self.owner = "daemon_isaac_nav2_loading_area"
 
-    def refresh_catalog(self):
+    def refresh_catalog(self, *, allow_during_action=False):
+        # Do not compete with a live navigation action for the Nav2 planner.
+        if self.lock.locked() and not allow_during_action:
+            return
+        with self.loading_catalog_lock:
+            return self._refresh_loading_catalog()
+
+    def _refresh_loading_catalog(self):
         self.source_check()
         sample = self.fresh()
         now = time.time()
@@ -155,13 +166,36 @@ class LoadingExecutor(SemanticExecutor):
                         p["distance_from_robot_m"],
                     )
                 )
+            accepted, previews = preview_candidates(
+                proposals, entries, self.probe, footprint
+            )
+            checked_proposals = [{**c, "actual_path_preview": "PASS"} for c in accepted]
+            for preview in previews:
+                entry = preview["proposal"]
+                candidate = entry["candidate"]
+                ident = candidate["proposal_id"]
+                artifact_path = self.evidence_dir / (ident + "-preview.json")
+                write_json_atomic(artifact_path, preview)
+                if preview["status"] != "PASS":
+                    rejected.append(
+                        {
+                            "xy": [candidate["x"], candidate["y"]],
+                            "reason": "actual Nav2 path rejected: " + preview["error"],
+                        }
+                    )
+                    entries.pop(ident)
+                else:
+                    entry["path_preview_artifact"] = {
+                        "path": str(artifact_path),
+                        "sha256": file_sha(artifact_path),
+                    }
             targets.append(
                 {
                     "target_prim": target,
                     "shelf_distance_m": relation["shelf_distance_m"],
                     "nearest_shelf": relation["nearest_shelf"]["path"],
                     "region": region,
-                    "proposals": proposals[:3],
+                    "proposals": checked_proposals,
                     "rejected_count": len(rejected),
                     "rejections": rejected,
                 }
@@ -211,7 +245,8 @@ class LoadingExecutor(SemanticExecutor):
         )
 
     def probe(self, site, *, sensor_only=False):
-        snapshot = super().probe(site, sensor_only=sensor_only)
+        with self.loading_planning_lock:
+            snapshot = super().probe(site, sensor_only=sensor_only)
         if not sensor_only:
             prior = json.loads((self.root / "loading-known-prior.json").read_text())
             boxes = [
@@ -235,7 +270,8 @@ class LoadingExecutor(SemanticExecutor):
                 and entry["candidate"]["target_prim"] != self.selected_target
             ):
                 raise ValueError("Cannot silently switch inspection target")
-        return super().resolve_target(action)
+        with self.loading_catalog_lock:
+            return super().resolve_target(action)
 
     def enrich_verification(self, action, site_id, site, proof):
         semantic = self.resolved[action.action_id]
@@ -306,7 +342,7 @@ class LoadingExecutor(SemanticExecutor):
             }
         )
         self.selected_target = semantic["proposal"]["candidate"]["target_prim"]
-        self.refresh_catalog()
+        self.refresh_catalog(allow_during_action=True)
         return {
             **proof,
             "semantic": {**semantic, "inspection_artifact": artifact},
@@ -372,6 +408,28 @@ class LoadingMemoryExecutor(SemanticMemoryExecutor):
         semantic = data["verification"]["semantic"]
         if semantic["proposal"]["kind"] == "return":
             return
+        preview = checked_artifact(
+            self.root, self.config, semantic["proposal"]["path_preview_artifact"]
+        )
+        if (
+            preview["status"] != "PASS"
+            or preview["proposal"]["candidate"] != semantic["proposal"]["candidate"]
+        ):
+            raise ValueError("Actual candidate path preview mismatch")
+        params = yaml.safe_load(
+            (
+                self.root / "frozen-source/config/patrol_navigation_params.yaml"
+            ).read_text()
+        )
+        footprint = json.loads(
+            params["local_costmap"]["local_costmap"]["ros__parameters"]["footprint"]
+        )
+        swept_footprint(
+            preview["checked_path"],
+            preview["snapshot"]["costmap"],
+            footprint,
+            padding=0.08,
+        )
         cloud = checked_artifact(
             self.root, self.config, semantic["inspection_artifact"]
         )

@@ -223,3 +223,65 @@ def test_actual_ray_does_not_clear_beyond_its_return_or_other_heights():
     assert not missing.any()
     high = observed_height_bands(np.array([[2, 0, 4.1]]), [0, 0, 4.1], region, 1, 3, 1)
     assert not high.any()
+
+
+def test_actual_path_prefilter_rejects_unsafe_candidate_and_retains_snapshot():
+    import copy
+    from loading_path import preview_candidates
+
+    footprint = [[0.1, 0.1], [0.1, -0.1], [-0.1, -0.1], [-0.1, 0.1]]
+    candidates = [
+        {"proposal_id": "bad", "x": 1.5, "y": 1.5, "yaw": 0},
+        {"proposal_id": "good", "x": 0.5, "y": 1.5, "yaw": 0},
+    ]
+    entries = {c["proposal_id"]: {"candidate": c} for c in candidates}
+    grid = {
+        "width": 8,
+        "height": 8,
+        "resolution": 0.5,
+        "origin": [-1, -1],
+        "data": [0] * 64,
+    }
+    grid["data"][5 * 8 + 5] = 100
+
+    def probe(c):
+        return {
+            "wall_time": 1.0,
+            "base_pose": [0.5, 0.5, 0],
+            "path": [[0.5, 0.5, 0], [c["x"], c["y"], 0]],
+            "costmap": copy.deepcopy(grid),
+        }
+
+    accepted, records = preview_candidates(
+        candidates, entries, probe, footprint, now=lambda: 1.1, limit=1
+    )
+    assert [c["proposal_id"] for c in accepted] == ["good"]
+    assert [r["status"] for r in records] == ["REJECTED", "PASS"]
+    assert records[0]["snapshot"]["costmap"]["data"][45] == 100
+    assert "sampled_pose" in records[0]["error"]
+
+
+def test_stale_path_preview_never_becomes_robot_facing():
+    from loading_path import preview_candidates
+
+    c = {"proposal_id": "p", "x": 1.5, "y": 1.5, "yaw": 0}
+    snapshot = {
+        "wall_time": 1.0,
+        "base_pose": [1.5, 1.5, 0],
+        "path": [[1.5, 1.5, 0]],
+        "costmap": {
+            "width": 8,
+            "height": 8,
+            "resolution": 0.5,
+            "origin": [0, 0],
+            "data": [0] * 64,
+        },
+    }
+    accepted, records = preview_candidates(
+        [c],
+        {"p": {"candidate": c}},
+        lambda _: snapshot,
+        [[0.1, 0.1], [0.1, -0.1], [-0.1, -0.1], [-0.1, 0.1]],
+        now=lambda: 5,
+    )
+    assert not accepted and records[0]["status"] == "REJECTED"
