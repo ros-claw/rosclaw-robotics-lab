@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout):
+def start(domain, gpu, timeout, rgbd, calibration):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -162,7 +162,7 @@ def start(domain, gpu, timeout):
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, stop_requested)
         try:
-            start_baseline(run, run_id, domain, gpu, timeout)
+            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -172,7 +172,7 @@ def start(domain, gpu, timeout):
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -189,6 +189,10 @@ def start_baseline(run, run_id, domain, gpu, timeout):
         env.pop(key, None)
     sim = [str(ISAAC / "python.sh"), str(CHALLENGE / "isaac/run_baseline.py"),
            root + "/" + SCENE, root, str(gpu)]
+    if calibration:
+        sim.append("--calibration")
+    elif rgbd:
+        sim.append("--rgbd")
     container = f"luna-nav-{run_id.lower()}"
     nav = ["docker", "run", "--rm", "--name", container, "--network", "host", "--ipc", "host",
            "--user", f"{os.getuid()}:{os.getgid()}", "--env", "HOME=/tmp",
@@ -266,6 +270,34 @@ def stop():
     raise RuntimeError("Supervisor did not finish cleanup within 45 seconds")
 
 
+def observe(count, timeout):
+    try:
+        record = json.loads((RUNTIME / "active.json").read_text())
+    except FileNotFoundError:
+        raise RuntimeError("Start a Luna simulation with --rgbd first") from None
+    if birth_ticks(record["pid"]) != record["birth_ticks"]:
+        raise RuntimeError("The recorded Luna supervisor has exited")
+    run = Path(record["run"])
+    manifest = json.loads((run / "manifest.json").read_text())
+    calibration = "--calibration" in manifest["commands"][0]
+    if "--rgbd" not in manifest["commands"][0] and not calibration:
+        raise RuntimeError("The active simulation has no Luna RGB-D render product")
+    directory = run / ("rgbd-" + uuid4().hex[:8])
+    print(directory, flush=True)
+    env = {**os.environ, **manifest["dds"]}
+    for key in ("OPENAI_API_KEY", "OPENAI_BASE_URL"):
+        env.pop(key, None)
+    result = subprocess.run(
+        ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
+         "observe", str(ROS_SETUP), str(CHALLENGE / "ros2/observation_node.py"),
+         str(directory), manifest["run_id"], "--count", str(count), "--timeout", str(timeout)]
+        + (["--calibration"] if calibration else []),
+        env=env,
+    )
+    if result.returncode:
+        raise RuntimeError(f"RGB-D capture failed. See {directory}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -275,6 +307,11 @@ def main():
     launch.add_argument("--domain", type=int, default=SETTINGS["ros_domain_id"])
     launch.add_argument("--gpu", type=int, default=SETTINGS["gpu_index"])
     launch.add_argument("--timeout", type=float, default=SETTINGS["readiness_timeout_s"])
+    launch.add_argument("--rgbd", action="store_true")
+    launch.add_argument("--calibration", action="store_true")
+    sensor = commands.add_parser("observe")
+    sensor.add_argument("--count", type=int, default=5)
+    sensor.add_argument("--timeout", type=float, default=45)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -288,7 +325,11 @@ def main():
         elif args.command == "start":
             if not 0 <= args.domain <= 232 or args.gpu < 0 or not 0 < args.timeout <= 900:
                 parser.error("Expected domain 0–232, nonnegative GPU and timeout in (0, 900]")
-            start(args.domain, args.gpu, args.timeout)
+            start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration)
+        elif args.command == "observe":
+            if args.count < 1 or not 0 < args.timeout <= 900:
+                parser.error("Expected positive sample count and timeout in (0, 900]")
+            observe(args.count, args.timeout)
         else:
             stop()
     except (OSError, RuntimeError, ValueError) as exc:

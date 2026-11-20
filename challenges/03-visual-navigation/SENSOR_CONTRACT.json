@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "source": "Isaac Sim 6.2.0-rc.14, fixed Nova Carter camera, one shared render product",
+  "width": 960,
+  "height": 540,
+  "requested_rate_sim_hz": 10,
+  "optical_frame": "luna_front_optical",
+  "optical_axes": {"x": "right", "y": "down", "z": "forward"},
+  "topics": {
+    "rgb": "/luna/front/rgb",
+    "depth": "/luna/front/depth",
+    "camera_info": "/luna/front/camera_info"
+  },
+  "k_row_major": [640.0, 0.0, 480.0, 0.0, 640.0, 270.0, 0.0, 0.0, 1.0],
+  "distortion_model": "plumb_bob",
+  "distortion_coefficients": [0.0, 0.0, 0.0, 0.0, 0.0],
+  "depth": {"encoding": "32FC1", "unit": "m", "type": "z", "invalid": "nonfinite or nonpositive"},
+  "time": "ROS sim time, equal header stamps for RGB, depth and calibration, exact stamped TF",
+  "tf_required_for_normal_capture": ["odom <- luna_front_optical", "map <- odom"],
+  "tf_required_for_calibration_only": ["odom <- luna_front_optical"],
+  "mount": {"parent": "base_link", "xyz_m": [0.45, 0.0, 0.52], "quaternion_xyzw": [-0.5, 0.5, -0.5, 0.5]},
+  "storage": {"rgb": "lossless RGB PNG", "depth": "metric ndarray NPY", "sha256": "per stored artifact"},
+  "capture_status": "normal exact-time captures and static plate checks recorded; moving and reset integration pending"
+}
