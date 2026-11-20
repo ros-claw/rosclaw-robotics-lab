@@ -1,0 +1,8 @@
+# P0 uses NVIDIA's 6.2 Humble warehouse baseline.
+ros_domain_id: 189
+gpu_index: 1
+readiness_timeout_s: 240
+asset_region: us
+asset_version: "6.2"
+nav2_image: rosclaw/luna-nav-humble:p0
+model: gpt-6-luna

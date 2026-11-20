@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="carter"/>
+  <include file="$(find-pkg-share nav2_bringup)/launch/bringup_launch.py">
+    <arg name="map" value="$(var carter)/maps/carter_warehouse_navigation.yaml"/>
+    <arg name="params_file" value="$(var carter)/params/carter_navigation_params.yaml"/>
+    <arg name="use_sim_time" value="true"/>
+  </include>
+  <node pkg="pointcloud_to_laserscan" exec="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+    <remap from="cloud_in" to="/front_3d_lidar/lidar_points"/>
+    <remap from="scan" to="/scan"/>
+    <param name="target_frame" value="front_3d_lidar"/>
+    <param name="transform_tolerance" value="0.01" type="float"/>
+    <param name="min_height" value="-0.4" type="float"/>
+    <param name="max_height" value="1.5" type="float"/>
+    <param name="angle_min" value="-1.5708" type="float"/>
+    <param name="angle_max" value="1.5708" type="float"/>
+    <param name="angle_increment" value="0.0087" type="float"/>
+    <param name="scan_time" value="0.3333" type="float"/>
+    <param name="range_min" value="0.05" type="float"/>
+    <param name="range_max" value="100.0" type="float"/>
+    <param name="use_inf" value="true" type="bool"/>
+    <param name="inf_epsilon" value="1.0" type="float"/>
+    <param name="use_sim_time" value="true" type="bool"/>
+  </node>
+</launch>
