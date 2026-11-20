@@ -1,0 +1,15 @@
+# L2, metric coordinates in map. Signs are visual props, never map evidence.
+layout: fork
+seed: 21101
+bounds_xyxy: [-6.0, -4.0, 6.0, 4.0]
+spawn_xy_yaw: [-4.5, 0.0, 0.0]
+terminal_xy: [4.7, 0.0]
+obstacles:
+  - {id: wall_n, xyz: [0.0, 4.0, 0.6], size: [12.4, 0.2, 1.2]}
+  - {id: wall_s, xyz: [0.0, -4.0, 0.6], size: [12.4, 0.2, 1.2]}
+  - {id: wall_w, xyz: [-6.0, 0.0, 0.6], size: [0.2, 8.0, 1.2]}
+  - {id: wall_e, xyz: [6.0, 0.0, 0.6], size: [0.2, 8.0, 1.2]}
+  - {id: divider, xyz: [1.0, 0.0, 0.45], size: [2.4, 2.0, 0.9]}
+gates:
+  - {gate_id: c71, cross_x: 0.0, lower_y: 1.0, upper_y: 3.9, entry_x: -0.3, exit_x: 2.3}
+  - {gate_id: c24, cross_x: 0.0, lower_y: -3.9, upper_y: -1.0, entry_x: -0.3, exit_x: 2.3}

@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration):
+def start(domain, gpu, timeout, rgbd, calibration, layout):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -162,7 +162,7 @@ def start(domain, gpu, timeout, rgbd, calibration):
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, stop_requested)
         try:
-            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration)
+            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -172,7 +172,7 @@ def start(domain, gpu, timeout, rgbd, calibration):
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -193,16 +193,25 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration):
         sim.append("--calibration")
     elif rgbd:
         sim.append("--rgbd")
+    if layout:
+        layout = layout.resolve(strict=True)
+        for fixture in ("nav/map.yaml", "nav/params.yaml", "sim/layout.usda", "sim/spawn.json"):
+            if not (layout / fixture).is_file():
+                raise RuntimeError(f"Incomplete graybox export: {fixture}")
+        sim.extend(["--layout", str(layout / "sim")])
     container = f"luna-nav-{run_id.lower()}"
     nav = ["docker", "run", "--rm", "--name", container, "--network", "host", "--ipc", "host",
            "--user", f"{os.getuid()}:{os.getgid()}", "--env", "HOME=/tmp",
            "-v", f"{CHALLENGE}/config:/challenge:ro",
            "-v", f"{humble}/navigation/carter_navigation:/carter:ro"]
+    launch = "source /opt/ros/humble/setup.bash && exec ros2 launch " \
+             "/challenge/headless_nav.launch.xml carter:=/carter"
+    if layout:
+        nav.extend(["-v", f"{layout}/nav:/luna_nav:ro"])
+        launch += " map:=/luna_nav/map.yaml params_file:=/luna_nav/params.yaml"
     for key, value in dds.items():
         nav.extend(["--env", f"{key}={value}"])
-    nav += ["--entrypoint", "/bin/bash", SETTINGS["nav2_image"], "-c",
-            "source /opt/ros/humble/setup.bash && exec ros2 launch "
-            "/challenge/headless_nav.launch.xml carter:=/carter"]
+    nav += ["--entrypoint", "/bin/bash", SETTINGS["nav2_image"], "-c", launch]
     probe = ["bash", "-c", 'source "$1" && exec /usr/bin/python3 "$2" "$3" "$4"',
              "probe", str(ROS_SETUP), str(CHALLENGE / "scripts/readiness.py"),
              str(run), str(timeout)]
@@ -308,6 +317,7 @@ def main():
     launch.add_argument("--gpu", type=int, default=SETTINGS["gpu_index"])
     launch.add_argument("--timeout", type=float, default=SETTINGS["readiness_timeout_s"])
     launch.add_argument("--rgbd", action="store_true")
+    launch.add_argument("--layout", type=Path)
     launch.add_argument("--calibration", action="store_true")
     sensor = commands.add_parser("observe")
     sensor.add_argument("--count", type=int, default=5)
@@ -325,7 +335,7 @@ def main():
         elif args.command == "start":
             if not 0 <= args.domain <= 232 or args.gpu < 0 or not 0 < args.timeout <= 900:
                 parser.error("Expected domain 0–232, nonnegative GPU and timeout in (0, 900]")
-            start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration)
+            start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration, args.layout)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")

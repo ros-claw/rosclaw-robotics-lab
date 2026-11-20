@@ -14,6 +14,7 @@ def main():
     parser.add_argument("scene")
     parser.add_argument("asset_root")
     parser.add_argument("gpu", type=int)
+    parser.add_argument("--layout", type=Path)
     parser.add_argument("--calibration", action="store_true")
     parser.add_argument("--rgbd", action="store_true")
     parser.add_argument("--renderer", default="RaytracedLighting")
@@ -39,6 +40,10 @@ def main():
         if not omni.usd.get_context().open_stage(args.scene):
             raise RuntimeError(f"Isaac could not open the baseline stage: {args.scene}")
         runpy.run_path(str(Path(__file__).with_name("baseline_stage.py")))
+        if args.layout:
+            from graybox import apply_graybox
+
+            apply_graybox(omni.usd.get_context().get_stage(), args.layout)
         if args.rgbd or args.calibration:
             from scene_and_sensors import add_front_rgbd
 
