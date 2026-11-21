@@ -20,9 +20,10 @@ from rosgraph_msgs.msg import Clock
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from navigation.candidates import Gate, validate_corridor
+from navigation.candidates import Gate, costmap_footprint_radius, validate_corridor
 from navigation.contracts import StopDwell
 from navigation.live_intent import verify_fresh
+from navigation.path_session import PathSession, validate_handoff
 
 
 def stamp_ns(stamp):
@@ -76,16 +77,20 @@ class Evidence:
                  angular_z=twist.angular.z, **metadata)
 
 
-def wait_for(node, predicate, seconds, message):
+def wait_for(node, predicate, seconds, message, tick=None):
     end = time.monotonic() + seconds
-    while not predicate():
+    while True:
+        if tick is not None:
+            tick()
+        if predicate():
+            return
         if time.monotonic() >= end:
             raise RuntimeError(message)
         rclpy.spin_once(node, timeout_sec=0.05)
 
 
-def await_future(node, future, seconds, description):
-    wait_for(node, future.done, seconds, description + " timed out")
+def await_future(node, future, seconds, description, tick=None):
+    wait_for(node, future.done, seconds, description + " timed out", tick)
     return future.result()
 
 
@@ -156,7 +161,75 @@ def stopped(node, evidence):
     evidence.log("odometry_stopped", dwell_s=0.75)
 
 
-def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=None, episode=None):
+def past_gate(locate, gate, radius):
+    transform = locate()
+    return transform is not None and transform.translation.x > gate.exit_x + radius
+
+
+def corridor_watch(evidence, locate, gate, radius):
+    last_pose = time.monotonic()
+
+    def check():
+        nonlocal last_pose
+        if evidence.clock_rewound:
+            raise ValueError("simulation clock rewound during FollowPath")
+        current = locate()
+        if current is None:
+            if time.monotonic() - last_pose > 1.0:
+                raise RuntimeError("navigation lost current corridor pose")
+            return
+        last_pose = time.monotonic()
+        t = current.translation
+        if (gate.entry_x - radius <= t.x <= gate.exit_x + radius
+                and not gate.lower_y + radius <= t.y <= gate.upper_y - radius):
+            raise ValueError("vehicle footprint exited the committed gate corridor")
+
+    return check
+
+
+def replace_during_motion(node, evidence, session, motion, end, build_plan, submit, tick):
+    def moving():
+        if evidence.odom is None or evidence.clock is None:
+            return False
+        age = evidence.clock - stamp_ns(evidence.odom.header.stamp)
+        twist = evidence.odom.twist.twist
+        return 0 <= age <= 250_000_000 and math.hypot(twist.linear.x, twist.linear.y) > 0.12
+
+    def wait_moving(previous):
+        wait_for(node, lambda: previous.done() or moving(), 10.0,
+                 "could not start a replacement while driving", tick)
+        if previous.done():
+            raise RuntimeError("FollowPath ended before the scheduled replacement")
+
+    for extension in (1.18, 1.24):
+        progress = time.monotonic() + 2.0
+        wait_for(node, lambda: end.done() or time.monotonic() >= progress, 3.0,
+                 "replacement scheduler", tick)
+        wait_moving(end)
+        previous_seq, previous_end = session.active, end
+        if previous_seq == 1:
+            held_seq = session.request()
+            held_plan = build_plan(held_seq, 1.14, tick)
+            evidence.log("planning_held", path_seq=held_seq, route_version=session.route_version)
+        path_seq = session.request()
+        path = build_plan(path_seq, extension, tick)
+        if previous_end.done():
+            raise RuntimeError("active path ended before replacement could be submitted")
+        motion = submit(path_seq, path, handoff=True, tick=tick)
+        end = motion.get_result_async()
+        if previous_seq == 1:
+            # Inject a late delivery of a real planning result without forwarding it to Nav2.
+            submit(held_seq, held_plan)
+        result = await_future(node, previous_end, 3.0, "superseded FollowPath result", tick)
+        if session.finish(previous_seq):
+            raise RuntimeError("superseded goal incorrectly changed the session outcome")
+        evidence.log("nav2_result_ignored", path_seq=previous_seq, active_path_seq=session.active,
+                     goal_status=result.status, reason="superseded")
+    return motion, end
+
+
+def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=None,
+             episode=None, replan=False, cancel_after_gate=False):
     gates = [Gate(**data) for data in layout["gates"]]
     gate = next((item for item in gates if item.gate_id == gate_id), None)
     if gate is None or layout["frame_id"] != "map":
@@ -183,7 +256,7 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
                              lambda message: setattr(evidence, "grid", message),
                              QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
 
-    if live_observation is not None:
+    if live_observation is not None or replan:
         tf_buffer = Buffer()
         tf_listener = TransformListener(tf_buffer, node, qos=QoSProfile(
             depth=100, reliability=qos_profile_sensor_data.reliability))
@@ -213,8 +286,9 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
             verify_fresh(live_observation, episode, evidence.clock, time.monotonic_ns(),
                          (t.x, t.y, t.z), (q.x, q.y, q.z, q.w))
 
-        check_live()
-        evidence.log("intent_preflight", gate_id=gate_id, episode_id=episode)
+        if live_observation is not None:
+            check_live()
+            evidence.log("intent_preflight", gate_id=gate_id, episode_id=episode)
 
     def fresh_map():
         return evidence.grid is not None and evidence.clock is not None and (
@@ -222,61 +296,123 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
 
     y = (gate.lower_y + gate.upper_y) / 2
     terminal = layout["terminal_xy"]
-    goal = ComputePathThroughPoses.Goal()
-    goal.planner_id = "GridBased"
-    goal.goals = [pose(gate.entry_x - 1.2, y), pose(gate.exit_x + 1.1, y), pose(*terminal)]
-    evidence.log("planning_requested", gate_id=gate_id, route_version=1, path_seq=1)
-    compute = await_future(node, plan.send_goal_async(goal), 8.0, "planning goal response")
-    if not compute.accepted:
-        raise RuntimeError("Nav2 rejected ComputePathThroughPoses")
-    planned = await_future(node, compute.get_result_async(), 6.0, "planning result")
-    if planned.status != GoalStatus.STATUS_SUCCEEDED:
-        raise RuntimeError(f"Nav2 planning ended with status {planned.status}")
-    path = planned.result.path
-    if path.header.frame_id != "map" or any(p.header.frame_id != "map" for p in path.poses):
-        raise RuntimeError("Nav2 path frames are inconsistent")
-    points = [(item.pose.position.x, item.pose.position.y) for item in path.poses]
-    wait_for(node, fresh_map, 6.0, "fresh global costmap unavailable")
     params = yaml.safe_load(Path("/luna_nav/params.yaml").read_text())
-    costmap = params["global_costmap"]["global_costmap"]["ros__parameters"]
-    footprint = json.loads(costmap["footprint"])
-    padding = float(costmap.get("footprint_padding", 0.01))
-    radius = max(math.hypot(x, y) for x, y in footprint) + math.sqrt(2.0) * padding
-    evidence.log("path_proposed", frame_id="map", route_version=1, path_seq=1, points=points)
-    validate_corridor(points, gate, tuple(other for other in gates if other != gate),
-                      radius, occupancy_checker(evidence.grid))
-    evidence.log("path_validated", gate_id=gate_id, route_version=1, path_seq=1, points=points)
-    if live_observation is not None:
-        check_live()
-        evidence.log("intent_committed", gate_id=gate_id, episode_id=episode)
-    command = FollowPath.Goal()
-    command.path = path
-    command.controller_id = "FollowPath"
-    evidence.trace_motion = True
-    evidence.log("follow_path_requested", route_version=1, path_seq=1)
-    motion = await_future(node, drive.send_goal_async(command), 8.0, "FollowPath response")
-    if not motion.accepted:
-        raise RuntimeError("Nav2 rejected FollowPath")
-    evidence.log("nav2_accepted", route_version=1, path_seq=1,
-                 goal_id=bytes(motion.goal_id.uuid).hex())
-    end = motion.get_result_async()
-    if cancel_after is not None:
-        deadline = time.monotonic() + cancel_after
-        wait_for(node, lambda: end.done() or time.monotonic() >= deadline,
-                 cancel_after + 1.0, "cancel scheduler")
-        if end.done():
-            raise RuntimeError("controller ended before the requested cancel test")
-        evidence.log("cancel_requested")
-        canceled = await_future(node, motion.cancel_goal_async(), 6.0, "FollowPath cancel")
-        if not canceled.goals_canceling:
-            raise RuntimeError("Nav2 did not acknowledge cancellation")
-        evidence.log("cancel_acknowledged")
-    result = await_future(node, end, 75.0 if cancel_after is None else 8.0, "FollowPath result")
-    evidence.log("nav2_result", goal_status=result.status)
-    expected = GoalStatus.STATUS_SUCCEEDED if cancel_after is None else GoalStatus.STATUS_CANCELED
-    stopped(node, evidence)
-    if result.status != expected:
-        raise RuntimeError(f"unexpected FollowPath status {result.status}")
+    radius = costmap_footprint_radius(params)
+    forbidden = tuple(other for other in gates if other != gate)
+    session = PathSession()
+    last_motion = None
+
+    def build_plan(path_seq, exit_extension=1.1, tick=None):
+        goal = ComputePathThroughPoses.Goal()
+        goal.planner_id = "GridBased"
+        goal.goals = [pose(gate.entry_x - 1.2, y), pose(gate.exit_x + exit_extension, y), pose(*terminal)]
+        evidence.log("planning_requested", gate_id=gate_id, route_version=session.route_version,
+                     path_seq=path_seq, waypoints=[[p.pose.position.x, p.pose.position.y] for p in goal.goals])
+        compute = await_future(node, plan.send_goal_async(goal), 8.0, "planning goal response", tick)
+        if not compute.accepted:
+            raise RuntimeError("Nav2 rejected ComputePathThroughPoses")
+        planned = await_future(node, compute.get_result_async(), 6.0, "planning result", tick)
+        if planned.status != GoalStatus.STATUS_SUCCEEDED:
+            raise RuntimeError(f"Nav2 planning ended with status {planned.status}")
+        return planned.result.path
+
+    def submit(path_seq, path, handoff=False, tick=None):
+        nonlocal last_motion
+        if not session.may_submit(path_seq):
+            evidence.log("planning_discarded", path_seq=path_seq, route_version=session.route_version,
+                         latest_path_seq=session.latest, reason="superseded")
+            return None
+        if path.header.frame_id != "map" or any(p.header.frame_id != "map" for p in path.poses):
+            raise RuntimeError("Nav2 path frames are inconsistent")
+        points = [(item.pose.position.x, item.pose.position.y) for item in path.poses]
+        wait_for(node, fresh_map, 6.0, "fresh global costmap unavailable", tick)
+        free = occupancy_checker(evidence.grid)
+        identity = {"route_version": session.route_version, "path_seq": path_seq}
+        evidence.log("path_proposed", frame_id="map", points=points, **identity)
+        validate_corridor(points, gate, forbidden, radius, free)
+        if handoff:
+            transform = locate()
+            if transform is None or transform.translation.x >= gate.entry_x - 0.5:
+                raise ValueError("replacement requires a current pose before the committed gate")
+            t, q = transform.translation, transform.rotation
+            yaw = math.atan2(2 * (q.w * q.z + q.x * q.y), 1 - 2 * (q.y*q.y + q.z*q.z))
+            join = validate_handoff(points, (t.x, t.y), yaw)
+            samples = max(1, math.ceil(math.dist((t.x, t.y), join) / 0.05))
+            for i in range(samples + 1):
+                x, y0 = (a + i / samples * (b-a) for a, b in zip((t.x, t.y), join))
+                if not free(x, y0, radius + 0.025):
+                    raise ValueError("replacement handoff has insufficient footprint clearance")
+            evidence.log("handoff_validated", base_xy=[t.x, t.y], join_xy=join, **identity)
+        evidence.log("path_validated", gate_id=gate_id, points=points, **identity)
+        if live_observation is not None and not handoff:
+            check_live()
+            evidence.log("intent_committed", gate_id=gate_id, episode_id=episode)
+        command = FollowPath.Goal()
+        command.path = path
+        command.controller_id = "FollowPath"
+        evidence.trace_motion = True
+        evidence.log("follow_path_requested", **identity)
+        motion = await_future(node, drive.send_goal_async(command), 8.0, "FollowPath response", tick)
+        if motion.accepted:
+            last_motion = motion
+        if not motion.accepted or not session.accept(path_seq):
+            raise RuntimeError("Nav2 rejected FollowPath or accepted a superseded path")
+        evidence.log("nav2_accepted", goal_id=bytes(motion.goal_id.uuid).hex(), **identity)
+        return motion
+
+    def cancel_active(motion, reason):
+        evidence.log("cancel_requested", path_seq=session.active, reason=reason)
+        reply = await_future(node, motion.cancel_goal_async(), 6.0, "FollowPath cancel")
+        expected_id = bytes(motion.goal_id.uuid)
+        if not any(bytes(goal.goal_id.uuid) == expected_id for goal in reply.goals_canceling):
+            raise RuntimeError("Nav2 did not acknowledge cancellation of the active goal")
+        evidence.log("cancel_acknowledged", path_seq=session.active, reason=reason)
+
+    def follow():
+        initial = session.request()
+        motion = submit(initial, build_plan(initial))
+        end = motion.get_result_async()
+        tick = corridor_watch(evidence, locate, gate, radius) if replan else None
+        if replan:
+            motion, end = replace_during_motion(
+                node, evidence, session, motion, end, build_plan, submit, tick)
+        if cancel_after_gate:
+            wait_for(node, lambda: end.done() or past_gate(locate, gate, radius), 55.0,
+                     "the vehicle did not pass the chosen corridor before the cancel deadline", tick)
+            if end.done():
+                raise RuntimeError("controller ended before the requested gate exit cancel")
+        if cancel_after is not None:
+            deadline = time.monotonic() + cancel_after
+            wait_for(node, lambda: end.done() or time.monotonic() >= deadline,
+                     cancel_after + 1.0, "cancel scheduler")
+            if end.done():
+                raise RuntimeError("controller ended before the requested cancel test")
+        should_cancel = cancel_after is not None or cancel_after_gate
+        if should_cancel:
+            cancel_active(motion, "controller-test")
+        result = await_future(node, end, 8.0 if should_cancel else 75.0, "FollowPath result",
+                              None if should_cancel else tick)
+        final_path = session.active
+        if not session.finish(final_path):
+            raise RuntimeError("received terminal result for inactive goal")
+        evidence.log("nav2_result", goal_status=result.status, path_seq=final_path)
+        expected = GoalStatus.STATUS_CANCELED if should_cancel else GoalStatus.STATUS_SUCCEEDED
+        stopped(node, evidence)
+        if result.status != expected:
+            raise RuntimeError(f"unexpected FollowPath status {result.status}")
+
+    try:
+        follow()
+    except (ValueError, RuntimeError):
+        if last_motion is not None and not session.terminated:
+            try:
+                cancel_active(last_motion, "execution_failure")
+                result = await_future(node, last_motion.get_result_async(), 8.0, "recovery result")
+                evidence.log("recovery_action_result", goal_status=result.status, path_seq=session.active)
+                stopped(node, evidence)
+            except RuntimeError as recovery:
+                evidence.log("recovery_unverified", reason=str(recovery))
+        raise
 
 
 if __name__ == "__main__":
@@ -286,6 +422,8 @@ if __name__ == "__main__":
     parser.add_argument("--cancel-after", type=float)
     parser.add_argument("--live-observation", type=Path)
     parser.add_argument("--episode")
+    parser.add_argument("--replan", action="store_true")
+    parser.add_argument("--cancel-after-gate", action="store_true")
     args = parser.parse_args()
     layout = json.loads(Path("/luna_nav/public_scene_manifest.json").read_text())
     rclpy.init()
@@ -298,7 +436,8 @@ if __name__ == "__main__":
                 if args.live_observation:
                     observation = json.loads(args.live_observation.read_text())
                     evidence.source = "luna-live"
-                exercise(node, evidence, layout, args.gate, args.cancel_after, observation, args.episode)
+                exercise(node, evidence, layout, args.gate, args.cancel_after, observation,
+                         args.episode, args.replan, args.cancel_after_gate)
             except (ValueError, RuntimeError) as exc:
                 evidence.log("test_failed", reason=str(exc))
                 raise SystemExit(str(exc)) from exc

@@ -82,3 +82,19 @@ python3 evaluator/timeout.py "$MODEL_DIR"
 录像采用独立斜俯视相机，原始采集帧与时间索引在 `RUN/overview`。FFmpeg 按实测墙钟帧间隔生成 1× 可变帧率视频。回放可离线查看车载模型输入、模型返回、路径验证、动作接受、PhysX 轨迹与录像。
 
 实测试次、录像性能与待完成的阶段见 [运行结果](RESULTS.md)。
+
+
+## 连续路径交接
+
+同一灰盒支持同一路由版本内的两次路径接续。开始于原启动状态，在 `READY` 后运行一个命令。每条命令使用新启动的仿真世界。
+
+```bash
+# 用 Luna 选门，然后在同一通道内执行两次路径更新
+python3 scripts/lab.py luna-run --replan
+# 用明确的测试意图执行相同的更新，过门后取消活动路径
+python3 scripts/lab.py controller-test c24 --replan --cancel-after-gate
+# 独立复核控制试次
+python3 evaluator/continuity.py "$RUN" "$CONTROLLER_EVENTS" "$PUBLIC_MANIFEST"
+```
+
+控制测试可省略 `--cancel-after-gate` 以完成整条路线。路径序列 2 持有一条实际 Nav2 规划结果，先提交序列 3，再投递序列 2 验证其被拒绝。轨迹与接触复核见 [P3 报告](P3_REPORT.md)。

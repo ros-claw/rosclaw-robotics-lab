@@ -362,7 +362,8 @@ def claim_motion(lock):
         raise RuntimeError("A test already owns this episode") from None
 
 
-def execute_motion(active, run, manifest, gate, cancel_after=None, live_observation=None):
+def execute_motion(active, run, manifest, gate, cancel_after=None, live_observation=None,
+                   replan=False, cancel_after_gate=False):
     if birth_ticks(active["pid"]) != active["birth_ticks"]:
         raise RuntimeError("Active episode ended before motion")
     evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
@@ -372,6 +373,10 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
                "/luna_run/" + evidence]
     if cancel_after is not None:
         command.extend(["--cancel-after", str(cancel_after)])
+    if replan:
+        command.append("--replan")
+    if cancel_after_gate:
+        command.append("--cancel-after-gate")
     if live_observation is not None:
         relative = live_observation.relative_to(run)
         command.extend(["--live-observation", "/luna_run/" + str(relative),
@@ -389,15 +394,17 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
     return run / evidence
 
 
-def controller_test(gate, cancel_after):
+def controller_test(gate, cancel_after, replan=False, cancel_after_gate=False):
     active, run, manifest = motion_episode()
     with (run / "controller-test.lock").open("a") as lock:
         claim_motion(lock)
-        execute_motion(active, run, manifest, gate, cancel_after)
+        execute_motion(active, run, manifest, gate, cancel_after,
+                       replan=replan, cancel_after_gate=cancel_after_gate)
 
 
-def luna_run(key, api_timeout):
+def luna_run(key, api_timeout, replan=False):
     sys.path.insert(0, str(CHALLENGE))
+    from evaluator.continuity import evaluate as evaluate_continuity
     from evaluator.controller_run import evaluate
     from navigation.luna_probe import load_frame, probe
 
@@ -417,7 +424,7 @@ def luna_run(key, api_timeout):
         observation_path = model_dir / "intent-observation.json"
         write_json(observation_path, observation)
         events = execute_motion(active, run, manifest, intent["candidate_id"],
-                                live_observation=observation_path)
+                                live_observation=observation_path, replan=replan)
         deadline = time.monotonic() + 3
         while True:
             result = evaluate(run, events, layout)
@@ -429,6 +436,12 @@ def luna_run(key, api_timeout):
         print(json.dumps(result, ensure_ascii=False), flush=True)
         if not result["pass"]:
             raise RuntimeError(f"PhysX route verification failed. See {model_dir}")
+        if replan:
+            continuity = evaluate_continuity(run, events, layout)
+            write_json(model_dir / "continuity-evaluation.json", continuity)
+            print(json.dumps(continuity, ensure_ascii=False), flush=True)
+            if not continuity["pass"]:
+                raise RuntimeError(f"Continuous handoff verification failed. See {model_dir}")
 
 
 def main():
@@ -452,7 +465,10 @@ def main():
     sensor.add_argument("--timeout", type=float, default=45)
     controller = commands.add_parser("controller-test")
     controller.add_argument("gate")
-    controller.add_argument("--cancel-after", type=float)
+    stop_options = controller.add_mutually_exclusive_group()
+    stop_options.add_argument("--cancel-after", type=float)
+    stop_options.add_argument("--cancel-after-gate", action="store_true")
+    controller.add_argument("--replan", action="store_true")
     visual = commands.add_parser("luna-probe")
     visual.add_argument("capture", type=Path)
     visual.add_argument("layout", type=Path)
@@ -463,6 +479,7 @@ def main():
     visual.add_argument("--timeout", type=float, default=25)
     live = commands.add_parser("luna-run")
     live.add_argument("--api-timeout", type=float, default=5)
+    live.add_argument("--replan", action="store_true")
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -495,14 +512,18 @@ def main():
         elif args.command == "controller-test":
             if args.cancel_after is not None and not 0 < args.cancel_after < 75:
                 parser.error("--cancel-after must be between 0 and 75 seconds")
-            controller_test(args.gate, args.cancel_after)
+            if args.cancel_after_gate and not args.replan:
+                parser.error("--cancel-after-gate requires --replan")
+            if args.replan and args.cancel_after is not None:
+                parser.error("Use --cancel-after-gate to cancel a continuous handoff test")
+            controller_test(args.gate, args.cancel_after, args.replan, args.cancel_after_gate)
         elif args.command == "luna-run":
             key = os.environ.get("OPENAI_API_KEY")
             if not key:
                 raise RuntimeError("OPENAI_API_KEY is required for live Luna")
             if not 0.05 <= args.api_timeout <= 5:
                 parser.error("Expected API timeout in [0.05, 5] seconds")
-            luna_run(key, args.api_timeout)
+            luna_run(key, args.api_timeout, args.replan)
         elif args.command == "luna-probe":
             if args.frame < 1 or not 0 < args.timeout <= 120:
                 parser.error("Expected a positive frame and timeout in (0, 120]")

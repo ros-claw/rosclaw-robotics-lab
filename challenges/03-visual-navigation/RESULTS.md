@@ -14,4 +14,9 @@
 
 两种录像版语义对照由 `evaluator/live_pair.py` 复算并写入 `p4-live-evidence/recorded-live-pair.json`。超时独立证据为超时试次的 `timeout-evaluation.json`。录像与控制频率数据见 `p4-live-evidence/recording-metrics.json`。离线回放还覆盖模型等待、视觉结果、本地过期拒绝和请求超时。工作区 `attempts.jsonl` 保留早期底盘卡滞、TF 获取超时和视觉过期等失败。
 
-本轮验证范围是单分叉。连续改路、ROSClaw daemon 注册、终点标识互换、完整多场景与六集预登记验收仍见 [交接清单](HANDOFF.md)。
+本轮验证范围是单分叉。运行时换门、ROSClaw daemon 注册、终点标识互换、完整多场景与六集预登记验收仍见 [交接清单](HANDOFF.md)。
+
+
+## 单通道连续改路追加验收
+
+同一单分叉额外完成四次实车仿真，累计验证八次无驻留的路径交接。一组使用官方 Luna 看图确定 c71，另一组用固定 c24 控制指令。每次保持最初通道承诺，完成两次 FollowPath 预占式接续并忽略真实旧动作回执。延迟验证使用一条实际规划结果，测试程序控制其投递时机。两次取消试次都在完全通过选定门区后停车。正常的 Luna 试次录像和回放位于 `p3-continuous-evidence/luna-swapped/20261121T073007Z-99cf21d0`。独立评估汇总见 `p3-continuous-evidence/summary.json`。

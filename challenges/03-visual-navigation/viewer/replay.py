@@ -47,7 +47,12 @@ def bundle(run, model_dir, events_path, layout_path, overview=None):
         raise ValueError("expected a physical trajectory over the recorded episode")
     physical = [[(int(r["host_mono_ns"]) - beginning) / 1e9,
                  *r["pose_xyz_xyzw"][:2]] for r in source]
-    nav_path = next((e["points"] for e in events if e["event"] == "path_validated"), [])
+    paths = {event["path_seq"]: event["points"] for event in events
+             if event["event"] == "path_validated"}
+    accepted_paths = [{"path_seq": event["path_seq"],
+                       "seconds": (int(event["host_mono_ns"]) - beginning) / 1e9,
+                       "points": paths[event["path_seq"]]}
+                      for event in events if event["event"] == "nav2_accepted"]
     rejection = next((e for e in events if e["event"] == "test_failed"), None)
     route_report = model_dir / "physx-evaluation.json"
     timeout_report = run / "timeout-evaluation.json"
@@ -67,9 +72,10 @@ def bundle(run, model_dir, events_path, layout_path, overview=None):
                       "seconds": (int(rejection["host_mono_ns"]) - beginning) / 1e9}
         if rejection else None,
         "model_received_seconds": (received_ns - beginning) / 1e9,
-        "events": [{"kind": e["event"], "seconds": (int(e["host_mono_ns"]) - beginning) / 1e9}
+        "events": [{"kind": e["event"], "seconds": (int(e["host_mono_ns"]) - beginning) / 1e9,
+                    "path_seq": e.get("path_seq")}
                    for e in sorted(events + markers, key=lambda e: int(e["host_mono_ns"]))],
-        "trajectory": physical, "path": nav_path, "start_pose": start_pose,
+        "trajectory": physical, "accepted_paths": accepted_paths, "start_pose": start_pose,
     }
 
 

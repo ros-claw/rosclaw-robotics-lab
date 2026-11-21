@@ -1,6 +1,7 @@
 """Neutral gate geometry and conservative swept-footprint route checks."""
 
 from dataclasses import dataclass
+import json
 import math
 
 
@@ -22,6 +23,13 @@ class Gate:
         if (not all(map(math.isfinite, edges)) or self.lower_y >= self.upper_y
                 or not self.entry_x < self.cross_x < self.exit_x):
             raise ValidationError("invalid gate geometry")
+
+
+def costmap_footprint_radius(params):
+    costmap = params["global_costmap"]["global_costmap"]["ros__parameters"]
+    footprint = json.loads(costmap["footprint"])
+    padding = float(costmap.get("footprint_padding", 0.01))
+    return max(math.hypot(x, y) for x, y in footprint) + math.sqrt(2.0) * padding
 
 
 def crossings(path, plane_x):

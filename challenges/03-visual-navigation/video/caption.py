@@ -17,10 +17,7 @@ def srt_stamp(ns):
     return f"{hours:02d}:{minute:02d}:{sec:02d},{millis:03d}"
 
 
-def captions(capture, model_dir, events_path):
-    frames = read_rows(capture / "frames.jsonl")
-    start = int(frames[0]["host_mono_ns"])
-    end = int(frames[-1]["host_mono_ns"])
+def luna_labels(start, model_dir, events_path):
     reply = json.loads((model_dir / "response.json").read_text())
     request = int(reply["request_host_mono_ns"])
     received = int(reply["received_host_mono_ns"])
@@ -34,19 +31,51 @@ def captions(capture, model_dir, events_path):
                        {"transport_curl_28", "transport_deadline"} else "本次视觉请求结束 · 保持驻车"))
     if events_path:
         events = read_rows(events_path)
-        by_name = {event["event"]: event for event in events}
+        by_name = {}
+        for event in events:
+            by_name.setdefault(event["event"], event)
         for event, label in (
                 ("intent_committed", "完整路径和门区已校验 · 提交 FollowPath"),
                 ("nav2_accepted", "Nav2 已接受 · 跟踪校验后的路径"),
                 ("odometry_stopped", "里程计确认低速驻留 · PhysX 独立验收见回放")):
             if event in by_name:
                 labels.append((int(by_name[event]["host_mono_ns"]), label))
+        for update in (e for e in events if e["event"] == "nav2_accepted" and e["path_seq"] > 1):
+            labels.append((int(update["host_mono_ns"]),
+                           f"Nav2 接续路径 {update['path_seq']} · 保持已承诺通道 {gate}"))
         verification = model_dir / "physx-evaluation.json"
         if verification.exists():
             result = json.loads(verification.read_text())
             if result["pass"] and "verified_host_mono_ns" in result:
                 labels.append((int(result["verified_host_mono_ns"]),
                                f"PhysX 证实穿过 {gate} 并停稳 · 非地面接触 0"))
+    return labels
+
+
+def handoff_labels(start, events_path):
+    labels = [(start, "连续交接控制试验 · Isaac Sim 独立相机 · 1×")]
+    for event in read_rows(events_path):
+        kind = event["event"]
+        stamp = int(event["host_mono_ns"])
+        if kind == "nav2_accepted":
+            seq = event["path_seq"]
+            text = "Nav2 接受初始路径 1" if seq == 1 else f"Nav2 接受更新路径 {seq} · 保持同一通道"
+        elif kind == "cancel_acknowledged":
+            text = "Nav2 确认取消活动路径"
+        elif kind == "odometry_stopped":
+            text = "里程计确认低速驻留 · 实际过门与停车由 PhysX 复核"
+        else:
+            continue
+        labels.append((stamp, text))
+    return labels
+
+
+def captions(capture, model_dir, events_path):
+    frames = read_rows(capture / "frames.jsonl")
+    start = int(frames[0]["host_mono_ns"])
+    end = int(frames[-1]["host_mono_ns"])
+    labels = (luna_labels(start, model_dir, events_path) if model_dir
+              else handoff_labels(start, events_path))
     labels.sort()
     # Group near-simultaneous circuit events without showing a later fact early.
     output = []
@@ -62,9 +91,11 @@ def captions(capture, model_dir, events_path):
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("capture", type=Path)
-    parser.add_argument("model_dir", type=Path)
+    parser.add_argument("model_dir", type=Path, nargs="?")
     parser.add_argument("--events", type=Path)
     args = parser.parse_args()
+    if args.model_dir is None and args.events is None:
+        parser.error("Provide a model directory or a deterministic controller event stream")
     caption = captions(args.capture, args.model_dir, args.events)
     with (args.capture / "live.srt").open("x") as stream:
         stream.write(caption)

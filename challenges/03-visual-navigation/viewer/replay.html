@@ -29,7 +29,7 @@ button{background:var(--mint);color:#12201b;border:0;border-radius:6px;padding:7
 <div class="grid"><section><h2>模型收到的 Isaac 图像</h2><div class="img" id="imageWrap"><img id="image" alt="发送给 Luna 的原始 RGB 画面"></div>
 <p id="intent"></p><p class="small" id="hash"></p></section>
 <section><h2>平面位置与路径</h2><canvas id="map" width="780" height="500" aria-label="源自真实事件和物理采样的导航地图"></canvas>
-<p class="legend"><span class="blue">Nav2 校验路径</span><span class="mint">PhysX 实际轨迹</span></p><p id="outcome"></p></section></div>
+<p class="legend"><span class="blue" id="activePath">Nav2 已接受路径</span><span class="mint">PhysX 实际轨迹</span></p><p id="outcome"></p></section></div>
 <section><h2>控制时间轴</h2><div class="controls"><button type="button" id="play">播放</button>
 <input type="range" aria-label="控制时间" id="scrub" min="0" step="any"><output id="time"></output></div><ul id="events"></ul></section>
 </main>
@@ -60,7 +60,7 @@ const my=y=>canvas.height/2-(y-(yMax+bottom)/2)*scale;
 function line(points,color,w){if(!points.length)return;ctx.beginPath();ctx.moveTo(mx(points[0][0]),my(points[0][1]));
 for(const [x,y] of points.slice(1))ctx.lineTo(mx(x),my(y));ctx.strokeStyle=color;ctx.lineWidth=w;ctx.lineCap="round";ctx.stroke();}
 const names={model_requested:"请求 Luna",model_received:"收到 Luna 结果",model_failed:"模型请求失败",test_failed:"本地拒绝",final_twist_source_verified:"速度来源已确认",intent_preflight:"视觉意图预检",planning_requested:"请求规划",
-path_proposed:"Nav2 返回路径",path_validated:"完整路径已校验",intent_committed:"通道已承诺",
+path_proposed:"Nav2 返回路径",handoff_validated:"已检查路径接续",planning_discarded:"丢弃过期计划",nav2_result_ignored:"忽略旧动作回执",path_validated:"完整路径已校验",intent_committed:"通道已承诺",
 follow_path_requested:"提交 FollowPath",nav2_accepted:"Nav2 接受",nav2_result:"Nav2 返回结果",odometry_stopped:"里程计停止"};
 const scrub=document.querySelector("#scrub"), timer=document.querySelector("#time"), play=document.querySelector("#play");
 const video=document.querySelector("#overview");
@@ -72,7 +72,7 @@ if(d.video){
 const duration=d.trajectory.at(-1)[0];scrub.max=duration;scrub.value=duration;
 const markers=d.events.filter(e=>names[e.kind]).map(e=>{
  const li=document.createElement("li"), button=document.createElement("button");button.type="button";
- button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind];
+ button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind]+(e.path_seq?" · 路径 "+e.path_seq:"");
  button.addEventListener("click",()=>{playing=false;scrub.value=e.seconds;render();});li.append(button);document.querySelector("#events").append(li);
  return {...e,button};
 });
@@ -98,7 +98,9 @@ function render(){
  for(const o of d.layout.obstacles){const [x,y]=o.xyz,[a,b]=o.size;ctx.fillRect(mx(x-a/2),my(y+b/2),a*scale,b*scale);}
  for(const g of d.layout.gates){line([[g.cross_x,g.lower_y],[g.cross_x,g.upper_y]],"#a9b5c4",1);
  ctx.fillStyle="#efefea";ctx.font="15px system-ui";ctx.fillText(g.gate_id,mx(g.cross_x)+7,my((g.upper_y+g.lower_y)/2));}
- if(d.events.some(e=>e.kind==="intent_committed"&&e.seconds<=t))line(d.path,"#9dbbff",2);
+ const active=d.accepted_paths.findLast(path=>path.seconds<=t);
+ document.querySelector("#activePath").textContent=active ? "Nav2 已接受路径 "+active.path_seq : "等待 Nav2 接受路径";
+ if(active)line(active.points,"#9dbbff",2);
  const pts=d.trajectory.filter(r=>r[0]<=t).map(r=>r.slice(1));
  line(pts,"#7fe5c3",4);
  const [x,y]=pts.at(-1)??d.start_pose;ctx.beginPath();ctx.arc(mx(x),my(y),6,0,Math.PI*2);ctx.fillStyle="#7fe5c3";ctx.fill();
