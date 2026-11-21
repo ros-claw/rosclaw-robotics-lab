@@ -355,7 +355,9 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
     forbidden = tuple(other for other in gates if other != gate)
     session = PathSession(route_version)
     if adaptive:
-        budget = yaml.safe_load(Path("/challenge/adaptive.yaml").read_text())
+        runtime_budget = Path("/luna_run/adaptive-runtime.yaml")
+        budget_file = runtime_budget if runtime_budget.exists() else Path("/challenge/adaptive.yaml")
+        budget = yaml.safe_load(budget_file.read_text())
         values = (budget[name] for name in ("path_lookahead_m", "blocked_dwell_sim_s",
                                             "global_map_watchdog_wall_s", "recovery_local_lookahead_m",
                                             "vision_review_lookahead_m"))

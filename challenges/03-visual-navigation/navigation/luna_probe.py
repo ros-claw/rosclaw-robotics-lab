@@ -8,6 +8,8 @@ from pathlib import Path
 import subprocess
 import time
 
+from navigation.vision_profile import exchange_stats, image_payload
+
 DECISIONS = ["select_candidate", "hold", "reobserve"]
 AUDIT_DECISIONS = ["continue", "review", "reobserve"]
 TASK = "寻找蓝色 B 工位的标志。选择标志所在侧对应的通道。"
@@ -25,8 +27,8 @@ class ProbeError(ValueError):
     pass
 
 
-def schema(observation_id, candidates, decisions=DECISIONS):
-    return {
+def schema(observation_id, candidates, decisions=DECISIONS, compact=False):
+    contract = {
         "type": "object", "additionalProperties": False,
         "required": ["observation_id", "decision", "candidate_id", "reason_summary", "evidence_regions"],
         "properties": {
@@ -44,9 +46,14 @@ def schema(observation_id, candidates, decisions=DECISIONS):
             }},
         },
     }
+    if compact:
+        for key in ("candidate_id", "evidence_regions"):
+            contract["required"].remove(key)
+            del contract["properties"][key]
+    return contract
 
 
-def parse_intent(response, observation_id, candidates, decisions=DECISIONS):
+def parse_intent(response, observation_id, candidates, decisions=DECISIONS, compact=False):
     status = response.get("status")
     if status != "completed":
         raise ProbeError("response_incomplete" if status == "incomplete" else "response_not_completed")
@@ -60,8 +67,10 @@ def parse_intent(response, observation_id, candidates, decisions=DECISIONS):
         intent = json.loads(texts[0]) if len(texts) == 1 else None
     except (TypeError, ValueError):
         raise ProbeError("intent_json_invalid") from None
-    if not isinstance(intent, dict) or set(intent) != set(schema(observation_id, [])["required"]):
+    if not isinstance(intent, dict) or set(intent) != set(schema(observation_id, [], compact=compact)["required"]):
         raise ProbeError("intent_fields_invalid")
+    if compact:
+        intent.update(candidate_id=None, evidence_regions=[])
     if intent["observation_id"] != observation_id:
         raise ProbeError("observation_id_mismatch")
     decision, candidate = intent["decision"], intent["candidate_id"]
@@ -119,21 +128,24 @@ def call_responses(payload, key, timeout):
         fd = body_stream.fileno()
         proc = subprocess.run(
             ["curl", "-q", "--silent", "--show-error", "--proto", "=https",
-             "--max-time", str(timeout), "--config", "-", "--write-out", "\n%{http_code}",
+             "--max-time", str(timeout), "--config", "-", "--write-out",
+             "\n%{http_code} %{time_namelookup} %{time_connect} %{time_appconnect} "
+             "%{time_pretransfer} %{time_starttransfer} %{time_total} %{size_upload}",
              "--data-binary", f"@/proc/self/fd/{fd}", "https://api.openai.com/v1/responses"],
             input=config, text=True, capture_output=True, timeout=timeout + 3, env=env,
             pass_fds=(fd,),
         )
     if proc.returncode:
         raise ProbeError(f"transport_curl_{proc.returncode}")
-    body, status = proc.stdout.rsplit("\n", 1)
+    body, timing = exchange_stats(proc.stdout)
+    status = timing["http_status"]
     try:
         response = json.loads(body)
     except ValueError:
         raise ProbeError(f"invalid_response_http_{status}") from None
     if not isinstance(response, dict):
         raise ProbeError(f"invalid_response_http_{status}")
-    if status != "200":
+    if status != 200:
         error = response.get("error") or {}
         code = error.get("code")
         message = str(error.get("message", "")).lower()
@@ -142,7 +154,7 @@ def call_responses(payload, key, timeout):
         code = code if code in {"model_not_found", "invalid_api_key", "insufficient_quota",
                                "rate_limit_exceeded", "invalid_json_schema"} else "other"
         raise ProbeError(f"http_{status}_{code}")
-    return response
+    return response, timing
 
 
 def observation_id(observation):
@@ -150,7 +162,7 @@ def observation_id(observation):
 
 
 def probe(directory, frame_seq, layout_path, destination, model, timeout, key, reasoning_effort="none",
-          task=None, excluded=(), audit_gate=None):
+          task=None, excluded=(), audit_gate=None, profile="standard"):
     observation, image = load_frame(directory, frame_seq)
     layout = json.loads(layout_path.read_text())
     candidates = {gate["gate_id"]: "面向分叉时的左侧" if gate["lower_y"] > 0 else "面向分叉时的右侧"
@@ -175,6 +187,10 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
         task = f"已承诺候选 {audit_gate} 对应{direction}；复核该路线方向是否出现可见的潜在遮挡。"
         candidates = {}
         decisions = AUDIT_DECISIONS
+    compact = audit_gate is not None and profile == "lean"
+    if compact:
+        instructions = instructions.replace("candidate_id 必须为 null。", "说明只写一个简短观察，不超过 16 字。")
+    wire_image, detail = image_payload(image, profile)
     image_id = observation_id(observation)
     payload = {
         "model": model, "store": False, "reasoning": {"effort": reasoning_effort},
@@ -183,17 +199,19 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
             "type": "input_text", "text": json.dumps({
                 "task": task, "observation_id": image_id, "candidate_sides": candidates,
             }, ensure_ascii=False),
-        }, {"type": "input_image", "detail": "high",
-            "image_url": "data:image/png;base64," + base64.b64encode(image).decode("ascii")}]}],
+        }, {"type": "input_image", "detail": detail,
+            "image_url": "data:image/png;base64," + base64.b64encode(wire_image).decode("ascii")}]}],
         "text": {"format": {"type": "json_schema", "name": "luna_visual_intent", "strict": True,
-                            "schema": schema(image_id, candidates, decisions)}},
-        "max_output_tokens": 600,
+                            "schema": schema(image_id, candidates, decisions, compact)}},
+        "max_output_tokens": 128 if compact else 600,
     }
     destination.mkdir(parents=True, exist_ok=False)
-    (destination / "model-input.png").write_bytes(image)
+    (destination / "model-input.png").write_bytes(wire_image)
     manifest = {"source": "isaac-live-frozen-probe", "motion_authority": False,
                 "model_requested": model, "purpose": "motion_audit" if audit_gate else "route_decision",
-                "reasoning_effort": reasoning_effort, "input_sha256": observation["rgb"]["sha256"],
+                "reasoning_effort": reasoning_effort, "profile": profile, "compact": compact, "image_detail": detail,
+                "image_bytes": len(wire_image), "source_frame_sha256": observation["rgb"]["sha256"],
+                "input_sha256": hashlib.sha256(wire_image).hexdigest(),
                 "observation_id": image_id, "observation_stamp_ns": observation["stamp_ns"],
                 "diagnostic_camera_yaw_deg": observation.get("diagnostic_camera_yaw_deg", 0.0),
                 "source_capture": str(directory.resolve()), "candidate_sides": candidates,
@@ -203,12 +221,13 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
     start_ns = time.monotonic_ns()
     result = {}
     try:
-        response = call_responses(payload, key, timeout)
+        response, timing = call_responses(payload, key, timeout)
         result = {"response_id": response.get("id"), "model": response.get("model"),
-                  "status": response.get("status"), "usage": response.get("usage")}
+                  "status": response.get("status"), "usage": response.get("usage"),
+                  "http_timing": timing}
         (destination / "api-response.json").write_text(
             json.dumps(response, ensure_ascii=False, indent=2) + "\n")
-        intent = parse_intent(response, image_id, candidates, decisions)
+        intent = parse_intent(response, image_id, candidates, decisions, compact)
         result["intent"] = intent
         return intent
     except subprocess.TimeoutExpired:

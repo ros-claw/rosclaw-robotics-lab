@@ -146,7 +146,8 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None):
+def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None,
+          drive_profile="baseline"):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -163,7 +164,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             signal.signal(sig, stop_requested)
         try:
             start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview,
-                           visual_shutter_test, scenario_obstacles)
+                           visual_shutter_test, scenario_obstacles, drive_profile)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -173,7 +174,8 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None,
+          drive_profile="baseline"):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -230,6 +232,13 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
             runtime_params = yaml.safe_load((layout / "nav/params.yaml").read_text())
             runtime_params["local_costmap"]["local_costmap"]["ros__parameters"][
                 "always_send_full_costmap"] = True
+            if drive_profile != "baseline":
+                sys.path.insert(0, str(CHALLENGE))
+                from navigation.drive_profile import apply_drive_profile
+
+                adaptive = yaml.safe_load((CHALLENGE / "config/adaptive.yaml").read_text())
+                apply_drive_profile(runtime_params, adaptive, drive_profile)
+                (run / "adaptive-runtime.yaml").write_text(yaml.safe_dump(adaptive, sort_keys=False))
             (run / "nav2-runtime.yaml").write_text(yaml.safe_dump(runtime_params, sort_keys=False))
             params_file = "/luna_run/nav2-runtime.yaml"
         launch += f" map:=/luna_nav/map.yaml params_file:={params_file}"
@@ -439,7 +448,7 @@ def controller_test(gate, cancel_after, replan=False, cancel_after_gate=False):
 
 def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=None,
              local_retries=2, mission_time=150.0, expected_run=None, vision_interval=None,
-             vision_budget=7):
+             vision_budget=7, vision_profile="lean"):
     sys.path.insert(0, str(CHALLENGE))
     from evaluator.continuity import evaluate as evaluate_continuity
     from evaluator.controller_run import evaluate, recovery_stop_verified
@@ -464,7 +473,7 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
         if replan:
             raise ValueError("motion vision audit requires adaptive execution")
         audit = MotionAudit(vision_interval, vision_budget, lambda: observe(1, 5, expected=active),
-                            layout, SETTINGS["model"], key, api_timeout)
+                            layout, SETTINGS["model"], key, api_timeout, vision_profile)
     with (run / "controller-test.lock").open("a") as lock:
         claim_motion(lock)
         session_log = run / ("luna-session-" + uuid4().hex[:8] + ".jsonl")
@@ -480,7 +489,8 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
             print(f"Navigation holding position: {reason}", flush=True)
 
         record("mission_policy", policy=policy, local_retries=local_retries,
-               observation_limit=observation_limit, mission_wall_s=mission_time)
+               observation_limit=observation_limit, mission_wall_s=mission_time,
+               motion_vision_profile=vision_profile)
         fresh = FreshFrames(manifest["run_id"])
         attempt = 0
         route_version = 0
@@ -591,6 +601,7 @@ def main():
     launch.add_argument("--record-overview", action="store_true")
     launch.add_argument("--visual-shutter-test", action="store_true")
     launch.add_argument("--scenario-obstacles", type=Path)
+    launch.add_argument("--drive-profile", choices=("baseline", "quicker"), default="baseline")
     launch.add_argument("--layout", type=Path)
     launch.add_argument("--protected", action="store_true")
     launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
@@ -623,6 +634,7 @@ def main():
     live.add_argument("--expected-run", type=Path, help=argparse.SUPPRESS)
     live.add_argument("--vision-interval", type=float)
     live.add_argument("--vision-budget", type=int, default=7)
+    live.add_argument("--vision-profile", choices=("standard", "lean"), default="lean")
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -648,11 +660,13 @@ def main():
                 parser.error("--visual-shutter-test requires --protected and --rgbd")
             if args.scenario_obstacles and not args.protected:
                 parser.error("--scenario-obstacles requires a protected simulation")
+            if args.drive_profile != "baseline" and not args.protected:
+                parser.error("--drive-profile quicker requires a protected simulation")
             start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
                   args.layout, args.protected,
                   args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"),
                   args.diagnostic_camera_yaw, args.record_overview, args.visual_shutter_test,
-                  args.scenario_obstacles)
+                  args.scenario_obstacles, args.drive_profile)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
@@ -680,7 +694,7 @@ def main():
                 parser.error("Expected vision cadence in [3, 60] seconds and budget in [1, 20]")
             luna_run(key, args.api_timeout, args.replan, args.max_observations,
                      args.mission_policy, args.local_retries, args.mission_time, args.expected_run,
-                     args.vision_interval, args.vision_budget)
+                     args.vision_interval, args.vision_budget, args.vision_profile)
         elif args.command == "luna-probe":
             if args.frame < 1 or not 0 < args.timeout <= 120:
                 parser.error("Expected a positive frame and timeout in (0, 120]")

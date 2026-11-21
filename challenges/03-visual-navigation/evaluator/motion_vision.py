@@ -33,11 +33,13 @@ def evaluate(run):
                   "motion_samples_above_0_05_mps": sum(speed > 0.05 for speed in speeds)}
         if str(folder) in returned:
             raw = json.loads((folder / "api-response.json").read_text())
-            intent = parse_intent(raw, request["observation_id"], {}, AUDIT_DECISIONS)
+            intent = parse_intent(raw, request["observation_id"], {}, AUDIT_DECISIONS,
+                                  request.get("compact", False))
             digest = hashlib.sha256((folder / "model-input.png").read_bytes()).hexdigest()
             accepted = returned[str(folder)]
             result.update({"decision": intent["decision"], "current_goal": accepted["current_goal"],
-                           "verified": (digest == request["input_sha256"] == event["image_sha256"]
+                           "verified": (digest == request["input_sha256"]
+                                        and request.get("source_frame_sha256", digest) == event["image_sha256"]
                                         and raw["model"] == response["model"] == "gpt-6-luna"
                                         and intent == response["intent"]
                                         and accepted["goal_id"] == event["goal_id"])})

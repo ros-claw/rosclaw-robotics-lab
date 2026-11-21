@@ -39,7 +39,7 @@ def active_goal(path):
 
 
 class MotionAudit:
-    def __init__(self, interval, limit, capture, layout, model, key, timeout):
+    def __init__(self, interval, limit, capture, layout, model, key, timeout, profile="standard"):
         self.interval = interval
         self.remaining = limit
         self.capture = capture
@@ -47,6 +47,7 @@ class MotionAudit:
         self.model = model
         self.key = key
         self.timeout = timeout
+        self.profile = profile
 
     def watch(self, controller, review_file, gate, done):
         next_request = time.monotonic()
@@ -74,7 +75,7 @@ class MotionAudit:
                 log("audit_requested", goal_id=goal, model_dir=str(model_dir),
                     sim_stamp_ns=observation["stamp_ns"], image_sha256=observation["rgb"]["sha256"])
                 intent = probe(capture_dir, 1, self.layout, model_dir, self.model, self.timeout,
-                               self.key, audit_gate=gate)
+                               self.key, audit_gate=gate, profile=self.profile)
                 current = not done.is_set() and active_goal(controller) == goal
                 log("audit_returned", goal_id=goal, model_dir=str(model_dir), current_goal=current,
                     **intent)

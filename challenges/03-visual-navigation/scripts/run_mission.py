@@ -24,7 +24,8 @@ def run_mission(args):
     if not os.environ.get("OPENAI_API_KEY"):
         raise RuntimeError("OPENAI_API_KEY is required")
     launch = [sys.executable, str(LAB), "start", "--protected", "--rgbd",
-              "--layout", str(args.layout.resolve()), "--domain", str(args.domain)]
+              "--layout", str(args.layout.resolve()), "--domain", str(args.domain),
+              "--drive-profile", args.drive_profile]
     if args.scenario_obstacles:
         launch += ["--scenario-obstacles", str(args.scenario_obstacles.resolve())]
     if args.record_overview:
@@ -46,7 +47,7 @@ def run_mission(args):
                            "--mission-time", str(args.mission_time)]
                 if args.vision_interval is not None:
                     command += ["--vision-interval", str(args.vision_interval),
-                                "--vision-budget", str(args.vision_budget)]
+                                "--vision-budget", str(args.vision_budget), "--vision-profile", args.vision_profile]
                 if args.mission_policy:
                     command += ["--mission-policy", str(args.mission_policy.resolve())]
                 code = subprocess.run(command).returncode
@@ -79,6 +80,8 @@ def main():
     parser.add_argument("--mission-time", type=float, default=150)
     parser.add_argument("--vision-interval", type=float)
     parser.add_argument("--vision-budget", type=int, default=7)
+    parser.add_argument("--vision-profile", choices=("standard", "lean"), default="lean")
+    parser.add_argument("--drive-profile", choices=("baseline", "quicker"), default="baseline")
     args = parser.parse_args()
     try:
         return run_mission(args)

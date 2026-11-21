@@ -132,3 +132,9 @@ python3 scripts/run_mission.py --layout /path/to/swapped-layout --record-overvie
 ```
 
 同一时刻只有一个视觉请求在途。复核回复与当前运行、动作 UUID、帧时间戳和拍摄位姿绑定。有效的 `review` 会让本地代价地图检查更远的实际跟踪路径。即使请求失败或建议继续，常规本地安全检查也持续运行。生成复核回放时，在 `--vision-session` 和 `--adaptive` 之外加 `--motion-audit "$RUN/motion-audit.jsonl"`。用 `python3 evaluator/motion_vision.py "$RUN"` 独立复算模型请求期间的物理运动、复核是否影响停车、真实过门和接触结果。
+
+### 提速试验
+
+行驶中视觉复核默认使用 `--vision-profile lean`。该模式需要宿主安装 Pillow，并将发给模型的图缩到最长边 640 像素，使用低细节和短回复契约。原始 RGB-D 仍随试次保存，发送图与原始帧分别记录哈希。语义选路继续使用全尺寸图。`--vision-profile standard` 可复现上一版的行驶视觉处理。
+
+在上述仓库命令后增加 `--drive-profile quicker --vision-interval 4`。该试验把 MPPI 和速度平滑器的前向上限共同设为 0.65 m/s，同时扩大常规沿路径检查范围。默认底盘档位仍为基线。运行原始档位和提速档位后，使用 `python3 evaluator/compare_speed.py "$BASELINE_RUN" "$QUICKER_RUN"` 复算整趟墙钟、活动动作时间、物理制动和到达结果。
