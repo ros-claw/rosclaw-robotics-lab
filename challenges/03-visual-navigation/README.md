@@ -46,3 +46,7 @@ python3 scripts/lab.py stop
 ```
 
 运行目录保留路径事件、PhysX 轨迹及接触对。`evaluator/controller_run.py` 可独立核对动作区间中的实际过门、到达和低速驻留。[架构](ARCHITECTURE.md) 记录当前运动所有权和传输边界。
+
+## Luna 视觉探测
+
+在本机提供 `OPENAI_API_KEY` 后，使用 `lab.py luna-probe` 读取已留存的 Isaac PNG 和中性场景清单。命令保存确切图像字节、哈希和经校验的决策。两种换牌结果和复验命令见 [P4 报告](P4_REPORT.md)。

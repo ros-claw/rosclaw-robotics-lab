@@ -23,3 +23,7 @@ UTC 试次 20261121T001217Z-b96b6215 使用 `python3 scripts/lab.py controller-t
 相同灰盒和地图生成了 MPPI 配置，速度上限设为 0.45 m/s，作为低速联调值。控制器、采样和评估均走同一保护链。UTC 试次 20261121T001407Z-3c4f5321 成功加载和激活 MPPI，完成真实规划、路径预检和 FollowPath 接受。随后 Nav2 因进展不足中止。PhysX 独立记录 217 个样本，位移累计约 0.119 m，未进入门区，确认中止后的低速驻留。没有非地面接触。完整路线的判定仍为失败。
 
 复现该对照时，在 P2 的场景导出命令上加 `--controller mppi`，再使用受保护启动和相同门区命令。真实运行和完整失败记录位于 `/data/rosclaw/robotics_lab/p2-evidence/protected`。
+
+## 速度链补测
+
+UTC 试次 20261121T052239Z-376c1fa5 同步采样 controller、smoother、collision monitor 和 chassis odom。动作接受 3 秒后至中止前，碰撞监控输出的线速度和角速度中位数约为 0.061 m/s、0.301 rad/s，实测 odom 对应约为 0.008 m/s、0.021 rad/s。上游三个指令话题的中位数相近。该试次的主要差异位于最终 Twist 进入仿真后。FollowPath 因进展不足中止，里程计低速停车验证通过。速度对照位于 p4-evidence/mp-pipe/20261121T052239Z-376c1fa5/motion-summary.json。关节驱动与地面接触之间的具体原因仍待定位。

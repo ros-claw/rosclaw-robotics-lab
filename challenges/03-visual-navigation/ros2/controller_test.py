@@ -34,6 +34,8 @@ class Evidence:
         self.odom = None
         self.grid = None
         self.last_command = None
+        self.telemetry_ns = {}
+        self.trace_motion = False
 
     def log(self, event, **payload):
         self.sequence += 1
@@ -45,6 +47,25 @@ class Evidence:
 
     def remember_clock(self, message):
         self.clock = stamp_ns(message.clock)
+
+
+    def remember_twist(self, message, topic):
+        if topic == "/luna/cmd_vel":
+            self.last_command = message
+        self.trace_twist("twist_command", topic, message)
+
+    def remember_odom(self, message):
+        self.odom = message
+        self.trace_twist("odometry_twist", "/chassis/odom", message.twist.twist,
+                         stamp_ns=str(stamp_ns(message.header.stamp)))
+
+    def trace_twist(self, event, topic, twist, **metadata):
+        now = time.monotonic_ns()
+        if not self.trace_motion or now - self.telemetry_ns.get(topic, 0) < 100_000_000:
+            return
+        self.telemetry_ns[topic] = now
+        self.log(event, topic=topic, linear_xy=[twist.linear.x, twist.linear.y],
+                 angular_z=twist.angular.z, **metadata)
 
 
 def wait_for(node, predicate, seconds, message):
@@ -144,11 +165,11 @@ def exercise(node, evidence, layout, gate_id, cancel_after):
     for name, client in (("/compute_path_through_poses", plan), ("/follow_path", drive)):
         wait_for(node, client.server_is_ready, 8.0, f"{name} action server unavailable")
     node.create_subscription(Clock, "/clock", evidence.remember_clock, qos_profile_sensor_data)
-    node.create_subscription(Twist, "/luna/cmd_vel",
-                             lambda message: setattr(evidence, "last_command", message),
-                             qos_profile_sensor_data)
-    node.create_subscription(Odometry, "/chassis/odom",
-                             lambda message: setattr(evidence, "odom", message),
+    for topic in ("/cmd_vel_nav", "/cmd_vel", "/luna/cmd_vel"):
+        node.create_subscription(Twist, topic,
+                                 lambda message, topic=topic: evidence.remember_twist(message, topic),
+                                 qos_profile_sensor_data)
+    node.create_subscription(Odometry, "/chassis/odom", evidence.remember_odom,
                              qos_profile_sensor_data)
     node.create_subscription(OccupancyGrid, "/global_costmap/costmap",
                              lambda message: setattr(evidence, "grid", message),
@@ -187,6 +208,8 @@ def exercise(node, evidence, layout, gate_id, cancel_after):
     command = FollowPath.Goal()
     command.path = path
     command.controller_id = "FollowPath"
+    evidence.trace_motion = True
+    evidence.log("follow_path_requested", route_version=1, path_seq=1)
     motion = await_future(node, drive.send_goal_async(command), 8.0, "FollowPath response")
     if not motion.accepted:
         raise RuntimeError("Nav2 rejected FollowPath")

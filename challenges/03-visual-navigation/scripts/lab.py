@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw):
+def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -162,7 +162,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw):
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, stop_requested)
         try:
-            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw)
+            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -172,7 +172,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw):
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -202,6 +202,8 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
             if not (layout / fixture).is_file():
                 raise RuntimeError(f"Incomplete graybox export: {fixture}")
         sim.extend(["--layout", str(layout / "sim")])
+    if camera_yaw:
+        sim.extend(["--diagnostic-camera-yaw", str(camera_yaw)])
     if protected:
         sim.extend(["--trajectory", str(run / "physx-trajectory.jsonl")])
     container = f"luna-nav-{run_id.lower()}"
@@ -233,7 +235,7 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
     write_json(run / "manifest.json", {"run_id": run_id, "source": "isaac-live",
                                        "dds": dds, "commands": [sim, nav, probe],
                                        "nav2_container": container, "gpu_index": gpu,
-                                       "protected": protected})
+                                       "protected": protected, "diagnostic_camera_yaw_deg": camera_yaw})
     try:
         with Processes(run) as processes:
             simulation = processes.spawn("isaac", sim, env)
@@ -318,7 +320,8 @@ def observe(count, timeout):
         ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
          "observe", str(ROS_SETUP), str(CHALLENGE / "ros2/observation_node.py"),
          str(directory), manifest["run_id"], "--count", str(count), "--timeout", str(timeout)]
-        + (["--calibration"] if calibration else []),
+        + (["--calibration"] if calibration else [])
+        + ["--diagnostic-camera-yaw", str(manifest.get("diagnostic_camera_yaw_deg", 0.0))],
         env=env,
     )
     if result.returncode:
@@ -334,6 +337,8 @@ def controller_test(gate, cancel_after):
         raise RuntimeError("The recorded Luna supervisor has exited")
     run = Path(active["run"])
     manifest = json.loads((run / "manifest.json").read_text())
+    if manifest.get("diagnostic_camera_yaw_deg"):
+        raise RuntimeError("Diagnostic camera runs do not accept motion goals")
     if not manifest["protected"] or not json.loads((run / "readiness.json").read_text())["ready"]:
         raise RuntimeError("This experiment requires a ready protected fork")
     with (run / "controller-test.lock").open("a") as lock:
@@ -374,12 +379,21 @@ def main():
     launch.add_argument("--protected", action="store_true")
     launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
     launch.add_argument("--calibration", action="store_true")
+    launch.add_argument("--diagnostic-camera-yaw", type=float, default=0.0)
     sensor = commands.add_parser("observe")
     sensor.add_argument("--count", type=int, default=5)
     sensor.add_argument("--timeout", type=float, default=45)
     controller = commands.add_parser("controller-test")
     controller.add_argument("gate")
     controller.add_argument("--cancel-after", type=float)
+    visual = commands.add_parser("luna-probe")
+    visual.add_argument("capture", type=Path)
+    visual.add_argument("layout", type=Path)
+    visual.add_argument("output", type=Path)
+    visual.add_argument("--frame", type=int, default=1)
+    visual.add_argument("--model", default=SETTINGS["model"])
+    visual.add_argument("--reasoning", choices=["none", "low"], default="none")
+    visual.add_argument("--timeout", type=float, default=25)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -395,9 +409,14 @@ def main():
                 parser.error("Expected domain 0–232, nonnegative GPU and timeout in (0, 900]")
             if args.protected and not args.layout:
                 parser.error("--protected requires a SimScene layout")
+            if not -180 <= args.diagnostic_camera_yaw <= 180:
+                parser.error("Expected camera yaw in [-180, 180]")
+            if args.diagnostic_camera_yaw and (not args.rgbd or not args.layout or args.calibration):
+                parser.error("Diagnostic camera yaw requires a graybox RGB-D run")
             start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
                   args.layout, args.protected,
-                  args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"))
+                  args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"),
+                  args.diagnostic_camera_yaw)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
@@ -406,6 +425,18 @@ def main():
             if args.cancel_after is not None and not 0 < args.cancel_after < 75:
                 parser.error("--cancel-after must be between 0 and 75 seconds")
             controller_test(args.gate, args.cancel_after)
+        elif args.command == "luna-probe":
+            if args.frame < 1 or not 0 < args.timeout <= 120:
+                parser.error("Expected a positive frame and timeout in (0, 120]")
+            key = os.environ.get("OPENAI_API_KEY")
+            if not key:
+                raise RuntimeError("OPENAI_API_KEY is required for the Luna probe")
+            sys.path.insert(0, str(CHALLENGE))
+            from navigation.luna_probe import probe
+
+            intent = probe(args.capture, args.frame, args.layout, args.output,
+                           args.model, args.timeout, key, args.reasoning)
+            print(json.dumps(intent, ensure_ascii=False))
         else:
             stop()
     except (OSError, RuntimeError, ValueError) as exc:

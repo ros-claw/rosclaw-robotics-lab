@@ -20,7 +20,7 @@ from sensor_msgs.msg import CameraInfo, Image
 from tf2_ros import Buffer, StaticTransformBroadcaster, TransformException, TransformListener
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from navigation.camera_mount import BASE_FRAME, OPTICAL_FRAME, OPTICAL_XYZW, TOPICS, TRANSLATION_M
+from navigation.camera_mount import BASE_FRAME, OPTICAL_FRAME, OPTICAL_XYZW, TOPICS, TRANSLATION_M, yaw_mount_xyzw
 from navigation.contracts import CaptureEpoch, ObservationRejected
 from navigation.geometry import CameraIntrinsics
 
@@ -51,13 +51,13 @@ def serialize_tf(transform):
             "xyz_m": [t.x, t.y, t.z], "quaternion_xyzw": [q.x, q.y, q.z, q.w]}
 
 
-def local_mount():
+def local_mount(yaw):
     static = TransformStamped()
     static.header.frame_id = BASE_FRAME
     static.child_frame_id = OPTICAL_FRAME
     position, rotation = static.transform.translation, static.transform.rotation
     position.x, position.y, position.z = TRANSLATION_M
-    rotation.x, rotation.y, rotation.z, rotation.w = OPTICAL_XYZW
+    rotation.x, rotation.y, rotation.z, rotation.w = yaw_mount_xyzw(OPTICAL_XYZW, yaw)
     return static
 
 
@@ -115,7 +115,7 @@ def save_capture(directory, run_id, identity, frames, rgb, depth, calibration, t
     }
 
 
-def collect(directory, run_id, wanted, timeout, calibration_mode):
+def collect(directory, run_id, wanted, timeout, calibration_mode, yaw):
     rclpy.init()
     node = rclpy.create_node("luna_observation")
     tf_buffer = Buffer(cache_time=Duration(seconds=5))
@@ -123,7 +123,7 @@ def collect(directory, run_id, wanted, timeout, calibration_mode):
         depth=100, reliability=ReliabilityPolicy.BEST_EFFORT
     ))
     broadcaster = StaticTransformBroadcaster(node)
-    mount = local_mount()
+    mount = local_mount(yaw)
     broadcaster.sendTransform(mount)
     tf_buffer.set_transform_static(mount, "luna_observation")
     epoch = CaptureEpoch()
@@ -200,6 +200,7 @@ def collect(directory, run_id, wanted, timeout, calibration_mode):
                                                calibration, [odom_camera] if map_odom is None
                                                else [odom_camera, map_odom], localization_revision,
                                                received_ns, calibration_mode)
+                    observation["diagnostic_camera_yaw_deg"] = yaw
                     stream.write(json.dumps(observation, allow_nan=False) + "\n")
                     stream.flush()
                     captured += 1
@@ -231,6 +232,7 @@ if __name__ == "__main__":
     parser.add_argument("--count", type=int, default=5)
     parser.add_argument("--timeout", type=float, default=30)
     parser.add_argument("--calibration", action="store_true")
+    parser.add_argument("--diagnostic-camera-yaw", type=float, default=0.0)
     args = parser.parse_args()
     args.directory.mkdir(parents=True, exist_ok=False)
-    sys.exit(collect(args.directory, args.run_id, args.count, args.timeout, args.calibration))
+    sys.exit(collect(args.directory, args.run_id, args.count, args.timeout, args.calibration, args.diagnostic_camera_yaw))

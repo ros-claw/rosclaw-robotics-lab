@@ -8,10 +8,10 @@ from pxr import Gf, Sdf, Usd, UsdGeom
 from usdrt import Sdf as RtSdf
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from navigation.camera_mount import HEIGHT, OPTICAL_FRAME, TOPICS, TRANSLATION_M, WIDTH
+from navigation.camera_mount import HEIGHT, OPTICAL_FRAME, TOPICS, TRANSLATION_M, WIDTH, yaw_mount_xyzw
 
 
-def add_front_rgbd(stage, calibration=False):
+def add_front_rgbd(stage, calibration=False, yaw=0.0):
     chassis = stage.GetPrimAtPath("/World/Nova_Carter_ROS/chassis_link")
     path = chassis.GetPath().AppendChild("LunaFrontCamera")
     with Usd.EditContext(stage, stage.GetSessionLayer()):
@@ -19,7 +19,8 @@ def add_front_rgbd(stage, calibration=False):
         xform = UsdGeom.Xformable(camera)
         xform.AddTranslateOp().Set(Gf.Vec3d(*TRANSLATION_M))
         # Chassis +X forward, +Y left, +Z up. USD cameras look along -Z.
-        xform.AddOrientOp().Set(Gf.Quatf(0.5, Gf.Vec3f(0.5, -0.5, -0.5)))
+        px, py, pz, pw = yaw_mount_xyzw((0.5, -0.5, -0.5, 0.5), yaw)
+        xform.AddOrientOp().Set(Gf.Quatf(pw, Gf.Vec3f(px, py, pz)))
         camera.GetHorizontalApertureAttr().Set(36.0)
         camera.GetVerticalApertureAttr().Set(36.0 * HEIGHT / WIDTH)
         camera.GetFocalLengthAttr().Set(24.0)

@@ -18,6 +18,7 @@ def main():
     parser.add_argument("--layout", type=Path)
     parser.add_argument("--calibration", action="store_true")
     parser.add_argument("--rgbd", action="store_true")
+    parser.add_argument("--diagnostic-camera-yaw", type=float, default=0.0)
     parser.add_argument("--renderer", default="RaytracedLighting")
     args = parser.parse_args()
 
@@ -55,7 +56,8 @@ def main():
         if args.rgbd or args.calibration:
             from scene_and_sensors import add_front_rgbd
 
-            add_front_rgbd(omni.usd.get_context().get_stage(), args.calibration)
+            add_front_rgbd(omni.usd.get_context().get_stage(), args.calibration,
+                          args.diagnostic_camera_yaw)
         timeline = omni.timeline.get_timeline_interface()
         # The stock warehouse authors 1000 frames at 60 Hz. Its playback
         # loop must not wrap the physical state during a navigation episode.
