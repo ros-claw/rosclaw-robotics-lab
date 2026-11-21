@@ -36,7 +36,7 @@ def vision_entry(directory, events):
 
 
 def bundle(run, model_dir, events_path, layout_path, overview=None, vision_session=None,
-           adaptive=False):
+           adaptive=False, motion_audit=None):
     session = rows(vision_session) if vision_session else []
     control_files = [events_path] if events_path != Path("-") else []
     if adaptive:
@@ -56,14 +56,31 @@ def bundle(run, model_dir, events_path, layout_path, overview=None, vision_sessi
         if (not directories or directories[-1].resolve() != model_dir.resolve()
                 or any(path.resolve().parents[1] != run.resolve() for path in directories)):
             raise ValueError("vision session does not belong to the selected run")
-    history = [vision_entry(directory, events) for directory in directories]
+    stale_audits = set()
+    if motion_audit:
+        audit_events = rows(motion_audit)
+        stale_audits = {Path(record["model_dir"]) for record in audit_events
+                        if record["event"] == "audit_returned" and not record["current_goal"]}
+        for record in audit_events:
+            if record["event"] == "audit_requested":
+                directory = Path(record["model_dir"])
+                if directory.resolve().parents[1] != run.resolve():
+                    raise ValueError("motion audit does not belong to the selected run")
+                if (directory / "response.json").exists():
+                    directories.append(directory)
+    history = sorted((dict(vision_entry(directory, events), ignored=directory in stale_audits)
+                      for directory in directories),
+                     key=lambda entry: entry["requested_ns"])
     first_request = history[0]["requested_ns"]
     beginning = min(first_request, int(events[0]["host_mono_ns"])) if events else first_request
     markers = []
     for attempt, entry in enumerate(history, 1):
-        for field, event in (("requested_ns", "model_requested"),
+        is_audit = entry["request"].get("purpose") == "motion_audit" or (
+            "review" in entry["request"]["schema"]["schema"]["properties"]["decision"]["enum"])
+        for field, event in (("requested_ns", "audit_requested" if is_audit else "model_requested"),
                              ("received_ns", "model_failed" if entry["response"].get("failure")
-                              else "model_received")):
+                              else "audit_ignored" if entry["ignored"]
+                              else "audit_returned" if is_audit else "model_received")):
             if field == "requested_ns" and "request_host_mono_ns" not in entry["response"]:
                 continue
             markers.append({"event": event, "host_mono_ns": str(entry[field]),
@@ -121,10 +138,11 @@ def main():
     parser.add_argument("--overview", type=Path)
     parser.add_argument("--vision-session", type=Path)
     parser.add_argument("--adaptive", action="store_true")
+    parser.add_argument("--motion-audit", type=Path)
     parser.epilog = "Use - for events in a recorded trial without a controller."
     args = parser.parse_args()
     data = bundle(args.run, args.model_dir, args.events, args.layout, args.overview,
-                  args.vision_session, args.adaptive)
+                  args.vision_session, args.adaptive, args.motion_audit)
     encoded = json.dumps(data, ensure_ascii=True, allow_nan=False).replace("<", "\\u003c")
     template = Path(__file__).with_name("replay.html").read_text()
     with args.output.open("x") as stream:

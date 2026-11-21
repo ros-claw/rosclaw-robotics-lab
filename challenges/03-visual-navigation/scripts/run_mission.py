@@ -44,6 +44,9 @@ def run_mission(args):
                            "--local-retries", str(args.local_retries),
                            "--max-observations", str(args.max_observations),
                            "--mission-time", str(args.mission_time)]
+                if args.vision_interval is not None:
+                    command += ["--vision-interval", str(args.vision_interval),
+                                "--vision-budget", str(args.vision_budget)]
                 if args.mission_policy:
                     command += ["--mission-policy", str(args.mission_policy.resolve())]
                 code = subprocess.run(command).returncode
@@ -74,6 +77,8 @@ def main():
     parser.add_argument("--local-retries", type=int, choices=range(6), default=2)
     parser.add_argument("--max-observations", type=int, choices=range(1, 6), default=3)
     parser.add_argument("--mission-time", type=float, default=150)
+    parser.add_argument("--vision-interval", type=float)
+    parser.add_argument("--vision-budget", type=int, default=7)
     args = parser.parse_args()
     try:
         return run_mission(args)

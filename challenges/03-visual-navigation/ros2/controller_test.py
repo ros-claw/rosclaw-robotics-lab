@@ -26,6 +26,7 @@ from navigation.adaptation import (Blockage, ROUTE_STOPPED, ROUTE_UNAVAILABLE,
                                    RouteBlocked, RouteUnavailable, alignment_turn, path_ahead)
 from navigation.candidates import Gate, ValidationError, costmap_footprint_radius, validate_corridor
 from navigation.contracts import StopDwell
+from navigation.live_audit import review_is_current
 from navigation.live_intent import verify_fresh
 from navigation.path_session import PathSession, validate_handoff
 
@@ -233,7 +234,8 @@ def replace_during_motion(node, evidence, session, motion, end, build_plan, subm
 
 
 def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=None,
-             episode=None, replan=False, cancel_after_gate=False, adaptive=False, route_version=1, refresh_local_map=False):
+             episode=None, replan=False, cancel_after_gate=False, adaptive=False, route_version=1, refresh_local_map=False,
+             visual_review=None):
     gates = [Gate(**data) for data in layout["gates"]]
     gate = next((item for item in gates if item.gate_id == gate_id), None)
     if gate is None or layout["frame_id"] != "map":
@@ -355,12 +357,15 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
     if adaptive:
         budget = yaml.safe_load(Path("/challenge/adaptive.yaml").read_text())
         values = (budget[name] for name in ("path_lookahead_m", "blocked_dwell_sim_s",
-                                            "global_map_watchdog_wall_s", "recovery_local_lookahead_m"))
-        lookahead, block_dwell, watchdog, local_lookahead = map(float, values)
-        if not all(math.isfinite(v) and v > 0 for v in (lookahead, block_dwell, watchdog, local_lookahead)):
+                                            "global_map_watchdog_wall_s", "recovery_local_lookahead_m",
+                                            "vision_review_lookahead_m"))
+        lookahead, block_dwell, watchdog, local_lookahead, review_lookahead = map(float, values)
+        if not all(math.isfinite(v) and v > 0 for v in (lookahead, block_dwell, watchdog, local_lookahead, review_lookahead)):
             raise ValueError("adaptive route budgets must be finite and positive")
         blockage = Blockage(block_dwell)
     last_motion = None
+    adopted_review = None
+    rejected_review = None
     active_points = None
     aligned = False
     last_map_wall = time.monotonic()
@@ -463,7 +468,7 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         evidence.log("cancel_acknowledged", path_seq=session.active, reason=reason)
 
     def route_health():
-        nonlocal last_map_wall
+        nonlocal last_map_wall, adopted_review, rejected_review
         if not scan_fresh():
             raise RuntimeError("live route lost its local obstacle scan")
         if time.monotonic() - last_map_wall > watchdog:
@@ -479,12 +484,36 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         last_map_wall = time.monotonic()
         position = (current.translation.x, current.translation.y)
         free = occupancy_checker(evidence.grid)
-        blocked = next((point for point in path_ahead(active_points, position, lookahead)
-                        if not free(*point, radius + 0.025)), None)
+        standard = next((point for point in path_ahead(active_points, position, lookahead)
+                         if not free(*point, radius + 0.025)), None)
+        extra = None
+        review_id = None
+        if visual_review and visual_review.exists():
+            review = json.loads(visual_review.read_text())
+            q = current.rotation
+            yaw = math.atan2(2 * (q.w*q.z + q.x*q.y), 1 - 2 * (q.y*q.y + q.z*q.z))
+            if review_is_current(review, episode, bytes(last_motion.goal_id.uuid).hex(), gate_id,
+                                 evidence.clock, time.monotonic_ns(), position, yaw):
+                review_id = review["observation_id"]
+                extra = next((point for point in path_ahead(active_points, position, review_lookahead)
+                              if not free(*point, radius + 0.025)), None)
+                if review_id != adopted_review:
+                    adopted_review = review_id
+                    evidence.log("visual_review_adopted", observation_id=review_id,
+                                 standard_lookahead_m=lookahead, review_lookahead_m=review_lookahead,
+                                 standard_blocked=standard is not None, review_blocked=extra is not None)
+            elif review["observation_id"] != rejected_review:
+                rejected_review = review["observation_id"]
+                evidence.log("visual_review_rejected", observation_id=rejected_review,
+                             reason="inactive_goal_or_observation_outside_envelope",
+                             base_drift_m=math.dist(position, review["base_xy"]),
+                             yaw_drift_rad=abs(math.remainder(yaw - review["base_yaw"], math.tau)))
+        blocked = standard or extra
         if blockage.observe(stamp, blocked is not None):
             evidence.log("route_blocked", gate_id=gate_id, source_grid="global_costmap",
                          costmap_stamp_ns=str(stamp), blocking_point=blocked,
-                         active_path_seq=session.active, base_xy=position)
+                         active_path_seq=session.active, base_xy=position,
+                         standard_blocked=standard is not None, visual_review=review_id)
             raise RouteBlocked("persistent obstruction in the active path envelope")
 
     def local_xy():
@@ -646,6 +675,7 @@ if __name__ == "__main__":
     parser.add_argument("--adaptive", action="store_true")
     parser.add_argument("--route-version", type=int, default=1)
     parser.add_argument("--refresh-local-map", action="store_true")
+    parser.add_argument("--visual-review", type=Path)
     parser.add_argument("--cancel-after-gate", action="store_true")
     args = parser.parse_args()
     layout = json.loads(Path("/luna_nav/public_scene_manifest.json").read_text())
@@ -660,7 +690,7 @@ if __name__ == "__main__":
                     observation = json.loads(args.live_observation.read_text())
                     evidence.source = "luna-live"
                 status = exercise(node, evidence, layout, args.gate, args.cancel_after, observation,
-                                  args.episode, args.replan, args.cancel_after_gate, args.adaptive, args.route_version, args.refresh_local_map)
+                                  args.episode, args.replan, args.cancel_after_gate, args.adaptive, args.route_version, args.refresh_local_map, args.visual_review)
                 if status is not None:
                     raise SystemExit(status)
             except (ValueError, RuntimeError) as exc:

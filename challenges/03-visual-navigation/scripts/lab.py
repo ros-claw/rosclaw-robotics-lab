@@ -341,14 +341,17 @@ def observe(count, timeout, expected=None):
     env = {**os.environ, **manifest["dds"]}
     for key in ("OPENAI_API_KEY", "OPENAI_BASE_URL"):
         env.pop(key, None)
-    result = subprocess.run(
-        ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
-         "observe", str(ROS_SETUP), str(CHALLENGE / "ros2/observation_node.py"),
-         str(directory), manifest["run_id"], "--count", str(count), "--timeout", str(timeout)]
-        + (["--calibration"] if calibration else [])
-        + ["--diagnostic-camera-yaw", str(manifest.get("diagnostic_camera_yaw_deg", 0.0))],
-        env=env,
-    )
+    try:
+        result = subprocess.run(
+            ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
+             "observe", str(ROS_SETUP), str(CHALLENGE / "ros2/observation_node.py"),
+             str(directory), manifest["run_id"], "--count", str(count), "--timeout", str(timeout)]
+            + (["--calibration"] if calibration else [])
+            + ["--diagnostic-camera-yaw", str(manifest.get("diagnostic_camera_yaw_deg", 0.0))],
+            env=env, timeout=timeout + 6,
+        )
+    except subprocess.TimeoutExpired as error:
+        raise RuntimeError(f"RGB-D capture exceeded its wall deadline. See {directory}") from error
     if result.returncode:
         raise RuntimeError(f"RGB-D capture failed. See {directory}")
     return directory
@@ -379,7 +382,7 @@ def claim_motion(lock):
 
 def execute_motion(active, run, manifest, gate, cancel_after=None, live_observation=None,
                    replan=False, cancel_after_gate=False, adaptive=False, route_version=1,
-                   timeout=120, refresh_local_map=False):
+                   timeout=120, refresh_local_map=False, audit=None):
     if birth_ticks(active["pid"]) != active["birth_ticks"]:
         raise RuntimeError("Active episode ended before motion")
     evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
@@ -401,6 +404,10 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
         relative = live_observation.relative_to(run)
         command.extend(["--live-observation", "/luna_run/" + str(relative),
                         "--episode", manifest["run_id"]])
+    if audit:
+        review_file = run / (Path(evidence).stem + "-review.json")
+        command.extend(["--visual-review", "/luna_run/" + review_file.name])
+        audit_done, audit_thread = audit.start(run / evidence, review_file, gate)
     print(run / evidence, flush=True)
     succeeded = False
     try:
@@ -411,6 +418,9 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
         else:
             succeeded = code == 0
     finally:
+        if audit:
+            audit_done.set()
+            audit_thread.join(timeout=15)
         if not succeeded:
             # A lost action response still leaves the simulator under this supervisor.
             stop(expected=active)
@@ -428,12 +438,14 @@ def controller_test(gate, cancel_after, replan=False, cancel_after_gate=False):
 
 
 def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=None,
-             local_retries=2, mission_time=150.0, expected_run=None):
+             local_retries=2, mission_time=150.0, expected_run=None, vision_interval=None,
+             vision_budget=7):
     sys.path.insert(0, str(CHALLENGE))
     from evaluator.continuity import evaluate as evaluate_continuity
     from evaluator.controller_run import evaluate, recovery_stop_verified
     from navigation.adaptation import Recovery, ROUTE_STOPPED
     from navigation.luna_probe import load_frame, observation_id, probe
+    from navigation.live_audit import MotionAudit
     from navigation.reobserve import FreshFrames
 
     active, run, manifest = motion_episode()
@@ -447,6 +459,12 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
         raise ValueError("mission policy accepts only non-empty task and recovery_task text")
     recovery = Recovery(local_retries, allow_alternate="recovery_task" in policy)
     expires = time.monotonic() + mission_time
+    audit = None
+    if vision_interval is not None:
+        if replan:
+            raise ValueError("motion vision audit requires adaptive execution")
+        audit = MotionAudit(vision_interval, vision_budget, lambda: observe(1, 5, expected=active),
+                            layout, SETTINGS["model"], key, api_timeout)
     with (run / "controller-test.lock").open("a") as lock:
         claim_motion(lock)
         session_log = run / ("luna-session-" + uuid4().hex[:8] + ".jsonl")
@@ -516,7 +534,7 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
             code, events = execute_motion(active, run, manifest, gate, live_observation=observation_path,
                                           replan=replan, adaptive=not replan,
                                           route_version=route_version, timeout=min(120, remaining),
-                                          refresh_local_map=local_recovery)
+                                          refresh_local_map=local_recovery, audit=audit)
             if code == 0:
                 break
             if code == ROUTE_STOPPED:
@@ -603,6 +621,8 @@ def main():
     live.add_argument("--local-retries", type=int, default=2)
     live.add_argument("--mission-time", type=float, default=150)
     live.add_argument("--expected-run", type=Path, help=argparse.SUPPRESS)
+    live.add_argument("--vision-interval", type=float)
+    live.add_argument("--vision-budget", type=int, default=7)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -655,8 +675,12 @@ def main():
                 parser.error("Expected between 1 and 5 observations")
             if not 0 <= args.local_retries <= 5 or not 15 <= args.mission_time <= 600:
                 parser.error("Expected local retries in [0, 5] and mission time in [15, 600] seconds")
+            if (args.vision_interval is not None and not 3 <= args.vision_interval <= 60
+                    or not 1 <= args.vision_budget <= 20):
+                parser.error("Expected vision cadence in [3, 60] seconds and budget in [1, 20]")
             luna_run(key, args.api_timeout, args.replan, args.max_observations,
-                     args.mission_policy, args.local_retries, args.mission_time, args.expected_run)
+                     args.mission_policy, args.local_retries, args.mission_time, args.expected_run,
+                     args.vision_interval, args.vision_budget)
         elif args.command == "luna-probe":
             if args.frame < 1 or not 0 < args.timeout <= 120:
                 parser.error("Expected a positive frame and timeout in (0, 120]")

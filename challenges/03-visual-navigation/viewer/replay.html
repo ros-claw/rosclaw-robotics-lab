@@ -64,9 +64,10 @@ function renderVision(t){
  }
  const modelFailure=response.failure==="transport_curl_28"||response.failure==="transport_deadline"
   ? "API 超时 · 保持驻车" : "请求失败 · "+response.failure;
- const action=intent?.candidate_id??(intent?.decision==="hold"?"保持驻车":"重新观察");
+ const decisions={hold:"保持驻车",reobserve:"重新观察",continue:"继续观察",review:"请求本地复核"};
+ const action=intent?.candidate_id??decisions[intent?.decision];
  const decision=intent ? action+" · "+intent.reason_summary : modelFailure;
- intentElement.textContent=received ? (response.model??frame.request.model_requested)+" · "+decision : "等待模型结果";
+ intentElement.textContent=received ? (frame.ignored?"已过期 · ":"")+(response.model??frame.request.model_requested)+" · "+decision : "等待模型结果";
 }
 const p=d.physics;
 const outcomeText=p?.pass
@@ -79,7 +80,7 @@ const mx=x=>canvas.width/2+(x-(left+right)/2)*scale;
 const my=y=>canvas.height/2-(y-(yMax+bottom)/2)*scale;
 function line(points,color,w){if(!points.length)return;ctx.beginPath();ctx.moveTo(mx(points[0][0]),my(points[0][1]));
 for(const [x,y] of points.slice(1))ctx.lineTo(mx(x),my(y));ctx.strokeStyle=color;ctx.lineWidth=w;ctx.lineCap="round";ctx.stroke();}
-const names={alignment_requested:"请求原地对正",alignment_completed:"原地对正已确认",local_costmap_refreshed:"局部代价地图已刷新",route_blocked:"本地地图确认封堵",physical_stop_verified:"PhysX 确认停车",route_recovery:"本地恢复决策",hold:"保持停车",route_completed:"任务完成",model_requested:"请求 Luna",model_received:"收到 Luna 结果",model_failed:"模型请求失败",test_failed:"本地拒绝",final_twist_source_verified:"速度来源已确认",intent_preflight:"视觉意图预检",planning_requested:"请求规划",
+const names={audit_requested:"行驶中请求 Luna",audit_returned:"收到行驶视觉建议",audit_ignored:"旧动作的建议已丢弃",visual_review_adopted:"已扩大本地复核范围",alignment_requested:"请求原地对正",alignment_completed:"原地对正已确认",local_costmap_refreshed:"局部代价地图已刷新",route_blocked:"本地地图确认封堵",physical_stop_verified:"PhysX 确认停车",route_recovery:"本地恢复决策",hold:"保持停车",route_completed:"任务完成",model_requested:"请求 Luna",model_received:"收到 Luna 结果",model_failed:"模型请求失败",test_failed:"本地拒绝",final_twist_source_verified:"速度来源已确认",intent_preflight:"视觉意图预检",planning_requested:"请求规划",
 path_proposed:"Nav2 返回路径",handoff_validated:"已检查路径接续",planning_discarded:"丢弃过期计划",nav2_result_ignored:"忽略旧动作回执",path_validated:"完整路径已校验",intent_committed:"通道已承诺",
 follow_path_requested:"提交 FollowPath",nav2_accepted:"Nav2 接受",nav2_result:"Nav2 返回结果",odometry_stopped:"里程计停止"};
 const scrub=document.querySelector("#scrub"), timer=document.querySelector("#time"), play=document.querySelector("#play");

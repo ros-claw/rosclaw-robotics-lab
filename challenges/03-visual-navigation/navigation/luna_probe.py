@@ -9,6 +9,7 @@ import subprocess
 import time
 
 DECISIONS = ["select_candidate", "hold", "reobserve"]
+AUDIT_DECISIONS = ["continue", "review", "reobserve"]
 TASK = "寻找蓝色 B 工位的标志。选择标志所在侧对应的通道。"
 INSTRUCTIONS = (
     "你只提供视觉建议，不能驱动机器人。根据实际 RGB 图像和中性候选判断。"
@@ -24,13 +25,13 @@ class ProbeError(ValueError):
     pass
 
 
-def schema(observation_id, candidates):
+def schema(observation_id, candidates, decisions=DECISIONS):
     return {
         "type": "object", "additionalProperties": False,
         "required": ["observation_id", "decision", "candidate_id", "reason_summary", "evidence_regions"],
         "properties": {
             "observation_id": {"type": "string", "enum": [observation_id]},
-            "decision": {"type": "string", "enum": DECISIONS},
+            "decision": {"type": "string", "enum": decisions},
             "candidate_id": {"type": ["string", "null"], "enum": [*candidates, None]},
             "reason_summary": {"type": "string"},
             "evidence_regions": {"type": "array", "items": {
@@ -45,7 +46,7 @@ def schema(observation_id, candidates):
     }
 
 
-def parse_intent(response, observation_id, candidates):
+def parse_intent(response, observation_id, candidates, decisions=DECISIONS):
     status = response.get("status")
     if status != "completed":
         raise ProbeError("response_incomplete" if status == "incomplete" else "response_not_completed")
@@ -64,7 +65,7 @@ def parse_intent(response, observation_id, candidates):
     if intent["observation_id"] != observation_id:
         raise ProbeError("observation_id_mismatch")
     decision, candidate = intent["decision"], intent["candidate_id"]
-    if decision not in DECISIONS:
+    if decision not in decisions:
         raise ProbeError("decision_invalid")
     if decision == "select_candidate":
         if not isinstance(candidate, str) or candidate not in candidates:
@@ -149,7 +150,7 @@ def observation_id(observation):
 
 
 def probe(directory, frame_seq, layout_path, destination, model, timeout, key, reasoning_effort="none",
-          task=None, excluded=()):
+          task=None, excluded=(), audit_gate=None):
     observation, image = load_frame(directory, frame_seq)
     layout = json.loads(layout_path.read_text())
     candidates = {gate["gate_id"]: "面向分叉时的左侧" if gate["lower_y"] > 0 else "面向分叉时的右侧"
@@ -159,8 +160,21 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
     if not candidates:
         raise ProbeError("no_eligible_candidate")
     instructions = INSTRUCTIONS if task is None else (
-        "你只提供视觉建议。候选可供提出，最终仍需本地规划和安全校验。根据图像和任务选择明确允许的候选。"        "看不清时返回 reobserve，无法满足任务时返回 hold。写出简短可见依据。")
+        "你只提供视觉建议。候选可供提出，最终仍需本地规划和安全校验。根据图像和任务选择明确允许的候选。"
+        "看不清时返回 reobserve，无法满足任务时返回 hold。写出简短可见依据。")
     task = task or TASK
+    decisions = DECISIONS
+    if audit_gate is not None:
+        direction = candidates.get(audit_gate, "已承诺通道方向")
+        instructions = (
+            "这是行驶中车载相机的图像。当前路线可向画面左侧或右侧绕行，并非沿画面中心直行。"
+            "结合已承诺通道所属侧检查画面；该侧边缘也可能包括接下来要走的路径。"
+            "若该侧附近可见大型直立挡板、移动物体或明显占用，请返回 review，让本地系统检查更远的路线。"
+            "图像看起来正常时返回 continue，图像不可用时返回 reobserve。candidate_id 必须为 null。"
+            "仅说明看得见的依据。你不能确认通过、选择另一条路线或控制车辆。")
+        task = f"已承诺候选 {audit_gate} 对应{direction}；复核该路线方向是否出现可见的潜在遮挡。"
+        candidates = {}
+        decisions = AUDIT_DECISIONS
     image_id = observation_id(observation)
     payload = {
         "model": model, "store": False, "reasoning": {"effort": reasoning_effort},
@@ -172,13 +186,14 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
         }, {"type": "input_image", "detail": "high",
             "image_url": "data:image/png;base64," + base64.b64encode(image).decode("ascii")}]}],
         "text": {"format": {"type": "json_schema", "name": "luna_visual_intent", "strict": True,
-                            "schema": schema(image_id, candidates)}},
+                            "schema": schema(image_id, candidates, decisions)}},
         "max_output_tokens": 600,
     }
     destination.mkdir(parents=True, exist_ok=False)
     (destination / "model-input.png").write_bytes(image)
     manifest = {"source": "isaac-live-frozen-probe", "motion_authority": False,
-                "model_requested": model, "reasoning_effort": reasoning_effort, "input_sha256": observation["rgb"]["sha256"],
+                "model_requested": model, "purpose": "motion_audit" if audit_gate else "route_decision",
+                "reasoning_effort": reasoning_effort, "input_sha256": observation["rgb"]["sha256"],
                 "observation_id": image_id, "observation_stamp_ns": observation["stamp_ns"],
                 "diagnostic_camera_yaw_deg": observation.get("diagnostic_camera_yaw_deg", 0.0),
                 "source_capture": str(directory.resolve()), "candidate_sides": candidates,
@@ -193,7 +208,7 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
                   "status": response.get("status"), "usage": response.get("usage")}
         (destination / "api-response.json").write_text(
             json.dumps(response, ensure_ascii=False, indent=2) + "\n")
-        intent = parse_intent(response, image_id, candidates)
+        intent = parse_intent(response, image_id, candidates, decisions)
         result["intent"] = intent
         return intent
     except subprocess.TimeoutExpired:

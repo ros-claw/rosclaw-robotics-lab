@@ -119,3 +119,16 @@ python3 scripts/run_mission.py --layout /path/to/fork-layout --record-overview
 实验可通过 `--scenario-obstacles scene/experiments/transient-blockage.json` 注入运动物体。该注入参数只传入 Isaac。临时、持续以及更早封堵的配方均位于 `scene/experiments`。三份配方使用交换标牌的灰盒，蓝色 B 位于左侧。允许绕行的实验另加 `--mission-policy scene/experiments/allow-shared-destination.json`。
 
 使用 `python3 evaluator/adaptive_run.py "$RUN"` 复核封堵试次。生成回放时将对应的会话日志传给 `--vision-session` 并加 `--adaptive`，回放会关联所有控制段的路径、模型请求、停止证据与恢复决策。
+
+## 多障碍场景的行驶中视觉复核
+
+`scene/experiments/active-warehouse.json` 包含三件独立运动的障碍物和三个固定障碍物。下列命令打开异步视觉复核。示例将同路重试预算置零，以便在确认封堵后直接实验授权绕行。
+
+```bash
+python3 scripts/run_mission.py --layout /path/to/swapped-layout --record-overview \
+  --scenario-obstacles scene/experiments/active-warehouse.json \
+  --mission-policy scene/experiments/allow-shared-destination.json --local-retries 0 \
+  --vision-interval 5 --vision-budget 8
+```
+
+同一时刻只有一个视觉请求在途。复核回复与当前运行、动作 UUID、帧时间戳和拍摄位姿绑定。有效的 `review` 会让本地代价地图检查更远的实际跟踪路径。即使请求失败或建议继续，常规本地安全检查也持续运行。生成复核回放时，在 `--vision-session` 和 `--adaptive` 之外加 `--motion-audit "$RUN/motion-audit.jsonl"`。用 `python3 evaluator/motion_vision.py "$RUN"` 独立复算模型请求期间的物理运动、复核是否影响停车、真实过门和接触结果。
