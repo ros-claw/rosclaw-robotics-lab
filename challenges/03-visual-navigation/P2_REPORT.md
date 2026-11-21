@@ -18,3 +18,5 @@ env PYTHONPATH="$usd_lib:/usr/lib/python3/dist-packages" LD_LIBRARY_PATH="$usd_l
 LUNA_EVIDENCE="$workspace/p2-evidence/runs" python3 scripts/lab.py start --rgbd \
   --layout "$workspace/p2-evidence/reproduction"
 ```
+
+后续保护联调把标牌移至实体隔板，输出目录为 p2-evidence/pair-wall-signs。两种变体的公开地图及清单仍逐字节一致。改动后测试经过规划和足迹预检，执行中结果见 [P3 报告](P3_REPORT.md)。

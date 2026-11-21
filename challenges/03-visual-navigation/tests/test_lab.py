@@ -37,3 +37,16 @@ def test_failure_cleans_up_only_owned_processes(tmp_path):
     finally:
         other.terminate()
         other.wait(timeout=5)
+
+
+def test_failed_controller_cannot_stop_a_new_supervisor(tmp_path, monkeypatch):
+    import json
+
+    monkeypatch.setattr(lab, "RUNTIME", tmp_path)
+    (tmp_path / "active.json").write_text(json.dumps({"pid": 42, "birth_ticks": "2"}))
+
+    def unexpected_pidfd(*_):
+        pytest.fail("a replacement supervisor must never be signaled")
+
+    monkeypatch.setattr(lab.os, "pidfd_open", unexpected_pidfd, raising=False)
+    lab.stop(expected={"pid": 42, "birth_ticks": "1"})

@@ -14,6 +14,7 @@ def main():
     parser.add_argument("scene")
     parser.add_argument("asset_root")
     parser.add_argument("gpu", type=int)
+    parser.add_argument("--trajectory", type=Path)
     parser.add_argument("--layout", type=Path)
     parser.add_argument("--calibration", action="store_true")
     parser.add_argument("--rgbd", action="store_true")
@@ -24,6 +25,7 @@ def main():
                          "physics_gpu": args.gpu, "disable_viewport_updates": True,
                          "renderer": args.renderer})
     exit_code = 0
+    witness = None
     try:
         import carb
         import omni.timeline
@@ -44,11 +46,21 @@ def main():
             from graybox import apply_graybox
 
             apply_graybox(omni.usd.get_context().get_stage(), args.layout)
+        if args.trajectory:
+            from graybox import configure_final_velocity
+            from physical_witness import PhysicalWitness
+
+            configure_final_velocity(omni.usd.get_context().get_stage())
+            witness = PhysicalWitness(args.trajectory)
         if args.rgbd or args.calibration:
             from scene_and_sensors import add_front_rgbd
 
             add_front_rgbd(omni.usd.get_context().get_stage(), args.calibration)
         timeline = omni.timeline.get_timeline_interface()
+        # The stock warehouse authors 1000 frames at 60 Hz. Its playback
+        # loop must not wrap the physical state during a navigation episode.
+        timeline.set_end_time(3600.0)
+        timeline.set_looping(False)
         timeline.play()
         print("Luna baseline timeline play requested", flush=True)
         faulthandler.dump_traceback_later(45, repeat=True)
@@ -58,6 +70,8 @@ def main():
         print(f"Isaac first updates returned, timeline={timeline.get_current_time()}", flush=True)
         while app.is_running():
             app.update()
+            if witness:
+                witness.sample(timeline.get_current_time())
     except KeyboardInterrupt:
         pass
     except Exception:
@@ -65,6 +79,8 @@ def main():
         exit_code = 1
     finally:
         faulthandler.cancel_dump_traceback_later()
+        if witness:
+            witness.close()
         app.close(exit_code=exit_code)
 
 

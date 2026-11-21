@@ -117,7 +117,7 @@ class Processes:
     def spawn(self, name, command, env=None):
         with (self.directory / f"{name}.log").open("ab") as log:
             process = subprocess.Popen(command, stdout=log, stderr=log,
-                                       env=env, start_new_session=True)
+                                       env=env, cwd=self.directory, start_new_session=True)
         self.children.append((name, process))
         return process
 
@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration, layout):
+def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -162,7 +162,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout):
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, stop_requested)
         try:
-            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout)
+            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -172,7 +172,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout):
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -182,7 +182,10 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout)
     root = info["asset_root"]
     humble = NVIDIA / "humble_ws/src"
     dds = {"ROS_DOMAIN_ID": str(domain), "ROS_LOCALHOST_ONLY": "1",
-           "RMW_IMPLEMENTATION": "rmw_fastrtps_cpp"}
+           "RMW_IMPLEMENTATION": rmw}
+    if rmw == "rmw_cyclonedds_cpp":
+        dds["ROS_LOCALHOST_ONLY"] = "0"  # The explicit DDS profile binds only to loopback.
+        dds["CYCLONEDDS_URI"] = (CHALLENGE / "config/cyclonedds.xml").as_uri()
     env = {**os.environ, **dds}
     for key in ("ROS_DISTRO", "AMENT_PREFIX_PATH", "COLCON_PREFIX_PATH", "PYTHONPATH",
                 "OPENAI_API_KEY", "OPENAI_BASE_URL"):
@@ -199,6 +202,8 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout)
             if not (layout / fixture).is_file():
                 raise RuntimeError(f"Incomplete graybox export: {fixture}")
         sim.extend(["--layout", str(layout / "sim")])
+    if protected:
+        sim.extend(["--trajectory", str(run / "physx-trajectory.jsonl")])
     container = f"luna-nav-{run_id.lower()}"
     nav = ["docker", "run", "--rm", "--name", container, "--network", "host", "--ipc", "host",
            "--user", f"{os.getuid()}:{os.getgid()}", "--env", "HOME=/tmp",
@@ -209,15 +214,26 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout)
     if layout:
         nav.extend(["-v", f"{layout}/nav:/luna_nav:ro"])
         launch += " map:=/luna_nav/map.yaml params_file:=/luna_nav/params.yaml"
+    if protected:
+        nav.extend(["-v", f"{CHALLENGE}/navigation:/luna_code/navigation:ro",
+                    "-v", f"{CHALLENGE}/ros2:/luna_code/ros2:ro",
+                    "-v", f"{run}:/luna_run"])
+        launch += (" protected:=true use_composition:=False"
+                   " scan_min_height:=-0.12 scan_max_height:=0.35")
     for key, value in dds.items():
+        if key == "CYCLONEDDS_URI":
+            value = "file:///challenge/cyclonedds.xml"
         nav.extend(["--env", f"{key}={value}"])
     nav += ["--entrypoint", "/bin/bash", SETTINGS["nav2_image"], "-c", launch]
-    probe = ["bash", "-c", 'source "$1" && exec /usr/bin/python3 "$2" "$3" "$4"',
+    probe = ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
              "probe", str(ROS_SETUP), str(CHALLENGE / "scripts/readiness.py"),
              str(run), str(timeout)]
+    if protected:
+        probe.append("--protected")
     write_json(run / "manifest.json", {"run_id": run_id, "source": "isaac-live",
                                        "dds": dds, "commands": [sim, nav, probe],
-                                       "nav2_container": container, "gpu_index": gpu})
+                                       "nav2_container": container, "gpu_index": gpu,
+                                       "protected": protected})
     try:
         with Processes(run) as processes:
             simulation = processes.spawn("isaac", sim, env)
@@ -247,7 +263,7 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout)
         })
 
 
-def stop():
+def stop(expected=None):
     active = RUNTIME / "active.json"
     if not active.exists():
         print("No active Luna navigation supervisor")
@@ -256,6 +272,8 @@ def stop():
         record = json.loads(active.read_text())
     except FileNotFoundError:
         print("No active Luna navigation supervisor")
+        return
+    if expected is not None and record != expected:
         return
     pid = record["pid"]
     try:
@@ -307,6 +325,41 @@ def observe(count, timeout):
         raise RuntimeError(f"RGB-D capture failed. See {directory}")
 
 
+def controller_test(gate, cancel_after):
+    try:
+        active = json.loads((RUNTIME / "active.json").read_text())
+    except FileNotFoundError:
+        raise RuntimeError("Start the fork in protected mode first") from None
+    if birth_ticks(active["pid"]) != active["birth_ticks"]:
+        raise RuntimeError("The recorded Luna supervisor has exited")
+    run = Path(active["run"])
+    manifest = json.loads((run / "manifest.json").read_text())
+    if not manifest["protected"] or not json.loads((run / "readiness.json").read_text())["ready"]:
+        raise RuntimeError("This experiment requires a ready protected fork")
+    with (run / "controller-test.lock").open("a") as lock:
+        try:
+            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        except BlockingIOError:
+            raise RuntimeError("A test already owns this episode") from None
+        evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
+        command = ["docker", "exec", manifest["nav2_container"], "bash", "-c",
+                   'source /opt/ros/humble/setup.bash && exec python3 "$@"',
+                   "controller-test", "/luna_code/ros2/controller_test.py", gate,
+                   "/luna_run/" + evidence]
+        if cancel_after is not None:
+            command.extend(["--cancel-after", str(cancel_after)])
+        print(run / evidence, flush=True)
+        succeeded = False
+        try:
+            succeeded = subprocess.run(command, timeout=120).returncode == 0
+        finally:
+            if not succeeded:
+                # A lost action response still leaves the simulator under this supervisor.
+                stop(expected=active)
+        if not succeeded:
+            raise RuntimeError(f"Controller test failed. See {run / evidence}")
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
@@ -318,10 +371,15 @@ def main():
     launch.add_argument("--timeout", type=float, default=SETTINGS["readiness_timeout_s"])
     launch.add_argument("--rgbd", action="store_true")
     launch.add_argument("--layout", type=Path)
+    launch.add_argument("--protected", action="store_true")
+    launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
     launch.add_argument("--calibration", action="store_true")
     sensor = commands.add_parser("observe")
     sensor.add_argument("--count", type=int, default=5)
     sensor.add_argument("--timeout", type=float, default=45)
+    controller = commands.add_parser("controller-test")
+    controller.add_argument("gate")
+    controller.add_argument("--cancel-after", type=float)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -335,11 +393,19 @@ def main():
         elif args.command == "start":
             if not 0 <= args.domain <= 232 or args.gpu < 0 or not 0 < args.timeout <= 900:
                 parser.error("Expected domain 0–232, nonnegative GPU and timeout in (0, 900]")
-            start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration, args.layout)
+            if args.protected and not args.layout:
+                parser.error("--protected requires a SimScene layout")
+            start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
+                  args.layout, args.protected,
+                  args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"))
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
             observe(args.count, args.timeout)
+        elif args.command == "controller-test":
+            if args.cancel_after is not None and not 0 < args.cancel_after < 75:
+                parser.error("--cancel-after must be between 0 and 75 seconds")
+            controller_test(args.gate, args.cancel_after)
         else:
             stop()
     except (OSError, RuntimeError, ValueError) as exc:

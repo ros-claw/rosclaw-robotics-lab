@@ -40,3 +40,16 @@ def test_z_depth_round_trip():
     optical = intrinsics.unproject(580, 170, 2.0)
     assert optical == (0.4, -0.4, 2.0)
     assert intrinsics.project(optical) == (580, 170)
+
+
+def test_velocity_dwell_survives_clock_and_odom_callback_order():
+    from navigation.contracts import StopDwell
+
+    dwell = StopDwell()
+    stamp = 1_000_000_000
+    assert not dwell.observe(stamp, stamp, 0.0, 0.0)
+    for _ in range(1, 4):
+        stamp += 250_000_000
+        assert not dwell.observe(stamp - 20_000_000, stamp, 0.0, 0.0)
+        settled = dwell.observe(stamp, stamp, 0.0, 0.0)
+    assert settled

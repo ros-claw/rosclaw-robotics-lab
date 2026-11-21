@@ -1,20 +1,25 @@
 <?xml version="1.0"?>
 <launch>
   <arg name="carter"/>
+  <arg name="protected" default="false"/>
+  <arg name="use_composition" default="True"/>
+  <arg name="scan_min_height" default="-0.4"/>
+  <arg name="scan_max_height" default="1.5"/>
   <arg name="map" default="$(var carter)/maps/carter_warehouse_navigation.yaml"/>
   <arg name="params_file" default="$(var carter)/params/carter_navigation_params.yaml"/>
   <include file="$(find-pkg-share nav2_bringup)/launch/bringup_launch.py">
     <arg name="map" value="$(var map)"/>
     <arg name="params_file" value="$(var params_file)"/>
     <arg name="use_sim_time" value="true"/>
+    <arg name="use_composition" value="$(var use_composition)"/>
   </include>
   <node pkg="pointcloud_to_laserscan" exec="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
     <remap from="cloud_in" to="/front_3d_lidar/lidar_points"/>
     <remap from="scan" to="/scan"/>
     <param name="target_frame" value="front_3d_lidar"/>
     <param name="transform_tolerance" value="0.01" type="float"/>
-    <param name="min_height" value="-0.4" type="float"/>
-    <param name="max_height" value="1.5" type="float"/>
+    <param name="min_height" value="$(var scan_min_height)" type="float"/>
+    <param name="max_height" value="$(var scan_max_height)" type="float"/>
     <param name="angle_min" value="-1.5708" type="float"/>
     <param name="angle_max" value="1.5708" type="float"/>
     <param name="angle_increment" value="0.0087" type="float"/>
@@ -24,5 +29,13 @@
     <param name="use_inf" value="true" type="bool"/>
     <param name="inf_epsilon" value="1.0" type="float"/>
     <param name="use_sim_time" value="true" type="bool"/>
+  </node>
+  <node if="$(var protected)" pkg="nav2_collision_monitor" exec="collision_monitor"
+        name="collision_monitor" output="screen">
+    <param from="/challenge/collision_monitor.yaml"/>
+  </node>
+  <node if="$(var protected)" pkg="nav2_lifecycle_manager" exec="lifecycle_manager"
+        name="lifecycle_manager_collision" output="screen">
+    <param from="/challenge/collision_monitor.yaml"/>
   </node>
 </launch>

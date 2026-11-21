@@ -9,12 +9,9 @@ import sys
 import yaml
 
 ROOT = Path(__file__).resolve().parents[1]
-ARMS = {
-    "A": [(-0.13, 0.0, 0.035, 0.36), (0.13, 0.0, 0.035, 0.36),
-          (0.0, 0.16, 0.26, 0.035), (0.0, 0.0, 0.26, 0.035)],
-    "B": [(-0.13, 0.0, 0.035, 0.36), (0.13, 0.0, 0.035, 0.36),
-          (0.0, 0.16, 0.26, 0.035), (0.0, 0.0, 0.26, 0.035),
-          (0.0, -0.16, 0.26, 0.035)],
+GLYPHS = {
+    "A": ("01110", "10001", "10001", "11111", "10001", "10001", "10001"),
+    "B": ("11110", "10001", "10001", "11110", "10001", "10001", "11110"),
 }
 COLORS = {"A": [0.68, 0.21, 0.06], "B": [0.045, 0.25, 0.86]}
 
@@ -45,7 +42,7 @@ def occupancy(layout, destination):
     }, sort_keys=False))
 
 
-def build(recipe, variant, out, nvidia):
+def build(recipe, variant, out, nvidia, controller):
     from simscene.usd_export import export_scene
 
     layout = yaml.safe_load(recipe.read_text())
@@ -63,13 +60,16 @@ def build(recipe, variant, out, nvidia):
     result = {}
     for gate, label in zip(layout["gates"], labels, strict=True):
         gate_id = gate["gate_id"]
-        y = (gate["lower_y"] + gate["upper_y"]) / 2
-        # Thin visual panels are above the driveable path and have no collision API.
-        objects[f"panel-{gate_id}"] = cube([0.20, y, 1.38], [0.035, 0.72, 0.59], COLORS[label], False)
-        for index, (dy, dz, sy, sz) in enumerate(ARMS[label]):
-            objects[f"glyph-{gate_id}-{index}"] = cube(
-                [0.175, y + dy, 1.38 + dz], [0.008, sy, sz], [0.94, 0.94, 0.94], False,
-            )
+        # Mount both signs on the divider face so high LiDAR returns do not block a lane.
+        y = 0.48 if gate["lower_y"] > 0 else -0.48
+        objects[f"panel-{gate_id}"] = cube([-0.222, y, 0.61], [0.040, 0.68, 0.52], COLORS[label], False)
+        for row, pixels in enumerate(GLYPHS[label]):
+            for column, filled in enumerate(pixels):
+                if filled == "1":
+                    objects[f"glyph-{gate_id}-{row}-{column}"] = cube(
+                        [-0.245, y + (2 - column) * 0.054, 0.61 + (3 - row) * 0.054],
+                        [0.007, 0.054, 0.054], [0.94, 0.94, 0.94], False,
+                    )
         result[gate_id] = label
     export_scene({"revision": 0, "objects": objects}, sim / "layout.usda")
     occupancy(layout, nav)
@@ -77,6 +77,13 @@ def build(recipe, variant, out, nvidia):
                                   "carter_navigation_params.yaml").read_text())
     x, y, yaw = layout["spawn_xy_yaw"]
     parameters["amcl"]["ros__parameters"]["initial_pose"] = {"x": x, "y": y, "z": 0.0, "yaw": yaw}
+    for server in ("global_costmap", "local_costmap"):
+        # Replace the warehouse preset's 25 cm padding for the measured graybox lanes.
+        parameters[server][server]["ros__parameters"]["footprint_padding"] = 0.05
+    if controller == "mppi":
+        overlay = yaml.safe_load((ROOT / "config/nav2_mppi.yaml").read_text())
+        for node, patch in overlay.items():
+            parameters[node]["ros__parameters"].update(patch["ros__parameters"])
     (nav / "params.yaml").write_text(yaml.safe_dump(parameters, sort_keys=False))
     public = {**layout, "frame_id": "map", "resolution_m": 0.05,
               "map_sha256": hashlib.sha256((nav / "map.pgm").read_bytes()).hexdigest()}
@@ -94,8 +101,9 @@ if __name__ == "__main__":
     parser.add_argument("out", type=Path)
     parser.add_argument("--recipe", type=Path, default=ROOT / "scene/layouts/fork.yaml")
     parser.add_argument("--variant", choices=["original", "swapped"], default="original")
+    parser.add_argument("--controller", choices=["dwb", "mppi"], default="dwb")
     parser.add_argument("--nvidia", type=Path, required=True)
     parser.add_argument("--simscene", type=Path, required=True)
     args = parser.parse_args()
     sys.path.insert(0, str(args.simscene / "src"))
-    build(args.recipe, args.variant, args.out, args.nvidia)
+    build(args.recipe, args.variant, args.out, args.nvidia, args.controller)

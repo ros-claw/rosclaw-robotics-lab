@@ -61,4 +61,4 @@ def validate_corridor(path, chosen, forbidden, radius, is_open):
                 if not chosen.lower_y + padded <= y <= chosen.upper_y - padded:
                     raise ValidationError("footprint exits the committed corridor")
             if not is_open(x, y, padded):
-                raise ValidationError("path has insufficient footprint clearance")
+                raise ValidationError(f"path has insufficient footprint clearance near ({x:.3f}, {y:.3f})")

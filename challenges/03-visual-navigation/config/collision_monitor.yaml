@@ -1,0 +1,37 @@
+collision_monitor:
+  ros__parameters:
+    use_sim_time: true
+    base_frame_id: base_link
+    odom_frame_id: odom
+    cmd_vel_in_topic: /cmd_vel
+    cmd_vel_out_topic: /luna/cmd_vel
+    transform_tolerance: 0.25
+    source_timeout: 0.6
+    stop_pub_timeout: 2.0
+    base_shift_correction: true
+    polygons: [StopFront, FootprintApproach]
+    StopFront:
+      type: polygon
+      action_type: stop
+      points: [0.65, 0.36, 0.65, -0.36, 0.26, -0.36, 0.26, 0.36]
+      max_points: 3
+      enabled: true
+    FootprintApproach:
+      type: polygon
+      action_type: approach
+      footprint_topic: /local_costmap/published_footprint
+      time_before_collision: 1.0
+      simulation_time_step: 0.05
+      max_points: 5
+      enabled: true
+    observation_sources: [scan]
+    scan:
+      type: scan
+      topic: /scan
+      enabled: true
+
+lifecycle_manager_collision:
+  ros__parameters:
+    autostart: true
+    use_sim_time: true
+    node_names: [collision_monitor]

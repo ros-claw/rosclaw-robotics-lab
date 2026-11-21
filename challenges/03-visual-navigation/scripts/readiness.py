@@ -14,13 +14,15 @@ from sensor_msgs.msg import LaserScan, PointCloud2
 from tf2_ros import Buffer, TransformException, TransformListener
 
 
-def probe(directory, timeout):
+def probe(directory, timeout, protected):
     rclpy.init()
     node = rclpy.create_node("luna_readiness")
     buffer = Buffer()
     listener = TransformListener(buffer, node)
     samples = {}
     names = ("/amcl", "/planner_server", "/controller_server")
+    if protected:
+        names += ("/collision_monitor", "/velocity_smoother")
     lifecycle = {name: node.create_client(GetState, name + "/get_state") for name in names}
     requests = {}
     active = {}
@@ -54,11 +56,13 @@ def probe(directory, timeout):
     topics = {"/clock", "/chassis/odom", "/front_3d_lidar/lidar_points", "/scan"}
     start = time.monotonic()
     frames = {}
+    transforms_xyz = {}
     ready = False
 
     def record():
         report = {"ready": ready, "wall_seconds": time.monotonic() - start,
-                  "messages": samples, "tf_stamp_ns": frames, "lifecycle": active}
+                  "messages": samples, "tf_stamp_ns": frames, "tf_xyz_m": transforms_xyz,
+                  "lifecycle": active}
         temporary = directory / "readiness.tmp"
         temporary.write_text(json.dumps(report, indent=2) + "\n")
         temporary.replace(directory / "readiness.json")
@@ -82,7 +86,10 @@ def probe(directory, timeout):
                 except TransformException:
                     continue
                 stamp = transform.header.stamp
-                frames[f"{target} <- {source}"] = stamp.sec * 1_000_000_000 + stamp.nanosec
+                frame = f"{target} <- {source}"
+                frames[frame] = stamp.sec * 1_000_000_000 + stamp.nanosec
+                t = transform.transform.translation
+                transforms_xyz[frame] = [t.x, t.y, t.z]
             if time.monotonic() >= next_snapshot:
                 record()
                 next_snapshot = time.monotonic() + 2
@@ -101,4 +108,4 @@ def probe(directory, timeout):
 
 
 if __name__ == "__main__":
-    sys.exit(probe(Path(sys.argv[1]), float(sys.argv[2])))
+    sys.exit(probe(Path(sys.argv[1]), float(sys.argv[2]), "--protected" in sys.argv))

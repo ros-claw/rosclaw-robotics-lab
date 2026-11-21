@@ -16,3 +16,5 @@ python3 scripts/lab.py stop
 ```
 
 用 `start --calibration` 启动靶标验证，采样后运行 `python3 ros2/verify_calibration.py <取证目录>`。下一次启动获得独立 episode。采样端依赖宿主 Humble 的 rclpy、NumPy、Pillow。
+
+灰盒动作试次 20261121T000709Z-fd21cc13 的 rgbd-0e21a2d3 保存 12 组底盘运动期间的同步 RGB-D 和实时 TF。该试次揭示了原始 USD 播放范围回绕，已在保护控制入口关闭循环，详见 [P3 报告](P3_REPORT.md)。
