@@ -3,7 +3,7 @@
 import json
 import math
 
-from pxr import Gf, Usd, UsdGeom
+from pxr import Gf, Usd, UsdGeom, UsdPhysics
 
 
 def apply_graybox(stage, directory):
@@ -23,6 +23,14 @@ def apply_graybox(stage, directory):
         child = stage.GetPrimAtPath("/World/LunaGraybox/floor")
         if not child.IsValid():
             raise RuntimeError("SimScene floor did not compose")
+        # A box floor destabilized the stock cylindrical wheel contacts.
+        # Use the same analytic Z-plane as the standalone Nova Carter asset.
+        if child.HasAPI(UsdPhysics.CollisionAPI):
+            UsdPhysics.CollisionAPI(child).CreateCollisionEnabledAttr(False)
+        plane = UsdGeom.Plane.Define(stage, "/World/LunaGraybox/physics_floor")
+        plane.CreateAxisAttr("Z")
+        plane.CreatePurposeAttr("guide")
+        UsdPhysics.CollisionAPI.Apply(plane.GetPrim())
 
 
 def configure_final_velocity(stage):

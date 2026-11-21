@@ -50,3 +50,35 @@ python3 scripts/lab.py stop
 ## Luna 视觉探测
 
 在本机提供 `OPENAI_API_KEY` 后，使用 `lab.py luna-probe` 读取已留存的 Isaac PNG 和中性场景清单。命令保存确切图像字节、哈希和经校验的决策。两种换牌结果和复验命令见 [P4 报告](P4_REPORT.md)。
+
+## 运行一次 Luna 单分叉决策
+
+在第二个终端配置好本机 `OPENAI_API_KEY`。在第一个终端启动 MPPI 灰盒，等待 `READY`。以下命令使用当前工作区已有导出。灰盒重新导出见 [P2 报告](P2_REPORT.md)。
+
+```bash
+export LUNA_EVIDENCE=/data/rosclaw/robotics_lab/p4-live-evidence/local
+python3 scripts/lab.py start --protected --rgbd --record-overview \
+  --layout /data/rosclaw/robotics_lab/p2-evidence/mppi/original
+```
+
+```bash
+python3 scripts/lab.py luna-run
+python3 scripts/lab.py stop
+```
+
+换牌时将布局改为 `/data/rosclaw/robotics_lab/p4-live-evidence/swapped-fixture`，重启新世界。模型提出通道，局部检查通过后执行完整路径。模型结果要求重新观察时，本轮直接结束。要复现 API 超时停车，另起一个新试次并运行 `python3 scripts/lab.py luna-run --api-timeout 0.05`，留出至少 3 秒采样后停止。小闭环在调用 API 前驻车。
+
+运行结束后，从 `start` 的输出取得 `RUN`，从 `luna-run` 的输出取得 `MODEL_DIR` 和 `CONTROLLER_EVENTS`。`PUBLIC_MANIFEST` 是该场景导出的 `nav/public_scene_manifest.json`。宿主系统的 Python 需要 Pillow 和 NumPy，编码使用 FFmpeg。
+
+```bash
+python3 video/export.py "$RUN/overview"
+python3 video/caption.py "$RUN/overview" "$MODEL_DIR" --events "$CONTROLLER_EVENTS"
+python3 viewer/replay.py "$RUN" "$MODEL_DIR" "$CONTROLLER_EVENTS" "$PUBLIC_MANIFEST" \
+  "$RUN/replay.html" --overview "$RUN/overview/isaac-live-1x.mp4"
+# 对新建的超时试次独立复查 PhysX 轨迹
+python3 evaluator/timeout.py "$MODEL_DIR"
+```
+
+录像采用独立斜俯视相机，原始采集帧与时间索引在 `RUN/overview`。FFmpeg 按实测墙钟帧间隔生成 1× 可变帧率视频。回放可离线查看车载模型输入、模型返回、路径验证、动作接受、PhysX 轨迹与录像。
+
+实测试次、录像性能与待完成的阶段见 [运行结果](RESULTS.md)。

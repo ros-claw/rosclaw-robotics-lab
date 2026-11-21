@@ -173,8 +173,10 @@ def collect(directory, run_id, wanted, timeout, calibration_mode, yaw):
                     try:
                         odom_camera = serialize_tf(tf_buffer.lookup_transform("odom", OPTICAL_FRAME, when))
                         map_odom = None
+                        map_base = None
                         if not calibration_mode:
                             map_odom = serialize_tf(tf_buffer.lookup_transform("map", "odom", when))
+                            map_base = serialize_tf(tf_buffer.lookup_transform("map", "base_link", when))
                     except TransformException as exc:
                         last_tf_error = str(exc)
                         # Keep pending only while TF can still arrive for this stamp.
@@ -198,7 +200,7 @@ def collect(directory, run_id, wanted, timeout, calibration_mode, yaw):
                     previous_map_odom = map_odom
                     observation = save_capture(directory, run_id, identity, frames, rgb, depth,
                                                calibration, [odom_camera] if map_odom is None
-                                               else [odom_camera, map_odom], localization_revision,
+                                               else [odom_camera, map_odom, map_base], localization_revision,
                                                received_ns, calibration_mode)
                     observation["diagnostic_camera_yaw_deg"] = yaw
                     stream.write(json.dumps(observation, allow_nan=False) + "\n")

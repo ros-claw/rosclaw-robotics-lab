@@ -13,6 +13,8 @@ from nav_msgs.msg import OccupancyGrid, Odometry
 from nav2_msgs.action import ComputePathThroughPoses, FollowPath
 import rclpy
 from rclpy.action import ActionClient
+from rclpy.time import Time
+from tf2_ros import Buffer, TransformException, TransformListener
 from rclpy.qos import DurabilityPolicy, QoSProfile, qos_profile_sensor_data
 from rosgraph_msgs.msg import Clock
 import yaml
@@ -20,6 +22,7 @@ import yaml
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from navigation.candidates import Gate, validate_corridor
 from navigation.contracts import StopDwell
+from navigation.live_intent import verify_fresh
 
 
 def stamp_ns(stamp):
@@ -36,17 +39,22 @@ class Evidence:
         self.last_command = None
         self.telemetry_ns = {}
         self.trace_motion = False
+        self.source = "controller-test"
+        self.clock_rewound = False
 
     def log(self, event, **payload):
         self.sequence += 1
-        record = {"event": event, "event_seq": self.sequence, "source": "controller-test",
+        record = {"event": event, "event_seq": self.sequence, "source": self.source,
                   "sim_stamp_ns": str(self.clock) if self.clock is not None else None,
                   "host_mono_ns": str(time.monotonic_ns()), **payload}
         self.stream.write(json.dumps(record, allow_nan=False) + "\n")
         self.stream.flush()
 
     def remember_clock(self, message):
-        self.clock = stamp_ns(message.clock)
+        stamp = stamp_ns(message.clock)
+        if self.clock is not None and stamp < self.clock:
+            self.clock_rewound = True
+        self.clock = stamp
 
 
     def remember_twist(self, message, topic):
@@ -148,7 +156,7 @@ def stopped(node, evidence):
     evidence.log("odometry_stopped", dwell_s=0.75)
 
 
-def exercise(node, evidence, layout, gate_id, cancel_after):
+def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=None, episode=None):
     gates = [Gate(**data) for data in layout["gates"]]
     gate = next((item for item in gates if item.gate_id == gate_id), None)
     if gate is None or layout["frame_id"] != "map":
@@ -174,6 +182,39 @@ def exercise(node, evidence, layout, gate_id, cancel_after):
     node.create_subscription(OccupancyGrid, "/global_costmap/costmap",
                              lambda message: setattr(evidence, "grid", message),
                              QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+
+    if live_observation is not None:
+        tf_buffer = Buffer()
+        tf_listener = TransformListener(tf_buffer, node, qos=QoSProfile(
+            depth=100, reliability=qos_profile_sensor_data.reliability))
+        last_tf_error = None
+
+        def locate():
+            nonlocal last_tf_error
+            if evidence.clock is None or evidence.clock < 200_000_000 or tf_listener is None:
+                return None
+            try:
+                transform = tf_buffer.lookup_transform(
+                    "map", "base_link", Time(nanoseconds=evidence.clock - 200_000_000))
+            except TransformException as error:
+                last_tf_error = str(error)
+                return None
+            return transform.transform
+
+        def check_live():
+            try:
+                wait_for(node, locate, 1.8, "fresh base transform unavailable for model intent")
+            except RuntimeError as error:
+                raise RuntimeError(f"{error}: {last_tf_error}") from error
+            transform = locate()
+            t, q = transform.translation, transform.rotation
+            if evidence.clock_rewound or t.x >= gate.entry_x - 0.5:
+                raise ValueError("clock rewound or base is too close to the requested gate")
+            verify_fresh(live_observation, episode, evidence.clock, time.monotonic_ns(),
+                         (t.x, t.y, t.z), (q.x, q.y, q.z, q.w))
+
+        check_live()
+        evidence.log("intent_preflight", gate_id=gate_id, episode_id=episode)
 
     def fresh_map():
         return evidence.grid is not None and evidence.clock is not None and (
@@ -205,6 +246,9 @@ def exercise(node, evidence, layout, gate_id, cancel_after):
     validate_corridor(points, gate, tuple(other for other in gates if other != gate),
                       radius, occupancy_checker(evidence.grid))
     evidence.log("path_validated", gate_id=gate_id, route_version=1, path_seq=1, points=points)
+    if live_observation is not None:
+        check_live()
+        evidence.log("intent_committed", gate_id=gate_id, episode_id=episode)
     command = FollowPath.Goal()
     command.path = path
     command.controller_id = "FollowPath"
@@ -240,6 +284,8 @@ if __name__ == "__main__":
     parser.add_argument("gate")
     parser.add_argument("evidence", type=Path)
     parser.add_argument("--cancel-after", type=float)
+    parser.add_argument("--live-observation", type=Path)
+    parser.add_argument("--episode")
     args = parser.parse_args()
     layout = json.loads(Path("/luna_nav/public_scene_manifest.json").read_text())
     rclpy.init()
@@ -248,7 +294,11 @@ if __name__ == "__main__":
         with args.evidence.open("x") as stream:
             evidence = Evidence(stream)
             try:
-                exercise(node, evidence, layout, args.gate, args.cancel_after)
+                observation = None
+                if args.live_observation:
+                    observation = json.loads(args.live_observation.read_text())
+                    evidence.source = "luna-live"
+                exercise(node, evidence, layout, args.gate, args.cancel_after, observation, args.episode)
             except (ValueError, RuntimeError) as exc:
                 evidence.log("test_failed", reason=str(exc))
                 raise SystemExit(str(exc)) from exc

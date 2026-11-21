@@ -12,6 +12,8 @@ DECISIONS = ["select_candidate", "hold", "reobserve"]
 TASK = "寻找蓝色 B 工位的标志。选择标志所在侧对应的通道。"
 INSTRUCTIONS = (
     "你只提供视觉建议，不能驱动机器人。根据实际 RGB 图像和中性候选判断。"
+    "隔板上并列的标牌按相对位置指示同侧通道。左牌指示左侧，右牌指示右侧。"
+    "只要能辨认两块标牌及蓝色 B 在其中的位置，就可根据此规则选择，无需看到通道内部。"
     "只有清楚看见蓝色 B 标牌并能将其定位到某一侧时，才能选择该侧候选。"
     "证据不足时返回 reobserve，并将 candidate_id 设为 null。"
     "原因只写 80 个字以内的可见事实。evidence_regions 是图像归一化坐标的标牌框，最多三个。"
@@ -171,11 +173,14 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
                 "task": TASK, "instructions": INSTRUCTIONS, "schema": payload["text"]["format"]}
     (destination / "request.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     start = time.monotonic()
+    start_ns = time.monotonic_ns()
     result = {}
     try:
         response = call_responses(payload, key, timeout)
         result = {"response_id": response.get("id"), "model": response.get("model"),
                   "status": response.get("status"), "usage": response.get("usage")}
+        (destination / "api-response.json").write_text(
+            json.dumps(response, ensure_ascii=False, indent=2) + "\n")
         intent = parse_intent(response, observation_id, candidates)
         result["intent"] = intent
         return intent
@@ -186,5 +191,7 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
         result["failure"] = str(exc)
         raise
     finally:
+        result["request_host_mono_ns"] = str(start_ns)
+        result["received_host_mono_ns"] = str(time.monotonic_ns())
         result["elapsed_seconds"] = time.monotonic() - start
         (destination / "response.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")

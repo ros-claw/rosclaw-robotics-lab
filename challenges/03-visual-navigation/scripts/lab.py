@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw):
+def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -162,7 +162,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, stop_requested)
         try:
-            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw)
+            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -172,7 +172,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -202,6 +202,8 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
             if not (layout / fixture).is_file():
                 raise RuntimeError(f"Incomplete graybox export: {fixture}")
         sim.extend(["--layout", str(layout / "sim")])
+    if record_overview:
+        sim.append("--record-overview")
     if camera_yaw:
         sim.extend(["--diagnostic-camera-yaw", str(camera_yaw)])
     if protected:
@@ -232,15 +234,21 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
              str(run), str(timeout)]
     if protected:
         probe.append("--protected")
+    recorder = ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
+                "record", str(ROS_SETUP), str(CHALLENGE / "video/record.py"), str(run / "overview")]
+    commands = [sim, nav, probe] + ([recorder] if record_overview else [])
     write_json(run / "manifest.json", {"run_id": run_id, "source": "isaac-live",
-                                       "dds": dds, "commands": [sim, nav, probe],
+                                       "dds": dds, "commands": commands,
                                        "nav2_container": container, "gpu_index": gpu,
-                                       "protected": protected, "diagnostic_camera_yaw_deg": camera_yaw})
+                                       "protected": protected, "diagnostic_camera_yaw_deg": camera_yaw,
+                                       "layout": str(layout) if layout else None})
     try:
         with Processes(run) as processes:
             simulation = processes.spawn("isaac", sim, env)
             navigation = processes.spawn("nav2", nav, env)
             readiness = processes.spawn("readiness", probe, env)
+            if record_overview:
+                processes.spawn("overview", recorder, env)
             while True:
                 for name, child in (("Isaac", simulation), ("Nav2", navigation)):
                     if child.poll() is not None:
@@ -299,11 +307,13 @@ def stop(expected=None):
     raise RuntimeError("Supervisor did not finish cleanup within 45 seconds")
 
 
-def observe(count, timeout):
+def observe(count, timeout, expected=None):
     try:
         record = json.loads((RUNTIME / "active.json").read_text())
     except FileNotFoundError:
         raise RuntimeError("Start a Luna simulation with --rgbd first") from None
+    if expected is not None and record != expected:
+        raise RuntimeError("Active episode changed before RGB-D capture")
     if birth_ticks(record["pid"]) != record["birth_ticks"]:
         raise RuntimeError("The recorded Luna supervisor has exited")
     run = Path(record["run"])
@@ -326,9 +336,10 @@ def observe(count, timeout):
     )
     if result.returncode:
         raise RuntimeError(f"RGB-D capture failed. See {directory}")
+    return directory
 
 
-def controller_test(gate, cancel_after):
+def motion_episode():
     try:
         active = json.loads((RUNTIME / "active.json").read_text())
     except FileNotFoundError:
@@ -341,28 +352,83 @@ def controller_test(gate, cancel_after):
         raise RuntimeError("Diagnostic camera runs do not accept motion goals")
     if not manifest["protected"] or not json.loads((run / "readiness.json").read_text())["ready"]:
         raise RuntimeError("This experiment requires a ready protected fork")
-    with (run / "controller-test.lock").open("a") as lock:
-        try:
-            fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
-        except BlockingIOError:
-            raise RuntimeError("A test already owns this episode") from None
-        evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
-        command = ["docker", "exec", manifest["nav2_container"], "bash", "-c",
-                   'source /opt/ros/humble/setup.bash && exec python3 "$@"',
-                   "controller-test", "/luna_code/ros2/controller_test.py", gate,
-                   "/luna_run/" + evidence]
-        if cancel_after is not None:
-            command.extend(["--cancel-after", str(cancel_after)])
-        print(run / evidence, flush=True)
-        succeeded = False
-        try:
-            succeeded = subprocess.run(command, timeout=120).returncode == 0
-        finally:
-            if not succeeded:
-                # A lost action response still leaves the simulator under this supervisor.
-                stop(expected=active)
+    return active, run, manifest
+
+
+def claim_motion(lock):
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        raise RuntimeError("A test already owns this episode") from None
+
+
+def execute_motion(active, run, manifest, gate, cancel_after=None, live_observation=None):
+    if birth_ticks(active["pid"]) != active["birth_ticks"]:
+        raise RuntimeError("Active episode ended before motion")
+    evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
+    command = ["docker", "exec", manifest["nav2_container"], "bash", "-c",
+               'source /opt/ros/humble/setup.bash && exec python3 "$@"',
+               "controller-test", "/luna_code/ros2/controller_test.py", gate,
+               "/luna_run/" + evidence]
+    if cancel_after is not None:
+        command.extend(["--cancel-after", str(cancel_after)])
+    if live_observation is not None:
+        relative = live_observation.relative_to(run)
+        command.extend(["--live-observation", "/luna_run/" + str(relative),
+                        "--episode", manifest["run_id"]])
+    print(run / evidence, flush=True)
+    succeeded = False
+    try:
+        succeeded = subprocess.run(command, timeout=120).returncode == 0
+    finally:
         if not succeeded:
-            raise RuntimeError(f"Controller test failed. See {run / evidence}")
+            # A lost action response still leaves the simulator under this supervisor.
+            stop(expected=active)
+    if not succeeded:
+        raise RuntimeError(f"Controller failed. See {run / evidence}")
+    return run / evidence
+
+
+def controller_test(gate, cancel_after):
+    active, run, manifest = motion_episode()
+    with (run / "controller-test.lock").open("a") as lock:
+        claim_motion(lock)
+        execute_motion(active, run, manifest, gate, cancel_after)
+
+
+def luna_run(key, api_timeout):
+    sys.path.insert(0, str(CHALLENGE))
+    from evaluator.controller_run import evaluate
+    from navigation.luna_probe import load_frame, probe
+
+    active, run, manifest = motion_episode()
+    layout = Path(manifest["layout"]) / "nav" / "public_scene_manifest.json"
+    with (run / "controller-test.lock").open("a") as lock:
+        claim_motion(lock)
+        capture_dir = observe(1, 15, expected=active)
+        observation, _ = load_frame(capture_dir, 1)
+        model_dir = capture_dir / "luna-live"
+        print(model_dir, flush=True)
+        intent = probe(capture_dir, 1, layout, model_dir, SETTINGS["model"], api_timeout, key)
+        print(json.dumps(intent, ensure_ascii=False), flush=True)
+        if intent["decision"] != "select_candidate":
+            print("Luna requested another observation; no motion goal submitted", flush=True)
+            return
+        observation_path = model_dir / "intent-observation.json"
+        write_json(observation_path, observation)
+        events = execute_motion(active, run, manifest, intent["candidate_id"],
+                                live_observation=observation_path)
+        deadline = time.monotonic() + 3
+        while True:
+            result = evaluate(run, events, layout)
+            if result["pass"] or time.monotonic() >= deadline:
+                break
+            time.sleep(0.15)
+        result["verified_host_mono_ns"] = str(time.monotonic_ns())
+        write_json(model_dir / "physx-evaluation.json", result)
+        print(json.dumps(result, ensure_ascii=False), flush=True)
+        if not result["pass"]:
+            raise RuntimeError(f"PhysX route verification failed. See {model_dir}")
 
 
 def main():
@@ -375,6 +441,7 @@ def main():
     launch.add_argument("--gpu", type=int, default=SETTINGS["gpu_index"])
     launch.add_argument("--timeout", type=float, default=SETTINGS["readiness_timeout_s"])
     launch.add_argument("--rgbd", action="store_true")
+    launch.add_argument("--record-overview", action="store_true")
     launch.add_argument("--layout", type=Path)
     launch.add_argument("--protected", action="store_true")
     launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
@@ -394,6 +461,8 @@ def main():
     visual.add_argument("--model", default=SETTINGS["model"])
     visual.add_argument("--reasoning", choices=["none", "low"], default="none")
     visual.add_argument("--timeout", type=float, default=25)
+    live = commands.add_parser("luna-run")
+    live.add_argument("--api-timeout", type=float, default=5)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -413,10 +482,12 @@ def main():
                 parser.error("Expected camera yaw in [-180, 180]")
             if args.diagnostic_camera_yaw and (not args.rgbd or not args.layout or args.calibration):
                 parser.error("Diagnostic camera yaw requires a graybox RGB-D run")
+            if args.record_overview and not args.layout:
+                parser.error("--record-overview requires a SimScene layout")
             start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
                   args.layout, args.protected,
                   args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"),
-                  args.diagnostic_camera_yaw)
+                  args.diagnostic_camera_yaw, args.record_overview)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
@@ -425,6 +496,13 @@ def main():
             if args.cancel_after is not None and not 0 < args.cancel_after < 75:
                 parser.error("--cancel-after must be between 0 and 75 seconds")
             controller_test(args.gate, args.cancel_after)
+        elif args.command == "luna-run":
+            key = os.environ.get("OPENAI_API_KEY")
+            if not key:
+                raise RuntimeError("OPENAI_API_KEY is required for live Luna")
+            if not 0.05 <= args.api_timeout <= 5:
+                parser.error("Expected API timeout in [0.05, 5] seconds")
+            luna_run(key, args.api_timeout)
         elif args.command == "luna-probe":
             if args.frame < 1 or not 0 < args.timeout <= 120:
                 parser.error("Expected a positive frame and timeout in (0, 120]")

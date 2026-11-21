@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Luna 单分叉取证回放</title>
+<style>
+:root{color-scheme:dark;--panel:#181d24;--line:#313844;--text:#efefea;--muted:#a9b5c4;--mint:#7fe5c3;--blue:#9dbbff}
+*{box-sizing:border-box}body{margin:0;background:#111418;color:var(--text);font:15px/1.5 system-ui,sans-serif}
+main{width:min(1240px,95vw);margin:28px auto}header{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+h1{font-size:clamp(23px,3vw,35px);margin:0}h2{font-size:16px;margin:0 0 12px}p{margin:8px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}
+section{padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;min-width:0}
+.img{position:relative}img,canvas,video{width:100%;display:block;border-radius:5px}
+#overviewSection{margin-top:18px}video{max-height:66vh;background:#111418}
+.box{position:absolute;border:2px solid var(--mint);pointer-events:none}
+.small{font-size:12px;color:var(--muted);overflow-wrap:anywhere}
+.legend{display:flex;gap:12px;flex-wrap:wrap}.blue{color:var(--blue)}.mint{color:var(--mint)}
+.controls{display:flex;gap:12px;align-items:center}.controls input{flex:1;min-width:0;accent-color:var(--mint)}
+button{background:var(--mint);color:#12201b;border:0;border-radius:6px;padding:7px 12px;font:inherit;font-weight:650;cursor:pointer}
+#events{list-style:none;margin:12px 0 0;padding:0;display:flex;gap:8px;flex-wrap:wrap}
+#events button{background:#222b35;color:var(--muted);border:1px solid var(--line);font-size:12px}
+#events button[aria-current=true]{color:var(--text);border-color:var(--mint)}
+@media(max-width:730px){.grid{grid-template-columns:1fr}main{margin:16px auto}}
+</style>
+</head>
+<body><main>
+<header><h1>Luna 单分叉取证回放</h1><span class="small">来源 · 真实运行记录</span></header>
+<section id="overviewSection" hidden><h2>Isaac 展示相机实况</h2><video id="overview" muted playsinline></video><p class="small">来源 · Isaac 独立斜俯视相机，按实测墙钟同步</p></section>
+<div class="grid"><section><h2>模型收到的 Isaac 图像</h2><div class="img" id="imageWrap"><img id="image" alt="发送给 Luna 的原始 RGB 画面"></div>
+<p id="intent"></p><p class="small" id="hash"></p></section>
+<section><h2>平面位置与路径</h2><canvas id="map" width="780" height="500" aria-label="源自真实事件和物理采样的导航地图"></canvas>
+<p class="legend"><span class="blue">Nav2 校验路径</span><span class="mint">PhysX 实际轨迹</span></p><p id="outcome"></p></section></div>
+<section><h2>控制时间轴</h2><div class="controls"><button type="button" id="play">播放</button>
+<input type="range" aria-label="控制时间" id="scrub" min="0" step="any"><output id="time"></output></div><ul id="events"></ul></section>
+</main>
+<script id="replay" type="application/json">__REPLAY_DATA__</script>
+<script>
+"use strict";
+const d=JSON.parse(document.querySelector("#replay").textContent);
+const image=document.querySelector("#image"), wrap=document.querySelector("#imageWrap");
+image.src=d.image;
+const intent=d.response.intent;
+for (const {bbox_xyxy_norm:[x0,y0,x1,y1]} of intent?.evidence_regions??[]) {
+  const box=document.createElement("span"); box.className="box";
+  Object.assign(box.style,{left:100*x0+"%",top:100*y0+"%",width:100*(x1-x0)+"%",height:100*(y1-y0)+"%"});
+  wrap.append(box);
+}
+const intentElement=document.querySelector("#intent");
+const outcome=document.querySelector("#outcome");
+document.querySelector("#hash").textContent="SHA-256 "+d.request.input_sha256+" · 绿框为模型返回的区域";
+const p=d.physics;
+const outcomeText=p?.pass
+  ? "物理验收通过 · "+p.physical_gate_crossings.map(g=>g.gate_id).join(", ")+" · 距终点 "+p.physical_distance_to_terminal_m.toFixed(2)+" m"
+  : (d.timeout?.pass ? "物理验收通过 · API 超时后保持驻车" : (p ? "物理验收未通过" : ""));
+const canvas=document.querySelector("#map"), ctx=canvas.getContext("2d");
+const [left,bottom,right,yMax]=d.layout.bounds_xyxy;
+const scale=Math.min((canvas.width-52)/(right-left),(canvas.height-52)/(yMax-bottom));
+const mx=x=>canvas.width/2+(x-(left+right)/2)*scale;
+const my=y=>canvas.height/2-(y-(yMax+bottom)/2)*scale;
+function line(points,color,w){if(!points.length)return;ctx.beginPath();ctx.moveTo(mx(points[0][0]),my(points[0][1]));
+for(const [x,y] of points.slice(1))ctx.lineTo(mx(x),my(y));ctx.strokeStyle=color;ctx.lineWidth=w;ctx.lineCap="round";ctx.stroke();}
+const names={model_requested:"请求 Luna",model_received:"收到 Luna 结果",model_failed:"模型请求失败",test_failed:"本地拒绝",final_twist_source_verified:"速度来源已确认",intent_preflight:"视觉意图预检",planning_requested:"请求规划",
+path_proposed:"Nav2 返回路径",path_validated:"完整路径已校验",intent_committed:"通道已承诺",
+follow_path_requested:"提交 FollowPath",nav2_accepted:"Nav2 接受",nav2_result:"Nav2 返回结果",odometry_stopped:"里程计停止"};
+const scrub=document.querySelector("#scrub"), timer=document.querySelector("#time"), play=document.querySelector("#play");
+const video=document.querySelector("#overview");
+if(d.video){
+ document.querySelector("#overviewSection").hidden=false;
+ video.src=d.video.data;
+ video.addEventListener("loadedmetadata",()=>render());
+}
+const duration=d.trajectory.at(-1)[0];scrub.max=duration;scrub.value=duration;
+const markers=d.events.filter(e=>names[e.kind]).map(e=>{
+ const li=document.createElement("li"), button=document.createElement("button");button.type="button";
+ button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind];
+ button.addEventListener("click",()=>{playing=false;scrub.value=e.seconds;render();});li.append(button);document.querySelector("#events").append(li);
+ return {...e,button};
+});
+let playing=false,last=0;
+function render(){
+ const t=Number(scrub.value);
+ timer.textContent=t.toFixed(2)+" s";
+ if(d.video&&Number.isFinite(video.duration)){
+  const seek=Math.min(video.duration,Math.max(0,t+d.video.offset_seconds));
+  if(!playing||Math.abs(video.currentTime-seek)>0.22)video.currentTime=seek;
+ }
+ const received=t>=d.model_received_seconds;
+ const rejected=d.rejection&&t>=d.rejection.seconds;
+ wrap.querySelectorAll(".box").forEach(box=>{box.hidden=!received;});
+ const modelFailure=d.response.failure==="transport_curl_28"||d.response.failure==="transport_deadline"
+   ? "API 超时 · 保持驻车" : "请求失败 · "+d.response.failure;
+ const modelDecision=intent ? (intent.candidate_id??"重新观察")+" · "+intent.reason_summary : modelFailure;
+ intentElement.textContent=received ? (d.response.model??d.request.model_requested)+" · "+modelDecision : "等待模型结果";
+ outcome.textContent=rejected ? "本地拒绝 · "+d.rejection.reason : (t>=duration ? outcomeText : "");
+ ctx.fillStyle="#242d37";ctx.fillRect(0,0,canvas.width,canvas.height);
+ ctx.fillStyle="#171e26";ctx.fillRect(mx(left),my(yMax),(right-left)*scale,(yMax-bottom)*scale);
+ ctx.fillStyle="#515c69";
+ for(const o of d.layout.obstacles){const [x,y]=o.xyz,[a,b]=o.size;ctx.fillRect(mx(x-a/2),my(y+b/2),a*scale,b*scale);}
+ for(const g of d.layout.gates){line([[g.cross_x,g.lower_y],[g.cross_x,g.upper_y]],"#a9b5c4",1);
+ ctx.fillStyle="#efefea";ctx.font="15px system-ui";ctx.fillText(g.gate_id,mx(g.cross_x)+7,my((g.upper_y+g.lower_y)/2));}
+ if(d.events.some(e=>e.kind==="intent_committed"&&e.seconds<=t))line(d.path,"#9dbbff",2);
+ const pts=d.trajectory.filter(r=>r[0]<=t).map(r=>r.slice(1));
+ line(pts,"#7fe5c3",4);
+ const [x,y]=pts.at(-1)??d.start_pose;ctx.beginPath();ctx.arc(mx(x),my(y),6,0,Math.PI*2);ctx.fillStyle="#7fe5c3";ctx.fill();
+ const current=markers.findLastIndex(e=>e.seconds<=t);
+ markers.forEach((m,i)=>m.button.setAttribute("aria-current",i===current?"true":"false"));
+ if(d.video){
+  if(playing&&video.paused)video.play().catch(()=>{});
+  if(!playing&&!video.paused)video.pause();
+ }
+ play.textContent=playing?"暂停":"播放";
+}
+function tick(now){if(playing){scrub.value=Math.min(duration,Number(scrub.value)+(now-last)/1000);
+ if(Number(scrub.value)>=duration)playing=false;render();}last=now;requestAnimationFrame(tick);}
+play.addEventListener("click",()=>{if(!playing&&Number(scrub.value)>=duration)scrub.value=0;playing=!playing;render();});
+scrub.addEventListener("input",()=>{playing=false;render();});render();requestAnimationFrame(tick);
+</script></body></html>

@@ -27,3 +27,9 @@ UTC 试次 20261121T001217Z-b96b6215 使用 `python3 scripts/lab.py controller-t
 ## 速度链补测
 
 UTC 试次 20261121T052239Z-376c1fa5 同步采样 controller、smoother、collision monitor 和 chassis odom。动作接受 3 秒后至中止前，碰撞监控输出的线速度和角速度中位数约为 0.061 m/s、0.301 rad/s，实测 odom 对应约为 0.008 m/s、0.021 rad/s。上游三个指令话题的中位数相近。该试次的主要差异位于最终 Twist 进入仿真后。FollowPath 因进展不足中止，里程计低速停车验证通过。速度对照位于 p4-evidence/mp-pipe/20261121T052239Z-376c1fa5/motion-summary.json。关节驱动与地面接触之间的具体原因仍待定位。
+
+## 地面碰撞修正与完整路线
+
+20261121T064047Z-e35b970c 同时记录了 Isaac Twist、差速图关节目标、PhysX 驱动目标、轮速、轮心高度和接触对。目标从 ROS 进入 Isaac，并传到关节驱动。右轮曾达到约 0.88 rad/s，车身仍近乎静止，接触记录显示底盘壳接在灰盒地面。源车型场景使用 PhysX 解析平面。灰盒改用同样的平面作为地面碰撞体，原有可见几何和 Nav2 地图继续沿用。
+
+A/B 试次 20261121T064235Z-80a25d7b 使用 `python3 scripts/lab.py controller-test c24`，实际行进约 11.66 m，穿过 c24，在距终点约 0.159 m 处停车，非地面接触对为零。证据在工作区 `p3-drive-evidence`。独立复核允许 PhysX 停车窗口最多晚于里程计停车报告 3 秒，要求连续 0.75 仿真秒内平面速度 ≤0.03 m/s、角速度 ≤0.08 rad/s、样本间隔 ≤0.15 仿真秒。该次驻留内最高平面速度约为 0.0052 m/s。P3 的连续改路、daemon 能力注册和异常恢复仍需单独验收。
