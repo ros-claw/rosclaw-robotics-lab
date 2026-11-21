@@ -23,7 +23,7 @@ import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from navigation.adaptation import (Blockage, ROUTE_STOPPED, ROUTE_UNAVAILABLE,
-                                   RouteBlocked, RouteUnavailable, alignment_turn, path_ahead)
+                                   RouteBlocked, RouteUnavailable, alignment_turn, blocked_ahead, path_ahead)
 from navigation.candidates import Gate, ValidationError, costmap_footprint_radius, validate_corridor
 from navigation.contracts import StopDwell
 from navigation.live_audit import review_is_current
@@ -364,6 +364,9 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         lookahead, block_dwell, watchdog, local_lookahead, review_lookahead = map(float, values)
         if not all(math.isfinite(v) and v > 0 for v in (lookahead, block_dwell, watchdog, local_lookahead, review_lookahead)):
             raise ValueError("adaptive route budgets must be finite and positive")
+        core_radius = radius * float(budget.get("vision_review_core_radius_ratio", 1.0))
+        if not 0 < core_radius <= radius:
+            raise ValueError("invalid vision review radius")
         blockage = Blockage(block_dwell)
     last_motion = None
     adopted_review = None
@@ -486,8 +489,7 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         last_map_wall = time.monotonic()
         position = (current.translation.x, current.translation.y)
         free = occupancy_checker(evidence.grid)
-        standard = next((point for point in path_ahead(active_points, position, lookahead)
-                         if not free(*point, radius + 0.025)), None)
+        standard = blocked_ahead(active_points, position, lookahead, radius + 0.025, free)
         extra = None
         review_id = None
         if visual_review and visual_review.exists():
@@ -497,13 +499,12 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
             if review_is_current(review, episode, bytes(last_motion.goal_id.uuid).hex(), gate_id,
                                  evidence.clock, time.monotonic_ns(), position, yaw):
                 review_id = review["observation_id"]
-                extra = next((point for point in path_ahead(active_points, position, review_lookahead)
-                              if not free(*point, radius + 0.025)), None)
+                extra = blocked_ahead(active_points, position, review_lookahead, core_radius, free)
                 if review_id != adopted_review:
                     adopted_review = review_id
                     evidence.log("visual_review_adopted", observation_id=review_id,
                                  standard_lookahead_m=lookahead, review_lookahead_m=review_lookahead,
-                                 standard_blocked=standard is not None, review_blocked=extra is not None)
+                                 standard_blocked=standard is not None, review_blocked=extra is not None, review_radius_m=core_radius)
             elif review["observation_id"] != rejected_review:
                 rejected_review = review["observation_id"]
                 evidence.log("visual_review_rejected", observation_id=rejected_review,

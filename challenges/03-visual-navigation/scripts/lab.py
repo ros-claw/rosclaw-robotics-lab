@@ -147,7 +147,7 @@ def stop_requested(*_):
 
 
 def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None,
-          drive_profile="baseline"):
+          drive_profile="baseline", capture_mode="persistent"):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -164,7 +164,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             signal.signal(sig, stop_requested)
         try:
             start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview,
-                           visual_shutter_test, scenario_obstacles, drive_profile)
+                           visual_shutter_test, scenario_obstacles, drive_profile, capture_mode)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -175,7 +175,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
 
 
 def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None,
-          drive_profile="baseline"):
+          drive_profile="baseline", capture_mode="persistent"):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -260,12 +260,19 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
         probe.append("--protected")
     recorder = ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
                 "record", str(ROS_SETUP), str(CHALLENGE / "video/record.py"), str(run / "overview")]
+    observe_service = ["bash", "-c", 'source "$1" && shift && exec /usr/bin/python3 "$@"',
+                       "observe", str(ROS_SETUP), str(CHALLENGE / "ros2/observation_node.py"),
+                       str(run), run_id, "--serve", "--diagnostic-camera-yaw", str(camera_yaw)]
+    persistent = capture_mode == "persistent" and protected and rgbd and not calibration
     commands = [sim, nav, probe] + ([recorder] if record_overview else [])
+    if persistent:
+        commands.append(observe_service)
     write_json(run / "manifest.json", {"run_id": run_id, "source": "isaac-live",
                                        "dds": dds, "commands": commands,
                                        "nav2_container": container, "gpu_index": gpu,
                                        "protected": protected, "diagnostic_camera_yaw_deg": camera_yaw,
-                                       "layout": str(layout) if layout else None})
+                                       "layout": str(layout) if layout else None,
+                                       "persistent_rgbd": persistent})
     try:
         with Processes(run) as processes:
             simulation = processes.spawn("isaac", sim, env)
@@ -273,17 +280,24 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
             readiness = processes.spawn("readiness", probe, env)
             if record_overview:
                 processes.spawn("overview", recorder, env)
+            components = [("Isaac", simulation), ("Nav2", navigation)]
+            if persistent:
+                components.append(("RGB-D", processes.spawn("capture-service", observe_service, env)))
+            ready_deadline = time.monotonic() + timeout + 2
             while True:
-                for name, child in (("Isaac", simulation), ("Nav2", navigation)):
+                if time.monotonic() >= ready_deadline:
+                    raise RuntimeError(f"Readiness deadline expired. See {run}")
+                for name, child in components:
                     if child.poll() is not None:
                         raise RuntimeError(f"{name} exited with {child.returncode}. See {run}")
                 if readiness.poll() is not None:
                     if readiness.returncode:
                         raise RuntimeError(f"Readiness failed with {readiness.returncode}. See {run}")
-                    break
+                    if not persistent or (run / "capture-service-ready.json").exists():
+                        break
                 time.sleep(0.25)
             print(f"READY {run}", flush=True)
-            while simulation.poll() is None and navigation.poll() is None:
+            while all(child.poll() is None for _, child in components):
                 time.sleep(0.5)
             raise RuntimeError(f"A live component exited. See {run}")
     finally:
@@ -347,6 +361,14 @@ def observe(count, timeout, expected=None):
         raise RuntimeError("The active simulation has no Luna RGB-D render product")
     directory = run / ("rgbd-" + uuid4().hex[:8])
     print(directory, flush=True)
+    if count == 1 and manifest.get("persistent_rgbd"):
+        if str(CHALLENGE) not in sys.path:
+            sys.path.insert(0, str(CHALLENGE))
+        from navigation.capture_mailbox import request_frame
+
+        result = request_frame(run, directory, timeout)
+        print(json.dumps(result, ensure_ascii=False), flush=True)
+        return directory
     env = {**os.environ, **manifest["dds"]}
     for key in ("OPENAI_API_KEY", "OPENAI_BASE_URL"):
         env.pop(key, None)
@@ -602,6 +624,7 @@ def main():
     launch.add_argument("--visual-shutter-test", action="store_true")
     launch.add_argument("--scenario-obstacles", type=Path)
     launch.add_argument("--drive-profile", choices=("baseline", "quicker"), default="baseline")
+    launch.add_argument("--capture-mode", choices=("persistent", "oneshot"), default="persistent")
     launch.add_argument("--layout", type=Path)
     launch.add_argument("--protected", action="store_true")
     launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
@@ -661,12 +684,12 @@ def main():
             if args.scenario_obstacles and not args.protected:
                 parser.error("--scenario-obstacles requires a protected simulation")
             if args.drive_profile != "baseline" and not args.protected:
-                parser.error("--drive-profile quicker requires a protected simulation")
+                parser.error("the selected drive profile requires a protected simulation")
             start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
                   args.layout, args.protected,
                   args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"),
                   args.diagnostic_camera_yaw, args.record_overview, args.visual_shutter_test,
-                  args.scenario_obstacles, args.drive_profile)
+                  args.scenario_obstacles, args.drive_profile, args.capture_mode)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
@@ -689,9 +712,9 @@ def main():
                 parser.error("Expected between 1 and 5 observations")
             if not 0 <= args.local_retries <= 5 or not 15 <= args.mission_time <= 600:
                 parser.error("Expected local retries in [0, 5] and mission time in [15, 600] seconds")
-            if (args.vision_interval is not None and not 3 <= args.vision_interval <= 60
+            if (args.vision_interval is not None and not 2 <= args.vision_interval <= 60
                     or not 1 <= args.vision_budget <= 20):
-                parser.error("Expected vision cadence in [3, 60] seconds and budget in [1, 20]")
+                parser.error("Expected vision cadence in [2, 60] seconds and budget in [1, 20]")
             luna_run(key, args.api_timeout, args.replan, args.max_observations,
                      args.mission_policy, args.local_retries, args.mission_time, args.expected_run,
                      args.vision_interval, args.vision_budget, args.vision_profile)

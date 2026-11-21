@@ -22,20 +22,31 @@ def review_is_current(review, episode, goal_id, gate, sim_ns, wall_ns, position,
         return False
 
 
+class GoalCursor:
+    def __init__(self, path):
+        self.path = path
+        self.offset = 0
+        self.goal = None
+
+    def current(self):
+        if not self.path.exists():
+            return None
+        with self.path.open("rb") as log:
+            log.seek(self.offset)
+            while line := log.readline():
+                if not line.endswith(b"\n"):
+                    break
+                self.offset = log.tell()
+                event = json.loads(line)
+                if event["event"] == "nav2_accepted":
+                    self.goal = event["goal_id"]
+                elif event["event"] in {"nav2_result", "cancel_requested", "test_failed"}:
+                    self.goal = None
+        return self.goal
+
+
 def active_goal(path):
-    if not path.exists():
-        return None
-    goal = None
-    for line in path.read_text().splitlines():
-        try:
-            event = json.loads(line)
-        except ValueError:
-            continue
-        if event["event"] == "nav2_accepted":
-            goal = event["goal_id"]
-        elif event["event"] in {"nav2_result", "cancel_requested", "test_failed"}:
-            goal = None
-    return goal
+    return GoalCursor(path).current()
 
 
 class MotionAudit:
@@ -51,6 +62,7 @@ class MotionAudit:
 
     def watch(self, controller, review_file, gate, done):
         next_request = time.monotonic()
+        goal_state = GoalCursor(controller)
         timeline = controller.parent / "motion-audit.jsonl"
 
         def log(event, **values):
@@ -60,23 +72,24 @@ class MotionAudit:
                                         ensure_ascii=False) + "\n")
 
         while self.remaining and not done.wait(0.2):
-            goal = active_goal(controller)
+            goal = goal_state.current()
             now = time.monotonic()
             if goal is None or now < next_request:
                 continue
             next_request = now + self.interval
             try:
                 capture_dir = self.capture()
-                if done.is_set() or active_goal(controller) != goal:
+                if done.is_set() or goal_state.current() != goal:
                     continue
                 observation, _ = load_frame(capture_dir, 1)
                 model_dir = capture_dir / "luna-motion-audit"
                 self.remaining -= 1
                 log("audit_requested", goal_id=goal, model_dir=str(model_dir),
+                    capture_wall_s=time.monotonic() - now,
                     sim_stamp_ns=observation["stamp_ns"], image_sha256=observation["rgb"]["sha256"])
                 intent = probe(capture_dir, 1, self.layout, model_dir, self.model, self.timeout,
                                self.key, audit_gate=gate, profile=self.profile)
-                current = not done.is_set() and active_goal(controller) == goal
+                current = not done.is_set() and goal_state.current() == goal
                 log("audit_returned", goal_id=goal, model_dir=str(model_dir), current_goal=current,
                     **intent)
                 if not current or intent["decision"] != "review":

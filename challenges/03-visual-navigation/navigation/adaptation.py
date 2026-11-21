@@ -68,3 +68,8 @@ def alignment_turn(points, position, yaw):
         raise RouteUnavailable("no usable path segment for alignment")
     x, y = ahead[-1]
     return math.remainder(math.atan2(y - position[1], x - position[0]) - yaw, math.tau)
+
+
+def blocked_ahead(path, position, lookahead, radius, is_free):
+    return next((point for point in path_ahead(path, position, lookahead)
+                 if not is_free(*point, radius)), None)

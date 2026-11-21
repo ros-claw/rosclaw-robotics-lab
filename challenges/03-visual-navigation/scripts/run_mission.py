@@ -25,7 +25,7 @@ def run_mission(args):
         raise RuntimeError("OPENAI_API_KEY is required")
     launch = [sys.executable, str(LAB), "start", "--protected", "--rgbd",
               "--layout", str(args.layout.resolve()), "--domain", str(args.domain),
-              "--drive-profile", args.drive_profile]
+              "--drive-profile", args.drive_profile, "--capture-mode", args.capture_mode]
     if args.scenario_obstacles:
         launch += ["--scenario-obstacles", str(args.scenario_obstacles.resolve())]
     if args.record_overview:
@@ -82,6 +82,7 @@ def main():
     parser.add_argument("--vision-budget", type=int, default=7)
     parser.add_argument("--vision-profile", choices=("standard", "lean"), default="lean")
     parser.add_argument("--drive-profile", choices=("baseline", "quicker"), default="baseline")
+    parser.add_argument("--capture-mode", choices=("persistent", "oneshot"), default="persistent")
     args = parser.parse_args()
     try:
         return run_mission(args)

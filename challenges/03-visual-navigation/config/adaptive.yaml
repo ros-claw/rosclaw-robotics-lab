@@ -4,3 +4,4 @@ blocked_dwell_sim_s: 0.65
 global_map_watchdog_wall_s: 2.5
 recovery_local_lookahead_m: 1.5
 vision_review_lookahead_m: 4.8
+vision_review_core_radius_ratio: 0.70

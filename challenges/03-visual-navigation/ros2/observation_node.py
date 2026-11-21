@@ -13,6 +13,7 @@ import numpy as np
 from PIL import Image as PillowImage
 import rclpy
 from rclpy.duration import Duration
+from rclpy.executors import ExternalShutdownException
 from rclpy.qos import QoSProfile, ReliabilityPolicy, qos_profile_sensor_data
 from rclpy.time import Time
 from rosgraph_msgs.msg import Clock
@@ -21,7 +22,8 @@ from tf2_ros import Buffer, StaticTransformBroadcaster, TransformException, Tran
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from navigation.camera_mount import BASE_FRAME, OPTICAL_FRAME, OPTICAL_XYZW, TOPICS, TRANSLATION_M, yaw_mount_xyzw
-from navigation.contracts import CaptureEpoch, ObservationRejected
+from navigation.capture_mailbox import eligible_frame, request_directory, write_atomic
+from navigation.contracts import CaptureEpoch, CaptureIdentity, ObservationRejected
 from navigation.geometry import CameraIntrinsics
 
 QUEUE_SIZE = 12
@@ -115,7 +117,7 @@ def save_capture(directory, run_id, identity, frames, rgb, depth, calibration, t
     }
 
 
-def collect(directory, run_id, wanted, timeout, calibration_mode, yaw):
+def collect(directory, run_id, wanted, timeout, calibration_mode, yaw, serve=False):
     rclpy.init()
     node = rclpy.create_node("luna_observation")
     tf_buffer = Buffer(cache_time=Duration(seconds=5))
@@ -160,70 +162,118 @@ def collect(directory, run_id, wanted, timeout, calibration_mode, yaw):
             lambda msg, kind=kind: receive(kind, msg), qos_profile_sensor_data,
         )
 
+    def sample(output, request=None):
+        nonlocal last_tf_error, previous_map_odom, localization_revision
+        common = messages["rgb"].keys() & messages["depth"].keys() & messages["info"].keys()
+        for stamp in sorted(common, reverse=serve):
+            if not epoch.clock_ns or stamp > epoch.clock_ns:
+                continue
+            if request is not None and not eligible_frame(messages["rgb"][stamp][1],
+                                                         request["requested_ns"], stamp, epoch.clock_ns):
+                continue
+            when = Time(nanoseconds=stamp)
+            try:
+                odom_camera = serialize_tf(tf_buffer.lookup_transform("odom", OPTICAL_FRAME, when))
+                map_odom = None
+                map_base = None
+                if not calibration_mode:
+                    map_odom = serialize_tf(tf_buffer.lookup_transform("map", "odom", when))
+                    map_base = serialize_tf(tf_buffer.lookup_transform("map", "base_link", when))
+            except TransformException as exc:
+                last_tf_error = str(exc)
+                # Keep pending only while TF can still arrive for this stamp.
+                continue
+            (rgb, received_ns), (depth, _), (calibration, _) = (
+                messages[kind].pop(stamp) for kind in TOPICS
+            )
+            try:
+                frames = observation_frames(rgb, depth, calibration)
+                identity = epoch.accept_capture(stamp, epoch.epoch)
+            except ObservationRejected as exc:
+                rejected[str(exc)] = rejected.get(str(exc), 0) + 1
+                continue
+            if previous_map_odom is not None:
+                shift = math.dist(previous_map_odom["xyz_m"], map_odom["xyz_m"])
+                previous_q = previous_map_odom["quaternion_xyzw"]
+                current_q = map_odom["quaternion_xyzw"]
+                dot = abs(sum(a * b for a, b in zip(previous_q, current_q)))
+                if shift > 0.25 or 2 * math.acos(min(1.0, dot)) > math.radians(10):
+                    localization_revision += 1
+            previous_map_odom = map_odom
+            if request is not None:
+                if time.monotonic_ns() >= request["deadline_ns"]:
+                    return None
+                output.mkdir(exist_ok=False)
+                identity = CaptureIdentity(identity.epoch, 1, identity.stamp_ns)
+            observation = save_capture(output, run_id, identity, frames, rgb, depth,
+                                       calibration, [odom_camera] if map_odom is None
+                                       else [odom_camera, map_odom, map_base], localization_revision,
+                                       received_ns, calibration_mode)
+            observation["diagnostic_camera_yaw_deg"] = yaw
+            return observation
+        return None
+
+    def serve_requests():
+        request_path = directory / "capture-request.json"
+        write_atomic(directory / "capture-service-ready.json", {"ready": True})
+        current = None
+        while rclpy.ok():
+            rclpy.spin_once(node, timeout_sec=0.02)
+            try:
+                request = json.loads(request_path.read_text())
+            except FileNotFoundError:
+                continue
+            output = request_directory(directory, request, time.monotonic_ns())
+            if output is None or output == current or output.exists():
+                continue
+            observation = sample(output, request)
+            if observation is None:
+                continue
+            current = output
+            (output / "observations.jsonl").write_text(json.dumps(observation, allow_nan=False) + "\n")
+            now = time.monotonic_ns()
+            write_atomic(output / "observation_summary.json", {
+                "captured": 1, "requested": 1, "capture_mode": "persistent",
+                "wall_seconds": (now - request["requested_ns"]) / 1e9,
+                "rgb_wait_seconds": (int(observation["rgb_receive_mono_ns"]) - request["requested_ns"]) / 1e9,
+                "last_tf_error": last_tf_error,
+            })
+
     start = time.monotonic()
     try:
+        if serve:
+            serve_requests()
+            return 0
         with (directory / "observations.jsonl").open("x") as stream:
             while captured < wanted and time.monotonic() - start < timeout:
                 rclpy.spin_once(node, timeout_sec=0.1)
-                common = messages["rgb"].keys() & messages["depth"].keys() & messages["info"].keys()
-                for stamp in sorted(common):
-                    if not epoch.clock_ns or stamp > epoch.clock_ns:
-                        continue
-                    when = Time(nanoseconds=stamp)
-                    try:
-                        odom_camera = serialize_tf(tf_buffer.lookup_transform("odom", OPTICAL_FRAME, when))
-                        map_odom = None
-                        map_base = None
-                        if not calibration_mode:
-                            map_odom = serialize_tf(tf_buffer.lookup_transform("map", "odom", when))
-                            map_base = serialize_tf(tf_buffer.lookup_transform("map", "base_link", when))
-                    except TransformException as exc:
-                        last_tf_error = str(exc)
-                        # Keep pending only while TF can still arrive for this stamp.
-                        continue
-                    (rgb, received_ns), (depth, _), (calibration, _) = (
-                        messages[kind].pop(stamp) for kind in TOPICS
-                    )
-                    try:
-                        frames = observation_frames(rgb, depth, calibration)
-                        identity = epoch.accept_capture(stamp, epoch.epoch)
-                    except ObservationRejected as exc:
-                        rejected[str(exc)] = rejected.get(str(exc), 0) + 1
-                        continue
-                    if previous_map_odom is not None:
-                        shift = math.dist(previous_map_odom["xyz_m"], map_odom["xyz_m"])
-                        previous_q = previous_map_odom["quaternion_xyzw"]
-                        current_q = map_odom["quaternion_xyzw"]
-                        dot = abs(sum(a * b for a, b in zip(previous_q, current_q)))
-                        if shift > 0.25 or 2 * math.acos(min(1.0, dot)) > math.radians(10):
-                            localization_revision += 1
-                    previous_map_odom = map_odom
-                    observation = save_capture(directory, run_id, identity, frames, rgb, depth,
-                                               calibration, [odom_camera] if map_odom is None
-                                               else [odom_camera, map_odom, map_base], localization_revision,
-                                               received_ns, calibration_mode)
-                    observation["diagnostic_camera_yaw_deg"] = yaw
-                    stream.write(json.dumps(observation, allow_nan=False) + "\n")
-                    stream.flush()
-                    captured += 1
-                    if captured == wanted:
-                        break
+                observation = sample(directory)
+                if observation is None:
+                    continue
+                stream.write(json.dumps(observation, allow_nan=False) + "\n")
+                stream.flush()
+                captured += 1
+    except (KeyboardInterrupt, ExternalShutdownException):
+        if not serve:
+            raise
+        return 0
     finally:
-        summary = {"captured": captured, "requested": wanted, "received": receipts,
-                   "epoch": epoch.epoch, "rejected": rejected,
-                   "wall_seconds": time.monotonic() - start, "last_tf_error": last_tf_error,
-                   "tf_frames": tf_buffer.all_frames_as_yaml(),
-                   "pending_exact_stamps": list(sorted(
-                       messages["rgb"].keys() & messages["depth"].keys() & messages["info"].keys()
-                   )),
-                   "last_stamps_ns": {key: max(cache, default=None) for key, cache in messages.items()}}
-        (directory / "observation_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
-        print(json.dumps({key: summary[key] for key in
-                          ("captured", "requested", "received", "wall_seconds", "last_tf_error")}),
-              flush=True)
+        if not serve:
+            summary = {"captured": captured, "requested": wanted, "received": receipts,
+                       "epoch": epoch.epoch, "rejected": rejected,
+                       "wall_seconds": time.monotonic() - start, "last_tf_error": last_tf_error,
+                       "tf_frames": tf_buffer.all_frames_as_yaml(),
+                       "pending_exact_stamps": list(sorted(
+                           messages["rgb"].keys() & messages["depth"].keys() & messages["info"].keys()
+                       )),
+                       "last_stamps_ns": {key: max(cache, default=None) for key, cache in messages.items()}}
+            (directory / "observation_summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+            print(json.dumps({key: summary[key] for key in
+                              ("captured", "requested", "received", "wall_seconds", "last_tf_error")}),
+                  flush=True)
         listener.unregister()
         node.destroy_node()
-        rclpy.shutdown()
+        rclpy.try_shutdown()
     return 0 if captured == wanted else 1
 
 
@@ -235,6 +285,7 @@ if __name__ == "__main__":
     parser.add_argument("--timeout", type=float, default=30)
     parser.add_argument("--calibration", action="store_true")
     parser.add_argument("--diagnostic-camera-yaw", type=float, default=0.0)
+    parser.add_argument("--serve", action="store_true")
     args = parser.parse_args()
-    args.directory.mkdir(parents=True, exist_ok=False)
-    sys.exit(collect(args.directory, args.run_id, args.count, args.timeout, args.calibration, args.diagnostic_camera_yaw))
+    args.directory.mkdir(parents=True, exist_ok=args.serve)
+    sys.exit(collect(args.directory, args.run_id, args.count, args.timeout, args.calibration, args.diagnostic_camera_yaw, args.serve))

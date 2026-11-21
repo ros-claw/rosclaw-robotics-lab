@@ -138,3 +138,14 @@ python3 scripts/run_mission.py --layout /path/to/swapped-layout --record-overvie
 行驶中视觉复核默认使用 `--vision-profile lean`。该模式需要宿主安装 Pillow，并将发给模型的图缩到最长边 640 像素，使用低细节和短回复契约。原始 RGB-D 仍随试次保存，发送图与原始帧分别记录哈希。语义选路继续使用全尺寸图。`--vision-profile standard` 可复现上一版的行驶视觉处理。
 
 在上述仓库命令后增加 `--drive-profile quicker --vision-interval 4`。该试验把 MPPI 和速度平滑器的前向上限共同设为 0.65 m/s，同时扩大常规沿路径检查范围。默认底盘档位仍为基线。运行原始档位和提速档位后，使用 `python3 evaluator/compare_speed.py "$BASELINE_RUN" "$QUICKER_RUN"` 复算整趟墙钟、活动动作时间、物理制动和到达结果。
+
+### 常驻取帧与低延迟复核
+
+受保护 RGB-D 任务默认启用常驻订阅和 TF 缓冲，由独立 ROS 进程按需归档新的同步帧。它只在收到采样请求后保存帧，每个请求有独立的墙钟期限。使用 `--capture-mode oneshot` 可复现逐帧启动采集的旧方式。多张人工取证仍可通过 `observe --count N` 批量采集。
+
+对工作区的六障碍仓库进行高频测试时，使用 `--vision-interval 2 --vision-budget 16 --drive-profile quicker`。后台请求保持单在途，识别出潜在占用会加查远处的路径核心。常规范围继续以完整足迹、局部扫描和代价地图约束动作。记录和控制分别由独立进程处理。
+
+```bash
+python3 evaluator/async_performance.py "$PREVIOUS_RUN" "$CURRENT_RUN"
+python3 evaluator/compare_speed.py "$PREVIOUS_RUN" "$CURRENT_RUN"
+```

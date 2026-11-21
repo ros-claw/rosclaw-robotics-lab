@@ -50,3 +50,17 @@ def test_active_goal_is_unavailable_as_soon_as_its_cancel_starts(tmp_path):
     with path.open("a") as stream:
         stream.write(json.dumps({"event": "cancel_requested"}) + "\n")
     assert active_goal(path) is None
+
+
+def test_goal_cursor_never_advances_on_an_incomplete_cancellation(tmp_path):
+    from navigation.live_audit import GoalCursor
+
+    log = tmp_path / "controls.jsonl"
+    cursor = GoalCursor(log)
+    with log.open("w") as stream:
+        stream.write('{"event":"nav2_accepted","goal_id":"one"}\n')
+        stream.write('{"event":"cancel_')
+    assert cursor.current() == "one"
+    with log.open("a") as stream:
+        stream.write('requested"}\n')
+    assert cursor.current() is None

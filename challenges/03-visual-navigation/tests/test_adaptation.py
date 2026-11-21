@@ -38,3 +38,14 @@ def test_bounded_alignment_uses_the_new_paths_local_heading():
     path = [(0, 0), (0, -0.3), (0, -0.6), (0, -0.9)]
     assert math.isclose(alignment_turn(path, (0, 0), 0), -math.pi / 2)
     assert math.isclose(alignment_turn(path, (0, 0), -math.pi / 2), 0)
+
+
+def test_long_range_review_uses_core_without_relaxing_normal_footprint():
+    from navigation.adaptation import blocked_ahead
+
+    path = [(float(x), 0) for x in range(5)]
+    def edge_only(x, y, radius):
+        return radius < .6
+    assert blocked_ahead(path, (0, 0), 2.4, .75, edge_only) is not None
+    assert blocked_ahead(path, (0, 0), 4.8, .75 * .70, edge_only) is None
+    assert blocked_ahead(path, (0, 0), 4.8, .75 * .70, lambda x,y,r: x < 3) == (3., 0)
