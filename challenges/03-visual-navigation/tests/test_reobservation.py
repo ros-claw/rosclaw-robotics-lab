@@ -41,3 +41,14 @@ def test_reobservation_requires_stamped_localization_and_rejects_a_pose_jump():
     shifted["transforms"][0]["xyz_m"][0] = 0.25
     with pytest.raises(ValueError):
         guard.check(shifted)
+
+
+def test_verified_stop_allows_a_new_localization_context_but_never_old_images():
+    guard = FreshFrames("run")
+    guard.check(make_observation())
+    guard.after_verified_stop()
+    with pytest.raises(ValueError):
+        guard.check(make_observation())
+    fresh = make_observation(101)
+    fresh["transforms"][0]["xyz_m"][0] = 0.25
+    guard.check(fresh)

@@ -31,6 +31,23 @@ def first_settled_index(trajectory, after_mono_ns):
     return None
 
 
+def recovery_stop_verified(run, events_path):
+    events = records(events_path)
+    terminal = next((e for e in events if e["event"] == "nav2_result"
+                     and e.get("goal_status") in (5, 6)), None)
+    stop = next((e for e in events if e["event"] == "odometry_stopped"), None)
+    if terminal is None or stop is None:
+        return False
+    begin = int(terminal["host_mono_ns"])
+    stop_ns = int(stop["host_mono_ns"])
+    trajectory = [r for r in records(run / "physx-trajectory.jsonl")
+                  if begin <= int(r["host_mono_ns"]) <= stop_ns + 3_000_000_000]
+    contacts = records(run / "physx-contacts.jsonl")
+    return (all(r["source"] == "physx" for r in trajectory)
+            and first_settled_index(trajectory, stop_ns) is not None
+            and not any(r["classification"] == "non_floor" for r in contacts))
+
+
 def evaluate(run, events_path, public_scene):
     layout = json.loads(public_scene.read_text())
     events = records(events_path)

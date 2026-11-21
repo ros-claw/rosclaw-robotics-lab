@@ -7,14 +7,19 @@ class FreshFrames:
     def __init__(self, episode):
         self.episode = episode
         self.previous = None
+        self.latest_stamp = -1
+
+    def after_verified_stop(self):
+        self.previous = None
 
     def check(self, observation):
         if observation["episode_id"] != self.episode or observation["epoch"] != 0:
             raise ValueError("reobservation belongs to a different world or epoch")
         current_map = stamped_map_to_odom(observation)
+        stamp = int(observation["stamp_ns"])
+        if stamp <= self.latest_stamp:
+            raise ValueError("reobservation must have a newer RGB stamp")
         if self.previous is not None:
-            if int(observation["stamp_ns"]) <= int(self.previous["stamp_ns"]):
-                raise ValueError("reobservation must have a newer RGB stamp")
             if observation["localization_revision"] != self.previous["localization_revision"]:
                 raise ValueError("localization revision changed during reobservation")
             previous_map = stamped_map_to_odom(self.previous)
@@ -24,6 +29,7 @@ class FreshFrames:
             if delta > 0.15 or dot < math.cos(0.15 / 2):
                 raise ValueError("map to odom changed during reobservation")
         self.previous = observation
+        self.latest_stamp = stamp
 
 
 def stamped_map_to_odom(observation):

@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--rgbd", action="store_true")
     parser.add_argument("--record-overview", action="store_true")
     parser.add_argument("--visual-shutter-test", type=Path)
+    parser.add_argument("--scenario-obstacles", nargs=2, type=Path)
     parser.add_argument("--diagnostic-camera-yaw", type=float, default=0.0)
     parser.add_argument("--renderer", default="RaytracedLighting")
     args = parser.parse_args()
@@ -70,6 +71,11 @@ def main():
 
             shutter = VisualShutter(omni.usd.get_context().get_stage(), args.visual_shutter_test)
             shutter.update(0)
+        obstacles = None
+        if args.scenario_obstacles:
+            from scenario_obstacles import ScenarioObstacles
+
+            obstacles = ScenarioObstacles(omni.usd.get_context().get_stage(), *args.scenario_obstacles)
         timeline = omni.timeline.get_timeline_interface()
         # The stock warehouse authors 1000 frames at 60 Hz. Its playback
         # loop must not wrap the physical state during a navigation episode.
@@ -85,6 +91,8 @@ def main():
         while app.is_running():
             if shutter:
                 shutter.update(timeline.get_current_time())
+            if obstacles:
+                obstacles.update(timeline.get_current_time())
             app.update()
             if witness:
                 witness.sample(timeline.get_current_time())

@@ -10,17 +10,21 @@ import time
 from action_msgs.msg import GoalStatus
 from geometry_msgs.msg import PoseStamped, Twist
 from nav_msgs.msg import OccupancyGrid, Odometry
-from nav2_msgs.action import ComputePathThroughPoses, FollowPath
+from nav2_msgs.action import ComputePathThroughPoses, FollowPath, Spin
+from nav2_msgs.srv import ClearEntireCostmap
 import rclpy
 from rclpy.action import ActionClient
 from rclpy.time import Time
 from tf2_ros import Buffer, TransformException, TransformListener
 from rclpy.qos import DurabilityPolicy, QoSProfile, qos_profile_sensor_data
 from rosgraph_msgs.msg import Clock
+from sensor_msgs.msg import LaserScan
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
-from navigation.candidates import Gate, costmap_footprint_radius, validate_corridor
+from navigation.adaptation import (Blockage, ROUTE_STOPPED, ROUTE_UNAVAILABLE,
+                                   RouteBlocked, RouteUnavailable, alignment_turn, path_ahead)
+from navigation.candidates import Gate, ValidationError, costmap_footprint_radius, validate_corridor
 from navigation.contracts import StopDwell
 from navigation.live_intent import verify_fresh
 from navigation.path_session import PathSession, validate_handoff
@@ -103,9 +107,9 @@ def pose(x, y, yaw=0.0):
     return target
 
 
-def occupancy_checker(grid):
-    if grid.header.frame_id != "map":
-        raise RuntimeError("global costmap must use the map frame")
+def occupancy_checker(grid, frame="map"):
+    if grid.header.frame_id != frame:
+        raise RuntimeError(f"expected a {frame}-frame costmap")
     info = grid.info
     origin = info.origin
     if abs(origin.orientation.w) < 0.9999:
@@ -136,7 +140,7 @@ def occupancy_checker(grid):
     return open_at
 
 
-def stopped(node, evidence):
+def stopped(node, evidence, event="odometry_stopped"):
     dwell = StopDwell()
 
     def settled():
@@ -158,7 +162,7 @@ def stopped(node, evidence):
                      if odom else None,
                      final_cmd_velocity=[command.linear.x, command.angular.z] if command else None)
         raise
-    evidence.log("odometry_stopped", dwell_s=0.75)
+    evidence.log(event, dwell_s=0.75)
 
 
 def past_gate(locate, gate, radius):
@@ -229,7 +233,7 @@ def replace_during_motion(node, evidence, session, motion, end, build_plan, subm
 
 
 def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=None,
-             episode=None, replan=False, cancel_after_gate=False):
+             episode=None, replan=False, cancel_after_gate=False, adaptive=False, route_version=1, refresh_local_map=False):
     gates = [Gate(**data) for data in layout["gates"]]
     gate = next((item for item in gates if item.gate_id == gate_id), None)
     if gate is None or layout["frame_id"] != "map":
@@ -256,6 +260,22 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
                              lambda message: setattr(evidence, "grid", message),
                              QoSProfile(depth=1, durability=DurabilityPolicy.TRANSIENT_LOCAL))
 
+    scan_ns = -1
+    scan_wall = None
+
+    def remember_scan(message):
+        nonlocal scan_ns, scan_wall
+        stamp = stamp_ns(message.header.stamp)
+        if stamp > scan_ns and len(message.ranges) > 0:
+            scan_ns, scan_wall = stamp, time.monotonic()
+
+    def scan_fresh():
+        return (scan_wall is not None and time.monotonic() - scan_wall <= 1.0
+                and evidence.clock is not None and -50_000_000 <= evidence.clock - scan_ns <= 650_000_000)
+
+    if adaptive:
+        node.create_subscription(LaserScan, "/scan", remember_scan, qos_profile_sensor_data)
+
     if live_observation is not None or replan:
         tf_buffer = Buffer()
         tf_listener = TransformListener(tf_buffer, node, qos=QoSProfile(
@@ -271,12 +291,19 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
                     "map", "base_link", Time(nanoseconds=evidence.clock - 200_000_000))
             except TransformException as error:
                 last_tf_error = str(error)
-                return None
+                try:
+                    transform = tf_buffer.lookup_transform("map", "base_link", Time())
+                except TransformException:
+                    return None
+                age = evidence.clock - stamp_ns(transform.header.stamp)
+                if not 0 <= age <= 250_000_000:
+                    return None
             return transform.transform
 
         def check_live():
             try:
-                wait_for(node, locate, 1.8, "fresh base transform unavailable for model intent")
+                wait_for(node, locate, 2.8 if adaptive else 1.8,
+                         "fresh base transform unavailable for model intent")
             except RuntimeError as error:
                 raise RuntimeError(f"{error}: {last_tf_error}") from error
             transform = locate()
@@ -294,13 +321,49 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         return evidence.grid is not None and evidence.clock is not None and (
             0 <= evidence.clock - stamp_ns(evidence.grid.header.stamp) <= 2_000_000_000)
 
+    local_grid = None
+    local_updates = set()
+
+    def remember_local_grid(grid):
+        nonlocal local_grid
+        local_grid = grid
+        local_updates.add(stamp_ns(grid.header.stamp))
+
+    def refreshed_local():
+        return (local_grid is not None and evidence.clock is not None and scan_fresh()
+                and scan_ns > refresh_after and sum(stamp > refresh_after for stamp in local_updates) >= 2
+                and 0 <= evidence.clock - stamp_ns(local_grid.header.stamp) <= 1_000_000_000)
+
+    if refresh_local_map:
+        node.create_subscription(OccupancyGrid, "/local_costmap/costmap", remember_local_grid,
+                                 QoSProfile(depth=10, durability=DurabilityPolicy.TRANSIENT_LOCAL))
+        wait_for(node, scan_fresh, 1.5, "fresh scan required to refresh the rolling costmap")
+        service = node.create_client(ClearEntireCostmap, "/local_costmap/clear_entirely_local_costmap")
+        wait_for(node, service.service_is_ready, 2.0, "rolling costmap refresh service unavailable")
+        await_future(node, service.call_async(ClearEntireCostmap.Request()), 2.0, "rolling costmap refresh")
+        refresh_after = evidence.clock
+        wait_for(node, refreshed_local, 4.0, "rolling costmap did not receive two post-refresh updates")
+        evidence.log("local_costmap_refreshed", refresh_after_sim_ns=str(refresh_after),
+                     local_stamp_ns=str(stamp_ns(local_grid.header.stamp)), latest_scan_ns=str(scan_ns))
+
     y = (gate.lower_y + gate.upper_y) / 2
     terminal = layout["terminal_xy"]
     params = yaml.safe_load(Path("/luna_nav/params.yaml").read_text())
     radius = costmap_footprint_radius(params)
     forbidden = tuple(other for other in gates if other != gate)
-    session = PathSession()
+    session = PathSession(route_version)
+    if adaptive:
+        budget = yaml.safe_load(Path("/challenge/adaptive.yaml").read_text())
+        values = (budget[name] for name in ("path_lookahead_m", "blocked_dwell_sim_s",
+                                            "global_map_watchdog_wall_s", "recovery_local_lookahead_m"))
+        lookahead, block_dwell, watchdog, local_lookahead = map(float, values)
+        if not all(math.isfinite(v) and v > 0 for v in (lookahead, block_dwell, watchdog, local_lookahead)):
+            raise ValueError("adaptive route budgets must be finite and positive")
+        blockage = Blockage(block_dwell)
     last_motion = None
+    active_points = None
+    aligned = False
+    last_map_wall = time.monotonic()
 
     def build_plan(path_seq, exit_extension=1.1, tick=None):
         goal = ComputePathThroughPoses.Goal()
@@ -312,12 +375,31 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         if not compute.accepted:
             raise RuntimeError("Nav2 rejected ComputePathThroughPoses")
         planned = await_future(node, compute.get_result_async(), 6.0, "planning result", tick)
+        if planned.status == GoalStatus.STATUS_ABORTED and adaptive:
+            raise RouteUnavailable(f"planner aborted for gate {gate_id}")
         if planned.status != GoalStatus.STATUS_SUCCEEDED:
             raise RuntimeError(f"Nav2 planning ended with status {planned.status}")
         return planned.result.path
 
+    def check_refreshed_corridor(points):
+        now_base = locate()
+        if now_base is None or not refreshed_local():
+            raise RuntimeError("cannot check recovered path against the current rolling costmap")
+        try:
+            map_to_local = tf_buffer.lookup_transform("odom", "map", Time(nanoseconds=evidence.clock - 200_000_000))
+        except TransformException as error:
+            raise RuntimeError("missing map-to-odom transform for recovered path") from error
+        t, q = map_to_local.transform.translation, map_to_local.transform.rotation
+        heading = math.atan2(2 * (q.w*q.z + q.x*q.y), 1 - 2 * (q.y*q.y + q.z*q.z))
+        cosine, sine = math.cos(heading), math.sin(heading)
+        free = occupancy_checker(local_grid, "odom")
+        position = (now_base.translation.x, now_base.translation.y)
+        if any(not free(t.x + cosine*x - sine*y0, t.y + sine*x + cosine*y0, radius + 0.025)
+               for x, y0 in path_ahead(points, position, local_lookahead)):
+            raise RouteUnavailable("fresh rolling costmap blocks the recovered path")
+
     def submit(path_seq, path, handoff=False, tick=None):
-        nonlocal last_motion
+        nonlocal last_motion, active_points
         if not session.may_submit(path_seq):
             evidence.log("planning_discarded", path_seq=path_seq, route_version=session.route_version,
                          latest_path_seq=session.latest, reason="superseded")
@@ -329,7 +411,14 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         free = occupancy_checker(evidence.grid)
         identity = {"route_version": session.route_version, "path_seq": path_seq}
         evidence.log("path_proposed", frame_id="map", points=points, **identity)
-        validate_corridor(points, gate, forbidden, radius, free)
+        try:
+            validate_corridor(points, gate, forbidden, radius, free)
+        except ValidationError as error:
+            if adaptive and not handoff:
+                raise RouteUnavailable(str(error)) from error
+            raise
+        if refresh_local_map:
+            check_refreshed_corridor(points)
         if handoff:
             transform = locate()
             if transform is None or transform.translation.x >= gate.entry_x - 0.5:
@@ -345,8 +434,12 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
             evidence.log("handoff_validated", base_xy=[t.x, t.y], join_xy=join, **identity)
         evidence.log("path_validated", gate_id=gate_id, points=points, **identity)
         if live_observation is not None and not handoff:
-            check_live()
-            evidence.log("intent_committed", gate_id=gate_id, episode_id=episode)
+            if not aligned:
+                check_live()
+            evidence.log("intent_committed", gate_id=gate_id, episode_id=episode,
+                         aligned_before_follow=aligned)
+        if adaptive:
+            wait_for(node, scan_fresh, 1.0, "fresh local obstacle scan unavailable")
         command = FollowPath.Goal()
         command.path = path
         command.controller_id = "FollowPath"
@@ -357,6 +450,7 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
             last_motion = motion
         if not motion.accepted or not session.accept(path_seq):
             raise RuntimeError("Nav2 rejected FollowPath or accepted a superseded path")
+        active_points = points
         evidence.log("nav2_accepted", goal_id=bytes(motion.goal_id.uuid).hex(), **identity)
         return motion
 
@@ -368,11 +462,120 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
             raise RuntimeError("Nav2 did not acknowledge cancellation of the active goal")
         evidence.log("cancel_acknowledged", path_seq=session.active, reason=reason)
 
+    def route_health():
+        nonlocal last_map_wall
+        if not scan_fresh():
+            raise RuntimeError("live route lost its local obstacle scan")
+        if time.monotonic() - last_map_wall > watchdog:
+            raise RuntimeError("live route lost its global costmap")
+        if not fresh_map():
+            return
+        current = locate()
+        if current is None:
+            return
+        stamp = stamp_ns(evidence.grid.header.stamp)
+        if blockage.stamp is not None and stamp <= blockage.stamp:
+            return
+        last_map_wall = time.monotonic()
+        position = (current.translation.x, current.translation.y)
+        free = occupancy_checker(evidence.grid)
+        blocked = next((point for point in path_ahead(active_points, position, lookahead)
+                        if not free(*point, radius + 0.025)), None)
+        if blockage.observe(stamp, blocked is not None):
+            evidence.log("route_blocked", gate_id=gate_id, source_grid="global_costmap",
+                         costmap_stamp_ns=str(stamp), blocking_point=blocked,
+                         active_path_seq=session.active, base_xy=position)
+            raise RouteBlocked("persistent obstruction in the active path envelope")
+
+    def local_xy():
+        sample = evidence.odom
+        if sample is None or evidence.clock is None:
+            return None
+        if not 0 <= evidence.clock - stamp_ns(sample.header.stamp) <= 250_000_000:
+            return None
+        position = sample.pose.pose.position
+        return position.x, position.y
+
+    def align_alternate(path):
+        check_live()
+        wait_for(node, fresh_map, 2.0, "alignment requires a fresh global costmap")
+        wait_for(node, scan_fresh, 1.0, "alignment requires a fresh local scan")
+        base = locate()
+        if base is None:
+            raise RuntimeError("alignment lost its map pose")
+        x, y0 = base.translation.x, base.translation.y
+        q = base.rotation
+        yaw = math.atan2(2 * (q.w*q.z + q.x*q.y), 1 - 2 * (q.y*q.y + q.z*q.z))
+        points = [(p.pose.position.x, p.pose.position.y) for p in path.poses]
+        if path.header.frame_id != "map":
+            raise RuntimeError("alignment requires a map-frame path")
+        free = occupancy_checker(evidence.grid)
+        try:
+            validate_corridor(points, gate, forbidden, radius, free)
+        except ValidationError as error:
+            raise RouteUnavailable(str(error)) from error
+        turn = alignment_turn(points, (x, y0), yaw)
+        if abs(turn) < 0.40:
+            return False
+        if not free(x, y0, radius + 0.025):
+            raise RouteUnavailable("alternate path cannot be aligned within a clear footprint")
+        wait_for(node, local_xy, 1.0, "alignment requires current odometry")
+        start_local = local_xy()
+        spin = ActionClient(node, Spin, "/spin")
+        wait_for(node, spin.server_is_ready, 2.0, "bounded alignment server unavailable")
+        goal = Spin.Goal()
+        goal.target_yaw = turn
+        goal.time_allowance.sec = 8
+        evidence.log("alignment_requested", route_version=route_version, turn_rad=turn, origin_xy=[x, y0])
+        handle = await_future(node, spin.send_goal_async(goal), 2.0, "alignment acceptance")
+        if not handle.accepted:
+            raise RuntimeError("bounded alignment rejected")
+        ended = handle.get_result_async()
+
+        def safe_spin():
+            if evidence.clock_rewound or not scan_fresh():
+                raise RuntimeError("alignment lost current obstacle evidence")
+
+        try:
+            result = await_future(node, ended, 10.0, "alignment result", safe_spin)
+        except RuntimeError:
+            if not ended.done():
+                await_future(node, handle.cancel_goal_async(), 3.0, "alignment cancel")
+                await_future(node, ended, 5.0, "alignment cancellation result")
+            stopped(node, evidence, event="alignment_stopped")
+            raise
+        stopped(node, evidence, event="alignment_stopped")
+        if result.status != GoalStatus.STATUS_SUCCEEDED:
+            raise RuntimeError(f"bounded alignment ended with status {result.status}")
+        current, current_local = locate(), local_xy()
+        if current is None or current_local is None:
+            raise RuntimeError("bounded alignment cannot verify its final pose")
+        drift = math.dist(start_local, current_local)
+        if current.translation.x >= gate.entry_x - 0.5 or drift > 0.15:
+            raise RuntimeError("bounded alignment left the authorized staging area")
+        evidence.log("alignment_completed", route_version=route_version, turn_rad=turn,
+                     odometry_translation_m=drift, current_map_xy=[current.translation.x, current.translation.y])
+        return True
+
     def follow():
+        nonlocal last_map_wall, aligned
         initial = session.request()
-        motion = submit(initial, build_plan(initial))
+        path = build_plan(initial)
+        if adaptive and route_version > 1:
+            aligned = align_alternate(path)
+            if aligned:
+                initial = session.request()
+                path = build_plan(initial)
+        motion = submit(initial, path)
         end = motion.get_result_async()
-        tick = corridor_watch(evidence, locate, gate, radius) if replan else None
+        last_map_wall = time.monotonic()
+        corridor = corridor_watch(evidence, locate, gate, radius) if replan or adaptive else None
+
+        def adaptive_tick():
+            corridor()
+            route_health()
+
+        tick = adaptive_tick if adaptive else corridor
         if replan:
             motion, end = replace_during_motion(
                 node, evidence, session, motion, end, build_plan, submit, tick)
@@ -398,11 +601,28 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
         evidence.log("nav2_result", goal_status=result.status, path_seq=final_path)
         expected = GoalStatus.STATUS_CANCELED if should_cancel else GoalStatus.STATUS_SUCCEEDED
         stopped(node, evidence)
+        if adaptive and result.status == GoalStatus.STATUS_ABORTED:
+            evidence.log("route_blocked", gate_id=gate_id, source_grid="controller_abort")
+            return ROUTE_STOPPED
         if result.status != expected:
             raise RuntimeError(f"unexpected FollowPath status {result.status}")
 
     try:
-        follow()
+        return follow()
+    except RouteBlocked:
+        cancel_active(last_motion, "route_blocked")
+        result = await_future(node, last_motion.get_result_async(), 8.0, "blocked action result")
+        evidence.log("nav2_result", goal_status=result.status, path_seq=session.active)
+        session.finish(session.active)
+        if result.status != GoalStatus.STATUS_CANCELED:
+            raise RuntimeError("blocked goal did not reach canceled status")
+        stopped(node, evidence)
+        return ROUTE_STOPPED
+    except RouteUnavailable as error:
+        if last_motion is not None:
+            raise
+        evidence.log("route_unavailable", gate_id=gate_id, reason=str(error))
+        return ROUTE_UNAVAILABLE
     except (ValueError, RuntimeError):
         if last_motion is not None and not session.terminated:
             try:
@@ -423,6 +643,9 @@ if __name__ == "__main__":
     parser.add_argument("--live-observation", type=Path)
     parser.add_argument("--episode")
     parser.add_argument("--replan", action="store_true")
+    parser.add_argument("--adaptive", action="store_true")
+    parser.add_argument("--route-version", type=int, default=1)
+    parser.add_argument("--refresh-local-map", action="store_true")
     parser.add_argument("--cancel-after-gate", action="store_true")
     args = parser.parse_args()
     layout = json.loads(Path("/luna_nav/public_scene_manifest.json").read_text())
@@ -436,8 +659,10 @@ if __name__ == "__main__":
                 if args.live_observation:
                     observation = json.loads(args.live_observation.read_text())
                     evidence.source = "luna-live"
-                exercise(node, evidence, layout, args.gate, args.cancel_after, observation,
-                         args.episode, args.replan, args.cancel_after_gate)
+                status = exercise(node, evidence, layout, args.gate, args.cancel_after, observation,
+                                  args.episode, args.replan, args.cancel_after_gate, args.adaptive, args.route_version, args.refresh_local_map)
+                if status is not None:
+                    raise SystemExit(status)
             except (ValueError, RuntimeError) as exc:
                 evidence.log("test_failed", reason=str(exc))
                 raise SystemExit(str(exc)) from exc

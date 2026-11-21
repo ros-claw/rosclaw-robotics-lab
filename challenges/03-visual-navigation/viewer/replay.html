@@ -71,7 +71,7 @@ function renderVision(t){
 const p=d.physics;
 const outcomeText=p?.pass
   ? "物理验收通过 · "+p.physical_gate_crossings.map(g=>g.gate_id).join(", ")+" · 距终点 "+p.physical_distance_to_terminal_m.toFixed(2)+" m"
-  : (d.timeout?.pass ? "物理验收通过 · API 超时后保持驻车" : (p ? "物理验收未通过" : ""));
+  : (d.adaptive?.pass&&d.adaptive.outcome==="hold" ? "物理验收通过 · 持续封堵后保持停车" : d.timeout?.pass ? "物理验收通过 · API 超时后保持驻车" : (p ? "物理验收未通过" : ""));
 const canvas=document.querySelector("#map"), ctx=canvas.getContext("2d");
 const [left,bottom,right,yMax]=d.layout.bounds_xyxy;
 const scale=Math.min((canvas.width-52)/(right-left),(canvas.height-52)/(yMax-bottom));
@@ -79,7 +79,7 @@ const mx=x=>canvas.width/2+(x-(left+right)/2)*scale;
 const my=y=>canvas.height/2-(y-(yMax+bottom)/2)*scale;
 function line(points,color,w){if(!points.length)return;ctx.beginPath();ctx.moveTo(mx(points[0][0]),my(points[0][1]));
 for(const [x,y] of points.slice(1))ctx.lineTo(mx(x),my(y));ctx.strokeStyle=color;ctx.lineWidth=w;ctx.lineCap="round";ctx.stroke();}
-const names={model_requested:"请求 Luna",model_received:"收到 Luna 结果",model_failed:"模型请求失败",test_failed:"本地拒绝",final_twist_source_verified:"速度来源已确认",intent_preflight:"视觉意图预检",planning_requested:"请求规划",
+const names={alignment_requested:"请求原地对正",alignment_completed:"原地对正已确认",local_costmap_refreshed:"局部代价地图已刷新",route_blocked:"本地地图确认封堵",physical_stop_verified:"PhysX 确认停车",route_recovery:"本地恢复决策",hold:"保持停车",route_completed:"任务完成",model_requested:"请求 Luna",model_received:"收到 Luna 结果",model_failed:"模型请求失败",test_failed:"本地拒绝",final_twist_source_verified:"速度来源已确认",intent_preflight:"视觉意图预检",planning_requested:"请求规划",
 path_proposed:"Nav2 返回路径",handoff_validated:"已检查路径接续",planning_discarded:"丢弃过期计划",nav2_result_ignored:"忽略旧动作回执",path_validated:"完整路径已校验",intent_committed:"通道已承诺",
 follow_path_requested:"提交 FollowPath",nav2_accepted:"Nav2 接受",nav2_result:"Nav2 返回结果",odometry_stopped:"里程计停止"};
 const scrub=document.querySelector("#scrub"), timer=document.querySelector("#time"), play=document.querySelector("#play");
@@ -92,7 +92,8 @@ if(d.video){
 const duration=d.trajectory.at(-1)[0];scrub.max=duration;scrub.value=duration;
 const markers=d.events.filter(e=>names[e.kind]).map(e=>{
  const li=document.createElement("li"), button=document.createElement("button");button.type="button";
- button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind]+(e.path_seq?" · 路径 "+e.path_seq:"")+(e.observation?" · 第 "+e.observation+" 次":"");
+ const reactions={retry:"重验原通道",decide:"重新请求 Luna",hold:"保持停车"};
+ button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind]+(e.path_seq?" · 路径 "+e.path_seq:"")+(e.observation?" · 第 "+e.observation+" 次":"")+(e.response?" · "+reactions[e.response]:"");
  button.addEventListener("click",()=>{playing=false;scrub.value=e.seconds;render();});li.append(button);document.querySelector("#events").append(li);
  return {...e,button};
 });
@@ -113,7 +114,8 @@ function render(){
  for(const o of d.layout.obstacles){const [x,y]=o.xyz,[a,b]=o.size;ctx.fillRect(mx(x-a/2),my(y+b/2),a*scale,b*scale);}
  for(const g of d.layout.gates){line([[g.cross_x,g.lower_y],[g.cross_x,g.upper_y]],"#a9b5c4",1);
  ctx.fillStyle="#efefea";ctx.font="15px system-ui";ctx.fillText(g.gate_id,mx(g.cross_x)+7,my((g.upper_y+g.lower_y)/2));}
- const active=d.accepted_paths.findLast(path=>path.seconds<=t);
+ const pastStop=d.adaptive&&d.events.findLast(event=>event.kind==="physical_stop_verified"&&event.seconds<=t);
+ const active=d.accepted_paths.findLast(path=>path.seconds<=t&&(!pastStop||path.seconds>pastStop.seconds));
  document.querySelector("#activePath").textContent=active ? "Nav2 已接受路径 "+active.path_seq : "等待 Nav2 接受路径";
  if(active)line(active.points,"#9dbbff",2);
  const pts=d.trajectory.filter(r=>r[0]<=t).map(r=>r.slice(1));

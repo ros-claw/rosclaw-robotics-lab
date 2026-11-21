@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False):
+def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -163,7 +163,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             signal.signal(sig, stop_requested)
         try:
             start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview,
-                           visual_shutter_test)
+                           visual_shutter_test, scenario_obstacles)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -173,7 +173,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False, scenario_obstacles=None):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -205,6 +205,10 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
         sim.extend(["--layout", str(layout / "sim")])
     if record_overview:
         sim.append("--record-overview")
+    if scenario_obstacles:
+        recipe = run / "obstacle-recipe.json"
+        recipe.write_bytes(scenario_obstacles.read_bytes())
+        sim.extend(["--scenario-obstacles", str(recipe), str(run / "obstacle-events.jsonl")])
     if visual_shutter_test:
         sim.extend(["--visual-shutter-test", str(run / "visual-shutter.jsonl")])
     if camera_yaw:
@@ -220,7 +224,15 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
              "/challenge/headless_nav.launch.xml carter:=/carter"
     if layout:
         nav.extend(["-v", f"{layout}/nav:/luna_nav:ro"])
-        launch += " map:=/luna_nav/map.yaml params_file:=/luna_nav/params.yaml"
+        params_file = "/luna_nav/params.yaml"
+        if protected:
+            # Recovery confirms distinct full rolling-map updates after a sensor refresh.
+            runtime_params = yaml.safe_load((layout / "nav/params.yaml").read_text())
+            runtime_params["local_costmap"]["local_costmap"]["ros__parameters"][
+                "always_send_full_costmap"] = True
+            (run / "nav2-runtime.yaml").write_text(yaml.safe_dump(runtime_params, sort_keys=False))
+            params_file = "/luna_run/nav2-runtime.yaml"
+        launch += f" map:=/luna_nav/map.yaml params_file:={params_file}"
     if protected:
         nav.extend(["-v", f"{CHALLENGE}/navigation:/luna_code/navigation:ro",
                     "-v", f"{CHALLENGE}/ros2:/luna_code/ros2:ro",
@@ -366,7 +378,8 @@ def claim_motion(lock):
 
 
 def execute_motion(active, run, manifest, gate, cancel_after=None, live_observation=None,
-                   replan=False, cancel_after_gate=False):
+                   replan=False, cancel_after_gate=False, adaptive=False, route_version=1,
+                   timeout=120, refresh_local_map=False):
     if birth_ticks(active["pid"]) != active["birth_ticks"]:
         raise RuntimeError("Active episode ended before motion")
     evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
@@ -376,6 +389,10 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
                "/luna_run/" + evidence]
     if cancel_after is not None:
         command.extend(["--cancel-after", str(cancel_after)])
+    if adaptive:
+        command.extend(["--adaptive", "--route-version", str(route_version)])
+    if refresh_local_map:
+        command.append("--refresh-local-map")
     if replan:
         command.append("--replan")
     if cancel_after_gate:
@@ -387,14 +404,19 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
     print(run / evidence, flush=True)
     succeeded = False
     try:
-        succeeded = subprocess.run(command, timeout=120).returncode == 0
+        code = subprocess.run(command, timeout=timeout).returncode
+        if adaptive:
+            from navigation.adaptation import ROUTE_STOPPED, ROUTE_UNAVAILABLE
+            succeeded = code in (0, ROUTE_STOPPED, ROUTE_UNAVAILABLE)
+        else:
+            succeeded = code == 0
     finally:
         if not succeeded:
             # A lost action response still leaves the simulator under this supervisor.
             stop(expected=active)
     if not succeeded:
         raise RuntimeError(f"Controller failed. See {run / evidence}")
-    return run / evidence
+    return code, run / evidence
 
 
 def controller_test(gate, cancel_after, replan=False, cancel_after_gate=False):
@@ -405,15 +427,26 @@ def controller_test(gate, cancel_after, replan=False, cancel_after_gate=False):
                        replan=replan, cancel_after_gate=cancel_after_gate)
 
 
-def luna_run(key, api_timeout, replan=False, observation_limit=3):
+def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=None,
+             local_retries=2, mission_time=150.0, expected_run=None):
     sys.path.insert(0, str(CHALLENGE))
     from evaluator.continuity import evaluate as evaluate_continuity
-    from evaluator.controller_run import evaluate
+    from evaluator.controller_run import evaluate, recovery_stop_verified
+    from navigation.adaptation import Recovery, ROUTE_STOPPED
     from navigation.luna_probe import load_frame, observation_id, probe
     from navigation.reobserve import FreshFrames
 
     active, run, manifest = motion_episode()
+    if expected_run is not None and run != expected_run.resolve():
+        raise RuntimeError("active simulation differs from the mission-owned episode")
     layout = Path(manifest["layout"]) / "nav" / "public_scene_manifest.json"
+    gates = {gate["gate_id"] for gate in json.loads(layout.read_text())["gates"]}
+    policy = json.loads(mission_path.read_text()) if mission_path else {}
+    if (not isinstance(policy, dict) or not set(policy) <= {"task", "recovery_task"}
+            or any(not isinstance(text, str) or not 0 < len(text) <= 1600 for text in policy.values())):
+        raise ValueError("mission policy accepts only non-empty task and recovery_task text")
+    recovery = Recovery(local_retries, allow_alternate="recovery_task" in policy)
+    expires = time.monotonic() + mission_time
     with (run / "controller-test.lock").open("a") as lock:
         claim_motion(lock)
         session_log = run / ("luna-session-" + uuid4().hex[:8] + ".jsonl")
@@ -424,36 +457,89 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3):
                 stream.write(json.dumps({"event": event, "host_mono_ns": str(time.monotonic_ns()),
                                          **fields}, ensure_ascii=False) + "\n")
 
+        def hold(reason):
+            record("hold", reason=reason)
+            print(f"Navigation holding position: {reason}", flush=True)
+
+        record("mission_policy", policy=policy, local_retries=local_retries,
+               observation_limit=observation_limit, mission_wall_s=mission_time)
         fresh = FreshFrames(manifest["run_id"])
-        for attempt in range(1, observation_limit + 1):
+        attempt = 0
+        route_version = 0
+        gate = None
+        while time.monotonic() < expires:
+            if gate is None and (attempt >= observation_limit or not gates - recovery.excluded):
+                return hold("observation_budget_exhausted" if attempt >= observation_limit
+                            else "no_eligible_candidate")
+            remaining = expires - time.monotonic()
+            if remaining < 3:
+                return hold("mission_deadline")
             try:
-                capture_dir = observe(1, 8, expected=active)
+                capture_dir = observe(1, min(8, remaining - 1), expected=active)
                 observation, _ = load_frame(capture_dir, 1)
                 fresh.check(observation)
-                model_dir = capture_dir / "luna-live"
-                print(model_dir, flush=True)
-                record("request", attempt=attempt, observation_id=observation_id(observation),
-                       frame_sha256=observation["rgb"]["sha256"], model_dir=str(model_dir))
-                intent = probe(capture_dir, 1, layout, model_dir, SETTINGS["model"], api_timeout, key)
+                local_recovery = gate is not None
+                if gate is None:
+                    attempt += 1
+                    model_dir = capture_dir / "luna-live"
+                    print(model_dir, flush=True)
+                    record("request", attempt=attempt, observation_id=observation_id(observation),
+                           frame_sha256=observation["rgb"]["sha256"], model_dir=str(model_dir),
+                           excluded=sorted(recovery.excluded))
+                    remaining = expires - time.monotonic()
+                    if remaining < 0.05:
+                        return hold("mission_deadline")
+                    intent = probe(capture_dir, 1, layout, model_dir, SETTINGS["model"],
+                                   min(api_timeout, remaining), key,
+                                   task=policy.get("recovery_task" if recovery.excluded else "task"),
+                                   excluded=recovery.excluded)
+                    print(json.dumps(intent, ensure_ascii=False), flush=True)
+                    record("model_returned", attempt=attempt, **intent)
+                    if intent["decision"] == "hold":
+                        return hold("model_hold")
+                    if intent["decision"] == "reobserve":
+                        if attempt < observation_limit:
+                            time.sleep(min(1, max(0, expires - time.monotonic())))
+                        continue
+                    gate = intent["candidate_id"]
+                    route_version += 1
+                    observation_path = model_dir / "intent-observation.json"
+                else:
+                    observation_path = capture_dir / "retry-observation.json"
+                write_json(observation_path, observation)
             except (ValueError, RuntimeError) as error:
                 record("hold", attempt=attempt, reason=str(error))
                 raise
-            print(json.dumps(intent, ensure_ascii=False), flush=True)
-            record("model_returned", attempt=attempt, **intent)
-            if intent["decision"] != "reobserve":
+            remaining = expires - time.monotonic()
+            if remaining < 3:
+                return hold("mission_deadline")
+            code, events = execute_motion(active, run, manifest, gate, live_observation=observation_path,
+                                          replan=replan, adaptive=not replan,
+                                          route_version=route_version, timeout=min(120, remaining),
+                                          refresh_local_map=local_recovery)
+            if code == 0:
                 break
-            if attempt < observation_limit:
-                # Give live perception time to change while the motion lock keeps this fork idle.
-                time.sleep(1.0)
-        if intent["decision"] != "select_candidate":
-            record("hold", reason="observation_budget_exhausted" if intent["decision"] == "reobserve"
-                   else "model_hold")
-            print("Visual decision unresolved; holding position without a motion goal", flush=True)
-            return
-        observation_path = model_dir / "intent-observation.json"
-        write_json(observation_path, observation)
-        events = execute_motion(active, run, manifest, intent["candidate_id"],
-                                live_observation=observation_path, replan=replan)
+            if code == ROUTE_STOPPED:
+                settle_deadline = time.monotonic() + 3
+                while not recovery_stop_verified(run, events):
+                    if time.monotonic() >= settle_deadline:
+                        stop(expected=active)
+                        raise RuntimeError("independent evidence did not verify the recovery stop")
+                    time.sleep(0.15)
+                fresh.after_verified_stop()
+                record("physical_stop_verified", gate=gate, route_version=route_version,
+                       controller=str(events))
+            action = recovery.after_stop(gate)
+            record("route_recovery", gate=gate, route_version=route_version, response=action,
+                   controller=str(events), controller_exit=code)
+            if action == "hold":
+                return hold("committed_route_unavailable")
+            if action == "decide":
+                gate = None
+            retry_delay = min(3, recovery.attempts[gate]) if action == "retry" else 1
+            time.sleep(min(retry_delay, max(0, expires - time.monotonic())))
+        else:
+            return hold("mission_deadline")
         deadline = time.monotonic() + 3
         while True:
             result = evaluate(run, events, layout)
@@ -471,6 +557,7 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3):
             print(json.dumps(continuity, ensure_ascii=False), flush=True)
             if not continuity["pass"]:
                 raise RuntimeError(f"Continuous handoff verification failed. See {model_dir}")
+        record("route_completed", gate=gate, route_version=route_version, controller=str(events))
 
 
 def main():
@@ -485,6 +572,7 @@ def main():
     launch.add_argument("--rgbd", action="store_true")
     launch.add_argument("--record-overview", action="store_true")
     launch.add_argument("--visual-shutter-test", action="store_true")
+    launch.add_argument("--scenario-obstacles", type=Path)
     launch.add_argument("--layout", type=Path)
     launch.add_argument("--protected", action="store_true")
     launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
@@ -511,6 +599,10 @@ def main():
     live.add_argument("--api-timeout", type=float, default=5)
     live.add_argument("--replan", action="store_true")
     live.add_argument("--max-observations", type=int, default=3)
+    live.add_argument("--mission-policy", type=Path)
+    live.add_argument("--local-retries", type=int, default=2)
+    live.add_argument("--mission-time", type=float, default=150)
+    live.add_argument("--expected-run", type=Path, help=argparse.SUPPRESS)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -534,10 +626,13 @@ def main():
                 parser.error("--record-overview requires a SimScene layout")
             if args.visual_shutter_test and not (args.protected and args.rgbd):
                 parser.error("--visual-shutter-test requires --protected and --rgbd")
+            if args.scenario_obstacles and not args.protected:
+                parser.error("--scenario-obstacles requires a protected simulation")
             start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
                   args.layout, args.protected,
                   args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"),
-                  args.diagnostic_camera_yaw, args.record_overview, args.visual_shutter_test)
+                  args.diagnostic_camera_yaw, args.record_overview, args.visual_shutter_test,
+                  args.scenario_obstacles)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
@@ -558,7 +653,10 @@ def main():
                 parser.error("Expected API timeout in [0.05, 5] seconds")
             if not 1 <= args.max_observations <= 5:
                 parser.error("Expected between 1 and 5 observations")
-            luna_run(key, args.api_timeout, args.replan, args.max_observations)
+            if not 0 <= args.local_retries <= 5 or not 15 <= args.mission_time <= 600:
+                parser.error("Expected local retries in [0, 5] and mission time in [15, 600] seconds")
+            luna_run(key, args.api_timeout, args.replan, args.max_observations,
+                     args.mission_policy, args.local_retries, args.mission_time, args.expected_run)
         elif args.command == "luna-probe":
             if args.frame < 1 or not 0 < args.timeout <= 120:
                 parser.error("Expected a positive frame and timeout in (0, 120]")

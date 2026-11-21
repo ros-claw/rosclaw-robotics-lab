@@ -148,18 +148,26 @@ def observation_id(observation):
     return f'{observation["episode_id"]}:{observation["epoch"]}:{observation["stamp_ns"]}'
 
 
-def probe(directory, frame_seq, layout_path, destination, model, timeout, key, reasoning_effort="none"):
+def probe(directory, frame_seq, layout_path, destination, model, timeout, key, reasoning_effort="none",
+          task=None, excluded=()):
     observation, image = load_frame(directory, frame_seq)
     layout = json.loads(layout_path.read_text())
     candidates = {gate["gate_id"]: "面向分叉时的左侧" if gate["lower_y"] > 0 else "面向分叉时的右侧"
                   for gate in layout["gates"]}
+    labels = layout.get("candidate_labels", {})
+    candidates = {gate: labels.get(gate, side) for gate, side in candidates.items() if gate not in excluded}
+    if not candidates:
+        raise ProbeError("no_eligible_candidate")
+    instructions = INSTRUCTIONS if task is None else (
+        "你只提供视觉建议。候选可供提出，最终仍需本地规划和安全校验。根据图像和任务选择明确允许的候选。"        "看不清时返回 reobserve，无法满足任务时返回 hold。写出简短可见依据。")
+    task = task or TASK
     image_id = observation_id(observation)
     payload = {
         "model": model, "store": False, "reasoning": {"effort": reasoning_effort},
-        "instructions": INSTRUCTIONS,
+        "instructions": instructions,
         "input": [{"role": "user", "content": [{
             "type": "input_text", "text": json.dumps({
-                "task": TASK, "observation_id": image_id, "candidate_sides": candidates,
+                "task": task, "observation_id": image_id, "candidate_sides": candidates,
             }, ensure_ascii=False),
         }, {"type": "input_image", "detail": "high",
             "image_url": "data:image/png;base64," + base64.b64encode(image).decode("ascii")}]}],
@@ -174,7 +182,7 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
                 "observation_id": image_id, "observation_stamp_ns": observation["stamp_ns"],
                 "diagnostic_camera_yaw_deg": observation.get("diagnostic_camera_yaw_deg", 0.0),
                 "source_capture": str(directory.resolve()), "candidate_sides": candidates,
-                "task": TASK, "instructions": INSTRUCTIONS, "schema": payload["text"]["format"]}
+                "task": task, "instructions": instructions, "schema": payload["text"]["format"]}
     (destination / "request.json").write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + "\n")
     start = time.monotonic()
     start_ns = time.monotonic_ns()

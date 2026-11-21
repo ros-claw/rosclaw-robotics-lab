@@ -103,3 +103,19 @@ python3 evaluator/continuity.py "$RUN" "$CONTROLLER_EVENTS" "$PUBLIC_MANIFEST"
 ### 复现标牌被运动卷帘遮挡
 
 使用换牌场景启动仿真，在原有启动命令上加 `--visual-shutter-test`。卷帘按仿真时钟独立打开。出现 `READY` 后执行 `python3 scripts/lab.py luna-run --replan`。完整日志保留每帧的时间戳、哈希、模型回复和动作边界。回放命令加上 `--vision-session "$LUNA_SESSION"`，其中 `LUNA_SESSION` 是 `luna-run` 输出的 `luna-session-*.jsonl` 路径。
+
+## 自适应任务的一键入口
+
+`scripts/run_mission.py` 启动本次任务独占的 Isaac/Nav2，等待真实传感器就绪后执行任务、保存证据并停止进程。命令返回 0 表示经独立物理验收的到达，3 表示进入 HOLD，1 表示运行失败。具体状态在该次运行的 `mission-summary.json`。模型凭据仍从本机 `OPENAI_API_KEY` 读取。
+
+```bash
+python3 scripts/run_mission.py --layout /path/to/fork-layout --record-overview
+```
+
+入口默认启用自适应。先用新帧选择通道。行驶中依靠扫描、碰撞监控和滚动更新的代价地图。多个新地图样本确认跟踪路径受阻后，取消当前动作，确认 PhysX 低速驻留，再重验原通道。原通道重新通过规划、全局与局部代价地图检查后，直接恢复原语义承诺。此时保留路线版本，也无需重复询问 Luna。传感器失效时，停止当前任务。新模型结果仍经过当下的位姿、地图、可行路径和足迹检查。
+
+可在任务 JSON 中使用 `task` 提供语义目标。默认仅允许保持原语义通道。若明确允许换路，在 `recovery_task` 声明替代条件。原路线的局部恢复预算耗尽后，控制器使用新帧、已筛除的旧通道和该条任务规则再次询问 Luna。模型请求上限、同一通道重试次数、总墙钟期限分别由 `--max-observations`、`--local-retries` 和 `--mission-time` 配置。地图检查预算见 `config/adaptive.yaml`。
+
+实验可通过 `--scenario-obstacles scene/experiments/transient-blockage.json` 注入运动物体。该注入参数只传入 Isaac。临时、持续以及更早封堵的配方均位于 `scene/experiments`。三份配方使用交换标牌的灰盒，蓝色 B 位于左侧。允许绕行的实验另加 `--mission-policy scene/experiments/allow-shared-destination.json`。
+
+使用 `python3 evaluator/adaptive_run.py "$RUN"` 复核封堵试次。生成回放时将对应的会话日志传给 `--vision-session` 并加 `--adaptive`，回放会关联所有控制段的路径、模型请求、停止证据与恢复决策。

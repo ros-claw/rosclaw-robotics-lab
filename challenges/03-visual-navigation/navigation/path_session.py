@@ -4,9 +4,8 @@ import math
 
 
 class PathSession:
-    route_version = 1
-
-    def __init__(self):
+    def __init__(self, route_version=1):
+        self.route_version = route_version
         self.latest = 0
         self.active = None
         self.terminated = False
