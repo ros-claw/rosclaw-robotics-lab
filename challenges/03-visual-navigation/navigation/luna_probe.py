@@ -144,30 +144,34 @@ def call_responses(payload, key, timeout):
     return response
 
 
+def observation_id(observation):
+    return f'{observation["episode_id"]}:{observation["epoch"]}:{observation["stamp_ns"]}'
+
+
 def probe(directory, frame_seq, layout_path, destination, model, timeout, key, reasoning_effort="none"):
     observation, image = load_frame(directory, frame_seq)
     layout = json.loads(layout_path.read_text())
     candidates = {gate["gate_id"]: "面向分叉时的左侧" if gate["lower_y"] > 0 else "面向分叉时的右侧"
                   for gate in layout["gates"]}
-    observation_id = f'{observation["episode_id"]}:{observation["epoch"]}:{frame_seq}'
+    image_id = observation_id(observation)
     payload = {
         "model": model, "store": False, "reasoning": {"effort": reasoning_effort},
         "instructions": INSTRUCTIONS,
         "input": [{"role": "user", "content": [{
             "type": "input_text", "text": json.dumps({
-                "task": TASK, "observation_id": observation_id, "candidate_sides": candidates,
+                "task": TASK, "observation_id": image_id, "candidate_sides": candidates,
             }, ensure_ascii=False),
         }, {"type": "input_image", "detail": "high",
             "image_url": "data:image/png;base64," + base64.b64encode(image).decode("ascii")}]}],
         "text": {"format": {"type": "json_schema", "name": "luna_visual_intent", "strict": True,
-                            "schema": schema(observation_id, candidates)}},
+                            "schema": schema(image_id, candidates)}},
         "max_output_tokens": 600,
     }
     destination.mkdir(parents=True, exist_ok=False)
     (destination / "model-input.png").write_bytes(image)
     manifest = {"source": "isaac-live-frozen-probe", "motion_authority": False,
                 "model_requested": model, "reasoning_effort": reasoning_effort, "input_sha256": observation["rgb"]["sha256"],
-                "observation_id": observation_id, "observation_stamp_ns": observation["stamp_ns"],
+                "observation_id": image_id, "observation_stamp_ns": observation["stamp_ns"],
                 "diagnostic_camera_yaw_deg": observation.get("diagnostic_camera_yaw_deg", 0.0),
                 "source_capture": str(directory.resolve()), "candidate_sides": candidates,
                 "task": TASK, "instructions": INSTRUCTIONS, "schema": payload["text"]["format"]}
@@ -181,7 +185,7 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
                   "status": response.get("status"), "usage": response.get("usage")}
         (destination / "api-response.json").write_text(
             json.dumps(response, ensure_ascii=False, indent=2) + "\n")
-        intent = parse_intent(response, observation_id, candidates)
+        intent = parse_intent(response, image_id, candidates)
         result["intent"] = intent
         return intent
     except subprocess.TimeoutExpired:

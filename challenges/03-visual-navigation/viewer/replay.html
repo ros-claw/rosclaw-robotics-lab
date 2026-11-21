@@ -38,16 +38,36 @@ button{background:var(--mint);color:#12201b;border:0;border-radius:6px;padding:7
 "use strict";
 const d=JSON.parse(document.querySelector("#replay").textContent);
 const image=document.querySelector("#image"), wrap=document.querySelector("#imageWrap");
-image.src=d.image;
-const intent=d.response.intent;
-for (const {bbox_xyxy_norm:[x0,y0,x1,y1]} of intent?.evidence_regions??[]) {
-  const box=document.createElement("span"); box.className="box";
-  Object.assign(box.style,{left:100*x0+"%",top:100*y0+"%",width:100*(x1-x0)+"%",height:100*(y1-y0)+"%"});
-  wrap.append(box);
-}
 const intentElement=document.querySelector("#intent");
 const outcome=document.querySelector("#outcome");
-document.querySelector("#hash").textContent="SHA-256 "+d.request.input_sha256+" · 绿框为模型返回的区域";
+const hash=document.querySelector("#hash");
+let shownVision, shownResult=false;
+function renderVision(t){
+ const frame=d.vision.findLast(item=>item.requested_seconds<=t);
+ const received=!!frame&&t>=frame.received_seconds;
+ if(frame===shownVision&&received===shownResult)return;
+ shownVision=frame;shownResult=received;
+ wrap.querySelectorAll(".box").forEach(box=>box.remove());
+ if(!frame){
+  image.removeAttribute("src"); hash.textContent="";intentElement.textContent="等待模型结果";
+  return;
+ }
+ image.src=frame.image;
+ hash.textContent="SHA-256 "+frame.request.input_sha256;
+ const response=frame.response, intent=response.intent;
+ if(received){
+  for(const {bbox_xyxy_norm:[x0,y0,x1,y1]} of intent?.evidence_regions??[]){
+   const box=document.createElement("span");box.className="box";
+   Object.assign(box.style,{left:100*x0+"%",top:100*y0+"%",width:100*(x1-x0)+"%",height:100*(y1-y0)+"%"});
+   wrap.append(box);
+  }
+ }
+ const modelFailure=response.failure==="transport_curl_28"||response.failure==="transport_deadline"
+  ? "API 超时 · 保持驻车" : "请求失败 · "+response.failure;
+ const action=intent?.candidate_id??(intent?.decision==="hold"?"保持驻车":"重新观察");
+ const decision=intent ? action+" · "+intent.reason_summary : modelFailure;
+ intentElement.textContent=received ? (response.model??frame.request.model_requested)+" · "+decision : "等待模型结果";
+}
 const p=d.physics;
 const outcomeText=p?.pass
   ? "物理验收通过 · "+p.physical_gate_crossings.map(g=>g.gate_id).join(", ")+" · 距终点 "+p.physical_distance_to_terminal_m.toFixed(2)+" m"
@@ -72,7 +92,7 @@ if(d.video){
 const duration=d.trajectory.at(-1)[0];scrub.max=duration;scrub.value=duration;
 const markers=d.events.filter(e=>names[e.kind]).map(e=>{
  const li=document.createElement("li"), button=document.createElement("button");button.type="button";
- button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind]+(e.path_seq?" · 路径 "+e.path_seq:"");
+ button.textContent=e.seconds.toFixed(2)+" s · "+names[e.kind]+(e.path_seq?" · 路径 "+e.path_seq:"")+(e.observation?" · 第 "+e.observation+" 次":"");
  button.addEventListener("click",()=>{playing=false;scrub.value=e.seconds;render();});li.append(button);document.querySelector("#events").append(li);
  return {...e,button};
 });
@@ -84,13 +104,8 @@ function render(){
   const seek=Math.min(video.duration,Math.max(0,t+d.video.offset_seconds));
   if(!playing||Math.abs(video.currentTime-seek)>0.22)video.currentTime=seek;
  }
- const received=t>=d.model_received_seconds;
+ renderVision(t);
  const rejected=d.rejection&&t>=d.rejection.seconds;
- wrap.querySelectorAll(".box").forEach(box=>{box.hidden=!received;});
- const modelFailure=d.response.failure==="transport_curl_28"||d.response.failure==="transport_deadline"
-   ? "API 超时 · 保持驻车" : "请求失败 · "+d.response.failure;
- const modelDecision=intent ? (intent.candidate_id??"重新观察")+" · "+intent.reason_summary : modelFailure;
- intentElement.textContent=received ? (d.response.model??d.request.model_requested)+" · "+modelDecision : "等待模型结果";
  outcome.textContent=rejected ? "本地拒绝 · "+d.rejection.reason : (t>=duration ? outcomeText : "");
  ctx.fillStyle="#242d37";ctx.fillRect(0,0,canvas.width,canvas.height);
  ctx.fillStyle="#171e26";ctx.fillRect(mx(left),my(yMax),(right-left)*scale,(yMax-bottom)*scale);

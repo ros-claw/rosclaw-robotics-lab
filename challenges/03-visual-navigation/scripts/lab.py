@@ -146,7 +146,7 @@ def stop_requested(*_):
     raise StopRequested
 
 
-def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview):
+def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False):
     RUNTIME.mkdir(exist_ok=True)
     with (RUNTIME / "supervisor.lock").open("a") as lock:
         try:
@@ -162,7 +162,8 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
         for sig in (signal.SIGINT, signal.SIGTERM):
             signal.signal(sig, stop_requested)
         try:
-            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview)
+            start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview,
+                           visual_shutter_test)
         except StopRequested:
             write_json(run / "result.json", {"status": "stopped"})
         except (OSError, RuntimeError, ValueError) as exc:
@@ -172,7 +173,7 @@ def start(domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camer
             (RUNTIME / "active.json").unlink(missing_ok=True)
 
 
-def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview):
+def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout, protected, rmw, camera_yaw, record_overview, visual_shutter_test=False):
     info = doctor()
     write_json(run / "environment.json", info)
     if info["repositories"][str(NVIDIA)].get("stdout") != NVIDIA_REV:
@@ -204,6 +205,8 @@ def start_baseline(run, run_id, domain, gpu, timeout, rgbd, calibration, layout,
         sim.extend(["--layout", str(layout / "sim")])
     if record_overview:
         sim.append("--record-overview")
+    if visual_shutter_test:
+        sim.extend(["--visual-shutter-test", str(run / "visual-shutter.jsonl")])
     if camera_yaw:
         sim.extend(["--diagnostic-camera-yaw", str(camera_yaw)])
     if protected:
@@ -402,24 +405,50 @@ def controller_test(gate, cancel_after, replan=False, cancel_after_gate=False):
                        replan=replan, cancel_after_gate=cancel_after_gate)
 
 
-def luna_run(key, api_timeout, replan=False):
+def luna_run(key, api_timeout, replan=False, observation_limit=3):
     sys.path.insert(0, str(CHALLENGE))
     from evaluator.continuity import evaluate as evaluate_continuity
     from evaluator.controller_run import evaluate
-    from navigation.luna_probe import load_frame, probe
+    from navigation.luna_probe import load_frame, observation_id, probe
+    from navigation.reobserve import FreshFrames
 
     active, run, manifest = motion_episode()
     layout = Path(manifest["layout"]) / "nav" / "public_scene_manifest.json"
     with (run / "controller-test.lock").open("a") as lock:
         claim_motion(lock)
-        capture_dir = observe(1, 15, expected=active)
-        observation, _ = load_frame(capture_dir, 1)
-        model_dir = capture_dir / "luna-live"
-        print(model_dir, flush=True)
-        intent = probe(capture_dir, 1, layout, model_dir, SETTINGS["model"], api_timeout, key)
-        print(json.dumps(intent, ensure_ascii=False), flush=True)
+        session_log = run / ("luna-session-" + uuid4().hex[:8] + ".jsonl")
+        print(session_log, flush=True)
+
+        def record(event, **fields):
+            with session_log.open("a") as stream:
+                stream.write(json.dumps({"event": event, "host_mono_ns": str(time.monotonic_ns()),
+                                         **fields}, ensure_ascii=False) + "\n")
+
+        fresh = FreshFrames(manifest["run_id"])
+        for attempt in range(1, observation_limit + 1):
+            try:
+                capture_dir = observe(1, 8, expected=active)
+                observation, _ = load_frame(capture_dir, 1)
+                fresh.check(observation)
+                model_dir = capture_dir / "luna-live"
+                print(model_dir, flush=True)
+                record("request", attempt=attempt, observation_id=observation_id(observation),
+                       frame_sha256=observation["rgb"]["sha256"], model_dir=str(model_dir))
+                intent = probe(capture_dir, 1, layout, model_dir, SETTINGS["model"], api_timeout, key)
+            except (ValueError, RuntimeError) as error:
+                record("hold", attempt=attempt, reason=str(error))
+                raise
+            print(json.dumps(intent, ensure_ascii=False), flush=True)
+            record("model_returned", attempt=attempt, **intent)
+            if intent["decision"] != "reobserve":
+                break
+            if attempt < observation_limit:
+                # Give live perception time to change while the motion lock keeps this fork idle.
+                time.sleep(1.0)
         if intent["decision"] != "select_candidate":
-            print("Luna requested another observation; no motion goal submitted", flush=True)
+            record("hold", reason="observation_budget_exhausted" if intent["decision"] == "reobserve"
+                   else "model_hold")
+            print("Visual decision unresolved; holding position without a motion goal", flush=True)
             return
         observation_path = model_dir / "intent-observation.json"
         write_json(observation_path, observation)
@@ -455,6 +484,7 @@ def main():
     launch.add_argument("--timeout", type=float, default=SETTINGS["readiness_timeout_s"])
     launch.add_argument("--rgbd", action="store_true")
     launch.add_argument("--record-overview", action="store_true")
+    launch.add_argument("--visual-shutter-test", action="store_true")
     launch.add_argument("--layout", type=Path)
     launch.add_argument("--protected", action="store_true")
     launch.add_argument("--rmw", choices=["rmw_fastrtps_cpp", "rmw_cyclonedds_cpp"])
@@ -480,6 +510,7 @@ def main():
     live = commands.add_parser("luna-run")
     live.add_argument("--api-timeout", type=float, default=5)
     live.add_argument("--replan", action="store_true")
+    live.add_argument("--max-observations", type=int, default=3)
     commands.add_parser("stop")
     args = parser.parse_args()
     try:
@@ -501,10 +532,12 @@ def main():
                 parser.error("Diagnostic camera yaw requires a graybox RGB-D run")
             if args.record_overview and not args.layout:
                 parser.error("--record-overview requires a SimScene layout")
+            if args.visual_shutter_test and not (args.protected and args.rgbd):
+                parser.error("--visual-shutter-test requires --protected and --rgbd")
             start(args.domain, args.gpu, args.timeout, args.rgbd, args.calibration,
                   args.layout, args.protected,
                   args.rmw or ("rmw_cyclonedds_cpp" if args.protected else "rmw_fastrtps_cpp"),
-                  args.diagnostic_camera_yaw, args.record_overview)
+                  args.diagnostic_camera_yaw, args.record_overview, args.visual_shutter_test)
         elif args.command == "observe":
             if args.count < 1 or not 0 < args.timeout <= 900:
                 parser.error("Expected positive sample count and timeout in (0, 900]")
@@ -523,7 +556,9 @@ def main():
                 raise RuntimeError("OPENAI_API_KEY is required for live Luna")
             if not 0.05 <= args.api_timeout <= 5:
                 parser.error("Expected API timeout in [0.05, 5] seconds")
-            luna_run(key, args.api_timeout, args.replan)
+            if not 1 <= args.max_observations <= 5:
+                parser.error("Expected between 1 and 5 observations")
+            luna_run(key, args.api_timeout, args.replan, args.max_observations)
         elif args.command == "luna-probe":
             if args.frame < 1 or not 0 < args.timeout <= 120:
                 parser.error("Expected a positive frame and timeout in (0, 120]")

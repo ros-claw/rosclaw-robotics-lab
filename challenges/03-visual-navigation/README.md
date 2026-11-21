@@ -66,7 +66,7 @@ python3 scripts/lab.py luna-run
 python3 scripts/lab.py stop
 ```
 
-换牌时将布局改为 `/data/rosclaw/robotics_lab/p4-live-evidence/swapped-fixture`，重启新世界。模型提出通道，局部检查通过后执行完整路径。模型结果要求重新观察时，本轮直接结束。要复现 API 超时停车，另起一个新试次并运行 `python3 scripts/lab.py luna-run --api-timeout 0.05`，留出至少 3 秒采样后停止。小闭环在调用 API 前驻车。
+换牌时将布局改为 `/data/rosclaw/robotics_lab/p4-live-evidence/swapped-fixture`，重启新世界。模型提出通道，局部检查通过后执行完整路径。模型返回 `reobserve` 时，保持驻车、使用新 RGB-D 帧重新请求。默认最多三次，可通过 `--max-observations` 限制。返回 `hold`、额度耗尽或 API 失败时停留在原处。要复现 API 超时停车，另起一个新试次并运行 `python3 scripts/lab.py luna-run --api-timeout 0.05`，留出至少 3 秒采样后停止。小闭环在调用 API 前驻车。
 
 运行结束后，从 `start` 的输出取得 `RUN`，从 `luna-run` 的输出取得 `MODEL_DIR` 和 `CONTROLLER_EVENTS`。`PUBLIC_MANIFEST` 是该场景导出的 `nav/public_scene_manifest.json`。宿主系统的 Python 需要 Pillow 和 NumPy，编码使用 FFmpeg。
 
@@ -98,3 +98,8 @@ python3 evaluator/continuity.py "$RUN" "$CONTROLLER_EVENTS" "$PUBLIC_MANIFEST"
 ```
 
 控制测试可省略 `--cancel-after-gate` 以完成整条路线。路径序列 2 持有一条实际 Nav2 规划结果，先提交序列 3，再投递序列 2 验证其被拒绝。轨迹与接触复核见 [P3 报告](P3_REPORT.md)。
+
+
+### 复现标牌被运动卷帘遮挡
+
+使用换牌场景启动仿真，在原有启动命令上加 `--visual-shutter-test`。卷帘按仿真时钟独立打开。出现 `READY` 后执行 `python3 scripts/lab.py luna-run --replan`。完整日志保留每帧的时间戳、哈希、模型回复和动作边界。回放命令加上 `--vision-session "$LUNA_SESSION"`，其中 `LUNA_SESSION` 是 `luna-run` 输出的 `luna-session-*.jsonl` 路径。
