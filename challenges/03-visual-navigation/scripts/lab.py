@@ -2,6 +2,7 @@
 """Start and verify the Isaac 6.2 / Nav2 baseline without sending a goal."""
 
 import argparse
+from contextlib import nullcontext
 import fcntl
 import json
 import os
@@ -477,6 +478,7 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
     from navigation.adaptation import Recovery, ROUTE_STOPPED
     from navigation.luna_probe import load_frame, observation_id, probe
     from navigation.live_audit import MotionAudit
+    from navigation.pooled_https import PooledHTTPS
     from navigation.reobserve import FreshFrames
 
     active, run, manifest = motion_episode()
@@ -490,13 +492,16 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
         raise ValueError("mission policy accepts only non-empty task and recovery_task text")
     recovery = Recovery(local_retries, allow_alternate="recovery_task" in policy)
     expires = time.monotonic() + mission_time
-    audit = None
-    if vision_interval is not None:
-        if replan:
-            raise ValueError("motion vision audit requires adaptive execution")
-        audit = MotionAudit(vision_interval, vision_budget, lambda: observe(1, 5, expected=active),
-                            layout, SETTINGS["model"], key, api_timeout, vision_profile)
-    with (run / "controller-test.lock").open("a") as lock:
+    # One handle serializes all Luna exchanges for this mission while navigation remains asynchronous.
+    # The subprocess transport strips TLS-key logging when the host has it enabled.
+    connection = nullcontext(None) if os.getenv("SSLKEYLOGFILE") else PooledHTTPS()
+    with connection as transport, (run / "controller-test.lock").open("a") as lock:
+        audit = None
+        if vision_interval is not None:
+            if replan:
+                raise ValueError("motion vision audit requires adaptive execution")
+            audit = MotionAudit(vision_interval, vision_budget, lambda: observe(1, 5, expected=active),
+                                layout, SETTINGS["model"], key, api_timeout, vision_profile, transport)
         claim_motion(lock)
         session_log = run / ("luna-session-" + uuid4().hex[:8] + ".jsonl")
         print(session_log, flush=True)
@@ -542,7 +547,7 @@ def luna_run(key, api_timeout, replan=False, observation_limit=3, mission_path=N
                     intent = probe(capture_dir, 1, layout, model_dir, SETTINGS["model"],
                                    min(api_timeout, remaining), key,
                                    task=policy.get("recovery_task" if recovery.excluded else "task"),
-                                   excluded=recovery.excluded)
+                                   excluded=recovery.excluded, transport=transport)
                     print(json.dumps(intent, ensure_ascii=False), flush=True)
                     record("model_returned", attempt=attempt, **intent)
                     if intent["decision"] == "hold":

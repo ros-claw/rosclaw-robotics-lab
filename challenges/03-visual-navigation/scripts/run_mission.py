@@ -26,6 +26,8 @@ def run_mission(args):
     launch = [sys.executable, str(LAB), "start", "--protected", "--rgbd",
               "--layout", str(args.layout.resolve()), "--domain", str(args.domain),
               "--drive-profile", args.drive_profile, "--capture-mode", args.capture_mode]
+    if args.gpu is not None:
+        launch += ["--gpu", str(args.gpu)]
     if args.scenario_obstacles:
         launch += ["--scenario-obstacles", str(args.scenario_obstacles.resolve())]
     if args.record_overview:
@@ -72,6 +74,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--layout", type=Path, required=True)
     parser.add_argument("--domain", type=int, default=189)
+    parser.add_argument("--gpu", type=int)
     parser.add_argument("--record-overview", action="store_true")
     parser.add_argument("--scenario-obstacles", type=Path)
     parser.add_argument("--mission-policy", type=Path)

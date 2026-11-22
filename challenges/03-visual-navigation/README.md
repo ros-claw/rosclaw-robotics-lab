@@ -149,3 +149,16 @@ python3 scripts/run_mission.py --layout /path/to/swapped-layout --record-overvie
 python3 evaluator/async_performance.py "$PREVIOUS_RUN" "$CURRENT_RUN"
 python3 evaluator/compare_speed.py "$PREVIOUS_RUN" "$CURRENT_RUN"
 ```
+
+### HTTPS 复用与演示成片
+
+`luna-run` 在一个任务中复用 libcurl HTTPS 会话，选路和异步行驶复核共享连接缓存，每次请求有自己的总超时。宿主需要提供 libcurl。`response.json` 的 `http_timing.new_connections` 可复核新建和复用情况。遇到负载较高的主机时，可用 `run_mission.py --gpu INDEX` 选择实验 GPU，具体运行档位记入清单。
+
+完整录像导出后，从该次运行的会话日志和异步复核日志生成带画中画的成片。
+
+```bash
+python3 video/export.py "$RUN/overview"
+python3 video/caption.py "$RUN/overview" --mission "$LUNA_SESSION" --audit "$RUN/motion-audit.jsonl"
+```
+
+`isaac-live-1x.mp4` 保存同步实况，`isaac-live-captioned.mp4` 添加实际模型输入和事件字幕。最后的证据定格单独标记。

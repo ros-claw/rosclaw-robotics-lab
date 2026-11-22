@@ -138,7 +138,10 @@ def call_responses(payload, key, timeout):
     if proc.returncode:
         raise ProbeError(f"transport_curl_{proc.returncode}")
     body, timing = exchange_stats(proc.stdout)
-    status = timing["http_status"]
+    return decode_response(body, timing["http_status"]), timing
+
+
+def decode_response(body, status):
     try:
         response = json.loads(body)
     except ValueError:
@@ -154,7 +157,7 @@ def call_responses(payload, key, timeout):
         code = code if code in {"model_not_found", "invalid_api_key", "insufficient_quota",
                                "rate_limit_exceeded", "invalid_json_schema"} else "other"
         raise ProbeError(f"http_{status}_{code}")
-    return response, timing
+    return response
 
 
 def observation_id(observation):
@@ -162,7 +165,7 @@ def observation_id(observation):
 
 
 def probe(directory, frame_seq, layout_path, destination, model, timeout, key, reasoning_effort="none",
-          task=None, excluded=(), audit_gate=None, profile="standard"):
+          task=None, excluded=(), audit_gate=None, profile="standard", transport=None):
     observation, image = load_frame(directory, frame_seq)
     layout = json.loads(layout_path.read_text())
     candidates = {gate["gate_id"]: "面向分叉时的左侧" if gate["lower_y"] > 0 else "面向分叉时的右侧"
@@ -221,7 +224,7 @@ def probe(directory, frame_seq, layout_path, destination, model, timeout, key, r
     start_ns = time.monotonic_ns()
     result = {}
     try:
-        response, timing = call_responses(payload, key, timeout)
+        response, timing = (transport or call_responses)(payload, key, timeout)
         result = {"response_id": response.get("id"), "model": response.get("model"),
                   "status": response.get("status"), "usage": response.get("usage"),
                   "http_timing": timing}

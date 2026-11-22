@@ -108,7 +108,7 @@ def pose(x, y, yaw=0.0):
     return target
 
 
-def occupancy_checker(grid, frame="map"):
+def occupancy_checker(grid, frame="map", include_unknown=True):
     if grid.header.frame_id != frame:
         raise RuntimeError(f"expected a {frame}-frame costmap")
     info = grid.info
@@ -123,13 +123,13 @@ def occupancy_checker(grid, frame="map"):
         r0 = math.floor((y - radius - origin.position.y) / cell)
         r1 = math.floor((y + radius - origin.position.y) / cell)
         if c0 < 0 or r0 < 0 or c1 >= info.width or r1 >= info.height:
-            return False
+            return not include_unknown
         for row in range(r0, r1 + 1):
             for column in range(c0, c1 + 1):
                 status = grid.data[row * info.width + column]
                 # 99 is Nav2's already-inflated inscribed cost. Sweep against
                 # lethal and unknown cells to avoid counting that inflation twice.
-                if 0 <= status < 100:
+                if 0 <= status < 100 or (status < 0 and not include_unknown):
                     continue
                 left = origin.position.x + column * cell
                 bottom = origin.position.y + row * cell
@@ -499,7 +499,8 @@ def exercise(node, evidence, layout, gate_id, cancel_after, live_observation=Non
             if review_is_current(review, episode, bytes(last_motion.goal_id.uuid).hex(), gate_id,
                                  evidence.clock, time.monotonic_ns(), position, yaw):
                 review_id = review["observation_id"]
-                extra = blocked_ahead(active_points, position, review_lookahead, core_radius, free)
+                occupied = occupancy_checker(evidence.grid, include_unknown=False)
+                extra = blocked_ahead(active_points, position, review_lookahead, core_radius, occupied)
                 if review_id != adopted_review:
                     adopted_review = review_id
                     evidence.log("visual_review_adopted", observation_id=review_id,
