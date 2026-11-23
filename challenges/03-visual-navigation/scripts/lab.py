@@ -420,7 +420,7 @@ def execute_motion(active, run, manifest, gate, cancel_after=None, live_observat
     evidence = "controller-" + uuid4().hex[:8] + ".jsonl"
     command = ["docker", "exec", manifest["nav2_container"], "bash", "-c",
                'source /opt/ros/humble/setup.bash && exec python3 "$@"',
-               "controller-test", "/luna_code/ros2/controller_test.py", gate,
+               "controller-test", "/luna_code/ros2/controller_probe.py", gate,
                "/luna_run/" + evidence]
     if cancel_after is not None:
         command.extend(["--cancel-after", str(cancel_after)])

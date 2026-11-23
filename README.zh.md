@@ -12,6 +12,7 @@
 |---|---|---|---|
 | [01 · 仓库四站巡检](challenges/01-isaac-warehouse-patrol/README.md) | 一句话完成入口、货架、通道、返回；支持改序及未映射箱体 | v0.2：16 次尝试，14 次完整通过；每站物理到达/停留、LiDAR、接触及最终 Memory/TaskKernel | [180 秒宣传片](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-promo-180s.mp4) · [510 秒教程](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/warehouse-patrol-v0.2.0/rosclaw-warehouse-tutorial-510s.mp4) |
 | [02 · 装卸区自主安全巡查](challenges/02-semantic-inspection/README.md) | 靠货架叉车关系、自动选点、点云净空、第二视角及 UNKNOWN 拒绝 | A 3/3 · B 3/3 · C 3/3 · D 3/3；原始失败另列，实际合并后源码/Native 构建；不代表生产可靠性 | [90 秒三视角 + 实际 LiDAR](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/loading-area-inspection-v0.4.0/loading-area-inspection-90s.mp4) |
+| [03 · Luna 视觉导航](challenges/03-visual-navigation/README.md) | 识别标牌、异步复核路线、遇阻停车并按任务授权改道 | Isaac Sim 6.2 单分叉仓库，录像试次距终点 0.135 米停稳，非地面接触 0 次 | [运行结果与录像导出](challenges/03-visual-navigation/RESULTS.md) |
 | [历史 02 · v0.3 动态货架观察](challenges/02-semantic-inspection/README.md) | 从 USD 已知货架语义生成新观察位置，再返回实际起点；不使用四站坐标 | 开发及最终候选集成共 5 次：1 次 FAIL、4 次完整 PASS（含三次 LiDAR 区域观测）；保留录制失败，非冻结版本可靠性统计 | [90 秒三视角展示](https://github.com/ros-claw/rosclaw-robotics-lab/releases/download/semantic-observation-v0.3.0/rosclaw-semantic-promo-90s.mp4) |
 
 视频中的历史第五轮与 v0.2 冻结回归分别记录。每个 Challenge 页面说明输入、工具边界、成功门槛、失败和复现方式。
