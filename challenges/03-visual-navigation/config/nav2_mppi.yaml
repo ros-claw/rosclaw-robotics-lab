@@ -1,0 +1,35 @@
+# Humble MPPI controller overlay for the fixed, narrow fork.
+controller_server:
+  ros__parameters:
+    controller_frequency: 20.0
+    odom_topic: /chassis/odom
+    FollowPath:
+      plugin: nav2_mppi_controller::MPPIController
+      motion_model: DiffDrive
+      time_steps: 40
+      model_dt: 0.05
+      batch_size: 1000
+      iteration_count: 1
+      vx_max: 0.45
+      vx_min: -0.10
+      vy_max: 0.0
+      wz_max: 0.80
+      vx_std: 0.16
+      vy_std: 0.10
+      wz_std: 0.25
+      temperature: 0.30
+      gamma: 0.015
+      prune_distance: 2.0
+      transform_tolerance: 0.15
+      visualize: false
+      critics: [ConstraintCritic, ObstaclesCritic, GoalCritic, GoalAngleCritic,
+                PathAlignCritic, PathFollowCritic, PathAngleCritic, PreferForwardCritic]
+      ObstaclesCritic:
+        consider_footprint: true
+        critical_weight: 20.0
+      PathAlignCritic:
+        offset_from_furthest: 12
+velocity_smoother:
+  ros__parameters:
+    max_velocity: [0.45, 0.0, 0.80]
+    min_velocity: [-0.10, 0.0, -0.80]
